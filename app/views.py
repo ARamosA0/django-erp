@@ -10,4 +10,4 @@ def crud(request):
 def Busqueda(request, response):
     if(request.GET["prd"]):
         return render(request, 'estructura_crud.html') 
-    return Httpresponse     
+    return Httpresponse (<h1>fallo</h1>)
