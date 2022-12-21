@@ -10,15 +10,17 @@ services:
             MYSQL_PASSWORD: test
             MYSQL_ROOT_PASSWORD: test 
         volumes:
-            - ./dump:/docker-entrypoint-initdb.d
-            - ./conf:/etc/mysql/conf.d
+            - ./dump:/var/lib/mysql
+            - persistent:/var/lib/mysql
     web:
       image: aldorama/django-erp
       build: .
-      command: python3 manage.py runserver 0.0.0.0:8000
+      command: python3 manage.py runserver 0.0.0.0:8000 
       ports:
         - "8000:8000"
       volumes:
         - .:/app
       links:
         - db
+volumes:
+    persistent:
