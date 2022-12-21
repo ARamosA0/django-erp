@@ -26,3 +26,4 @@ media
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#venv,Django
 /db
+/venv
