@@ -1,6 +1,7 @@
 from django.urls import path
+
 from . import views
 
-urlpatterns = [
-    path('', views.crud, name="crud")
+urlpatterns =[
+    path('proveedores/buscar_proveedor', views.buscar_proveedor, name='buscar_proveedor')
 ]
