@@ -13,6 +13,7 @@ def crud(request):
     }
     return render(request,"estructura_crud.html", context)
 
+
     
 
 def form_busqueda(request):
@@ -25,3 +26,5 @@ def form_busqueda(request):
 
     return render(request,"formulario_busqueda.html", context)  
 
+def insertar_proveedor(request):
+    return render(request,"formulario_insertar_proveedor.html")
