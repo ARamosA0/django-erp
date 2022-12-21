@@ -25,3 +25,7 @@ Para poder ejecutar un comando del proyecto es necesario:
     - 'Password': 'test',
     - 'Host': '0.0.0.0',
     - 'Puerto': 3306,
+
+## Imagen DockerHub
+- `docker pull aldorama/django-erp`
+- https://hub.docker.com/r/aldorama/django-erp
