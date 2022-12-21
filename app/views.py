@@ -17,3 +17,5 @@ def busqueda(request, response):
         return render(request, 'estructura_crud.html') 
     return Httpresponse('<h1>fallo</h1>')   
 
+def index(request):
+       return render(request,"vista_principal.html")
