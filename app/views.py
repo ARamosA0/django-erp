@@ -10,10 +10,10 @@ def crud(request):
     }
     return render(request,"estructura_crud.html", context)
 
-    
-
 def busqueda(request, response):
     if(request.GET["prd"]):
         return render(request, 'estructura_crud.html') 
-    return Httpresponse('<h1>fallo</h1>')   
+    return HttpResponse('<h1>fallo</h1>')   
 
+def insertar_proveedor(request):
+    return render(request,"formulario_insertar_proveedor.html")
