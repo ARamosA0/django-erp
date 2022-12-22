@@ -8,6 +8,7 @@ from .models import *
 
 
 
+
 def proveedores(request):
     
     # proveedores_labels_serch = ['Nombre del proveedor', 'DNI del Proveedor']
