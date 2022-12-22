@@ -26,5 +26,8 @@ def form_busqueda(request):
 
     return render(request,"formulario_busqueda.html", context)  
 
+def index(request):
+       return render(request,"vista_principal.html")
+       
 def insertar_proveedor(request):
     return render(request,"formulario_insertar_proveedor.html")
