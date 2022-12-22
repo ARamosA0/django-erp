@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <HTML>
   <head>
@@ -9,7 +10,8 @@
     <div class='row justify-content-center m-5'>
       <div class="col-md-10 col-lg-5">
         <h4><center>Buscar Proveedor</center></h4>
-        <form action="/busqueda/" method="post">
+        <form action="/erp/findtest/" method="POST" id="formulario">
+        {% csrf_token %}
           <div class="mb-3 row">
             <label for="codigo" class="col-sm-2 col-form-label">CODIGO</label>
             <div class="col-xl-10">
@@ -17,9 +19,9 @@
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="ruc" class="col-sm-2 col-form-label">RUC</label>
+            <label for="dni" class="col-sm-2 col-form-label">DNI</label>
             <div class="col-xl-10">
-              <input type="text" class="form-control" id="ruc" name="ruc">
+              <input type="text" class="form-control" id="dni" name="dni">
             </div>
           </div>
           <div class="mb-3 row">
@@ -35,12 +37,18 @@
             </div>
           </div>
           <div class="mb-3 row">
+            <label for="web" class="col-sm-2 col-form-label">WEB</label>
+            <div class="col-xl-10">
+              <input type="text" class="form-control" id="web" name="web">
+            </div>
+          </div>
+          <div class="mb-3 row">
             <label for="provincia" class="col-sm-2 col-form-label">PROVINCIA</label>
             <div class="col-xl-10">
               <select class="form-select" aria-label="Default select example" name="provincia">
+                <option value="0" selected>selecciona una provincia</option>
                 {% for provin in provincia_lista %}
-                <option selected>selecciona una provincia</option>
-                <option value="1">{{ provin.nombre }}</option>
+                <option value="{{ provin.id }}">{{ provin.nombreprovincia }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -51,17 +59,19 @@
               <input type="text" class="form-control" id="localidad" name="localidad">
             </div>
           </div>
-        </form>
-        <div  style="float: right;">
-            <button type="submit" class="btn btn-primary" >Buscar</button>
-            <button type="submit" class="btn btn-warning" >Limpiar</button>
+          <div  style="float: right;">
+            <button class="btn btn-primary" >Buscar</button>
+            <a type="button" class="btn btn-warning" >Limpiar</button>
             <a href="insertarproveedor" type="button" class="btn btn-success" >Agregar</a>
           </div>
+        </form>
+        
       </div>
 
       {% block content %}
       {% endblock %}
 
+      <script src="{% static 'js/proveedor_formulario.js' %}"></script>
     </div>
   </body>  
 </HTML>
