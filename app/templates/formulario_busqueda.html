@@ -11,31 +11,31 @@
         <h4><center>Buscar Proveedor</center></h4>
         <form action="/busqueda/" method="post">
           <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">CODIGO</label>
+            <label for="codigo" class="col-sm-2 col-form-label">CODIGO</label>
             <div class="col-xl-10">
-              <input type="text" class="form-control" id="inputPassword" name="codigo">
+              <input type="text" class="form-control" id="codigo" name="codigo">
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">RUC</label>
+            <label for="ruc" class="col-sm-2 col-form-label">RUC</label>
             <div class="col-xl-10">
-              <input type="text" class="form-control" id="inputPassword" name="ruc">
+              <input type="text" class="form-control" id="ruc" name="ruc">
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">NOMBRE</label>
+            <label for="nombre" class="col-sm-2 col-form-label">NOMBRE</label>
             <div class="col-xl-10">
-              <input type="text" class="form-control" id="inputPassword" name="nombre">
+              <input type="text" class="form-control" id="nombre" name="nombre">
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">TELEFONO</label>
+            <label for="telefono" class="col-sm-2 col-form-label">TELEFONO</label>
             <div class="col-xl-10">
-              <input type="text" class="form-control" id="inputPassword" name="telefono">
+              <input type="text" class="form-control" id="telefono" name="telefono">
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">PROVINCIA</label>
+            <label for="provincia" class="col-sm-2 col-form-label">PROVINCIA</label>
             <div class="col-xl-10">
               <select class="form-select" aria-label="Default select example" name="provincia">
                 {% for provin in provincia_lista %}
@@ -46,19 +46,17 @@
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">LOCALIDAD</label>
+            <label for="localidad" class="col-sm-2 col-form-label">LOCALIDAD</label>
             <div class="col-xl-10">
-              <input type="text" class="form-control" id="inputPassword">
+              <input type="text" class="form-control" id="localidad" name="localidad">
             </div>
           </div>
-          <div  style="float: right;">
+        </form>
+        <div  style="float: right;">
             <button type="submit" class="btn btn-primary" >Buscar</button>
             <button type="submit" class="btn btn-warning" >Limpiar</button>
-            <button type="submit" class="btn btn-success" >Agregar</button>
+            <a href="insertarproveedor" type="button" class="btn btn-success" >Agregar</a>
           </div>
-
-            
-        </form>
       </div>
 
       {% block content %}
