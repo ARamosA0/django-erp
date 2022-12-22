@@ -17,11 +17,11 @@ def crud(request):
 
 def form_busqueda(request):
 
-    provincia_lista = Provincias.objects.all()
+    # provincia_lista = Provincias.objects.all()
 
-    context = {
-        'provincia_lista': provincia_lista
-    }
+    # context = {
+    #     'provincia_lista': provincia_lista
+    # }
 
     return render(request,"formulario_busqueda.html", context)  
 

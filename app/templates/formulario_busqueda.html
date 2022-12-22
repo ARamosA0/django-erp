@@ -9,7 +9,7 @@
     <div class='row justify-content-center m-5'>
       <div class="col-md-10 col-lg-5">
         <h4><center>Buscar Proveedor</center></h4>
-        <form action="/busqueda/" method="post">
+        <form method="post">
           <div class="mb-3 row">
             <label for="inputPassword" class="col-sm-2 col-form-label">CODIGO</label>
             <div class="col-xl-10">
@@ -40,7 +40,7 @@
               <select class="form-select" aria-label="Default select example" name="provincia">
                 {% for provin in provincia_lista %}
                 <option selected>selecciona una provincia</option>
-                <option value="1">{{ provin.nombre }}</option>
+                <option value="{{ provin.id }}">{{ provin.nombre }}</option>
                 {% endfor %}
               </select>
             </div>
