@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/navbars/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+    <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>Inicio</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </head>
@@ -12,44 +14,39 @@
 
     <!-- Example Code -->
     
-    <nav class="navbar navbar-expand-lg " style="background-color: #757b80;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">INICIO</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Empresa</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Tenth navbar example">
+        <div class="container-fluid">
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="navbar-collapse justify-content-md-center collapse" id="navbarsExample08" style="">
+            <ul class="navbar-nav">
+              
+              <li class="nav-item">
+                <a class="nav-link navbar-brand mb-0 h1" href="#">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Proveedores</a>
+                <a class="nav-link navbar-brand mb-0 h1" href="#">Empresa</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Cliente</a>
+                <a class="nav-link navbar-brand mb-0 h1" href="#">Proveedores</a>
               </li>
-            
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-               
-              </ul>
-            </li>
-           
-          </ul>
-          <form class="d-flex" role="buscar">
-            <input class="form-control me-2" type="buscar" placeholder="Buscar" aria-label="Buscar">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-          </form>
+              <li class="nav-item">
+                <a class="nav-link navbar-brand mb-0 h1" href="#">Cliente</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-link navbar-brand mb-0 h1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
     
     <!-- End Example Code -->
 
@@ -57,17 +54,17 @@
         <div class="carousel-inner">
             
           <div class="carousel-item active" >
-            <img src="https://www.ceupe.com/images/easyblog_articles/3065/la-logstica-de-almacenes.jpg" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="900" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false" ><title>Placeholder</title>
+            <img src="https://www.ceupe.com/images/easyblog_articles/3065/la-logstica-de-almacenes.jpg" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="600" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false" ><title>Placeholder</title>
                 <rect width="100%" height="100%" ></rect>
             
           </div>
           <div class="carousel-item active" >
-            <img src="https://blogs.imf-formacion.com/blog/logistica/wp-content/uploads/2019/10/almacen-logistico-que-es.jpg" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="900" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false" ><title>Placeholder</title>
+            <img src="https://blogs.imf-formacion.com/blog/logistica/wp-content/uploads/2019/10/almacen-logistico-que-es.jpg" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="600" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false" ><title>Placeholder</title>
                 <rect width="100%" height="100%" fill="#666"></rect>
             
           </div>
           <div class="carousel-item active" >
-            <img src="https://cursos.com/wp-content/uploads/2020/09/curso-logistica-alamacenes.jpg" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="900" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false" ><title>Placeholder</title>
+            <img src="https://cursos.com/wp-content/uploads/2020/09/curso-logistica-alamacenes.jpg" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="600" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false" ><title>Placeholder</title>
                 <rect width="100%" height="100%" fill="#666"></rect>
             
           </div>
