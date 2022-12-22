@@ -1,10 +1,12 @@
 from django.urls import path
-
-from . import views
+from django.views.generic import TemplateView
+from .views import *
 
 urlpatterns =[
-    path('crud/', views.crud, name='crud'),
-    path('', views.index, name='index'),
-    path('proveedor/', views.form_busqueda, name="form_busqueda"),
-    path('insertarproveedor', views.insertar_proveedor)
+    # Pagina Principal
+    path('', TemplateView.as_view(template_name="Inicio/inicio.html")),
+    #Pag Provedores
+    path('prov/', proveedores, name="prov"),
+    #Pag Insertar Proveedores
+    #path('insertarproveedor', views.insertar_proveedor)
 ]
