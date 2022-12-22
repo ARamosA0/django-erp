@@ -1,34 +1,27 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views import View
+from django.views.generic import TemplateView, DetailView, ListView, FormView
 from .models import *
 
 # Create your views here.
-def crud(request):
-    proveedores_list = Proveedores.objects.all()
-    provincia_lista = Provincias.objects.all()
-    print(provincia_lista)
-    context = {
-        'proveedores_list': proveedores_list,
-        'provincia_lista': provincia_lista
-    }
-    return render(request,"estructura_crud.html", context)
 
 
+
+def proveedores(request):
     
+    # proveedores_labels_serch = ['Nombre del proveedor', 'DNI del Proveedor']
+    proveedores_list = Proveedores.objects.all()
+    provincia_list = Provincias.objects.all()
 
-def form_busqueda(request):
 
-    provincia_lista = Provincias.objects.all()
-
-    context = {
-        'provincia_lista': provincia_lista
+    context ={
+        'proveedores_list': proveedores_list,
+        'provincia_list': provincia_list
     }
+    return render(request, "Pag/proveedores.html", context)
+  
 
-    return render(request,"formulario_busqueda.html", context)  
-
-def index(request):
-       return render(request,"vista_principal.html")
-       
 def insertar_proveedor(request):
     return render(request,"formulario_insertar_proveedor.html")
 
