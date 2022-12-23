@@ -8,7 +8,8 @@
         </div>
         <div class="card-body">
             {% if enviado %}
-                Persona fue agregado
+                <p>Persona fue agregado</p>
+                <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a> 
             {% else %}
                 <form action="" method="POST" class="row g-3">
                     {% csrf_token %}

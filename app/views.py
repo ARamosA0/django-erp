@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic import TemplateView, DetailView, ListView, FormView,CreateView
 from .models import *
@@ -51,8 +52,37 @@ def proveedores(request):
 #     return  render(request,"find_test.html",context)
 
 
-def insertar_proveedor(request):
-    return render(request,"Formulario/formulario_insertar_proveedor.html")
+def agregar_proveedor(request):
+    enviado = False
+
+    if request.method == "POST":
+        form = ProveedorAgregar(request.POST)
+        if form. is_valid():
+            form.save()
+
+            buscar_ultima_persona = Persona.objects.last()
+            ultima_persona = buscar_ultima_persona.id
+
+            print(buscar_ultima_persona)
+
+            proveedor = Proveedores()
+            proveedor.persona_id = int(ultima_persona)
+            proveedor.save()
+
+            print(proveedor)
+
+            return HttpResponseRedirect('agregarprov?enviado=True')
+    else:
+        form = ProveedorAgregar
+        if 'enviado' in request.GET:
+            enviado = True
+
+    context ={
+        'form':form, 
+        'enviado':enviado
+    }
+
+    return render(request,"Formulario/formulario_insertar_proveedor.html", context)
 
 
 def clientes(request):
@@ -69,34 +99,46 @@ def clientes(request):
     }
     return render(request, "Pag/clientes.html", context)
 
-def cliente_insertar(request):
-    
+def agregar_cliente(request):
+    enviado = False
+    codformpago=""
     if request.method == 'POST':
-        in_cliente_per = ClientePersonaInsertar(request.POST)
+        in_cliente_per = ProveedorAgregar(request.POST)
         in_cliente = ClienteClienteInsertar(request.POST)
         if in_cliente_per.is_valid() and in_cliente.is_valid():
             in_cliente_per.save()
-            in_cliente.save()
 
             buscar_ultima_persona = Persona.objects.last()
             ultima_persona = buscar_ultima_persona.id
+            
+            #Se extrae la data como string del formulario
+            codformpago = in_cliente.data.get("codformapago")  
 
-            form_cliente_get = request.POST
-
-
+            print(codformpago)
+            print(type(codformpago))
             cliente = Clientes()
-            cliente.persona = int(ultima_persona)
-            cliente.codformapago = int(request.POST)
+            cliente.persona_id = int(ultima_persona)
+            cliente.codformapago_id = int(codformpago)
+            cliente.save()
+
+            # print(cliente)
+
+            return HttpResponseRedirect('agregarclie?enviado=True')
 
     else:
-        in_cliente_per: ClientePersonaInsertar()
-        in_cliente: ClienteClienteInsertar()
+        in_cliente_per= ProveedorAgregar()
+        in_cliente=ClienteClienteInsertar()
+        if 'enviado' in request.GET:
+            enviado = True
 
     context = {
         'in_cliente_per':in_cliente_per,
-        'in_cliente':in_cliente 
+        'in_cliente':in_cliente,
+        'enviado':enviado, 
     }
-    return render(request, "Pag/clientes.html")
+    return render(request, "Formulario/formulario_insertar_cliente.html", context)
 
 
 
+
+        
