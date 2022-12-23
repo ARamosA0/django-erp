@@ -31,3 +31,8 @@ class ClienteBusqueda(ModelForm):
             'codprovincia': forms.Select(attrs={'class': 'form-control'}),
             'localidad': forms.TextInput(attrs={'class': 'form-control'})
         }
+        
+class ProveedorAgregar(ModelForm):
+    class Meta:
+        model = Persona
+        fields = '__all__'
