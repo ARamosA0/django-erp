@@ -81,9 +81,12 @@ def cliente_insertar(request):
             buscar_ultima_persona = Persona.objects.last()
             ultima_persona = buscar_ultima_persona.id
 
+            form_cliente_get = request.POST
+
+
             cliente = Clientes()
             cliente.persona = int(ultima_persona)
-            cliente.
+            cliente.codformapago = int(request.POST)
 
     else:
         in_cliente_per: ClientePersonaInsertar()
@@ -93,7 +96,7 @@ def cliente_insertar(request):
         'in_cliente_per':in_cliente_per,
         'in_cliente':in_cliente 
     }
-    return render(request, "Pag/")
+    return render(request, "Pag/clientes.html")
 
 
 
