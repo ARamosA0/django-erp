@@ -55,3 +55,16 @@ def insertar_proveedor(request):
     return render(request,"Formulario/formulario_insertar_proveedor.html")
 
 
+def clientes(request):
+    clientes_list = Clientes.objects.all()
+
+    if request.method == 'POST':
+        busquedaform = ClienteBusqueda(request.POST)
+    else:
+        busquedaform = ClienteBusqueda()
+
+    context ={
+        'clientes_list': clientes_list,
+        'busquedaform': busquedaform
+    }
+    return render(request, "Pag/clientes.html", context)

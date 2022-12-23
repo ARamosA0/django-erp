@@ -9,5 +9,7 @@ urlpatterns =[
     path('prov/', proveedores, name="prov"),
     # path('prove/', Proveedores.as_view())
     #Pag Insertar Proveedores
-    path('prov/insertarproveedor', insertar_proveedor, name="inprov")
+    path('prov/insertarproveedor', insertar_proveedor, name="inprov"),
+    #Pag Clientes
+    path('clie/', clientes, name="clie"),
 ]
