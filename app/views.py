@@ -77,8 +77,14 @@ def cliente_insertar(request):
         if in_cliente_per.is_valid() and in_cliente.is_valid():
             in_cliente_per.save()
             in_cliente.save()
-            # buscar_ultima_persona = Persona.objects.last()
-            # ultima_persona = buscar_ultima_persona.id       
+
+            buscar_ultima_persona = Persona.objects.last()
+            ultima_persona = buscar_ultima_persona.id
+
+            cliente = Clientes()
+            cliente.persona = int(ultima_persona)
+            cliente.
+
     else:
         in_cliente_per: ClientePersonaInsertar()
         in_cliente: ClienteClienteInsertar()

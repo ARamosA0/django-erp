@@ -10,7 +10,8 @@
         <div class="card-body">
             <form class="row g-3">
                 {% csrf_token %}
-                {{ busquedaform.as_p }} 
+                {{ in_cliente_per.as_p }}
+                {{ in_cliente.as_p }} 
                 <button type="submit" class="btn btn-primary">Guardar proveedor</button>
             </form>
         </div>

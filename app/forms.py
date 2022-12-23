@@ -38,7 +38,7 @@ class ClientePersonaInsertar(ModelForm):
 class ClienteClienteInsertar(ModelForm):
     class Meta:
         model = Clientes
-        fields = ('codformapago')
+        fields = ('codformapago',)
         widgets = {
             'codformapago': forms.Select(attrs={'class': 'form-control'})
         }

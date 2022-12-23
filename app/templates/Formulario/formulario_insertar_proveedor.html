@@ -1,4 +1,3 @@
-
 {%extends 'index.html'%}
 
 {% block content %}
@@ -8,74 +7,20 @@
             Insertar Proveedor
         </div>
         <div class="card-body">
-            <form class="row g-3">
-                <div class="col-md-6">
-                    <label for="nombre_proveedor" class="form-label">Nombre del Proveedor</label>
-                    <input type="text" class="form-control" id="nombre_proveedor">
-                </div>
-                <div class="col-md-6">
-                    <label for="nif_proveedor" class="form-label">NIF del Proveedor</label>
-                    <input type="text" class="form-control" id="nif_proveedor">
-                </div>
-                <div class="col-md-5">
-                    <label for="direccion_proveedor" class="form-label">Dirección del Proveedor</label>
-                    <input type="text" class="form-control" id="direccion_proveedor">
-                </div>
-                <div class="col-md-3">
-                    <label for="cod_provincia_proveedor" class="form-label">Código de Provincia</label>
-                    <input type="number" class="form-control" id="cod_provincia_proveedor">
-                </div>
-                <div class="col-md-4">
-                    <label for="localidad_proveedor" class="form-label">Localidad del Proveedor</label>
-                    <input type="text" class="form-control" id="localidad_proveedor">
-                </div>
-                <div class="col-md-4">
-                    <label for="cod_entidad_proveedor" class="form-label">Código de Entidad del Proveedor</label>
-                    <input type="number" class="form-control" id="cod_entidad_proveedor">
-                </div>
-                <div class="col-md-4">
-                    <label for="cuenta_bancaria_proveedor" class="form-label">Cuenta bancaria del Proveedor</label>
-                    <input type="text" class="form-control" id="cuenta_bancaria_proveedor">
-                </div>
-                <div class="col-md-4">
-                    <label for="cod_postal_proveedor" class="form-label">Código Postal del Proveedor</label>
-                    <input type="text" class="form-control" id="cod_postal_proveedor">
-                </div>
-                <div class="col-md-3">
-                    <label for="telefono_proveedor" class="form-label">Teléfono del Proveedor</label>
-                    <input type="text" class="form-control" id="telefono_proveedor">
-                </div>
-                <div class="col-md-3">
-                    <label for="movil_proveedor" class="form-label">Móvil del Proveedor</label>
-                    <input type="text" class="form-control" id="movil_proveedor">
-                </div>
-                <div class="col-md-6">
-                    <label for="email_proveedor" class="form-label">E-mail del Proveedor</label>
-                    <input type="text" class="form-control" id="email_proveedor">
-                </div>
-                <div class="mb-3">
-                    <label for="web_proveedor" class="form-label">Web del Proveedor</label>
-                    <input type="text" class="form-control" id="web_proveedor">
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar proveedor</button>
-            </form>
+            {% if enviado %}
+                Persona fue agregado
+            {% else %}
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <input type="submit" value="Agregar" class="btn btn-primary"/>
+                </form>   
+            {% endif %}
+            
         </div>
     </div>
 </section>
 
 {% endblock %} 
-
-
-
-<!-- <section class="container">
-    <div class="card">
-        <div class="card-header">
-            Insertar Proveedor
-        </div>
-        <div class="card-body">
-            <form class="row g-3">
-                {{ nombre_del_formulario }}  
-            </form>
-        </div>
-    </div>
-</section> -->
