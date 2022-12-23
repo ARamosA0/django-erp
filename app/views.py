@@ -77,7 +77,12 @@ def agregar_proveedor(request):
         if 'enviado' in request.GET:
             enviado = True
 
-    return render(request,"Formulario/formulario_insertar_proveedor.html", {'form':form, 'enviado':enviado})
+    context ={
+        'form':form, 
+        'enviado':enviado
+    }
+
+    return render(request,"Formulario/formulario_insertar_proveedor.html", context)
 
 
 def clientes(request):
