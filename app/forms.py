@@ -18,18 +18,14 @@ class ProveedorBusqueda(ModelForm):
             'localidad': forms.TextInput(attrs={'class': 'form-control'})
         }
 
-class ClienteBusqueda(ModelForm):
+
+
+class ClienteClienteInsertar(ModelForm):
     class Meta:
-        model = Persona
-        # fields = '__all__'
-        fields = ('id', 'dni', 'nombre', 'telefono', 'codprovincia', 'localidad')
+        model = Clientes
+        fields = ('codformapago',)
         widgets = {
-            'codigo': forms.TextInput(attrs={'class': 'form-control'}),
-            'dni': forms.TextInput(attrs={'class': 'form-control'}),
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'telefono': forms.TextInput(attrs={'class': 'form-control'}),
-            'codprovincia': forms.Select(attrs={'class': 'form-control'}),
-            'localidad': forms.TextInput(attrs={'class': 'form-control'})
+            'codformapago': forms.Select(attrs={'class': 'form-control'})
         }
 
 class ProveedorAgregar(ModelForm):

@@ -1,0 +1,41 @@
+
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container">
+    <div class="card">
+        <div class="card-header">
+            Insertar Cliente
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>Persona fue agregado</p>
+                <a class="btn btn-primary" href="{% url 'clie' %}" role="button">Volver</a> 
+            {% else %}
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+                    {{ in_cliente_per.as_p }} 
+                    {{ in_cliente.as_p }} 
+                    <button type="submit" class="btn btn-primary">Guardar cliente</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %} 
+
+
+
+<!-- <section class="container">
+    <div class="card">
+        <div class="card-header">
+            Insertar Proveedor
+        </div>
+        <div class="card-body">
+            <form class="row g-3">
+                {{ nombre_del_formulario }}  
+            </form>
+        </div>
+    </div>
+</section> -->
