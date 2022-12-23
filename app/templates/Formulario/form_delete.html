@@ -1,0 +1,15 @@
+{%extends 'index.html'%}
+
+{% block content %}
+
+
+<div class="main" class="form-group container">
+    <form action="/erp" method="POST">
+        {% csrf_token %}
+        <h2>Estas Seguro/a?</h2>
+        <input type="submit" value="Si" class="btn btn-danger" />
+        <a href="{% url 'clie' %}" class="btn btn-warning"> Cancel </a>
+    </form>
+</div>
+
+{% endblock %}

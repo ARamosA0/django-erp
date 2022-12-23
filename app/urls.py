@@ -6,13 +6,20 @@ from .views import *
 urlpatterns =[
     # Pagina Principal
     path('', TemplateView.as_view(template_name="Inicio/inicio.html"), name="inicio"),
+    
     #Pag Provedores
     path('prov/', proveedores, name="prov"),
     # path('prove/', Proveedores.as_view())
     #Pag Insertar Proveedores
     path('prov/agregarprov', agregar_proveedor, name="aprov"),
+    
+    
     #Pag Clientes
     path('clie/', clientes, name="clie"),
-    #Pag Insertar Cliente
+    #Insertar Cliente
     path('clie/agregarclie', agregar_cliente, name="aclie"),
+    #Eliminar Cliente
+    path('clie/eliminar/<int:id>/', eliminar_cliente, name="delclie"),
+    #Editar Cliente
+    path('clie/editar/<int:id>/', editar_cliente, name="edclie")
 ]

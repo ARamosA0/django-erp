@@ -54,9 +54,9 @@
             <td>{{ clie.persona.dni }}</td>
             <td>{{ clie.persona.telefono }}</td>
             <td>
-                <button type="button" class="btn btn-primary">Ver</button>
-                <button type="button" class="btn btn-success">Editar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <a type="button" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edclie' clie.persona.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delclie' clie.persona.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
