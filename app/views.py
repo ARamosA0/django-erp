@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic import TemplateView, DetailView, ListView, FormView,CreateView
 from .models import *
@@ -51,8 +52,37 @@ def proveedores(request):
 #     return  render(request,"find_test.html",context)
 
 
-def insertar_proveedor(request):
-    return render(request,"Formulario/formulario_insertar_proveedor.html")
+def agregar_proveedor(request):
+    enviado = False
+
+    if request.method == "POST":
+        form = ProveedorAgregar(request.POST)
+        if form. is_valid():
+            form.save()
+
+            buscar_ultima_persona = Persona.objects.last()
+            ultima_persona = buscar_ultima_persona.id
+
+            print(buscar_ultima_persona)
+
+            proveedor = Proveedores()
+            proveedor.persona_id = int(ultima_persona)
+            proveedor.save()
+
+            print(proveedor)
+
+            return HttpResponseRedirect('agregar_prov?enviado=True')
+    else:
+        form = ProveedorAgregar
+        if 'enviado' in request.GET:
+            enviado = True
+
+    context ={
+        'form':form, 
+        'enviado':enviado
+    }
+
+    return render(request,"Formulario/formulario_insertar_proveedor.html", context)
 
 
 def clientes(request):

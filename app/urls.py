@@ -1,6 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from .views import *
+# from . import views
 
 urlpatterns =[
     # Pagina Principal
@@ -9,7 +10,7 @@ urlpatterns =[
     path('prov/', proveedores, name="prov"),
     # path('prove/', Proveedores.as_view())
     #Pag Insertar Proveedores
-    path('prov/insertarproveedor', insertar_proveedor, name="inprov"),
+    path('prov/agregar_prov', agregar_proveedor, name="aprov"),
     #Pag Clientes
     path('clie/', clientes, name="clie"),
 ]
