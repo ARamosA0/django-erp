@@ -2,56 +2,17 @@
 <div class='row justify-content-center m-5'>
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar Proveedor</center></h4>
-      <form method="post">
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">CODIGO</label>
-          <div class="col-xl-10">
-            <input type="text" class="form-control" id="inputPassword" name="codigo">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">RUC</label>
-          <div class="col-xl-10">
-            <input type="text" class="form-control" id="inputPassword" name="ruc">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">NOMBRE</label>
-          <div class="col-xl-10">
-            <input type="text" class="form-control" id="inputPassword" name="nombre">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">TELEFONO</label>
-          <div class="col-xl-10">
-            <input type="text" class="form-control" id="inputPassword" name="telefono">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">PROVINCIA</label>
-          <div class="col-xl-10">
-            <select class="form-select" aria-label="Default select example" name="provincia">
-              {% for provin in provincia_list %}
-              <option selected>selecciona una provincia</option>
-              <option value="{{ provin.id }}">{{ provin.nombre }}</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">LOCALIDAD</label>
-          <div class="col-xl-10">
-            <input type="text" class="form-control" id="inputPassword">
-          </div>
-        </div>
-        <div  style="float: right;">
-          <button type="submit" class="btn btn-primary" >Buscar</button>
-          <button type="submit" class="btn btn-warning" >Limpiar</button>
-          <button type="submit" class="btn btn-success" >Agregar</button>
-        </div>
-
-          
-      </form>
+      <div  class="form-group">
+        <form method="post">
+            {% csrf_token %}
+          {{ busquedaform.as_p }}  
+          <div  style="float: right;">
+            <button class="btn btn-primary" >Buscar</button>
+            <a type="button" class="btn btn-warning" >Limpiar</button>
+            <a href="{% url 'inprov' %}" type="button" class="btn btn-success" >Agregar</a>
+          </div>                   
+        </form>
+    </div>
     </div>
 
 
@@ -109,3 +70,59 @@
 </table>
 
 
+
+<!-- <form action="/erp/findtest/" method="POST" id="formulario">
+    {% csrf_token %}
+      <div class="mb-3 row">
+        <label for="codigo" class="col-sm-2 col-form-label">CODIGO</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="codigo" name="codigo">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="dni" class="col-sm-2 col-form-label">DNI</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="dni" name="dni">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="nombre" class="col-sm-2 col-form-label">NOMBRE</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="nombre" name="nombre">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="telefono" class="col-sm-2 col-form-label">TELEFONO</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="telefono" name="telefono">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="web" class="col-sm-2 col-form-label">WEB</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="web" name="web">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="provincia" class="col-sm-2 col-form-label">PROVINCIA</label>
+        <div class="col-xl-10">
+          <select class="form-select" aria-label="Default select example" name="provincia">
+            <option value="0" selected>selecciona una provincia</option>
+            {% for provin in provincia_lista %}
+            <option value="{{ provin.id }}">{{ provin.nombreprovincia }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="localidad" class="col-sm-2 col-form-label">LOCALIDAD</label>
+        <div class="col-xl-10">
+          <input type="text" class="form-control" id="localidad" name="localidad">
+        </div>
+      </div>
+      <div  style="float: right;">
+        <button class="btn btn-primary" >Buscar</button>
+        <a type="button" class="btn btn-warning" >Limpiar</button>
+        <a href="insertarproveedor" type="button" class="btn btn-success" >Agregar</a>
+      </div>
+    </form> -->
