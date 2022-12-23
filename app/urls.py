@@ -4,9 +4,10 @@ from .views import *
 
 urlpatterns =[
     # Pagina Principal
-    path('', TemplateView.as_view(template_name="Inicio/inicio.html")),
+    path('', TemplateView.as_view(template_name="Inicio/inicio.html"), name="inicio"),
     #Pag Provedores
     path('prov/', proveedores, name="prov"),
+    # path('prove/', Proveedores.as_view())
     #Pag Insertar Proveedores
-    # path('insertarproveedor', views.insertar_proveedor)
+    path('prov/insertarproveedor', insertar_proveedor, name="inprov")
 ]
