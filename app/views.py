@@ -55,3 +55,39 @@ def insertar_proveedor(request):
     return render(request,"Formulario/formulario_insertar_proveedor.html")
 
 
+def clientes(request):
+    clientes_list = Clientes.objects.all()
+
+    if request.method == 'POST':
+        busquedaform = ProveedorBusqueda(request.POST)
+    else:
+        busquedaform = ProveedorBusqueda()
+
+    context ={
+        'clientes_list': clientes_list,
+        'busquedaform': busquedaform
+    }
+    return render(request, "Pag/clientes.html", context)
+
+def cliente_insertar(request):
+    
+    if request.method == 'POST':
+        in_cliente_per = ClientePersonaInsertar(request.POST)
+        in_cliente = ClienteClienteInsertar(request.POST)
+        if in_cliente_per.is_valid() and in_cliente.is_valid():
+            in_cliente_per.save()
+            in_cliente.save()
+            # buscar_ultima_persona = Persona.objects.last()
+            # ultima_persona = buscar_ultima_persona.id       
+    else:
+        in_cliente_per: ClientePersonaInsertar()
+        in_cliente: ClienteClienteInsertar()
+
+    context = {
+        'in_cliente_per':in_cliente_per,
+        'in_cliente':in_cliente 
+    }
+    return render(request, "Pag/")
+
+
+
