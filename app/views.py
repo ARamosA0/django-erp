@@ -11,16 +11,24 @@ from .forms import *
 
 def proveedores(request):
     proveedores_list = Proveedores.objects.all()
-
-    if request.method == 'POST':
-        busquedaform = ProveedorBusqueda(request.POST)
-    else:
-        busquedaform = ProveedorBusqueda()
-
+    busquedaform = ProveedorBusqueda()
     context ={
         'proveedores_list': proveedores_list,
         'busquedaform': busquedaform
     }
+    if request.method == 'POST':
+        busquedaform = ProveedorBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Proveedores.objects.filter(borrado='0')
+            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
+            data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+            data = data.filter(persona_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
+            data = data.filter(persona_id__codprovincia_id=busquedaform.cleaned_data['provincia'])  if busquedaform.cleaned_data['provincia'] else data
+            data = data.filter(persona_id__localidad=busquedaform.cleaned_data['localidad'])  if busquedaform.cleaned_data['localidad'] else data
+            context['proveedores_list']=data
+            context['busquedaform']=busquedaform
+
     return render(request, "Proveedores/estructura_crud.html", context)
 
 # def buscar_proveedor(request):
