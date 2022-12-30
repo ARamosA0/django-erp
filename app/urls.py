@@ -21,5 +21,7 @@ urlpatterns =[
     #Eliminar Cliente
     path('clie/eliminar/<int:id>/', eliminar_cliente, name="delclie"),
     #Editar Cliente
-    path('clie/editar/<int:id>/', editar_cliente, name="edclie")
+    path('clie/editar/<int:id>/', editar_cliente, name="edclie"),
+    #Ver Cliente
+    path('clie/ver/<int:id>/', ver_cliente, name="verclie")
 ]

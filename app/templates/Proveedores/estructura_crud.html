@@ -2,22 +2,25 @@
 
 {% block content %}
 
-    {% include "Crud/estructura_crud.html" with proveedor=proveedores_list provinia=provincia_list %}
 
-{% endblock %}
-
-
-
-
-
-<!-- 
 <div class='row justify-content-center m-5'>
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar Proveedor</center></h4>
-      <form method="post">   
-        {{ nombre_del_formulario }}       
-      </form>
+      <div  class="form-group">
+        <form method="post">
+            {% csrf_token %}
+          {{ busquedaform.as_p }}  
+          <div  style="float: right;">
+            <button class="btn btn-primary" >Buscar</button>
+            <a type="button" class="btn btn-warning" >Limpiar</button>
+            <a href="{% url 'aprov' %}" type="button" class="btn btn-success" >Agregar</a>
+          </div>                   
+        </form>
     </div>
+    </div>
+
+
+
 
 <div style="display: flex; justify-content: space-between;">
     <div>
@@ -27,9 +30,9 @@
         <p style="margin:10px;">Mostrados:</p>
         <select style="width: 80px;" class="form-select form-select-sm" aria-label=".form-select-sm example">
             <option selected>1-10</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
         </select>
     </div>
 </div>
@@ -70,4 +73,4 @@
     </tbody>
 </table>
 
- -->
+{% endblock %}

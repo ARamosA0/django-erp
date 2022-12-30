@@ -21,7 +21,7 @@ def proveedores(request):
         'proveedores_list': proveedores_list,
         'busquedaform': busquedaform
     }
-    return render(request, "Pag/proveedores.html", context)
+    return render(request, "Proveedores/estructura_crud.html", context)
 
 # def buscar_proveedor(request):
     
@@ -68,7 +68,7 @@ def agregar_proveedor(request):
         'enviado':enviado
     }
 
-    return render(request,"Formulario/formulario_insertar_proveedor.html", context)
+    return render(request,"Proveedores/formulario_insertar_proveedor.html", context)
 
 #CLIENTES
 
@@ -86,7 +86,7 @@ def clientes(request):
         'clientes_list': clientes_list,
         'busquedaform': busquedaform
     }
-    return render(request, "Pag/clientes.html", context)
+    return render(request, "Clientes/estructura_crud_clie.html", context)
 
 def agregar_cliente(request):
     enviado = False
@@ -117,11 +117,17 @@ def agregar_cliente(request):
         'in_cliente':in_cliente,
         'enviado':enviado, 
     }
-    return render(request, "Formulario/formulario_insertar_cliente.html", context)
+    return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
 def buscar_cliente(request):
     return
 
+def ver_cliente(request, id):
+    cliente_list = Clientes.objects.get(persona__id=id)
+    context = {
+        'clie': cliente_list
+    }
+    return render(request, "Clientes/cliente.html", context)
 
 def editar_cliente(request, id):
     enviado = False
@@ -155,7 +161,7 @@ def editar_cliente(request, id):
         'in_cliente':in_cliente,
         'enviado':enviado, 
     }    
-    return render(request, "Formulario/formulario_insertar_cliente.html", context)
+    return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
 def eliminar_cliente(request, id):
     del_cliente = Clientes.objects.filter(persona__id=id)
