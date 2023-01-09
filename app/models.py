@@ -78,7 +78,7 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        return self.persona.nombre, self.empresa.nombre
+        return self.persona, self.empresa
 
 
 # class Facturas(models.Model):
