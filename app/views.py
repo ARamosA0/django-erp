@@ -181,7 +181,7 @@ def eliminar_cliente(request, id):
     if request.method =="POST":
         del_cliente.delete()
         del_persona.delete()
-        return HttpResponseRedirect('clie')
+        return HttpResponseRedirect('clie/')
     return render(request, "Formulario/form_delete.html")
         
 
