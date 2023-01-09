@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 class Provincias(models.Model):
@@ -78,7 +78,55 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        return self.persona.nombre, self.empresa.nombre
+        return self.persona.nombre
+
+CHOICES = (("1", "1"),
+    ("0", "0"))
+def upload_path(instance, filename):
+    return '/'.join(['articulos',str(instance.referencia),filename])
+
+class Ubicaciones(models.Model):
+    nombre = models.CharField(max_length=100)
+    borrado = models.CharField(max_length=1, default=0)
+    def __str__(self):
+        return self.nombre
+
+class Impuestos(models.Model):
+    nombre = models.CharField(max_length=100)
+    valor = models.FloatField(validators=[MinValueValidator(0.0)])
+    borrado = models.CharField(max_length=1, default=0)
+    def __str__(self):
+        return self.nombre
+
+class Articulos(models.Model):
+    referencia = models.CharField(max_length=20)
+    familia = models.ForeignKey(Familia,on_delete=models.CASCADE)
+    descripcion = models.CharField(max_length=500)
+    impuesto = models.ForeignKey(Impuestos, on_delete=models.CASCADE)
+    proveedor_1 = models.OneToOneField(Proveedores,on_delete=models.CASCADE,related_name='proveedor_1')
+    proveedor_2 = models.OneToOneField(Proveedores,on_delete=models.CASCADE,related_name='proveedor_2')
+    descripcion_corta = models.CharField(max_length=100)
+    ubicacion = models.ForeignKey(Ubicaciones, on_delete=models.CASCADE)
+    stock = models.PositiveIntegerField()
+    stock_minimo = models.PositiveIntegerField()
+    aviso_minimo = models.CharField(max_length=1,choices=CHOICES,default="0")
+    datos_producto = models.CharField(max_length=500)
+    fecha_alta = models.DateTimeField()
+    embalaje = models.CharField(max_length=1,choices=CHOICES,default="0")
+    unidades_por_caja = models.PositiveIntegerField()
+    precio_ticket = models.CharField(max_length=1,choices=CHOICES,default="0")
+    modificar_ticker = models.CharField(max_length=1,choices=CHOICES,default="0")
+    observaciones = models.CharField(max_length=500)
+    precio_compra = models.FloatField(validators=[MinValueValidator(0.0)])
+    precio_almacen = models.FloatField(validators=[MinValueValidator(0.0)])
+    precio_tienda = models.FloatField(validators=[MinValueValidator(0.0)])
+    precio_con_iva = models.FloatField(validators=[MinValueValidator(0.0)])
+    imagen = models.ImageField(upload_to=upload_path, null=True)
+
+
+
+
+
 
 
 
