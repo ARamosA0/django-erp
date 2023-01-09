@@ -1,8 +1,6 @@
 {%extends 'index.html'%}
 
 {% block content %}
-<<<<<<< HEAD
-=======
 <div class='row justify-content-center m-5'>
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar familia</center></h4>
@@ -50,15 +48,6 @@
         {% if familias_list %}
         {% for clie in clientes_list %}
         <tr scope="row">
-            <td>{{ fma.persona.id }}</td>
-            <td>{{ fma.persona.id }}</td>
-            <td>{{ fma.persona.nombre }}</td>
-       
-            <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver</button>
-                <a type="button" href="{% url 'edclie' clie.persona.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delclie' clie.persona.id %}" class="btn btn-danger">Eliminar</a>
-            </td>
         </tr>
         {% endfor %}
         {% else %}
@@ -66,6 +55,5 @@
         {% endif %}
     </tbody>
 </table>
->>>>>>> 4983f8f91adc94375580eaded3e23f283e37e9ba
 
 {% endblock %}

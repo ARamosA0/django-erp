@@ -1,8 +1,6 @@
 {%extends 'index.html'%}
 
 {% block content %}
-<<<<<<< HEAD
-=======
 <div class='row justify-content-center m-5'>
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar Articulo</center></h4>
@@ -53,19 +51,6 @@
         {% if articulos_list %}
         {% for art in articulos_list %}
         <tr scope="row">
-            <td>{{ art.persona.id }}</td>
-            <td>{{ art.persona.id }}</td>
-            <td>{{ art.persona.referencia }}</td>
-            <td>{{ art.persona.familia }}</td>
-            <td>{{ art.persona.descripcion }}</td>
-            <td>{{ art.persona.proveedor }}</td>
-            <td>{{ art.persona.ubicacion }}</td>
-
-            <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver</button>
-                <a type="button" href="{% url 'edclie' clie.persona.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delclie' clie.persona.id %}" class="btn btn-danger">Eliminar</a>
-            </td>
         </tr>
         {% endfor %}
         {% else %}
@@ -73,6 +58,5 @@
         {% endif %}
     </tbody>
 </table>
->>>>>>> 4983f8f91adc94375580eaded3e23f283e37e9ba
 
 {% endblock %}
