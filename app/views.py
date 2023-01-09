@@ -169,8 +169,7 @@ def eliminar_cliente(request, id):
     return render(request, "Formulario/form_delete.html")
         
 
-<<<<<<< HEAD
-=======
+
 #ARTICULOS
 
 def articulos(request):
@@ -192,4 +191,4 @@ def familias(request):
     #     'busquedaform': busquedaform
     # }
     return render(request, "Categorias/estructura_crud_cat.html")
->>>>>>> 5d133c926db37015cb2dd77e82a7f397f1f7938b
+
