@@ -50,7 +50,6 @@ class AgregarPersona(ModelForm):
             'web':forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-<<<<<<< HEAD
 class AgregarEmpresa(ModelForm):
     class Meta:
         model = Empresa
@@ -69,7 +68,6 @@ class AgregarEmpresa(ModelForm):
             'web':forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-=======
 #ARTICULOS
 
 class ArticuloBusqueda(Form):
@@ -93,4 +91,3 @@ class FamiliaBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
->>>>>>> a8d8089a4fe76daf56724e4d8e9bd39b524a3cf1
