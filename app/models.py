@@ -78,12 +78,12 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        return self.persona.nombre, self.empresa.nombre
+        return self.persona.nombre
 
 CHOICES = (("1", "1"),
     ("0", "0"))
 def upload_path(instance, filename):
-    return '/'.join(['articulos',str(instance.articulo),filename])
+    return '/'.join(['articulos',str(instance.referencia),filename])
 
 class Ubicaciones(models.Model):
     nombre = models.CharField(max_length=100)
