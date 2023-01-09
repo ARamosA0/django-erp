@@ -29,8 +29,5 @@ urlpatterns =[
     path('art/', articulos, name="art"),
 
     #Pag Familias
-    path('fam/', familias, name="fam"),
-    path('clie/ver/<int:id>/', ver_cliente, name="verclie")
-
-   
+    path('fam/', familias, name="fam")
 ]

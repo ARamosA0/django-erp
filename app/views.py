@@ -188,17 +188,18 @@ def eliminar_cliente(request, id):
 #ARTICULOS
 
 def articulos(request):
-    # clientes_list = Clientes.objects.all()
-    # busquedaform = ArticuloBusqueda()
-    # context ={
-    #     'clientes_list': clientes_list,
-    #     'busquedaform': busquedaform
-    # }
-    return render(request, "Articulos/estructura_crud_art.html")
+    articulos_list = Articulos.objects.all()
+    busquedaform = ArticuloBusqueda()
+    context ={
+        'articulos_list': articulos_list,
+        'busquedaform': busquedaform
+    }
+    return render(request, "Articulos/estructura_crud_art.html",context)
 
 #FAMILIAS, CATEGORIAS
 
 def familias(request):
+<<<<<<< HEAD
     # clientes_list = Clientes.objects.all()
     # busquedaform = FamiliaBusqueda()
     # context ={
@@ -207,3 +208,12 @@ def familias(request):
     # }
     return render(request, "Categorias/estructura_crud_cat.html")
 
+=======
+    familias_list = Familia.objects.all()
+    busquedaform = FamiliaBusqueda()
+    context ={
+        'familias_list': familias_list,
+        'busquedaform': busquedaform
+    }
+    return render(request, "Familias/estructura_crud_fam.html",context)
+>>>>>>> 33056711d4e5c1742dafb8d139c275d602abf5c3
