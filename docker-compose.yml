@@ -13,7 +13,7 @@ services:
             - ./dump:/var/lib/mysql
             - persistent:/var/lib/mysql
     web:
-      image: aldorama/django-erp-2
+      image: aldorama/django-erp
       build: .
       command: python3 manage.py runserver 0.0.0.0:8000 
       ports:

@@ -37,7 +37,7 @@ class ClienteBusqueda(Form):
 class ProveedorInsertar(ModelForm):
     class Meta:
         model = Proveedores
-        fields = ('__all__')
+        fields = '__all__'
 
 class ClienteClienteInsertar(ModelForm):
     class Meta:
@@ -96,7 +96,7 @@ class ArticuloBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'descripcion'}),required=False)
     proveedor = forms.ModelChoiceField(label='PROVEEDOR:',queryset=Proveedores.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'proveedor'}),required=False)
-    ubicacion = forms.ModelChoiceField(label='UBICACION:',queryset=Proveedores.objects.all(),
+    ubicacion = forms.ModelChoiceField(label='UBICACION:',queryset=Ubicaciones.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'ubicacion'}),required=False)
 
 #CATEGORIAS
