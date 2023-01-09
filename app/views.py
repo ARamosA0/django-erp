@@ -37,26 +37,41 @@ def agregar_proveedor(request):
     enviado = False
 
     if request.method == "POST":
-        form = ProveedorAgregar(request.POST)
-        if form. is_valid():
-            form.save()
+        form_persona = AgregarPersona(request.POST)
+        form_empresa = AgregarEmpresa(request.POST)
+        if form_persona.is_valid():
+            form_persona.save()
             buscar_ultima_persona = Persona.objects.last()
             ultima_persona = buscar_ultima_persona.id
             proveedor = Proveedores()
             proveedor.persona_id = int(ultima_persona)
+
+            proveedor.save()
+            return HttpResponseRedirect('agregarprov?enviado=True')
+        elif form_empresa.is_valid():
+            form_empresa.save()
+            buscar_ultima_empresa = Empresa.objects.last()
+            ultima_empresa = buscar_ultima_empresa.id
+            proveedor = Proveedores()
+            proveedor.empresa_id = int(ultima_empresa)
+
             proveedor.save()
             return HttpResponseRedirect('agregarprov?enviado=True')
     else:
-        form = ProveedorAgregar
+        form_persona = AgregarPersona
+        form_empresa = AgregarEmpresa
         if 'enviado' in request.GET:
             enviado = True
 
     context ={
-        'form':form, 
+        'form_persona':form_persona, 
+        'form_empresa':form_empresa,
         'enviado':enviado
     }
 
     return render(request,"Proveedores/formulario_insertar_proveedor.html", context)
+
+
 
 #CLIENTES
 
@@ -90,7 +105,7 @@ def agregar_cliente(request):
     enviado = False
     codformpago=""
     if request.method == 'POST':
-        in_cliente_per = ProveedorAgregar(request.POST)
+        in_cliente_per = AgregarPersona(request.POST)
         in_cliente = ClienteClienteInsertar(request.POST)
         if in_cliente_per.is_valid() and in_cliente.is_valid():
             in_cliente_per.save()
@@ -106,7 +121,7 @@ def agregar_cliente(request):
             cliente.save()
             return HttpResponseRedirect('agregarclie?enviado=True')
     else:
-        in_cliente_per= ProveedorAgregar()
+        in_cliente_per= ClienteAgregar()
         in_cliente=ClienteClienteInsertar()
         if 'enviado' in request.GET:
             enviado = True

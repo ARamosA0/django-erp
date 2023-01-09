@@ -77,7 +77,8 @@ class Proveedores(models.Model):
     borrado = models.CharField(max_length=1, default=0)
 
     def __str__(self):
-        return self.persona
+        # return self.persona.nombre
+        return self.persona, self.empresa
 
 CHOICES = (("1", "1"),
     ("0", "0"))
