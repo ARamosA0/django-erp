@@ -1,16 +1,15 @@
 {%extends 'index.html'%}
-
 {% block content %}
 <div class='row justify-content-center m-5'>
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar Cliente</center></h4>
       <div  class="form-group">
-        <form method="post">
+        <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
           {{ busquedaform.as_p }}  
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
-            <a type="button" class="btn btn-warning" >Limpiar</a>
+            <a type="button"  onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
             <a href="{% url 'aclie' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
@@ -68,5 +67,4 @@
         {% endif %}
     </tbody>
 </table>
-
 {% endblock %}
