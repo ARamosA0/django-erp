@@ -169,3 +169,27 @@ def eliminar_cliente(request, id):
     return render(request, "Formulario/form_delete.html")
         
 
+<<<<<<< HEAD
+=======
+#ARTICULOS
+
+def articulos(request):
+    # clientes_list = Clientes.objects.all()
+    # busquedaform = ArticuloBusqueda()
+    # context ={
+    #     'clientes_list': clientes_list,
+    #     'busquedaform': busquedaform
+    # }
+    return render(request, "Articulos/estructura_crud_art.html")
+
+#FAMILIAS, CATEGORIAS
+
+def familias(request):
+    # clientes_list = Clientes.objects.all()
+    # busquedaform = FamiliaBusqueda()
+    # context ={
+    #     'clientes_list': clientes_list,
+    #     'busquedaform': busquedaform
+    # }
+    return render(request, "Categorias/estructura_crud_cat.html")
+>>>>>>> 5d133c926db37015cb2dd77e82a7f397f1f7938b
