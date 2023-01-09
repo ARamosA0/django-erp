@@ -78,7 +78,7 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        return self.persona, self.empresa
+        return f'{self.persona} {self.empresa}'
 
 CHOICES = (("1", "1"),
     ("0", "0"))
@@ -122,7 +122,8 @@ class Articulos(models.Model):
     precio_tienda = models.FloatField(validators=[MinValueValidator(0.0)])
     precio_con_iva = models.FloatField(validators=[MinValueValidator(0.0)])
     imagen = models.ImageField(upload_to=upload_path, null=True)
-
+    def __str__(self):
+        return self.referencia
 
 
 
