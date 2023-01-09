@@ -23,6 +23,7 @@ urlpatterns =[
     #Editar Cliente
     path('clie/editar/<int:id>/', editar_cliente, name="edclie"),
     #Ver Cliente
+<<<<<<< HEAD
     path('clie/ver/<int:id>/', ver_cliente, name="verclie"),
 
     #Pag Articulos
@@ -30,4 +31,9 @@ urlpatterns =[
 
     #Pag Familias
     path('fam/', familias, name="fam")
+=======
+    path('clie/ver/<int:id>/', ver_cliente, name="verclie")
+
+   
+>>>>>>> 4983f8f91adc94375580eaded3e23f283e37e9ba
 ]

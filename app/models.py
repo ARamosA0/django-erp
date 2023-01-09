@@ -81,6 +81,7 @@ class Proveedores(models.Model):
         return self.persona.nombre, self.empresa.nombre
 
 
+
 # class Facturas(models.Model):
 #     fecha = models.DateField(auto_now='True')
 #     iva = models.IntegerField()
