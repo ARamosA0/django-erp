@@ -71,14 +71,14 @@ class Clientes(models.Model):
         return self.persona.nombre
 
 class Proveedores(models.Model):
-    persona = models.OneToOneField(Persona, on_delete=models.CASCADE, primary_key=True)
-    # persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
-    # empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
+    # persona = models.OneToOneField(Persona, on_delete=models.CASCADE, primary_key=True)
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
     borrado = models.CharField(max_length=1, default=0)
 
     def __str__(self):
-        return self.persona.nombre
-        # return self.persona.nombre, self.empresa.nombre
+        # return self.persona.nombre
+        return self.persona.nombre, self.empresa.nombre
 
 
 # class Facturas(models.Model):
