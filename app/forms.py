@@ -16,22 +16,13 @@ class ProveedorBusqueda(Form):
         widget=forms.Select(attrs={'class':'form-control','id':'provincia'}),required=False)
     localidad = forms.CharField(label='LOCALIDAD:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
+    empresa = forms.CharField(label='LOCALIDAD:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
 
-# class ProveedorBusqueda(ModelForm):
-#     class Meta:
-#         model = Persona
-#         # fields = '__all__'
-#         fields = ('id', 'dni', 'nombre', 'telefono', 'codprovincia', 'localidad')
-#         widgets = {
-#             'codigo': forms.TextInput(attrs={'class': 'form-control'}),
-#             'dni': forms.TextInput(attrs={'class': 'form-control'}),
-#             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-#             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
-#             'codprovincia': forms.Select(attrs={'class': 'form-control'}),
-#             'localidad': forms.TextInput(attrs={'class': 'form-control'})
-#         }
-
-
+class ProveedorInsertar(ModelForm):
+    class Meta:
+        model = Proveedores
+        fields = ('__all__')
 
 class ClienteClienteInsertar(ModelForm):
     class Meta:
@@ -41,13 +32,32 @@ class ClienteClienteInsertar(ModelForm):
             'codformapago': forms.Select(attrs={'class': 'form-control'})
         }
 
-class ProveedorAgregar(ModelForm):
+
+class AgregarPersona(ModelForm):
     class Meta:
         model = Persona
         fields = '__all__'
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control'}),
             'dni':forms.TextInput(attrs={'class': 'form-control'}),
+            'codprovincia':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'localidad':forms.TextInput(attrs={'class': 'form-control'}),
+            'direccion':forms.TextInput(attrs={'class': 'form-control'}),
+            'codpostal':forms.TextInput(attrs={'class': 'form-control'}),
+            'cuentabancaria':forms.TextInput(attrs={'class': 'form-control'}),
+            'telefono':forms.TextInput(attrs={'class': 'form-control'}),
+            'movil':forms.TextInput(attrs={'class': 'form-control'}),
+            'web':forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class AgregarEmpresa(ModelForm):
+    class Meta:
+        model = Empresa
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'}),
+            'estructurajuridica':forms.TextInput(attrs={'class':'form-control'}),
+            'ruc':forms.TextInput(attrs={'class':'form-control'}),
             'codprovincia':forms.Select(attrs={'class':'form-select form-select-sm'}),
             'localidad':forms.TextInput(attrs={'class': 'form-control'}),
             'direccion':forms.TextInput(attrs={'class': 'form-control'}),
