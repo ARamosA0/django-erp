@@ -168,3 +168,4 @@ def eliminar_cliente(request, id):
         return HttpResponseRedirect('clie')
     return render(request, "Formulario/form_delete.html")
         
+
