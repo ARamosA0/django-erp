@@ -31,26 +31,6 @@ def proveedores(request):
 
     return render(request, "Proveedores/estructura_crud.html", context)
 
-# def buscar_proveedor(request):
-    
-#     data = Proveedores.objects.values('pk','persona_id','persona_id__nombre',
-#                                              'persona_id__dni','persona_id__localidad',
-#                                              'persona_id__direccion','persona_id__codpostal',
-#                                              'persona_id__cuentabancaria','persona_id__telefono',
-#                                              'persona_id__movil','persona_id__web',
-#                                              'persona_id__codprovincia_id').filter(borrado='0')
-    
-#     data = data.filter(pk=request.POST['codigo'])  if request.POST['codigo'] else data
-#     data = data.filter(persona_id__dni=request.POST['dni'])  if request.POST['dni'] else data
-#     data = data.filter(persona_id__nombre=request.POST['nombre'])  if request.POST['nombre'] else data
-#     data = data.filter(persona_id__telefono=request.POST['telefono'])  if request.POST['telefono'] else data
-#     data = data.filter(persona_id__codprovincia_id=request.POST['provincia'])  if request.POST['provincia']!='0' else data
-#     data = data.filter(persona_id__localidad=request.POST['localidad'])  if request.POST['localidad'] else data
-#     data = data.filter(persona_id__web=request.POST['web'])  if request.POST['web'] else data
-    
-#     context = {'proveedores': data}
-#     #print(data)
-#     return  render(request,"find_test.html",context)
 
 
 def agregar_proveedor(request):
@@ -82,19 +62,29 @@ def agregar_proveedor(request):
 
 def clientes(request):
     clientes_list = Clientes.objects.all()
-
-    if request.method == 'POST':
-        busquedaform = ProveedorBusqueda(request.POST)
-    else:
-        busquedaform = ProveedorBusqueda()
-
-    print(clientes_list)
-
+    busquedaform = ProveedorBusqueda()
     context ={
         'clientes_list': clientes_list,
         'busquedaform': busquedaform
     }
+    if request.method == 'POST':
+        busquedaform = ProveedorBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Clientes.objects.filter(borrado='0')
+            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
+            data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+            data = data.filter(persona_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
+            data = data.filter(persona_id__codprovincia_id=busquedaform.cleaned_data['provincia'])  if busquedaform.cleaned_data['provincia'] else data
+            data = data.filter(persona_id__localidad=busquedaform.cleaned_data['localidad'])  if busquedaform.cleaned_data['localidad'] else data
+            context['clientes_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = ProveedorBusqueda()
+
     return render(request, "Clientes/estructura_crud_clie.html", context)
+
+
 
 def agregar_cliente(request):
     enviado = False
@@ -127,8 +117,6 @@ def agregar_cliente(request):
     }
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
-def buscar_cliente(request):
-    return
 
 def ver_cliente(request, id):
     cliente_list = Clientes.objects.get(persona__id=id)

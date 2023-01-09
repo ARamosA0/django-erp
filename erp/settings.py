@@ -76,6 +76,7 @@ import os
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+#local
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -86,6 +87,18 @@ DATABASES = {
         'PORT': 3306,
     }
 }
+
+#Railway
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'railway',
+#         'USER': 'root',
+#         'PASSWORD': 'jb9HOGPg9zOigsxoztkH',
+#         'HOST': 'containers-us-west-41.railway.app',
+#         'PORT': 6249,
+#     }
+# }
 
 
 # Password validation
