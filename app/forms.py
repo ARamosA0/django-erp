@@ -16,8 +16,23 @@ class ProveedorBusqueda(Form):
         widget=forms.Select(attrs={'class':'form-control','id':'provincia'}),required=False)
     localidad = forms.CharField(label='LOCALIDAD:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
-    empresa = forms.CharField(label='LOCALIDAD:',
+    empresa = forms.CharField(label='EMPRESA:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
+
+class ClienteBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    dni = forms.CharField(label='DNI:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+    telefono = forms.CharField(label='TELEFONO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'telefono'}),required=False)
+    provincia = forms.ModelChoiceField(label='PROVINCIA:',queryset=Provincias.objects.all(),
+        widget=forms.Select(attrs={'class':'form-control','id':'provincia'}),required=False)
+    localidad = forms.CharField(label='LOCALIDAD:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
+
 
 class ProveedorInsertar(ModelForm):
     class Meta:
