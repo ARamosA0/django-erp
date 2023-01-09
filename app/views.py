@@ -20,6 +20,8 @@ def proveedores(request):
         busquedaform = ProveedorBusqueda(request.POST)
         if busquedaform.is_valid():
             data = Proveedores.objects.filter(borrado='0')
+            # empresa = Proveedores.objects.filter()
+            
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
             data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
@@ -74,16 +76,15 @@ def agregar_proveedor(request):
 
 
 #CLIENTES
-
 def clientes(request):
     clientes_list = Clientes.objects.all()
-    busquedaform = ProveedorBusqueda()
+    busquedaform = ClienteBusqueda()
     context ={
         'clientes_list': clientes_list,
         'busquedaform': busquedaform
     }
     if request.method == 'POST':
-        busquedaform = ProveedorBusqueda(request.POST)
+        busquedaform = ClienteBusqueda(request.POST)
         if busquedaform.is_valid():
             data = Clientes.objects.filter(borrado='0')
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
@@ -95,7 +96,7 @@ def clientes(request):
             context['clientes_list']=data
             context['busquedaform']=busquedaform
     else:
-        busquedaform = ProveedorBusqueda()
+        busquedaform = ClienteBusqueda()
 
     return render(request, "Clientes/estructura_crud_clie.html", context)
 
@@ -121,7 +122,7 @@ def agregar_cliente(request):
             cliente.save()
             return HttpResponseRedirect('agregarclie?enviado=True')
     else:
-        in_cliente_per= ClienteAgregar()
+        in_cliente_per= AgregarPersona()
         in_cliente=ClienteClienteInsertar()
         if 'enviado' in request.GET:
             enviado = True
@@ -146,7 +147,7 @@ def editar_cliente(request, id):
     persona_put = Persona.objects.get(id=id)
     cliente_put = Clientes.objects.get(persona__id=id)
     if request.method == 'POST':
-        in_cliente_per = ProveedorAgregar(request.POST, instance=persona_put)
+        in_cliente_per = AgregarPersona(request.POST, instance=persona_put)
         in_cliente = ClienteClienteInsertar(request.POST, instance=cliente_put)
         if in_cliente_per.is_valid() and in_cliente.is_valid():
             in_cliente_per.save()
@@ -162,7 +163,7 @@ def editar_cliente(request, id):
             cliente.save()
             return redirect('clie')
     else:
-        in_cliente_per= ProveedorAgregar(instance=persona_put)
+        in_cliente_per= AgregarPersona(instance=persona_put)
         in_cliente=ClienteClienteInsertar(instance=cliente_put)
         if 'enviado' in request.GET:
             enviado = True
