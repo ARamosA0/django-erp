@@ -17,7 +17,8 @@ class ProveedorBusqueda(Form):
     localidad = forms.CharField(label='LOCALIDAD:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
     empresa = forms.CharField(label='EMPRESA:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'empresa'}),required=False)
+
 
 class ClienteBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
