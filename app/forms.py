@@ -50,6 +50,7 @@ class AgregarPersona(ModelForm):
             'web':forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+<<<<<<< HEAD
 class AgregarEmpresa(ModelForm):
     class Meta:
         model = Empresa
@@ -68,3 +69,28 @@ class AgregarEmpresa(ModelForm):
             'web':forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+=======
+#ARTICULOS
+
+class ArticuloBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    referencia = forms.CharField(label='REFERENCIA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+    familia = forms.ModelChoiceField(label='FAMILIA:',queryset=Familia.objects.all(),
+        widget=forms.Select(attrs={'class':'form-control','id':'familia'}),required=False)
+    descripcion = forms.CharField(label='DESCRIPCION:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'descripcion'}),required=False)
+    proveedor = forms.ModelChoiceField(label='PROVEEDOR:',queryset=Proveedores.objects.all(),
+        widget=forms.Select(attrs={'class':'form-control','id':'proveedor'}),required=False)
+    ubicacion = forms.ModelChoiceField(label='UBICACION:',queryset=Proveedores.objects.all(),
+        widget=forms.Select(attrs={'class':'form-control','id':'ubicacion'}),required=False)
+
+#CATEGORIAS
+
+class FamiliaBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+>>>>>>> a8d8089a4fe76daf56724e4d8e9bd39b524a3cf1

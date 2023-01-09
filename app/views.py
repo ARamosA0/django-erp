@@ -183,3 +183,25 @@ def eliminar_cliente(request, id):
         return HttpResponseRedirect('clie')
     return render(request, "Formulario/form_delete.html")
         
+
+#ARTICULOS
+
+def articulos(request):
+    clientes_list = Clientes.objects.all()
+    busquedaform = ArticuloBusqueda()
+    context ={
+        'clientes_list': clientes_list,
+        'busquedaform': busquedaform
+    }
+    return render(request, "Articulos/estructura_crud_art.html", context)
+
+#FAMILIAS, CATEGORIAS
+
+def familias(request):
+    clientes_list = Clientes.objects.all()
+    busquedaform = FamiliaBusqueda()
+    context ={
+        'clientes_list': clientes_list,
+        'busquedaform': busquedaform
+    }
+    return render(request, "Categorias/estructura_crud_cat.html", context)
