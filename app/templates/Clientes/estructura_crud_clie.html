@@ -61,11 +61,7 @@
                 <a type="button" href="{% url 'delclie' clie.persona.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
-        <td>
-            <button type="button" class="btn btn-primary">Ver</button>
-            <button type="button" class="btn btn-success">Editar</button>
-            <button type="button" class="btn btn-danger">Eliminar</button>
-        </td>
+       
         {% endfor %}
         {% else %}
         <h4>No se encontraron datos</h4>
