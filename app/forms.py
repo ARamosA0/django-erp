@@ -6,7 +6,7 @@ from .models import *
 class ProveedorBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    dni = forms.CharField(label='DNI:',
+    dni = forms.CharField(label='RUC:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
@@ -17,7 +17,7 @@ class ProveedorBusqueda(Form):
     localidad = forms.CharField(label='LOCALIDAD:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
     empresa = forms.CharField(label='EMPRESA:',
-        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'empresa'}),required=False)
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'empresa', 'name':'empresa'}),required=False)
 
 
 class ClienteBusqueda(Form):
@@ -74,6 +74,7 @@ class AgregarEmpresa(ModelForm):
             'nombre':forms.TextInput(attrs={'class':'form-control'}),
             'estructurajuridica':forms.TextInput(attrs={'class':'form-control'}),
             'ruc':forms.TextInput(attrs={'class':'form-control'}),
+            'tipo':forms.TextInput(attrs={'class':'form-control'}),
             'codprovincia':forms.Select(attrs={'class':'form-select form-select-sm'}),
             'localidad':forms.TextInput(attrs={'class': 'form-control'}),
             'direccion':forms.TextInput(attrs={'class': 'form-control'}),
