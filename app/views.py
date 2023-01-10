@@ -196,6 +196,38 @@ def articulos(request):
     }
     return render(request, "Articulos/estructura_crud_art.html",context)
 
+def agregar_articulo(request):
+    enviado = False
+    codformpago=""
+    if request.method == 'POST':
+        in_cliente_per = AgregarPersona(request.POST)
+        in_cliente = ClienteClienteInsertar(request.POST)
+        if in_cliente_per.is_valid() and in_cliente.is_valid():
+            in_cliente_per.save()
+            buscar_ultima_persona = Persona.objects.last()
+            ultima_persona = buscar_ultima_persona.id
+            #Se extrae la data como string del formulario
+            codformpago = in_cliente.data.get("codformapago")  
+            print(codformpago)
+            print(type(codformpago))
+            cliente = Clientes()
+            cliente.persona_id = int(ultima_persona)
+            cliente.codformapago_id = int(codformpago)
+            cliente.save()
+            return HttpResponseRedirect('agregarclie?enviado=True')
+    else:
+        in_cliente_per= AgregarPersona()
+        in_cliente=ClienteClienteInsertar()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_cliente_per':in_cliente_per,
+        'in_cliente':in_cliente,
+        'enviado':enviado, 
+    }
+    return render(request, "Clientes/formulario_insertar_cliente.html", context)
+
+
 #FAMILIAS, CATEGORIAS
 
 def familias(request):

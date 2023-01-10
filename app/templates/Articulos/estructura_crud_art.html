@@ -11,7 +11,7 @@
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" class="btn btn-warning" >Limpiar</a>
-            <a href="{% url 'aclie' %}" type="button" class="btn btn-success" >Agregar</a>
+            <a href="{% url 'arti' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
     </div>
@@ -44,6 +44,7 @@
             <th scope="col">Descripcion</th>
             <th scope="col">Proveedor</th>
             <th scope="col">Ubicacion</th>
+            <th scope="col">Acciones</th>
         </tr>        
     </thead>
     
@@ -51,24 +52,22 @@
         {% if articulos_list %}
         {% for art in articulos_list %}
         <tr scope="row">
-            <td>{{ art.persona.id }}</td>
-            <td>{{ art.persona.id }}</td>
-            <td>{{ art.persona.referencia }}</td>
-            <td>{{ art.persona.familia }}</td>
-            <td>{{ art.persona.descripcion }}</td>
-            <td>{{ art.persona.proveedor }}</td>
-            <td>{{ art.persona.ubicacion }}</td>
+            <td>{{ art.id }}</td>
+            <td>{{ art.id }}</td>
+            <td>{{ art.referencia }}</td>
+            <td>{{ art.familia }}</td>
+            <td>{{ art.descripcion }}</td>
+            <td>{{ art.proveedor }}</td>
+            <td>{{ art.ubicacion }}</td>
 
             <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver</button>
-                <a type="button" href="{% url 'edclie' clie.persona.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delclie' clie.persona.id %}" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="" class="btn btn-success">Editar</a>
+                <a type="button" href="" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         <td>
-            <button type="button" class="btn btn-primary">Ver</button>
-            <button type="button" class="btn btn-success">Editar</button>
-            <button type="button" class="btn btn-danger">Eliminar</button>
+        
         </td>
         {% endfor %}
         {% else %}
