@@ -78,7 +78,37 @@ def agregar_proveedor(request):
 
     return render(request,"Proveedores/formulario_insertar_proveedor.html", context)
 
+def eliminar_proveedor(request, id):
+    proveedor = Proveedores.objects.get(id=id)
+    
+    persona = Persona.objects.get(pk=id)
+    empresa = Empresa.objects.get(pk=id)
 
+    persona_id = persona.id
+    empresa_id = empresa.id
+
+    if proveedor.empresa == empresa_id:
+        proveedor.delete()
+        empresa.delete()
+    elif proveedor.empresa == persona_id:
+        proveedor.delete()
+        persona.delete()
+
+    return redirect('prov')
+
+def ver_proveedor(request, id):
+    prov = Proveedores.objects.get(id=id)
+    context = {
+        'prov':prov,
+    }
+
+    return render(request, 'Proveedores/proveedor.html', context)
+
+def editar_proveedor(request, id):
+    persona_put = Persona.objects.get(id=id)
+    in_proveedor_per = AgregarPersona(request.POST, instance=persona_put)
+    in_proveedor_per.save()
+    return redirect('prov')
 
 #CLIENTES
 def clientes(request):
