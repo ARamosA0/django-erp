@@ -14,7 +14,9 @@ def proveedores(request):
     busquedaform = ProveedorBusqueda()
     context ={
         'proveedores_list': proveedores_list,
-        'busquedaform': busquedaform
+        'busquedaform': busquedaform,
+        'contador':len(proveedores_list),
+        'num':0
     }
     if request.method == 'POST':
         busquedaform = ProveedorBusqueda(request.POST)
@@ -41,33 +43,42 @@ def agregar_proveedor(request):
     if request.method == "POST":
         form_persona = AgregarPersona(request.POST)
         form_empresa = AgregarEmpresa(request.POST)
-        if form_persona.is_valid():
+        form_proveedor = ProveedorProveedorInsertar(request.POST)
+        if form_persona.is_valid() and form_proveedor.is_valid():
             form_persona.save()
             buscar_ultima_persona = Persona.objects.last()
             ultima_persona = buscar_ultima_persona.id
+
+            rucproveedor = form_proveedor.data.get("ruc")
             proveedor = Proveedores()
             proveedor.persona_id = int(ultima_persona)
+            proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
             return HttpResponseRedirect('agregarprov?enviado=True')
-        elif form_empresa.is_valid():
+        elif form_empresa.is_valid() and form_proveedor.is_valid():
             form_empresa.save()
             buscar_ultima_empresa = Empresa.objects.last()
             ultima_empresa = buscar_ultima_empresa.id
+
+            rucproveedor = form_proveedor.data.get("ruc")
             proveedor = Proveedores()
             proveedor.empresa_id = int(ultima_empresa)
+            proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
             return HttpResponseRedirect('agregarprov?enviado=True')
     else:
         form_persona = AgregarPersona
         form_empresa = AgregarEmpresa
+        form_proveedor = ProveedorProveedorInsertar
         if 'enviado' in request.GET:
             enviado = True
 
     context ={
         'form_persona':form_persona, 
         'form_empresa':form_empresa,
+        'form_proveedor': form_proveedor,
         'enviado':enviado
     }
 
@@ -115,8 +126,6 @@ def agregar_cliente(request):
             ultima_persona = buscar_ultima_persona.id
             #Se extrae la data como string del formulario
             codformpago = in_cliente.data.get("codformapago")  
-            print(codformpago)
-            print(type(codformpago))
             cliente = Clientes()
             cliente.persona_id = int(ultima_persona)
             cliente.codformapago_id = int(codformpago)
@@ -200,17 +209,7 @@ def articulos(request):
     }
     return render(request, "Articulos/estructura_crud_art.html",context)
 
-def agregar_articulo(request):
-    return
 
-def ver_articulo(request):
-    return
-
-def editar_articulo(request):
-    return
-
-def eliminar_articulo(request):
-    return
 
 #FAMILIAS, CATEGORIAS
 
@@ -223,14 +222,23 @@ def familias(request):
     }
     return render(request, "Familias/estructura_crud_fam.html",context)
 
-def agregar_familia(request):
+
+#VENTAS CLIENTES
+def reg_venta(request):
+    
+    # Al buscar el codigo de barras del producto se autocompleta la descripcion.
+    # El precion incrementa con la cantidad y se  reduce con el descuento
+    # 
     return
 
-def ver_familia(request):
+# FACTURAS VENTAS CLIENTE
+def facturas(request):
     return
 
-def editar_familia(request):
-    return
+# ALBANARES
+def albanar(request):
+    return 
 
-def eliminar_familia(request):
-    return
+# FACTURA ALBANARES
+def fac_albanar(request):
+    return 

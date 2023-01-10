@@ -126,10 +126,6 @@ class Articulos(models.Model):
 
 
 
-
-
-
-
 # class Facturas(models.Model):
 #     fecha = models.DateField(auto_now='True')
 #     iva = models.IntegerField()

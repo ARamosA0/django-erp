@@ -48,6 +48,13 @@ class ClienteClienteInsertar(ModelForm):
             'codformapago': forms.Select(attrs={'class': 'form-control'})
         }
 
+class ProveedorProveedorInsertar(ModelForm):
+    class Meta:
+        model = Proveedores
+        fields = ('ruc',)
+        widgets = {
+            'ruc': forms.TextInput(attrs={'class': 'form-control'})
+        }
 
 class AgregarPersona(ModelForm):
     class Meta:
