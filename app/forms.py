@@ -115,8 +115,4 @@ class AgregarFamilia(ModelForm):
         fields = '__all__'
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control'})
-<<<<<<< HEAD
-          
-=======
->>>>>>> 19a757544ede77e1315bc8be1d1775c006aff636
         }
