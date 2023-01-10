@@ -88,6 +88,7 @@ def clientes(request):
         if busquedaform.is_valid():
             data = Clientes.objects.filter(borrado='0')
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            
             data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
             data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             data = data.filter(persona_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
@@ -175,13 +176,17 @@ def editar_cliente(request, id):
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
 def eliminar_cliente(request, id):
+    enviado = False
     del_cliente = Clientes.objects.filter(persona__id=id)
     del_persona = Persona.objects.filter(id=id)
     if request.method =="POST":
         del_cliente.delete()
         del_persona.delete()
-        return HttpResponseRedirect('clie')
-    return render(request, "Formulario/form_delete.html")
+        return HttpResponseRedirect('?enviado=True')
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "Clientes/delete_cliente.html", context)
         
 
 #ARTICULOS
@@ -195,6 +200,18 @@ def articulos(request):
     }
     return render(request, "Articulos/estructura_crud_art.html",context)
 
+def agregar_articulo(request):
+    return
+
+def ver_articulo(request):
+    return
+
+def editar_articulo(request):
+    return
+
+def eliminar_articulo(request):
+    return
+
 #FAMILIAS, CATEGORIAS
 
 def familias(request):
@@ -205,3 +222,15 @@ def familias(request):
         'busquedaform': busquedaform
     }
     return render(request, "Familias/estructura_crud_fam.html",context)
+
+def agregar_familia(request):
+    return
+
+def ver_familia(request):
+    return
+
+def editar_familia(request):
+    return
+
+def eliminar_familia(request):
+    return
