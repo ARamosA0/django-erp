@@ -2,109 +2,148 @@
 
 {% block content %}
     {% if prov.empresa == null %}
-    <div class="container text-center">
-      <h1 class="modal-title fs-5" >{{ prov.persona.nombre }}</h1>
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            <h1 class="modal-title fs-5" >{{ prov.persona.nombre }}</h1>
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATOS</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">NOMBRE: </th>
+                            <td>{{ prov.persona.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DNI: </th>
+                            <td>{{ prov.persona.dni }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PROVINCIA: </th>
+                            <td>{{ prov.persona.codprovincia }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">LOCALIDAD: </th>
+                            <td>{{ prov.persona.localidad }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DIRECCION: </th>
+                            <td>{{ prov.persona.direccion }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CODIGO POSTAL: </th>
+                            <td>{{ prov.persona.codpostal }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CUENTA BANCARIA: </th>
+                            <td>{{ prov.persona.cuentabancaria }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FORMA DE PAGO: </th>
+                            <td>{{ prov.codformapago }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TELEFONO: </th>
+                            <td>{{ prov.persona.telefono }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CELULAR: </th>
+                            <td>{{ prov.persona.movil }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">WEB: </th>
+                            <td>{{ prov.persona.web }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
     </div>
     <div class="container text-center">
-        <div class="row">
-            <div class="col">NOMBRE: </div>
-            <div class="col">{{ prov.persona.nombre }}</div>
-        <div class="row">
-            <div class="col">DNI: </div>
-            <div class="col">{{ prov.persona.dni }}</div>
-        </div>
-        <div class="row">
-            <div class="col">PROVINCIA: </div>
-            <div class="col">{{ prov.persona.codprovincia }}</div>
-        </div>
-        <div class="row">
-            <div class="col">LOCALIDAD: </div>
-            <div class="col">{{ prov.persona.localidad }}</div>
-        </div>
-        <div class="row">
-            <div class="col">DIRECCION:</div>
-            <div class="col">{{ prov.persona.direccion }}</div>
-        </div>
-        <div class="row">
-            <div class="col">CODIGO POSTAL: </div>
-            <div class="col">{{ prov.persona.codpostal }}</div>
-        </div>
-        <div class="row">
-            <div class="col">CUENTA BANCARIA: </div>
-            <div class="col">{{ prov.persona.cuentabancaria }}</div>
-        </div>
-
-        <div class="row">
-            <div class="col">FORMA DE PAGO: </div>
-            <div class="col">{{ prov.codformapago }}</div>
-        </div>
-        <div class="row">
-            <div class="col">TELEFONO: </div>
-            <div class="col">{{ prov.persona.telefono }}</div>
-        </div>
-        <div class="row">
-            <div class="col">CELULAR: </div>
-            <div class="col">{{ prov.persona.movil }}</div>
-        </div>
-        <div class="row">
-            <div class="col">WEB: </div>
-            <div class="col">{{ prov.persona.web }}</div>
-        </div>
+        <a type="button" href="{% url 'prov' %}" class="btn btn-primary">Regresar</a>
     </div>
+    
     {% else %}
-    <div class="container text-center">
-        <h1 class="modal-title fs-5" >{{ prov.persona.nombre }}</h1>
-      </div>
-      <div class="container text-center">
-          <div class="row">
-              <div class="col">NOMBRE: </div>
-              <div class="col">{{ prov.empresa.nombre }}</div>
-          <div class="row">
-              <div class="col">ESTRUCTURA JURIDICA: </div>
-              <div class="col">{{ prov.empresa.estructurajuridica }}</div>
-          </div>
-          <div class="row">
-              <div class="col">PROVINCIA: </div>
-              <div class="col">{{ prov.empresa.codprovincia }}</div>
-          </div>
-          <div class="row">
-              <div class="col">LOCALIDAD: </div>
-              <div class="col">{{ prov.empresa.localidad }}</div>
-          </div>
-          <div class="row">
-              <div class="col">DIRECCION:</div>
-              <div class="col">{{ prov.empresa.direccion }}</div>
-          </div>
-          <div class="row">
-              <div class="col">CODIGO POSTAL: </div>
-              <div class="col">{{ prov.empresa.codpostal }}</div>
-          </div>
-          <div class="row">
-              <div class="col">CUENTA BANCARIA: </div>
-              <div class="col">{{ prov.empresa.cuentabancaria }}</div>
-          </div>
-  
-          <div class="row">
-              <div class="col">RUC: </div>
-              <div class="col">{{ prov.empresa.ruc }}</div>
-          </div>
-          <div class="row">
-              <div class="col">MOVIL: </div>
-              <div class="col">{{ prov.empresa.movil }}</div>
-          </div>
-          <div class="row">
-              <div class="col">CELULAR: </div>
-              <div class="col">{{ prov.empresa.movil }}</div>
-          </div>
-          <div class="row">
-              <div class="col">WEB: </div>
-              <div class="col">{{ prov.empresa.web }}</div>
-          </div>
-          <div class="row">
-            <div class="col">TIPO: </div>
-            <div class="col">{{ prov.empresa.tipo }}</div>
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            <h1 class="modal-title fs-5" >{{ prov.persona.nombre }}</h1>
         </div>
-      </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATOS</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">NOMBRE: </th>
+                            <td>{{ prov.empresa.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ESTRUCTURA JURIDICA: </th>
+                            <td>{{ prov.empresa.estructurajuridica }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TIPO: </th>
+                            <td>{{ prov.empresa.tipo }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">RUC: </th>
+                            <td>{{ prov.empresa.ruc }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PROVINCIA: </th>
+                            <td>{{ prov.empresa.codprovincia }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">LOCALIDAD: </th>
+                            <td>{{ prov.empresa.localidad }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DIRECCION: </th>
+                            <td>{{ prov.empresa.direccion }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CODIGO POSTAL: </th>
+                            <td>{{ prov.empresa.codpostal }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CUENTA BANCARIA: </th>
+                            <td>{{ prov.empresa.cuentabancaria }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FORMA DE PAGO: </th>
+                            <td>{{ prov.codformapago }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TELEFONO: </th>
+                            <td>{{ prov.persona.telefono }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CELULAR: </th>
+                            <td>{{ prov.empresa.movil }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">WEB: </th>
+                            <td>{{ prov.empresa.web }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'prov' %}" class="btn btn-primary">Regresar</a>
+    </div>
     {% endif%}
 
 {% endblock %}
