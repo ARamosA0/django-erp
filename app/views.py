@@ -18,10 +18,16 @@ def proveedores(request):
     }
     if request.method == 'POST':
         busquedaform = ProveedorBusqueda(request.POST)
+
+        
         if busquedaform.is_valid():
+            # print("esto es de mi formulario",busquedaform.cleaned_data['empresa'])
+            # print(Proveedores.objects.filter(borrado='0').filter(empresa_id=None)) if busquedaform.cleaned_data['empresa']==True else print("nada de nada")
             data = Proveedores.objects.filter(borrado='0')
-            # empresa = Proveedores.objects.filter()
-            
+            if str(busquedaform.cleaned_data['empresa']) == 'True':
+                data = data.filter(empresa_id=True)
+            elif str(busquedaform.cleaned_data['empresa']) == 'False':
+                data = data.filter(empresa_id=None)
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
             data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
