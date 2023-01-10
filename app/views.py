@@ -25,7 +25,7 @@ def proveedores(request):
             data = data.filter(pk=busquedaform.cleaned_data['codigo']) if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(ruc=busquedaform.cleaned_data['ruc']) if busquedaform.cleaned_data['ruc'] else data
             if str(busquedaform.cleaned_data['empresa']) == 'True':
-                data = data.filter(empresa_id=True)
+                data = data.filter(persona_id=None)
                 data = data.filter(empresa_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
                 data = data.filter(empresa_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
                 data = data.filter(empresa_id__codprovincia_id=busquedaform.cleaned_data['provincia'])  if busquedaform.cleaned_data['provincia'] else data
@@ -193,14 +193,15 @@ def eliminar_cliente(request, id):
     enviado = False
     del_cliente = Clientes.objects.filter(persona__id=id)
     del_persona = Persona.objects.filter(id=id)
+    red = request.POST.get('clie','/erp/clie/')
     if request.method =="POST":
         del_cliente.delete()
         del_persona.delete()
-        return HttpResponseRedirect('?enviado=True')
+        return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
-    return render(request, "Clientes/delete_cliente.html", context)
+    return render(request, "Clientes/de/eliminar/8/erp/clie/lete_cliente.html", context)
         
 
 #ARTICULOS
@@ -230,12 +231,12 @@ def familias(request):
 
 #VENTAS CLIENTES
 def reg_venta(request):
-    
     # Al buscar el codigo de barras del producto se autocompleta la descripcion.
     # El precio incrementa con la cantidad y se  reduce con el descuento
     # Al darle agregar el producto se agrega a una lista
     # La lista se muestra en una tabla con las opciones de eliminar y editar. 
     # Solo se podra editar la cantidad 
+    
     return
 
 # FACTURAS VENTAS CLIENTE

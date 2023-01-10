@@ -115,3 +115,40 @@ class FamiliaBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+
+
+# CLINETE PARA VENTAS
+class ClienteVenta(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+
+class FacturaAgregar(ModelForm):
+    class Meta:
+        model = Facturas
+        fields = ('fecha', 'iva')
+        widgets = {
+            'fecha':forms.TextInput(attrs={'class':'form-control'}),
+            'iva':forms.TextInput(attrs={'class':'form-control'})
+        }
+
+class Articulo(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    precio = forms.CharField(label='PRECIO (S/.):',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+
+class NuevoElemento(From):
+    fecha = forms.CharField(label='CANTIDAD:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    iva = forms.CharField(label='Dcto:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    cantidad = forms.CharField(label='CANTIDAD:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    descuento = forms.CharField(label='Dcto:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    importe = forms.CharField(label='Importe (S/.):',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+     
+    
