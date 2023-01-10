@@ -6,8 +6,8 @@ from .models import *
 class ProveedorBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    dni = forms.CharField(label='RUC:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
+    ruc = forms.CharField(label='RUC:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'ruc'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
     telefono = forms.CharField(label='TELEFONO:',
