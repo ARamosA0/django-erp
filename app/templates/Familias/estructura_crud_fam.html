@@ -40,7 +40,7 @@
             <th scope="col">Item</th>
             <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
-         
+            <th scope="col">Acciones</th>
         </tr>        
     </thead>
     
@@ -48,14 +48,14 @@
         {% if familias_list %}
         {% for fam in familias_list %}
         <tr scope="row">
-            <td>{{ fma.persona.id }}</td>
-            <td>{{ fma.persona.id }}</td>
-            <td>{{ fma.persona.nombre }}</td>
+            <td>{{ fam.id }}</td>
+            <td>{{ fam.id }}</td>
+            <td>{{ fam.nombre }}</td>
        
             <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver</button>
-                <a type="button" href="{% url 'edclie' clie.persona.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delclie' clie.persona.id %}" class="btn btn-danger">Eliminar</a>
+                <a type="button"  class="btn btn-success">Editar</a>
+                <a type="button"  class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

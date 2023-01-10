@@ -134,7 +134,6 @@ def agregar_cliente(request):
     }
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
-
 def ver_cliente(request, id):
     cliente_list = Clientes.objects.get(persona__id=id)
     context = {
