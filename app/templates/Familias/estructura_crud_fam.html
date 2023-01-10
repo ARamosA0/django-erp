@@ -5,14 +5,14 @@
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar familia</center></h4>
       <div  class="form-group">
-        <form method="post">
+        <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
           {{ busquedaform.as_p }}  
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
-            <a type="button" class="btn btn-warning" >Limpiar</a>
-            <a href="{% url 'aclie' %}" type="button" class="btn btn-success" >Agregar</a>
-          </div>                   
+            <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
+            <a href="{% url 'afam' %}" type="button" class="btn btn-success" >Agregar</a>
+          </div>
         </form>
     </div>
     </div>
@@ -51,11 +51,10 @@
             <td>{{ fam.id }}</td>
             <td>{{ fam.id }}</td>
             <td>{{ fam.nombre }}</td>
-       
             <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver</button>
-                <a type="button"  class="btn btn-success">Editar</a>
-                <a type="button"  class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'verfam' fam.id %}" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edfam' fam.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delfam' fam.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
