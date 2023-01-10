@@ -155,7 +155,7 @@ def editar_cliente(request, id):
             #Se extrae la data como string del formulario
             codformpago = in_cliente.data.get("codformapago")  
             print(codformpago)
-            print(type(codformpago))
+            print(type(codformpago))    
             cliente = Clientes()
             cliente.persona_id = int(ultima_persona)
             cliente.codformapago_id = int(codformpago)
@@ -207,3 +207,32 @@ def familias(request):
         'busquedaform': busquedaform
     }
     return render(request, "Familias/estructura_crud_fam.html",context)
+
+def agregar_familia(request):
+    enviado = False
+    if request.method == 'POST':
+        in_familia_per = AgregarFamilia(request.POST)
+        if in_familia_per.is_valid():
+            in_familia_per.save()
+            return HttpResponseRedirect('agregarfam?enviado=True')
+    else:
+        in_familia_per= AgregarFamilia()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_familia_per':in_familia_per,
+        'enviado':enviado, 
+    }
+    return render(request, "Familias/formulario_insertar_familia.html", context)
+
+def editar_familia(request, id):
+    familia_put = Familia.objects.get(id=id)
+    in_familia_per = AgregarFamilia(request.POST or None, instance=familia_put)
+    if in_familia_per.is_valid():
+            in_familia_per.save()       
+            return redirect('fam')
+    
+    context = {
+        'in_familia_per':in_familia_per,
+    }    
+    return render(request, "Familias/formulario_insertar_familia.html", context)

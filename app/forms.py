@@ -108,3 +108,12 @@ class FamiliaBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+
+class AgregarFamilia(ModelForm):
+    class Meta:
+        model = Familia
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+          
+        }

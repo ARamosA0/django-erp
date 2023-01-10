@@ -30,5 +30,9 @@ urlpatterns =[
     #Insertar Cliente
    
     #Pag Familias
-    path('fam/', familias, name="fam")
+    path('fam/', familias, name="fam"),
+    #Editar Cliente
+    path('fam/editar/<int:id>/', editar_familia, name="edfam"),
+    #Insertar familia
+    path('fam/agregarfam', agregar_familia, name="afam")
 ]
