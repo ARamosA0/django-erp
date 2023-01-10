@@ -78,7 +78,74 @@ def agregar_proveedor(request):
 
     return render(request,"Proveedores/formulario_insertar_proveedor.html", context)
 
+def eliminar_proveedor(request, id):
+    proveedor = Proveedores.objects.get(id=id)
 
+    persona_p = proveedor.persona_id 
+    empresa_p = proveedor.empresa_id 
+
+    if persona_p == None:
+        persona_p = 0
+    elif empresa_p == None:
+        empresa_p = 0
+
+    print(persona_p)
+    print(empresa_p)
+
+    if persona_p == 0:
+        empresa = Empresa.objects.get(id= int(empresa_p))
+        proveedor.delete()
+        empresa.delete()
+    elif empresa_p == 0:
+        persona = Persona.objects.get(id= int(persona_p))
+        proveedor.delete()
+        persona.delete()
+
+    return redirect('prov')
+
+def ver_proveedor(request, id):
+    prov = Proveedores.objects.get(id=id)
+    context = {
+        'prov':prov,
+    }
+
+    return render(request, 'Proveedores/proveedor.html', context)
+
+def editar_proveedor(request, id):
+
+    proveedor = Proveedores.objects.get(id=id)
+
+    persona_put = proveedor.persona_id 
+    empresa_put = proveedor.empresa_id 
+
+    if persona_put == None:
+        persona_put = 0
+    elif empresa_put == None:
+        empresa_put = 0
+
+    form_empresa = AgregarEmpresa(request.POST)
+    form_persona = AgregarPersona(request.POST)
+
+    if persona_put == 0:
+        empresa = Empresa.objects.get(id= int(empresa_put))
+        form_empresa = AgregarEmpresa(request.POST or None, instance=empresa)
+        if form_empresa.is_valid():
+            form_empresa.save()
+            return redirect('prov')
+
+    elif empresa_put == 0:
+        persona = Persona.objects.get(id= int(persona_put))
+        form_persona = AgregarPersona(request.POST or None, instance=persona)
+        if form_persona.is_valid():
+            form_persona.save()
+            return redirect('prov')
+
+    context = {
+        'form_empresa':form_empresa,
+        'form_persona':form_persona,
+    }
+
+    return render(request, "Proveedores/formulario_insertar_proveedor.html", context)
 
 #CLIENTES
 def clientes(request):
