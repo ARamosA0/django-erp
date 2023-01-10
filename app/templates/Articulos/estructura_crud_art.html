@@ -11,7 +11,7 @@
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" class="btn btn-warning" >Limpiar</a>
-            <a href="{% url 'arti' %}" type="button" class="btn btn-success" >Agregar</a>
+            <a href="{% url 'aclie' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
     </div>
@@ -55,7 +55,6 @@
             <td>{{ art.id }}</td>
             <td>{{ art.id }}</td>
             <td>{{ art.referencia }}</td>
-<<<<<<< HEAD
             <td>{{ art.familia }}</td>
             <td>{{ art.descripcion }}</td>
             <td>{{ art.proveedor }}</td>
@@ -65,18 +64,6 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver</button>
                 <a type="button" href="" class="btn btn-success">Editar</a>
                 <a type="button" href="" class="btn btn-danger">Eliminar</a>
-=======
-            <td>{{ art.familia.nombre }}</td>
-            <td>{{ art.descripcion }}</td>
-            {% if art.proveedor_1.persona.nombre %}
-                <td>{{ art.proveedor_1.persona.nombre }}</td>
-            {% else %}
-                <td>{{ art.proveedor_1.empresa.nombre }}</td>
-            {% endif %}
-            <td>{{ art.ubicacion }}</td>
-            <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver</button>
->>>>>>> d124016c81f6118931b2e492bbaa7ed9546641e8
             </td>
         </tr>
         <td>

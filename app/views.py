@@ -88,7 +88,6 @@ def clientes(request):
         if busquedaform.is_valid():
             data = Clientes.objects.filter(borrado='0')
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            
             data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
             data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             data = data.filter(persona_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
@@ -176,17 +175,13 @@ def editar_cliente(request, id):
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
 def eliminar_cliente(request, id):
-    enviado = False
     del_cliente = Clientes.objects.filter(persona__id=id)
     del_persona = Persona.objects.filter(id=id)
     if request.method =="POST":
         del_cliente.delete()
         del_persona.delete()
-        return HttpResponseRedirect('?enviado=True')
-    context = {
-        'enviado':enviado
-    }
-    return render(request, "Clientes/delete_cliente.html", context)
+        return HttpResponseRedirect('clie')
+    return render(request, "Formulario/form_delete.html")
         
 
 #ARTICULOS
@@ -200,50 +195,7 @@ def articulos(request):
     }
     return render(request, "Articulos/estructura_crud_art.html",context)
 
-def agregar_articulo(request):
-<<<<<<< HEAD
-    enviado = False
-    codformpago=""
-    if request.method == 'POST':
-        in_cliente_per = AgregarPersona(request.POST)
-        in_cliente = ClienteClienteInsertar(request.POST)
-        if in_cliente_per.is_valid() and in_cliente.is_valid():
-            in_cliente_per.save()
-            buscar_ultima_persona = Persona.objects.last()
-            ultima_persona = buscar_ultima_persona.id
-            #Se extrae la data como string del formulario
-            codformpago = in_cliente.data.get("codformapago")  
-            print(codformpago)
-            print(type(codformpago))
-            cliente = Clientes()
-            cliente.persona_id = int(ultima_persona)
-            cliente.codformapago_id = int(codformpago)
-            cliente.save()
-            return HttpResponseRedirect('agregarclie?enviado=True')
-    else:
-        in_cliente_per= AgregarPersona()
-        in_cliente=ClienteClienteInsertar()
-        if 'enviado' in request.GET:
-            enviado = True
-    context = {
-        'in_cliente_per':in_cliente_per,
-        'in_cliente':in_cliente,
-        'enviado':enviado, 
-    }
-    return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
-=======
-    return
-
-def ver_articulo(request):
-    return
-
-def editar_articulo(request):
-    return
-
-def eliminar_articulo(request):
-    return
->>>>>>> 39da9a83175cf5708b694d7bbaa4ff5360cc20c9
 
 #FAMILIAS, CATEGORIAS
 
@@ -255,15 +207,3 @@ def familias(request):
         'busquedaform': busquedaform
     }
     return render(request, "Familias/estructura_crud_fam.html",context)
-
-def agregar_familia(request):
-    return
-
-def ver_familia(request):
-    return
-
-def editar_familia(request):
-    return
-
-def eliminar_familia(request):
-    return
