@@ -232,8 +232,10 @@ def familias(request):
 def reg_venta(request):
     
     # Al buscar el codigo de barras del producto se autocompleta la descripcion.
-    # El precion incrementa con la cantidad y se  reduce con el descuento
-    # 
+    # El precio incrementa con la cantidad y se  reduce con el descuento
+    # Al darle agregar el producto se agrega a una lista
+    # La lista se muestra en una tabla con las opciones de eliminar y editar. 
+    # Solo se podra editar la cantidad 
     return
 
 # FACTURAS VENTAS CLIENTE
