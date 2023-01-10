@@ -20,17 +20,22 @@ def proveedores(request):
         busquedaform = ProveedorBusqueda(request.POST)
         if busquedaform.is_valid():
             data = Proveedores.objects.filter(borrado='0')
-            # empresa = Proveedores.objects.filter()
-            
-            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
-            data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
-            data = data.filter(persona_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
-            data = data.filter(persona_id__codprovincia_id=busquedaform.cleaned_data['provincia'])  if busquedaform.cleaned_data['provincia'] else data
-            data = data.filter(persona_id__localidad=busquedaform.cleaned_data['localidad'])  if busquedaform.cleaned_data['localidad'] else data
+            data = data.filter(pk=busquedaform.cleaned_data['codigo']) if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(ruc=busquedaform.cleaned_data['ruc']) if busquedaform.cleaned_data['ruc'] else data
+            if str(busquedaform.cleaned_data['empresa']) == 'True':
+                data = data.filter(empresa_id=True)
+                data = data.filter(empresa_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+                data = data.filter(empresa_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
+                data = data.filter(empresa_id__codprovincia_id=busquedaform.cleaned_data['provincia'])  if busquedaform.cleaned_data['provincia'] else data
+                data = data.filter(empresa_id__localidad=busquedaform.cleaned_data['localidad'])  if busquedaform.cleaned_data['localidad'] else data
+            else:
+                data = data.filter(empresa_id=None)
+                data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+                data = data.filter(persona_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
+                data = data.filter(persona_id__codprovincia_id=busquedaform.cleaned_data['provincia'])  if busquedaform.cleaned_data['provincia'] else data
+                data = data.filter(persona_id__localidad=busquedaform.cleaned_data['localidad'])  if busquedaform.cleaned_data['localidad'] else data
             context['proveedores_list']=data
             context['busquedaform']=busquedaform
-
     return render(request, "Proveedores/estructura_crud.html", context)
 
 
@@ -206,6 +211,16 @@ def familias(request):
         'familias_list': familias_list,
         'busquedaform': busquedaform
     }
+    if request.method == 'POST':
+        busquedaform = FamiliaBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Familia.objects.filter(borrado='0')
+            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+            context['familias_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = FamiliaBusqueda()
     return render(request, "Familias/estructura_crud_fam.html",context)
 
 def agregar_familia(request):
@@ -215,6 +230,7 @@ def agregar_familia(request):
         if in_familia_per.is_valid():
             in_familia_per.save()
             return HttpResponseRedirect('agregarfam?enviado=True')
+<<<<<<< HEAD
     else:
         in_familia_per= AgregarFamilia()
         if 'enviado' in request.GET:
@@ -225,6 +241,26 @@ def agregar_familia(request):
     }
     return render(request, "Familias/formulario_insertar_familia.html", context)
 
+=======
+
+    else:
+        in_familia_per= AgregarFamilia()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_familia_per':in_familia_per,
+        'enviado':enviado, 
+    }
+    return render(request, "Familias/formulario_insertar_familia.html", context)
+
+def ver_familia(request, id):
+    familia_list = Familia.objects.get(id=id)
+    context = {
+        'fam': familia_list
+    }
+    return render(request, "Familias/familia.html", context)
+
+>>>>>>> 19a757544ede77e1315bc8be1d1775c006aff636
 def editar_familia(request, id):
     familia_put = Familia.objects.get(id=id)
     in_familia_per = AgregarFamilia(request.POST or None, instance=familia_put)
@@ -235,4 +271,19 @@ def editar_familia(request, id):
     context = {
         'in_familia_per':in_familia_per,
     }    
+<<<<<<< HEAD
     return render(request, "Familias/formulario_insertar_familia.html", context)
+=======
+    return render(request, "Familias/formulario_insertar_familia.html", context)
+
+def eliminar_familia(request,id):
+    enviado = False
+    del_familia = Familia.objects.filter(id=id)
+    if request.method =="POST":
+        del_familia.delete()
+        return HttpResponseRedirect('?enviado=True')
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "Familias/delete_familia.html", context)
+>>>>>>> 19a757544ede77e1315bc8be1d1775c006aff636

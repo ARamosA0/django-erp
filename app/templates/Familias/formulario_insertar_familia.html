@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 19a757544ede77e1315bc8be1d1775c006aff636
 {%extends 'index.html'%}
 
 {% block content %}
@@ -9,6 +12,7 @@
         </div>
         <div class="card-body">
             {% if enviado %}
+<<<<<<< HEAD
                 <p>Familia fue agregado</p>
                 <a class="btn btn-primary" href="{% url 'fam' %}" role="button">Volver</a> 
             {% else %}
@@ -16,6 +20,14 @@
                     {% csrf_token %}
                     {{ in_familia_per.as_p }} 
                   
+=======
+                <p>Familia fue agregada</p>
+                <a class="btn btn-primary" href="{% url 'fam' %}" role="button">Volver</a>
+            {% else %}
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+                    {{ in_familia_per.as_p }}
+>>>>>>> 19a757544ede77e1315bc8be1d1775c006aff636
                     <button type="submit" class="btn btn-primary">Guardar familia</button>
                 </form>
             {% endif %}
@@ -23,4 +35,8 @@
     </div>
 </section>
 
+<<<<<<< HEAD
 {% endblock %} 
+=======
+{% endblock %}
+>>>>>>> 19a757544ede77e1315bc8be1d1775c006aff636
