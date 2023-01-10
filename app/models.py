@@ -48,7 +48,6 @@ class Persona(models.Model):
 class Empresa(models.Model):
     nombre = models.CharField(max_length=100)
     estructurajuridica = models.CharField(max_length=100)
-    ruc = models.CharField(max_length=100)
     tipo = models.CharField(max_length=100)
     codprovincia = models.ForeignKey(Provincias, on_delete=models.CASCADE)
     localidad = models.CharField(max_length=100)
@@ -71,9 +70,9 @@ class Clientes(models.Model):
         return self.persona.nombre
 
 class Proveedores(models.Model):
-    # persona = models.OneToOneField(Persona, on_delete=models.CASCADE, primary_key=True)
     persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
+    ruc = models.CharField(max_length=100)
     borrado = models.CharField(max_length=1, default=0)
 
     def __str__(self):
