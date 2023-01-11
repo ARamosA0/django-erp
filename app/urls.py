@@ -16,7 +16,7 @@ urlpatterns =[
     path('prov/eliminar/<int:id>', eliminar_proveedor, name="delprov"),
     path('prov/ver/<int:id>', ver_proveedor, name="verprov"),
     path('prov/editar/<int:id>', editar_proveedor, name="edprov"),
-    
+
     
     #Pag Clientes
     path('clie/', clientes, name="clie"),
