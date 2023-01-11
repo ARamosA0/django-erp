@@ -367,9 +367,7 @@ def familias(request):
         busquedaform = FamiliaBusqueda()
     return render(request, "Familias/estructura_crud_fam.html",context)
 
-# FACTURA ALBANARES
-def fac_albanar(request):
-    return 
+
 def agregar_familia(request):
     enviado = False
     if request.method == 'POST':
@@ -421,30 +419,20 @@ def eliminar_familia(request,id):
 
 #VENTAS CLIENTES
 def reg_venta(request):
-    elemento_venta_form = NuevoElemento()
-    articulo_form = ArticuloVentaFormulario()
-    # codigoarticulo = request.GET['codigoarticulo'] 
 
-    articulo_venta=[]
-    
-    if request.method == 'GET': 
-        print('si')
-        # print(codigoarticulo)
-        # articulo_venta = Articulos.objects.filter(id=codigoarticulo)
-    
+    articulo_venta = []
     context ={
-        'elemento_venta_form': elemento_venta_form,
-        'articulo_form':articulo_form
+        'articulo_venta':articulo_venta,
     }
-
+    if request.method == 'POST':
+        codigoarticulo = request.POST.get('codigoarticulo', None) 
+        print(codigoarticulo)
+        articulo_data = Articulos.objects.filter(id=codigoarticulo)
+        
+        
+        context['articulo_venta']=articulo_data
+        print(articulo_data)
     
-
-
-    # Al buscar el codigo de barras del producto se autocompleta la descripcion.
-    # El precio incrementa con la cantidad y se  reduce con el descuento
-    # Al darle agregar el producto se agrega a una lista
-    # La lista se muestra en una tabla con las opciones de eliminar y editar. 
-    # Solo se podra editar la cantidad 
     
     return render(request, "VentaClientes/registroventa.html", context)
 
@@ -454,4 +442,8 @@ def facturas(request):
 
 # ALBANARES
 def albanar(request):
+    return 
+
+# FACTURA ALBANARES
+def fac_albanar(request):
     return 

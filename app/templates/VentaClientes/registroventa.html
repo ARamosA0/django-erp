@@ -24,11 +24,11 @@
             
         </form>
 
-        <form method="GET">
+        <form method="POST">
             {% csrf_token %}
             <div class="row">
-                {{articulo_form.as_p}}
-                <!-- <div class="form-group col-sm">
+                <!-- {{articulo_form.as_p}} -->
+                <div class="form-group col-sm">
                     <label for="exampleInputEmail1">CODIGO ARTICULO</label>
                     <input type="text" class="form-control" name="codigoarticulo" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
@@ -47,7 +47,7 @@
                 <div class="form-group col-sm">
                     <label for="exampleInputEmail1">IMPORTE</label>
                     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div> -->
+                </div>
             </div>
             
             <button type="submit" class="btn btn-success mt-4"  >AGREGAR</button>
