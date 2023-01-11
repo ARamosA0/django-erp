@@ -132,7 +132,6 @@ class Articulos(models.Model):
 #Facturas
 class Factura(models.Model):
     fecha = models.DateField(auto_now_add=True)
-    numlinea = models.IntegerField()
     iva = models.IntegerField()
     importe = models.FloatField()
     totalfactura = models.FloatField()
