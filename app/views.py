@@ -43,7 +43,8 @@ def proveedores(request):
 
 
 def agregar_proveedor(request):
-    enviado = False
+    enviado_per = False
+    enviado_emp = False
 
     if request.method == "POST":
         form_persona = AgregarPersona(request.POST)
@@ -60,7 +61,7 @@ def agregar_proveedor(request):
             proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
-            return HttpResponseRedirect('agregarprov?enviado=True')
+            return HttpResponseRedirect('agregarprov?enviado_per=True')
         elif form_empresa.is_valid() and form_proveedor.is_valid():
             form_empresa.save()
             buscar_ultima_empresa = Empresa.objects.last()
@@ -72,19 +73,22 @@ def agregar_proveedor(request):
             proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
-            return HttpResponseRedirect('agregarprov?enviado=True')
+            return HttpResponseRedirect('agregarprov?enviado_emp=True')
     else:
         form_persona = AgregarPersona
         form_empresa = AgregarEmpresa
         form_proveedor = ProveedorProveedorInsertar
-        if 'enviado' in request.GET:
-            enviado = True
+        if 'enviado_per' in request.GET:
+            enviado_per = True
+        elif 'enviado_emp' in request.GET:
+            enviado_emp = True
 
     context ={
         'form_persona':form_persona, 
         'form_empresa':form_empresa,
         'form_proveedor': form_proveedor,
-        'enviado':enviado
+        'enviado_per':enviado_per,
+        'enviado_emp':enviado_emp
     }
 
     return render(request,"Proveedores/formulario_insertar_proveedor.html", context)
@@ -123,6 +127,11 @@ def ver_proveedor(request, id):
     return render(request, 'Proveedores/proveedor.html', context)
 
 def editar_proveedor(request, id):
+    enviado_per = False
+    enviado_emp = False
+
+    editar_per = True
+    editar_emp = True
 
     proveedor = Proveedores.objects.get(id=id)
 
@@ -131,8 +140,19 @@ def editar_proveedor(request, id):
 
     if persona_put == None:
         persona_put = 0
+        enviado_per = False
+        enviado_emp = True
+
+        # if not enviado_per:
+        #     editar_per = True
+
     elif empresa_put == None:
         empresa_put = 0
+        enviado_emp = False
+        enviado_per = True
+
+        # if not enviado_emp:
+        #     editar_emp = True
 
     form_empresa = AgregarEmpresa(request.POST)
     form_persona = AgregarPersona(request.POST)
@@ -154,6 +174,10 @@ def editar_proveedor(request, id):
     context = {
         'form_empresa':form_empresa,
         'form_persona':form_persona,
+        'enviado_per':enviado_per,
+        'enviado_emp':enviado_emp,
+        'editar_emp':editar_emp,
+        'editar_per':editar_per
     }
 
     return render(request, "Proveedores/formulario_insertar_proveedor.html", context)
