@@ -132,6 +132,7 @@ class Articulos(models.Model):
 #     estado = models.CharField(max_length=100)
 #     totalfactura = models.FloatField()
 #     fechavencimiento = models.DateField(auto_now='True')
+#     codproducto = models.ForeignKey()
 
 #     def __str__(self):
 #         return self.iva
