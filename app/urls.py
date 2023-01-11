@@ -1,6 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from .views import *
+from django.conf.urls.static import static
 # from . import views
 
 urlpatterns =[
@@ -53,4 +54,5 @@ urlpatterns =[
 
     #Venta
     path('venta', reg_venta, name="venta")
+    
 ]

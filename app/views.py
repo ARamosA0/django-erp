@@ -267,7 +267,7 @@ def eliminar_cliente(request, id):
     context = {
         'enviado':enviado
     }
-    return render(request, "Clientes/de/eliminar/8/erp/clie/lete_cliente.html", context)
+    return render(request, "Clientes/delete_cliente.html", context)
         
 
 #ARTICULOS
@@ -337,13 +337,15 @@ def editar_articulo(request, id):
 def eliminar_articulo(request,id):
     enviado = False
     del_articulo = Articulos.objects.filter(id=id)
+    red = request.POST.get('art','/erp/art/')
     if request.method =="POST":
         del_articulo.delete()
-        return HttpResponseRedirect('?enviado=True')
+        return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
     return render(request, "Articulos/delete_articulo.html", context)
+
 
 #FAMILIAS, CATEGORIAS
 
@@ -366,9 +368,7 @@ def familias(request):
         busquedaform = FamiliaBusqueda()
     return render(request, "Familias/estructura_crud_fam.html",context)
 
-# FACTURA ALBANARES
-def fac_albanar(request):
-    return 
+
 def agregar_familia(request):
     enviado = False
     if request.method == 'POST':
@@ -408,9 +408,10 @@ def editar_familia(request, id):
 def eliminar_familia(request,id):
     enviado = False
     del_familia = Familia.objects.filter(id=id)
+    red = request.POST.get('fam','/erp/fam/')
     if request.method =="POST":
         del_familia.delete()
-        return HttpResponseRedirect('?enviado=True')
+        return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
@@ -441,4 +442,8 @@ def facturas(request):
 
 # ALBANARES
 def albanar(request):
+    return 
+
+# FACTURA ALBANARES
+def fac_albanar(request):
     return 
