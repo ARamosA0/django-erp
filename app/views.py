@@ -420,19 +420,34 @@ def eliminar_familia(request,id):
 #VENTAS CLIENTES
 def reg_venta(request):
 
-    articulo_venta = []
+    articulo_venta = Articulos()
     context ={
         'articulo_venta':articulo_venta,
+        'art_lista_fact':''
     }
-    if request.method == 'POST':
-        codigoarticulo = request.POST.get('codigoarticulo', None) 
-        print(codigoarticulo)
-        articulo_data = Articulos.objects.filter(id=codigoarticulo)
-        
-        
-        context['articulo_venta']=articulo_data
-        print(articulo_data)
-    
+    if request.method == 'GET':
+        try:
+            nomarticulo = request.GET.get('nomarticulo', None) 
+            print(nomarticulo)
+            articulo_data = Articulos.objects.get(referencia=nomarticulo)
+            context['articulo_venta']=articulo_data
+            articulo_venta = articulo_data
+
+            if request.method == 'POST':
+                print('=============================================',articulo_venta)
+                factura_linea_clie = Factura_linea_clie()
+                factura_linea_clie.codproducto = articulo_venta.pk
+                cantidad = request.POST["cantidad_art"]
+                factura_linea_clie.cantidad = cantidad
+                descuento = request.POST["descuento_art"]
+                factura_linea_clie.dsctoproducto = descuento
+                factura_linea_clie.importe = (articulo_venta.precio_compra * int(cantidad)) - float(descuento)
+                factura_linea_clie.save()
+                print('factura',factura_linea_clie)
+
+                context['art_lista_fact']=Factura_linea_clie.objects.last()
+        except Exception as e: 
+            print(e)
     
     return render(request, "VentaClientes/registroventa.html", context)
 
