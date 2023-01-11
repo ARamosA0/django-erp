@@ -7,12 +7,12 @@
         <p>Eliminado correctamente</p>
         <a class="btn btn-primary" href="{% url 'art' %}" role="button">Volver</a> 
     {% else %}
-        <section class="container">
-            <form action="" method="POST">
+        <section class="card" style="margin: 2em;">
+            <form action="" method="POST" style="margin: 2em;">
                 {% csrf_token %}
-                <h2>¿Estás Seguro/a?</h2>
-                <input type="submit" value="Si" class="btn btn-danger"/>
-                <a href="{% url 'art' %}" class="btn btn-warning"> Cancel </a>
+                <h2>¿Estás seguro(a)?</h2>
+                <input type="submit" value="Sí" class="btn btn-danger"/>
+                <a href="{% url 'fam' %}" class="btn btn-warning"> Cancelar </a>
             </form>
         </section>
     {% endif %}

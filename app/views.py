@@ -286,11 +286,10 @@ def articulos(request):
         if busquedaform.is_valid():
             data = Articulos.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            
             data = data.filter(referencia=busquedaform.cleaned_data['referencia'])  if busquedaform.cleaned_data['referencia'] else data
             data = data.filter(familia=busquedaform.cleaned_data['familia'])  if busquedaform.cleaned_data['familia'] else data
             data = data.filter(descripcion=busquedaform.cleaned_data['descripcion'])  if busquedaform.cleaned_data['descripcion'] else data
-            #data = data.filter(proveedor_id__persona_id__nombre=busquedaform.cleaned_data['proveedor'])  if busquedaform.cleaned_data['proveedor'] else data
+            data = data.filter(proveedor_id=busquedaform.cleaned_data['proveedor'])  if busquedaform.cleaned_data['proveedor'] else data
             data = data.filter(ubicacion=busquedaform.cleaned_data['ubicacion'])  if busquedaform.cleaned_data['ubicacion'] else data
             context['articulos_list']=data
             context['busquedaform']=busquedaform
@@ -314,6 +313,7 @@ def agregar_articulo(request):
     context = {
         'in_articulo_per':in_articulo_per,
         'enviado':enviado, 
+        'img_obj': in_articulo_per.instance,
     }
     return render(request, "Articulos/formulario_insertar_articulo.html", context)
 
@@ -338,9 +338,10 @@ def editar_articulo(request, id):
 def eliminar_articulo(request,id):
     enviado = False
     del_articulo = Articulos.objects.filter(id=id)
+    red = request.POST.get('art','/erp/art/')
     if request.method =="POST":
         del_articulo.delete()
-        return HttpResponseRedirect('?enviado=True')
+        return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
@@ -410,9 +411,10 @@ def editar_familia(request, id):
 def eliminar_familia(request,id):
     enviado = False
     del_familia = Familia.objects.filter(id=id)
+    red = request.POST.get('fam','/erp/fam/')
     if request.method =="POST":
         del_familia.delete()
-        return HttpResponseRedirect('?enviado=True')
+        return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
