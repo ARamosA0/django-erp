@@ -157,8 +157,6 @@ class AgregarFamilia(ModelForm):
             'nombre':forms.TextInput(attrs={'class':'form-control'})
         }
 
-<<<<<<< HEAD
-=======
 # ELEMENTO VENTA
 
 class NuevoElemento(Form):
@@ -182,4 +180,3 @@ class NuevoElemento(Form):
         widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
      
 
->>>>>>> fd6ee59c9e2327c4bf988c0fe27aed7117974c4b
