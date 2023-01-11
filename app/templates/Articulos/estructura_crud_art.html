@@ -5,13 +5,13 @@
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar Articulo</center></h4>
       <div  class="form-group">
-        <form method="post">
+        <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
           {{ busquedaform.as_p }}  
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
-            <a type="button" class="btn btn-warning" >Limpiar</a>
-            <a href="{% url 'aclie' %}" type="button" class="btn btn-success" >Agregar</a>
+            <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
+            <a href="{% url 'aart' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
     </div>
@@ -44,6 +44,7 @@
             <th scope="col">Descripcion</th>
             <th scope="col">Proveedor</th>
             <th scope="col">Ubicacion</th>
+            <th scope="col">Acciones</th>
         </tr>        
     </thead>
     
@@ -63,9 +64,9 @@
             {% endif %}
             <td>{{ art.ubicacion }}</td>
             <td>
-                <a type="button" href="#" class="btn btn-primary">Ver</a>
-                <a type="button" href="#" class="btn btn-success">Editar</a>
-                <a type="button" href="#" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'verart' art.id %}" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edart' art.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delart' art.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
