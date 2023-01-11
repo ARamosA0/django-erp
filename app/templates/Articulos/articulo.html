@@ -57,14 +57,6 @@
                             <td>{{ art.unidades_por_caja}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">PRECIO DEL TICKET:</th>
-                            <td>{{ art.precio_ticket}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">MODIFICAR TICKET:</th>
-                            <td>{{ art.modificar_ticker}}</td>
-                        </tr>
-                        <tr>
                             <th scope="row">OBSERVACIONES:</th>
                             <td>{{ art.observaciones}}</td>
                         </tr>
@@ -86,6 +78,7 @@
                         </tr>
                         <tr>
                             <th scope="row">IMAGEN:</th>
+<<<<<<< HEAD
                           
                             <td>
                             
@@ -94,6 +87,10 @@
                             </td>
                             
 
+=======
+                            <td><img src="{{ art.imagen.url }}" style="max-height:200px;"/>
+                            </td>
+>>>>>>> 1eccdb3f1794fd40d827f49fb6650783e4112a01
                         </tr>
                         <tr>
                             <th scope="row">FAMILIA:</th>
@@ -105,19 +102,11 @@
                             <td>{{ art.impuesto.nombre}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">PROVEEDOR 1:</th>
-                            {% if art.proveedor_1.persona.nombre %}
-                                <td>{{ art.proveedor_1.persona.nombre }}</td>
+                            <th scope="row">PROVEEDOR:</th>
+                            {% if art.proveedor.persona.nombre %}
+                                <td>{{ art.proveedor.persona.nombre }}</td>
                             {% else %}
-                                <td>{{ art.proveedor_1.empresa.nombre }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            <th scope="row">PROVEEDOR 2:</th>
-                            {% if art.proveedor_2.persona.nombre %}
-                                <td>{{ art.proveedor_2.persona.nombre }}</td>
-                            {% else %}
-                                <td>{{ art.proveedor_2.empresa.nombre }}</td>
+                                <td>{{ art.proveedor.empresa.nombre }}</td>
                             {% endif %}
                         </tr>
                         <tr>

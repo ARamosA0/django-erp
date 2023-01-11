@@ -119,15 +119,19 @@ class AgregarArticulo(ModelForm):
             'familia':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'descripcion':forms.TextInput(attrs={'class':'form-control'}),
             'impuesto':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+<<<<<<< HEAD
             'proveedor1':forms.Select(attrs={'class':'form-select form-select-sm'}),
+=======
+            'proveedor':forms.Select(attrs={'class':'form-select form-select-sm'}),
+>>>>>>> 1eccdb3f1794fd40d827f49fb6650783e4112a01
             'descripcion_corta':forms.TextInput(attrs={'class': 'form-control'}),
             'ubicacion':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'stock':forms.TextInput(attrs={'class': 'form-control'}),
             'stock_minimo':forms.TextInput(attrs={'class': 'form-control'}),
-            'aviso_minimo':forms.TextInput(attrs={'class': 'form-select form-select-sm'}),
+            'aviso_minimo':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'datos_producto':forms.TextInput(attrs={'class': 'form-control'}),
             'fecha_alta':DateInput(),
-            'embalaje':forms.TextInput(attrs={'class': 'form-select form-select-sm'}),
+            'embalaje':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'unidades_por_caja':forms.TextInput(attrs={'class': 'form-control'}),
             'observaciones':forms.TextInput(attrs={'class': 'form-control'}),
             'precio_compra':forms.TextInput(attrs={'class': 'form-control'}),
