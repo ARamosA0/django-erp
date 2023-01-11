@@ -41,4 +41,8 @@ urlpatterns =[
     path('fam/editar/<int:id>/', editar_familia, name="edfam"),
     #Ver Familia
     path('fam/ver/<int:id>/', ver_familia, name="verfam"),
+
+
+    #Venta
+    path('venta', reg_venta, name="venta")
 ]

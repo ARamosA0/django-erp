@@ -14,7 +14,9 @@ def proveedores(request):
     busquedaform = ProveedorBusqueda()
     context ={
         'proveedores_list': proveedores_list,
-        'busquedaform': busquedaform
+        'busquedaform': busquedaform,
+        'contador':len(proveedores_list),
+        'num':0
     }
     if request.method == 'POST':
         busquedaform = ProveedorBusqueda(request.POST)
@@ -23,7 +25,7 @@ def proveedores(request):
             data = data.filter(pk=busquedaform.cleaned_data['codigo']) if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(ruc=busquedaform.cleaned_data['ruc']) if busquedaform.cleaned_data['ruc'] else data
             if str(busquedaform.cleaned_data['empresa']) == 'True':
-                data = data.filter(empresa_id=True)
+                data = data.filter(persona_id=None)
                 data = data.filter(empresa_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
                 data = data.filter(empresa_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
                 data = data.filter(empresa_id__codprovincia_id=busquedaform.cleaned_data['provincia'])  if busquedaform.cleaned_data['provincia'] else data
@@ -46,33 +48,42 @@ def agregar_proveedor(request):
     if request.method == "POST":
         form_persona = AgregarPersona(request.POST)
         form_empresa = AgregarEmpresa(request.POST)
-        if form_persona.is_valid():
+        form_proveedor = ProveedorProveedorInsertar(request.POST)
+        if form_persona.is_valid() and form_proveedor.is_valid():
             form_persona.save()
             buscar_ultima_persona = Persona.objects.last()
             ultima_persona = buscar_ultima_persona.id
+
+            rucproveedor = form_proveedor.data.get("ruc")
             proveedor = Proveedores()
             proveedor.persona_id = int(ultima_persona)
+            proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
             return HttpResponseRedirect('agregarprov?enviado=True')
-        elif form_empresa.is_valid():
+        elif form_empresa.is_valid() and form_proveedor.is_valid():
             form_empresa.save()
             buscar_ultima_empresa = Empresa.objects.last()
             ultima_empresa = buscar_ultima_empresa.id
+
+            rucproveedor = form_proveedor.data.get("ruc")
             proveedor = Proveedores()
             proveedor.empresa_id = int(ultima_empresa)
+            proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
             return HttpResponseRedirect('agregarprov?enviado=True')
     else:
         form_persona = AgregarPersona
         form_empresa = AgregarEmpresa
+        form_proveedor = ProveedorProveedorInsertar
         if 'enviado' in request.GET:
             enviado = True
 
     context ={
         'form_persona':form_persona, 
         'form_empresa':form_empresa,
+        'form_proveedor': form_proveedor,
         'enviado':enviado
     }
 
@@ -187,8 +198,6 @@ def agregar_cliente(request):
             ultima_persona = buscar_ultima_persona.id
             #Se extrae la data como string del formulario
             codformpago = in_cliente.data.get("codformapago")  
-            print(codformpago)
-            print(type(codformpago))
             cliente = Clientes()
             cliente.persona_id = int(ultima_persona)
             cliente.codformapago_id = int(codformpago)
@@ -251,14 +260,15 @@ def eliminar_cliente(request, id):
     enviado = False
     del_cliente = Clientes.objects.filter(persona__id=id)
     del_persona = Persona.objects.filter(id=id)
+    red = request.POST.get('clie','/erp/clie/')
     if request.method =="POST":
         del_cliente.delete()
         del_persona.delete()
-        return HttpResponseRedirect('?enviado=True')
+        return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
-    return render(request, "Clientes/delete_cliente.html", context)
+    return render(request, "Clientes/de/eliminar/8/erp/clie/lete_cliente.html", context)
         
 
 #ARTICULOS
@@ -272,17 +282,7 @@ def articulos(request):
     }
     return render(request, "Articulos/estructura_crud_art.html",context)
 
-def agregar_articulo(request):
-    return
 
-def ver_articulo(request):
-    return
-
-def editar_articulo(request):
-    return
-
-def eliminar_articulo(request):
-    return
 
 #FAMILIAS, CATEGORIAS
 
@@ -305,6 +305,9 @@ def familias(request):
         busquedaform = FamiliaBusqueda()
     return render(request, "Familias/estructura_crud_fam.html",context)
 
+# FACTURA ALBANARES
+def fac_albanar(request):
+    return 
 def agregar_familia(request):
     enviado = False
     if request.method == 'POST':
@@ -352,3 +355,29 @@ def eliminar_familia(request,id):
         'enviado':enviado
     }
     return render(request, "Familias/delete_familia.html", context)
+
+
+#VENTAS CLIENTES
+def reg_venta(request):
+    elemento_venta_form = NuevoElemento()
+    codigoarticulo = elemento_venta_form.data.get("codigoarticulo") 
+    if request.method == 'POST': 
+        articulo_venta = Articulos.objects.filter(id=codigoarticulo)
+    context ={
+        'elemento_venta_form': elemento_venta_form,
+    }
+    # Al buscar el codigo de barras del producto se autocompleta la descripcion.
+    # El precio incrementa con la cantidad y se  reduce con el descuento
+    # Al darle agregar el producto se agrega a una lista
+    # La lista se muestra en una tabla con las opciones de eliminar y editar. 
+    # Solo se podra editar la cantidad 
+    
+    return render(request, "VentaClientes/registroventa.html", context)
+
+# FACTURAS VENTAS CLIENTE
+def facturas(request):
+    return
+
+# ALBANARES
+def albanar(request):
+    return 

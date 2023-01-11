@@ -19,6 +19,7 @@
                     <form action="" method="POST" class="row g-3">
                         {% csrf_token %}
 
+                        {{ form_proveedor.as_p }}
                         {{ form_empresa.as_p }}
 
                         <input type="submit" value="Agregar" class="btn btn-primary"/>
@@ -42,6 +43,7 @@
                     <form action="" method="POST" class="row g-3">
                         {% csrf_token %}
 
+                        {{ form_proveedor.as_p }}
                         {{ form_persona.as_p }}
 
                         <input type="submit" value="Agregar" class="btn btn-primary"/>

@@ -17,14 +17,14 @@
           </div>                   
         </form>
     </div>
-    </div>
+</div>
 
 
 
 
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <p>N de proveedores encontrados:</p>
+        <p>N de proveedores encontrados: {{contador}}</p>
     </div>
     <div style="display: flex;">
         <p style="margin:10px;">Mostrados:</p>
@@ -54,22 +54,21 @@
     
     <tbody>
         {% if proveedores_list %}
-        {% for prov in proveedores_list %}
-        <tr scope="row">
+        {% for prov in proveedores_list|slice:contador %}
+        <tr scope="row"> 
+            <td>{{ forlop.contador  }}</td>
             {% if prov.empresa == null %}
-                <td>{{ prov.id }}</td>
                 <td>{{ prov.persona.id }}</td>
                 <td>{{ prov.persona.nombre }}</td>
-                <td>{{ prov.persona.dni }}</td>
+                <td>{{ prov.ruc }}</td>
                 <td>{{ prov.persona.telefono }}</td>
                 <td>
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
                 </td>
             {% else %}
-                <td>{{ prov.id }}</td>
                 <td>{{ prov.empresa.id }}</td>
                 <td>{{ prov.empresa.nombre }}</td>
-                <td>{{ prov.empresa.ruc }}</td>
+                <td>{{ prov.ruc }}</td>
                 <td>{{ prov.empresa.telefono }}</td>
                 <td>
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
