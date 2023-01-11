@@ -290,7 +290,7 @@ def articulos(request):
             data = data.filter(referencia=busquedaform.cleaned_data['referencia'])  if busquedaform.cleaned_data['referencia'] else data
             data = data.filter(familia=busquedaform.cleaned_data['familia'])  if busquedaform.cleaned_data['familia'] else data
             data = data.filter(descripcion=busquedaform.cleaned_data['descripcion'])  if busquedaform.cleaned_data['descripcion'] else data
-            #data = data.filter(proveedor_1_id__persona_id__nombre=busquedaform.cleaned_data['proveedor_1'])  if busquedaform.cleaned_data['proveedor_1'] else data
+            #data = data.filter(proveedor_id__persona_id__nombre=busquedaform.cleaned_data['proveedor'])  if busquedaform.cleaned_data['proveedor'] else data
             data = data.filter(ubicacion=busquedaform.cleaned_data['ubicacion'])  if busquedaform.cleaned_data['ubicacion'] else data
             context['articulos_list']=data
             context['busquedaform']=busquedaform

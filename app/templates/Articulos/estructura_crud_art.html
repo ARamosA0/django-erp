@@ -57,10 +57,10 @@
             <td>{{ art.referencia }}</td>
             <td>{{ art.familia.nombre }}</td>
             <td>{{ art.descripcion }}</td>
-            {% if art.proveedor_1.persona.nombre %}
-                <td>{{ art.proveedor_1.persona.nombre }}</td>
+            {% if art.proveedor.persona.nombre %}
+                <td>{{ art.proveedor.persona.nombre }}</td>
             {% else %}
-                <td>{{ art.proveedor_1.empresa.nombre }}</td>
+                <td>{{ art.proveedor.empresa.nombre }}</td>
             {% endif %}
             <td>{{ art.ubicacion }}</td>
             <td>
