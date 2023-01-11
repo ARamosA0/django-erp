@@ -136,6 +136,10 @@ class NuevoElemento(Form):
         widget=forms.DateInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
     iva = forms.CharField(label='IVA:',
         widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
+    
+     
+
+class ArticuloVentaFormulario(Form):
     codigoarticulo = forms.DecimalField(label='CODIGO ARTICULO:',
         widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigoarticulo'}),required=False)
     precio = forms.DecimalField(label='PRECIO (S/.):',
@@ -146,5 +150,3 @@ class NuevoElemento(Form):
         widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
     importe = forms.DecimalField(label='Importe (S/.):',
         widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-     
-

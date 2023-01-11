@@ -129,25 +129,15 @@ class Articulos(models.Model):
 #     fecha = models.DateField(auto_now='True')
 #     iva = models.IntegerField()
 #     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+#     codarticulo = models.ForeignKey(Articulos, on_delete=models.CASCADE)
 #     estado = models.CharField(max_length=100)
 #     totalfactura = models.FloatField()
 #     fechavencimiento = models.DateField(auto_now='True')
-#     codproducto = models.ForeignKey()
 
 #     def __str__(self):
-#         return self.iva
+#         return self.fecha
 
-# class Factura_linea_tmp(models.Model):
-#     numlinea = models.IntegerField()
-#     codfamilia = models.ForeignKey(Familia, on_delete=models.CASCADE)
-#     codigo = models.CharField(max_length=100)
-#     cantidad = models.FloatField()
-#     precio = models.FloatField()
-#     importe = models.FloatField()
-#     dcto = models.FloatField()
 
-#     def __str__(self):
-#         return self.numlinea
 
 # class Factura_linea(models.Model):
 #     numlinea
