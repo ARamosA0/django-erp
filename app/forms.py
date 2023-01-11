@@ -110,11 +110,6 @@ class ArticuloBusqueda(Form):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> d6844f24a833337c098c50d02750604353db798d
 class AgregarArticulo(ModelForm):
     class Meta:
         model = Articulos
@@ -144,10 +139,6 @@ class AgregarArticulo(ModelForm):
             'precio_con_iva':forms.TextInput(attrs={'class': 'form-control'}),
             'imagen':forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> d6844f24a833337c098c50d02750604353db798d
 #CATEGORIAS
 
 class FamiliaBusqueda(Form):

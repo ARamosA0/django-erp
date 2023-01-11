@@ -30,10 +30,6 @@ urlpatterns =[
 
     #Pag Articulos
     path('art/', articulos, name="art"),
-<<<<<<< HEAD
-    #Insertar Articulos
- 
-=======
     #Insertar Articulo
     path('art/agregarart', agregar_articulo, name="aart"),
     #Eliminar Articulo
@@ -42,7 +38,6 @@ urlpatterns =[
     path('art/editar/<int:id>/', editar_articulo, name="edart"),
     #Ver Articulo
     path('art/ver/<int:id>/', ver_articulo, name="verart"),
->>>>>>> d6844f24a833337c098c50d02750604353db798d
 
     #Pag Familias
     path('fam/', familias, name="fam"),

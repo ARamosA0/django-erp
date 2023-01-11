@@ -315,8 +315,6 @@ def agregar_articulo(request):
     }
     return render(request, "Articulos/formulario_insertar_articulo.html", context)
 
-<<<<<<< HEAD
-=======
 def ver_articulo(request,id):
     articulo_list = Articulos.objects.get(id=id)
     context = {
@@ -346,7 +344,6 @@ def eliminar_articulo(request,id):
     }
     return render(request, "Articulos/delete_articulo.html", context)
 
->>>>>>> d6844f24a833337c098c50d02750604353db798d
 #FAMILIAS, CATEGORIAS
 
 def familias(request):
@@ -417,7 +414,7 @@ def eliminar_familia(request,id):
         'enviado':enviado
     }
     return render(request, "Familias/delete_familia.html", context)
-    
+
 
 
 #VENTAS CLIENTES
