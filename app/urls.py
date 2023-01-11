@@ -12,6 +12,9 @@ urlpatterns =[
     # path('prove/', Proveedores.as_view())
     #Pag Insertar Proveedores
     path('prov/agregarprov', agregar_proveedor, name="aprov"),
+    path('prov/eliminar/<int:id>', eliminar_proveedor, name="delprov"),
+    path('prov/ver/<int:id>', ver_proveedor, name="verprov"),
+    path('prov/editar/<int:id>', editar_proveedor, name="edprov"),
     
     
     #Pag Clientes
@@ -42,4 +45,8 @@ urlpatterns =[
     path('fam/editar/<int:id>/', editar_familia, name="edfam"),
     #Ver Familia
     path('fam/ver/<int:id>/', ver_familia, name="verfam"),
+
+
+    #Venta
+    path('venta', reg_venta, name="venta")
 ]
