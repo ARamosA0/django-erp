@@ -351,8 +351,7 @@ def eliminar_familia(request,id):
         'enviado':enviado
     }
     return render(request, "Familias/delete_familia.html", context)
-<<<<<<< HEAD
-=======
+    
 
 
 #VENTAS CLIENTES
@@ -379,4 +378,3 @@ def facturas(request):
 # ALBANARES
 def albanar(request):
     return 
->>>>>>> fd6ee59c9e2327c4bf988c0fe27aed7117974c4b
