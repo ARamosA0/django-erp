@@ -101,6 +101,38 @@ class ArticuloBusqueda(Form):
     ubicacion = forms.ModelChoiceField(label='UBICACION:',queryset=Ubicaciones.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'ubicacion'}),required=False)
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+    
+class AgregarArticulo(ModelForm):
+    class Meta:
+        model = Articulos
+        fields = '__all__'
+        widgets = {
+            'referencia':forms.TextInput(attrs={'class':'form-control'}),
+            'familia':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'descripcion':forms.TextInput(attrs={'class':'form-control'}),
+            'impuesto':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'proveedor1':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'proveedor2':forms.TextInput(attrs={'class': 'form-select form-select-sm'}),
+            'descripcion_corta':forms.TextInput(attrs={'class': 'form-control'}),
+            'ubicacion':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'stock':forms.TextInput(attrs={'class': 'form-control'}),
+            'stock_minimo':forms.TextInput(attrs={'class': 'form-control'}),
+            'aviso_minimo':forms.TextInput(attrs={'class': 'form-select form-select-sm'}),
+            'datos_producto':forms.TextInput(attrs={'class': 'form-control'}),
+            'fecha_alta':DateInput(),
+            'embalaje':forms.TextInput(attrs={'class': 'form-select form-select-sm'}),
+            'unidades_por_caja':forms.TextInput(attrs={'class': 'form-control'}),
+            'precio_ticket':forms.TextInput(attrs={'class': 'form-select form-select-sm'}),
+            'modificar_ticker':forms.TextInput(attrs={'class': 'form-select form-select-sm'}),
+            'observaciones':forms.TextInput(attrs={'class': 'form-control'}),
+            'precio_compra':forms.TextInput(attrs={'class': 'form-control'}),
+            'precio_almacen':forms.TextInput(attrs={'class': 'form-control'}),
+            'precio_tienda':forms.TextInput(attrs={'class': 'form-control'}),
+            'precio_con_iva':forms.TextInput(attrs={'class': 'form-control'}),
+            'imagen':forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
 #CATEGORIAS
 
 class FamiliaBusqueda(Form):
@@ -116,3 +148,4 @@ class AgregarFamilia(ModelForm):
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control'})
         }
+

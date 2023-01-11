@@ -27,8 +27,11 @@ urlpatterns =[
 
     #Pag Articulos
     path('art/', articulos, name="art"),
-    #Insertar Cliente
-   
+    #Insertar Articulos
+    path('art/agregarart', agregar_articulo, name="aart"),
+    #Editar Familia
+    path('art/editar/<int:id>/', editar_articulo, name="edart"),
+
     #Pag Familias
     path('fam/', familias, name="fam"),
     #Insertar Familia

@@ -200,7 +200,35 @@ def articulos(request):
     }
     return render(request, "Articulos/estructura_crud_art.html",context)
 
+def agregar_articulo(request):
+    enviado = False
+    if request.method == 'POST':
+        in_articulo_per = AgregarArticulo(request.POST,request.FILES)
+        if in_articulo_per.is_valid():
+            
+            in_articulo_per.save()
+            return HttpResponseRedirect('agregarart?enviado=True')
+    else:
+        in_articulo_per= AgregarArticulo()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_articulo_per':in_articulo_per,
+        'enviado':enviado, 
+    }
+    return render(request, "Articulos/formulario_insertar_articulo.html", context)
 
+def editar_articulo(request, id):
+    articulo_put = Articulos.objects.get(id=id)
+    in_articulo_per = AgregarArticulo(request.POST or None, instance=articulo_put)
+    if in_articulo_per.is_valid():
+            in_articulo_per.save()       
+            return redirect('art')
+    
+    context = {
+        'in_articulo_per':in_articulo_per,
+    }    
+    return render(request, "Articulos/formulario_insertar_articulo.html", context)
 
 #FAMILIAS, CATEGORIAS
 
