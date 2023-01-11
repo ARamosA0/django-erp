@@ -256,6 +256,7 @@ def editar_cliente(request, id):
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
 def eliminar_cliente(request, id):
+    enviado=False
     del_cliente = Clientes.objects.filter(persona__id=id)
     del_persona = Persona.objects.filter(id=id)
     red = request.POST.get('clie','/erp/clie/')
