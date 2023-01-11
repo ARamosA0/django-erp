@@ -262,16 +262,11 @@ def eliminar_cliente(request, id):
     if request.method =="POST":
         del_cliente.delete()
         del_persona.delete()
-<<<<<<< HEAD
-        return HttpResponseRedirect('clie')
-    return render(request, "Formulario/form_delete.html")
-=======
         return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
     return render(request, "Clientes/de/eliminar/8/erp/clie/lete_cliente.html", context)
->>>>>>> fd6ee59c9e2327c4bf988c0fe27aed7117974c4b
         
 
 #ARTICULOS
@@ -285,39 +280,6 @@ def articulos(request):
     }
     return render(request, "Articulos/estructura_crud_art.html",context)
 
-<<<<<<< HEAD
-def agregar_articulo(request):
-    enviado = False
-    if request.method == 'POST':
-        in_articulo_per = AgregarArticulo(request.POST,request.FILES)
-        if in_articulo_per.is_valid():
-            
-            in_articulo_per.save()
-            return HttpResponseRedirect('agregarart?enviado=True')
-    else:
-        in_articulo_per= AgregarArticulo()
-        if 'enviado' in request.GET:
-            enviado = True
-    context = {
-        'in_articulo_per':in_articulo_per,
-        'enviado':enviado, 
-    }
-    return render(request, "Articulos/formulario_insertar_articulo.html", context)
-
-def editar_articulo(request, id):
-    articulo_put = Articulos.objects.get(id=id)
-    in_articulo_per = AgregarArticulo(request.POST or None, instance=articulo_put)
-    if in_articulo_per.is_valid():
-            in_articulo_per.save()       
-            return redirect('art')
-    
-    context = {
-        'in_articulo_per':in_articulo_per,
-    }    
-    return render(request, "Articulos/formulario_insertar_articulo.html", context)
-=======
-
->>>>>>> fd6ee59c9e2327c4bf988c0fe27aed7117974c4b
 
 #FAMILIAS, CATEGORIAS
 
