@@ -1,0 +1,24 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container">
+    <div class="card">
+        <div class="card-header">
+            Insertar Articulo
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>Articulo fue agregado</p>
+                <a class="btn btn-primary" href="{% url 'art' %}" role="button">Volver</a> 
+            {% else %}
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ in_articulo_per.as_p }}                   
+                    <button type="submit" class="btn btn-primary">Guardar articulo</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
