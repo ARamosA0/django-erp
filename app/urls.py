@@ -29,5 +29,17 @@ urlpatterns =[
     path('art/', articulos, name="art"),
 
     #Pag Familias
-    path('fam/', familias, name="fam")
+    path('fam/', familias, name="fam"),
+    #Insertar Familia
+    path('fam/agregarfam', agregar_familia, name="afam"),
+    #Eliminar Familia
+    path('fam/eliminar/<int:id>/', eliminar_familia, name="delfam"),
+    #Editar Familia
+    path('fam/editar/<int:id>/', editar_familia, name="edfam"),
+    #Ver Familia
+    path('fam/ver/<int:id>/', ver_familia, name="verfam"),
+
+
+    #Venta
+    path('venta', reg_venta, name="venta")
 ]

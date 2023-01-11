@@ -125,17 +125,16 @@ class Articulos(models.Model):
         return self.referencia
 
 
-class Facturas(models.Model):
-    fecha = models.DateField(auto_now='True')
-    iva = models.IntegerField()
-    codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
-    estado = models.CharField(max_length=100)
-    totalfactura = models.FloatField()
-    fechavencimiento = models.DateField(auto_now='True')
-    borrado = models.CharField(max_length=1, default=0)
+# class Facturas(models.Model):
+#     fecha = models.DateField(auto_now='True')
+#     iva = models.IntegerField()
+#     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+#     estado = models.CharField(max_length=100)
+#     totalfactura = models.FloatField()
+#     fechavencimiento = models.DateField(auto_now='True')
 
-    def __str__(self):
-        return self.iva
+#     def __str__(self):
+#         return self.iva
 
 # class Factura_linea_tmp(models.Model):
 #     numlinea = models.IntegerField()
