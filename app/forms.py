@@ -98,7 +98,7 @@ class ArticuloBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     referencia = forms.CharField(label='REFERENCIA:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+        widget=forms.TextInput(attrs={'class':'form-control','id':'referencia'}),required=False)
     familia = forms.ModelChoiceField(label='FAMILIA:',queryset=Familia.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'familia'}),required=False)
     descripcion = forms.CharField(label='DESCRIPCION:',
@@ -110,7 +110,11 @@ class ArticuloBusqueda(Form):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> d6844f24a833337c098c50d02750604353db798d
 class AgregarArticulo(ModelForm):
     class Meta:
         model = Articulos
@@ -140,6 +144,10 @@ class AgregarArticulo(ModelForm):
             'precio_con_iva':forms.TextInput(attrs={'class': 'form-control'}),
             'imagen':forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6844f24a833337c098c50d02750604353db798d
 #CATEGORIAS
 
 class FamiliaBusqueda(Form):

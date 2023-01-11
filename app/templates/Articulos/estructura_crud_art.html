@@ -5,12 +5,16 @@
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar Articulo</center></h4>
       <div  class="form-group">
-        <form method="post">
+        <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
           {{ busquedaform.as_p }}  
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
+<<<<<<< HEAD
             <a type="button" class="btn btn-warning" >Limpiar</a>
+=======
+            <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
+>>>>>>> d6844f24a833337c098c50d02750604353db798d
             <a href="{% url 'aart' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
@@ -60,9 +64,15 @@
             <td>{{ art.proveedor }}</td>
             <td>{{ art.ubicacion }}</td>
             <td>
+<<<<<<< HEAD
                 <a type="button" href="#" class="btn btn-primary">Ver</a>
                 <a type="button" href="{% url 'edart' art.id %}" class="btn btn-success">Editar</a>
                 <a type="button" href="#" class="btn btn-danger">Eliminar</a>
+=======
+                <a type="button" href="{% url 'verart' art.id %}" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edart' art.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delart' art.id %}" class="btn btn-danger">Eliminar</a>
+>>>>>>> d6844f24a833337c098c50d02750604353db798d
             </td>
         </tr>
         <td>
