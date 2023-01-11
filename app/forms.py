@@ -119,11 +119,7 @@ class AgregarArticulo(ModelForm):
             'familia':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'descripcion':forms.TextInput(attrs={'class':'form-control'}),
             'impuesto':forms.Select(attrs={'class': 'form-select form-select-sm'}),
-<<<<<<< HEAD
-            'proveedor1':forms.Select(attrs={'class':'form-select form-select-sm'}),
-=======
             'proveedor':forms.Select(attrs={'class':'form-select form-select-sm'}),
->>>>>>> 1eccdb3f1794fd40d827f49fb6650783e4112a01
             'descripcion_corta':forms.TextInput(attrs={'class': 'form-control'}),
             'ubicacion':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'stock':forms.TextInput(attrs={'class': 'form-control'}),
