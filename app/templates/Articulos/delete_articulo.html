@@ -1,0 +1,21 @@
+{%extends 'index.html'%}
+
+{% block content %}
+
+<div class="main" class="form-group container">
+    {% if enviado %}
+        <p>Eliminado correctamente</p>
+        <a class="btn btn-primary" href="{% url 'art' %}" role="button">Volver</a> 
+    {% else %}
+        <section class="container">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h2>¿Estás Seguro/a?</h2>
+                <input type="submit" value="Si" class="btn btn-danger"/>
+                <a href="{% url 'art' %}" class="btn btn-warning"> Cancel </a>
+            </form>
+        </section>
+    {% endif %}
+</div>
+
+{% endblock %}
