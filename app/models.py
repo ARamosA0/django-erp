@@ -10,14 +10,14 @@ class Provincias(models.Model):
 
 class Formapago(models.Model):
     nombrefp = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
+    
 
     def __str__(self):
         return self.nombrefp
 
 class Entidades(models.Model):
     nombreentidad = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
+    
 
     def __str__(self):
         return self.nombreentidad
@@ -86,14 +86,14 @@ def upload_path(instance, filename):
 
 class Ubicaciones(models.Model):
     nombre = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
+   
     def __str__(self):
         return self.nombre
 
 class Impuestos(models.Model):
     nombre = models.CharField(max_length=100)
     valor = models.FloatField(validators=[MinValueValidator(0.0)])
-    borrado = models.CharField(max_length=1, default=0)
+   
     def __str__(self):
         return self.nombre
 

@@ -564,7 +564,7 @@ def ubicaciones(request):
     if request.method == 'POST':
         busquedaform = UbicacionesBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Ubicaciones.objects.filter(borrado='0')
+            data = Ubicaciones.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             context['ubicaciones_list']=data
@@ -699,7 +699,7 @@ def entidad(request):
     if request.method == 'POST':
         busquedaform = EntidadBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Entidades.objects.filter(borrado='0')
+            data = Entidades.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombreentidad=busquedaform.cleaned_data['nombreentidad'])  if busquedaform.cleaned_data['nombreentidad'] else data
             context['entidades_list']=data
@@ -769,7 +769,7 @@ def formas_de_pago(request):
     if request.method == 'POST':
         busquedaform = FormasPagoBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Formapago.objects.filter(borrado='0')
+            data = Formapago.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['fpago'])  if busquedaform.cleaned_data['fpago'] else data
             context['formas_de_pago_list']=data
@@ -844,7 +844,7 @@ def impuestos(request):
     if request.method == 'POST':
         busquedaform = ImpuestoBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Impuestos.objects.filter(borrado='0')
+            data = Impuestos.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['valor'])  if busquedaform.cleaned_data['valor'] else data
