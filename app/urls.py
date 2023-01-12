@@ -52,5 +52,51 @@ urlpatterns =[
 
 
     #Venta
-    path('venta', reg_venta, name="venta")
+    path('venta', reg_venta, name="venta"),
+
+    #Pag Ubicaciones
+    path('ubi/', ubicaciones, name="ubi"),
+    #Insertar Ubicacion
+    path('ubi/agregarubi', agregar_ubicacion, name="aubi"),
+    #Eliminar Ubicacion
+    path('ubi/eliminar/<int:id>/', eliminar_ubicacion, name="delubi"),
+    #Editar Ubicacion
+    path('ubi/editar/<int:id>/', editar_ubicacion, name="edubi"),
+    #Ver Ubicacion
+    path('ubi/ver/<int:id>/', ver_ubicacion, name="verubi"),
+
+    #Pag Embalajes
+    path('emb/', embalajes, name="emb"),
+    #Insertar Embalaje
+    path('emb/agregaremb', agregar_embalaje, name="aemb"),
+    #Eliminar Embalaje
+    path('emb/eliminar/<int:id>/', eliminar_embalaje, name="delemb"),
+    #Editar Embalaje
+    path('emb/editar/<int:id>/', editar_embalaje, name="edemb"),
+    #Ver Embalaje
+    path('emb/ver/<int:id>/', ver_embalaje, name="veremb"),
+
+    #Pag Entidades
+    path('ent/', entidades, name="ent"),
+    #Insertar Entidad
+    path('ent/agregarent', agregar_entidad, name="aent"),
+    #Eliminar Entidad
+    path('ent/eliminar/<int:id>/', eliminar_entidad, name="delent"),
+    #Editar Entidad
+    path('ent/editar/<int:id>/', editar_entidad, name="edent"),
+    #Ver Entidad
+    path('ent/ver/<int:id>/', ver_entidad, name="verent"),
+    #Pag Formas de pago
+    path('formapago/', formas_de_pago, name="fpago"),
+    path('formapago/ver/<int:id>', ver_fpago, name="verfpago"),
+    path('formapago/agregarformapago', agregar_fpago, name="afpago"),
+    path('formapago/editar/<int:id>', editar_fpago, name="edfpago"),
+    path('formapago/eliminar/<int:id>', eliminar_fpago, name="delfpago"),
+    
+    #Pag Impuestos
+    path('impuestos/', impuestos, name="imp"),
+    path('impuestos/agregarimpuesto', agregar_impuesto, name="aimp"),
+    path('impuestos/ver/<int:id>', ver_impuesto, name="verimp"),
+    path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
+    path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp")
 ]
