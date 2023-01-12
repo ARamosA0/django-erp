@@ -465,6 +465,15 @@ def reg_venta(request):
             cliente = Clientes.objects.filter(persona_id__dni=cod)
             context['dni_cliente'] = cod
             context['nombre_cliente'] = cliente[0] if cliente else "cliente inexistente"
+    if 'registro_cli_fac' in request.GET:
+        print("=>>>>>>>>>>>>>")
+        fac_clie = Factura_clie()
+        fac_clie.factura = Factura.objects.last()
+        fac_clie.codcliente = Clientes.objects.filter(persona_id__dni=cod)[0]
+        fac_clie.save()
+        print("success")
+        
+
     if request.method == 'POST':
         nueva_factura = NuevaFactura(request.POST)
         if nueva_factura.is_valid():

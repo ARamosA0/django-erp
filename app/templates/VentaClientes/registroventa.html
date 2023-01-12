@@ -33,9 +33,16 @@
                         </a>
                         </div>
                         <div class="d-grid gap-2 col-4 col-sm-3 px-1">
-                        <button type="submit" class="btn btn-primary btn-block" >
-                        Registro
-                        </button>
+                        {% if dni_cliente %}
+                            <a type="button" class="btn btn-primary btn-block" href="{% url 'venta' %}?registro_cli_fac=1&dni_cliente={{dni_cliente}}" >
+                            Registro
+                            </a>
+                        {% else %}
+                            <a type="button" class="btn btn-lg btn-primary btn-block" href="{% url 'venta' %}" >
+                            Registro
+                            </a>
+                        {% endif %}
+                        </form>
                         </div>
                     </div>
                 
