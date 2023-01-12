@@ -5,8 +5,19 @@
     <div class="col-md-12 col-lg-10">
       <h4><center>Venta</center></h4>
       {% csrf_token %}
+<!-- CREA UNA NUEVA FACTURA -->
         <form method="POST">
             {% csrf_token %}
+            <div class="form-group col-sm">
+                <label for="exampleInputEmail1">FECHA</label>
+                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label for="exampleInputEmail1">IVA</label>
+                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <button type="submit" class="btn btn-success mt-4">Nueva Venta</button>
+            </div>
+        </form>
+<!-- se crea FACTURA_CLIE -->
+        <form method="POST">
             <div class="row">
                 <div class="form-group col-sm">
                     <label for="exampleInputEmail1">CODIGO CLIENTE</label>
@@ -14,45 +25,25 @@
                     <label for="exampleInputEmail1">NOMBRE CLIENTE</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
-                <div class="form-group col-sm">
-                    <label for="exampleInputEmail1">FECHA</label>
-                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <label for="exampleInputEmail1">IVA</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
-            
+            </div>            
         </form>
         <div class="row"></div>
-            <form method="GET">
+
+<!-- Se crea el factura_cliente_list -->
+            <form method="POST">
+                {% csrf_token %}
                 <div class="form-group col-sm">
                     <label for="exampleInputEmail1">NOMBRE ARTICULO</label>
                     <input type="text" class="form-control" name="nomarticulo" value="{{ articulo_venta.referencia }}">
                 </div>
                 <div class="form-group col-sm">
-                    <label for="exampleInputEmail1">PRECIO</label>
-                    <input type="number" class="form-control" value="{{ articulo_venta.precio_compra }}">
+                    <label for="exampleInputEmail1">CANTIDAD</label>
+                    <input type="number" class="form-control" name="cantidad_art" value="1">
                 </div>
-                <button type="submit" class="btn btn-success mt-4">BUSCAR</button>
-            </form>
-
-            <form method="POST">
-                {% csrf_token %}
-
-                    <div class="form-group col-sm">
-                        <label for="exampleInputEmail1">CANTIDAD</label>
-                        <input type="number" class="form-control" name="cantidad_art">
-                    </div>
-                    <div class="form-group col-sm">
-                        <label for="exampleInputEmail1">DESCUENTO</label>
-                        <input type="number" class="form-control" name="descuento_art" >
-                    </div>
-                    <div class="form-group col-sm">
-                        <label for="exampleInputEmail1">IMPORTE</label>
-                        <input type="number" class="form-control" name="importe_art" >
-                    </div>
-                
-                
+                <div class="form-group col-sm">
+                    <label for="exampleInputEmail1">DESCUENTO</label>
+                    <input type="number" class="form-control" name="descuento_art" >
+                </div>
                 <button type="submit" class="btn btn-success mt-4"  >AGREGAR</button>
             </form>
         </div>

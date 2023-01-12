@@ -135,8 +135,7 @@ class Articulos(models.Model):
 class Factura(models.Model):
     fecha = models.DateField(auto_now_add=True)
     iva = models.IntegerField()
-    totalfactura = models.FloatField()
-    fechavencimiento = models.DateField(auto_now=True)        
+    totalfactura = models.FloatField(default=0, null=True)     
 
 class Factura_clie(models.Model):
     factura = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
