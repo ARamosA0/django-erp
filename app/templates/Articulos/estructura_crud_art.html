@@ -57,15 +57,11 @@
             <td>{{ art.referencia }}</td>
             <td>{{ art.familia }}</td>
             <td>{{ art.descripcion }}</td>
-<<<<<<< HEAD
-            <td>{{ art.proveedor }}</td>
-=======
             {% if art.proveedor.persona.nombre %}
                 <td>{{ art.proveedor.persona.nombre }}</td>
             {% else %}
                 <td>{{ art.proveedor.empresa.nombre }}</td>
             {% endif %}
->>>>>>> 1eccdb3f1794fd40d827f49fb6650783e4112a01
             <td>{{ art.ubicacion }}</td>
             <td>
                 <a type="button" href="{% url 'verart' art.id %}" class="btn btn-primary">Ver</a>

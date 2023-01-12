@@ -1,8 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from .views import *
-
-
 urlpatterns =[
     # Pagina Principal
     path('', TemplateView.as_view(template_name="Inicio/inicio.html"), name="inicio"),
@@ -15,8 +13,6 @@ urlpatterns =[
     path('prov/eliminar/<int:id>', eliminar_proveedor, name="delprov"),
     path('prov/ver/<int:id>', ver_proveedor, name="verprov"),
     path('prov/editar/<int:id>', editar_proveedor, name="edprov"),
-    
-    
     #Pag Clientes
     path('clie/', clientes, name="clie"),
     #Insertar Cliente
