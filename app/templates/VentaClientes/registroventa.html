@@ -6,29 +6,30 @@
     <div class="col-md-12 col-lg-10">
       {% csrf_token %}
 <!-- CREA UNA NUEVA FACTURA -->
-        <form method="POST" class="col-md-12 col-lg-5">
+        <form method="POST" class="col-md-12 col-lg-3">
             {% csrf_token %}
             <div class="form-group col-sm">
                 {{nueva_factura_form.as_p}}
                 <button type="submit" class="btn btn-success">Nueva Venta</button>
             </div>
         </form>
-        <div class="row my-2">
-            <div class="col-md- px-4">
+
+
+        <div class="col-md-12 col-lg-9">
+            <div class="col-md-3">
                 <form method="GET">
                     <div class="row">
-                    <form method="GET">
                         <label for="codigo_cliente">DNI CLIENTE</label>
                         <div class="col-8 col-sm-7">
                         <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
                         </div>
-                        <div class="d-grid gap-2 col-4 col-sm-1 px-1">
+                        <div class="d-grid gap-2 col-4 col-md-1 ">
                         <button type="submit" class="btn btn-dark" >
                         <i class="bi bi-search"></i>
                         </button>
                         </div>
-                    </form>
-                        <div class="d-grid gap-2 col-4 col-sm-1 px-1">
+
+                        <div class="d-grid gap-2 col-4 col-md-1 pl-5">
                         <a type="button" class="btn btn-success" href="{% url 'aclie' %}?registro_from_ventas=0">
                         <i class="bi bi-plus-circle"></i>
                         </a>
@@ -36,23 +37,24 @@
                         <div class="d-grid gap-2 col-4 col-sm-3 px-1">
                         {% if dni_cliente %}
                             <a type="button" class="btn btn-primary btn-block" href="{% url 'venta' %}?registro_cli_fac=1&dni_cliente={{dni_cliente}}" >
-                            AGREGAR CLIENTE
+                            Registro
                             </a>
                         {% else %}
-                            <a type="button" class="btn btn-lg btn-primary btn-block" href="{% url 'venta' %}" >
-                            AGREGAR CLIENTE
-                            </a>
+                            <button class="btn disabled btn-primary" href="{% url 'venta' %}" >
+                            Registro
+                            </button>
                         {% endif %}
-                        </form>
                         </div>
                     </div>
-                
+                </form>
             </div>
             <div class="col-md-6 px-4">
                 <label for="nombre_cliente">NOMBRE CLIENTE</label>
                 <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente" value="{{nombre_cliente}}" readOnly>
             </div>
         </div>
+
+
         <form method="POST" class="row mt-4">
             <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
             {% csrf_token %}
