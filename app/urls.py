@@ -9,8 +9,6 @@ urlpatterns =[
     
     #Pag Provedores
     path('prov/', proveedores, name="prov"),
-    # path('prove/', Proveedores.as_view())
-    #Pag Insertar Proveedores
     path('prov/agregarprov', agregar_proveedor, name="aprov"),
     path('prov/eliminar/<int:id>', eliminar_proveedor, name="delprov"),
     path('prov/ver/<int:id>', ver_proveedor, name="verprov"),
@@ -28,6 +26,7 @@ urlpatterns =[
     #Ver Cliente
     path('clie/ver/<int:id>/', ver_cliente, name="verclie"),
 
+
     #Pag Articulos
     path('art/', articulos, name="art"),
     #Insertar Articulo
@@ -38,6 +37,7 @@ urlpatterns =[
     path('art/editar/<int:id>/', editar_articulo, name="edart"),
     #Ver Articulo
     path('art/ver/<int:id>/', ver_articulo, name="verart"),
+
 
     #Pag Familias
     path('fam/', familias, name="fam"),
@@ -54,6 +54,7 @@ urlpatterns =[
     #Venta
     path('venta', reg_venta, name="venta"),
 
+
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),
     #Insertar Ubicacion
@@ -64,6 +65,7 @@ urlpatterns =[
     path('ubi/editar/<int:id>/', editar_ubicacion, name="edubi"),
     #Ver Ubicacion
     path('ubi/ver/<int:id>/', ver_ubicacion, name="verubi"),
+
 
     #Pag Embalajes
     path('emb/', embalajes, name="emb"),
@@ -76,6 +78,7 @@ urlpatterns =[
     #Ver Embalaje
     path('emb/ver/<int:id>/', ver_embalaje, name="veremb"),
 
+
     #Pag Entidades
     path('ent/', entidades, name="ent"),
     #Insertar Entidad
@@ -86,6 +89,7 @@ urlpatterns =[
     path('ent/editar/<int:id>/', editar_entidad, name="edent"),
     #Ver Entidad
     path('ent/ver/<int:id>/', ver_entidad, name="verent"),
+    
     #Pag Formas de pago
     path('formapago/', formas_de_pago, name="fpago"),
     path('formapago/ver/<int:id>', ver_fpago, name="verfpago"),
