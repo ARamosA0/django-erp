@@ -24,7 +24,7 @@ class Entidades(models.Model):
 
 class Familia(models.Model):
     nombre = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
+    
 
     def __str__(self):
         return self.nombre

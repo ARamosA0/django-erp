@@ -383,7 +383,8 @@ def familias(request):
     if request.method == 'POST':
         busquedaform = FamiliaBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Familia.objects.filter(borrado='0')
+            
+            data = Familia.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             context['familias_list']=data
