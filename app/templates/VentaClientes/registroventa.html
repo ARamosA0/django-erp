@@ -8,17 +8,29 @@
             <div class="col-md-6 px-4">
                 <form method="GET">
                     <div class="row">
+                    <form method="GET">
                         <label for="codigo_cliente">DNI CLIENTE</label>
-                        <div class="col-8 col-sm-10">
+                        <div class="col-8 col-sm-7">
                         <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
                         </div>
-                        <div class="d-grid gap-2 col-4 col-sm-2">
+                        <div class="d-grid gap-2 col-4 col-sm-1 px-1">
                         <button type="submit" class="btn btn-dark" >
                         <i class="bi bi-search"></i>
                         </button>
                         </div>
+                    </form>
+                        <div class="d-grid gap-2 col-4 col-sm-1 px-1">
+                        <a type="button" class="btn btn-success" href="{% url 'aclie' %}?registro_from_ventas=0">
+                        <i class="bi bi-plus-circle"></i>
+                        </a>
+                        </div>
+                        <div class="d-grid gap-2 col-4 col-sm-3 px-1">
+                        <button type="submit" class="btn btn-primary btn-block" >
+                        Registro
+                        </button>
+                        </div>
                     </div>
-                </form>
+                
             </div>
             <div class="col-md-6 px-4">
                 <label for="nombre_cliente">NOMBRE CLIENTE</label>
@@ -71,15 +83,15 @@
     
     <tbody>
         {% if articulo_veta %}
-        {% for articulo in articulo_venta %}
+        {% for artfac in art_lista_fact %}
         <tr scope="row"> 
-            <td>{{ articulo.familia.nombre }}</td>
-            <td>{{ articulo.referencia }}</td>
-            <td>{{ articulo.descripcion }}</td>
-            <td>{{ articulo.cantidad }}</td>
-            <td>{{ articulo.precio }}</td>
-            <td>{{ articulo.descuento }}</td>
-            <td>{{ articulo.importe }}</td>
+            <td>{{ artfac.articulo.familia.nombre }}</td>
+            <td>{{ artfac.articulo.referencia }}</td>
+            <td>{{ artfac.articulo.descripcion }}</td>
+            <td>{{ artfac.cantidad }}</td>
+            <td>{{ artfac.precio }}</td>
+            <td>{{ artfac.descuento }}</td>
+            <td>{{ artfac.importe }}</td>
             <td>
                 <button type="button" class="btn btn-success">Editar</button>
                 <button type="button" class="btn btn-danger">Eliminar</button>

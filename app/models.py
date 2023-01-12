@@ -97,24 +97,30 @@ class Impuestos(models.Model):
     def __str__(self):
         return self.nombre
 
+class Embalajes(models.Model):
+    nombre = models.CharField(max_length=100)
+    def __str__(self):
+        return self.nombre
+
+CHOICES_YES_NO = (("Sí", "Sí"),
+    ("No", "No"))
+
 class Articulos(models.Model):
+    #cambiar luego por nombre
     referencia = models.CharField(max_length=20)
     familia = models.ForeignKey(Familia,on_delete=models.CASCADE)
     descripcion = models.CharField(max_length=500)
     impuesto = models.ForeignKey(Impuestos, on_delete=models.CASCADE)
-    proveedor_1 = models.OneToOneField(Proveedores,on_delete=models.CASCADE,related_name='proveedor_1')
-    proveedor_2 = models.OneToOneField(Proveedores,on_delete=models.CASCADE,related_name='proveedor_2')
+    proveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
     descripcion_corta = models.CharField(max_length=100)
     ubicacion = models.ForeignKey(Ubicaciones, on_delete=models.CASCADE)
     stock = models.PositiveIntegerField()
     stock_minimo = models.PositiveIntegerField()
-    aviso_minimo = models.CharField(max_length=1,choices=CHOICES,default="0")
+    aviso_minimo = models.CharField(max_length=3,choices=CHOICES_YES_NO)
     datos_producto = models.CharField(max_length=500)
     fecha_alta = models.DateTimeField()
-    embalaje = models.CharField(max_length=1,choices=CHOICES,default="0")
+    embalaje = models.ForeignKey(Embalajes, on_delete=models.CASCADE)
     unidades_por_caja = models.PositiveIntegerField()
-    precio_ticket = models.CharField(max_length=1,choices=CHOICES,default="0")
-    modificar_ticker = models.CharField(max_length=1,choices=CHOICES,default="0")
     observaciones = models.CharField(max_length=500)
     precio_compra = models.FloatField(validators=[MinValueValidator(0.0)])
     precio_almacen = models.FloatField(validators=[MinValueValidator(0.0)])
@@ -124,36 +130,76 @@ class Articulos(models.Model):
     def __str__(self):
         return self.referencia
 
+#Facturas
 
-# class Facturas(models.Model):
-#     fecha = models.DateField(auto_now='True')
+class Factura(models.Model):
+    fecha = models.DateField(auto_now_add=True)
+    iva = models.IntegerField()
+    totalfactura = models.FloatField(default=0, null=True)     
+
+class Factura_clie(models.Model):
+    factura = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
+    codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.factura.pk
+
+class Factura_linea_clie(models.Model):
+    factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
+    codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
+    cantidad = models.IntegerField()
+    precio = models.FloatField()
+    importe = models.FloatField(null=True)
+    dsctoproducto = models.FloatField()
+
+    def __str__(self):
+        return "Nombre cliente:{}".format(self.factura_cliente.codcliente.persona.nombre)
+
+# class Factura(models.Model):
+#     fecha = models.DateField(auto_now_add=True)
 #     iva = models.IntegerField()
-#     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
-#     estado = models.CharField(max_length=100)
-#     totalfactura = models.FloatField()
-#     fechavencimiento = models.DateField(auto_now='True')
-#     codproducto = models.ForeignKey()
-
-#     def __str__(self):
-#         return self.iva
-
-# class Factura_linea_tmp(models.Model):
-#     numlinea = models.IntegerField()
-#     codfamilia = models.ForeignKey(Familia, on_delete=models.CASCADE)
-#     codigo = models.CharField(max_length=100)
-#     cantidad = models.FloatField()
-#     precio = models.FloatField()
 #     importe = models.FloatField()
-#     dcto = models.FloatField()
+#     totalfactura = models.FloatField()
+#     fechavencimiento = models.DateField(auto_now=True)        
+
+# class Factura_clie(models.Model):
+#     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+#     cantidad = models.IntegerField()
+#     precio = models.FloatField()
+#     dsctoproducto = models.FloatField()
+
+# class Factura_linea_clie(models.Model):
+#     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+#     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
+#     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
 
 #     def __str__(self):
-#         return self.numlinea
+#         return "Numero de linea:{}".format(self.factura.numlinea)
 
-# class Factura_linea(models.Model):
-#     numlinea
-#     codfamilia
-#     codigo
-#     cantidad
-#     precio
-#     importe
-#     dcto       
+# class Factura_linea_prov(models.Model):
+#     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+#     codproveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+#     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE)
+#     cantidad = models.IntegerField()
+#     precio = models.FloatField()
+#     dsctoproducto = models.FloatField()
+
+#     def __str__(self):
+#         return "Numero de linea:{}".format(self.factura.numlinea)
+
+#Albaranes
+class Albaran_linea_clie(models.Model):
+    cliente = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE)
+    descripcionproducto = models.TextField()
+
+    def __str__(self):
+        return "Numero de linea:{}".format(self.factura.numlinea)
+
+# class Albaran_linea_prov(models.Model):
+#     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+#     codproveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+#     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE)
+#     descripcionproducto = models.TextField()
+
+#     def __str__(self):
+#         return "Numero de linea:{}".format(self.factura.numlinea)

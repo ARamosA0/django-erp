@@ -1,53 +1,112 @@
 {% extends 'index.html' %}
 
 {% block content %}
-    <div class="container text-center">
-      <h1 class="modal-title fs-5" ></h1>
+
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            {{ art.referencia }}
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">DATOS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">REFERENCIA, NOMBRE:</th>
+                            <td>{{ art.referencia }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DESCRIPCION:</th>
+                            <td>{{ art.descripcion }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DESCRIPCION CORTA:</th>
+                            <td>{{ art.descripcion_corta }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">STOCK:</th>
+                            <td>{{ art.stock }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">STOCK MINIMO:</th>
+                            <td>{{ art.stock_minimo}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">AVISO MINIMO:</th>
+                            <td>{{ art.aviso_minimo}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DATOS DEL PRODUCTO:</th>
+                            <td>{{ art.datos_producto}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FECHA ALTA:</th>
+                            <td>{{ art.fecha_alta}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">EMBALAJE:</th>
+                            <td>{{ art.embalaje}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">UNIDADES POR CAJA:</th>
+                            <td>{{ art.unidades_por_caja}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">OBSERVACIONES:</th>
+                            <td>{{ art.observaciones}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PRECIO DE COMPRA:</th>
+                            <td>{{ art.precio_compra}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PRECIO DE ALMACEN:</th>
+                            <td>{{ art.precio_almacen}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PRECIO DE TIENDA:</th>
+                            <td>{{ art.precio_tienda}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PRECIO CON IVA:</th>
+                            <td>{{ art.precio_con_iva}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">IMAGEN:</th>
+                            <td><img src="{{ art.imagen.url }}" style="max-height:200px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FAMILIA:</th>
+                            <td>{{ art.familia.nombre}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">IMPUESTO:</th>
+                            <td>{{ art.impuesto.nombre}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PROVEEDOR:</th>
+                            {% if art.proveedor.persona.nombre %}
+                                <td>{{ art.proveedor.persona.nombre }}</td>
+                            {% else %}
+                                <td>{{ art.proveedor.empresa.nombre }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th scope="row">UBICACION:</th>
+                            <td>{{ art.ubicacion.nombre}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
     </div>
     <div class="container text-center">
-        <div class="row">
-            <div class="col">NOMBRE: </div>
-            <div class="col"></div>
-        <div class="row">
-            <div class="col">DNI: </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">PROVINCIA: </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">LOCALIDAD: </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">DIRECCION:</div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">CODIGO POSTAL: </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">CUENTA BANCARIA: </div>
-            <div class="col"></div>
-        </div>
-
-        <div class="row">
-            <div class="col">FORMA DE PAGO: </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">TELEFONO: </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">CELULAR: </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">WEB: </div>
-            <div class="col"></div>
-        </div>
+        <a type="button" href="{% url 'art' %}" class="btn btn-primary">Regresar</a>
     </div>
 {% endblock %}

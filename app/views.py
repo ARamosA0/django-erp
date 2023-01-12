@@ -43,7 +43,8 @@ def proveedores(request):
 
 
 def agregar_proveedor(request):
-    enviado = False
+    enviado_per = False
+    enviado_emp = False
 
     if request.method == "POST":
         form_persona = AgregarPersona(request.POST)
@@ -60,7 +61,7 @@ def agregar_proveedor(request):
             proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
-            return HttpResponseRedirect('agregarprov?enviado=True')
+            return HttpResponseRedirect('agregarprov?enviado_per=True')
         elif form_empresa.is_valid() and form_proveedor.is_valid():
             form_empresa.save()
             buscar_ultima_empresa = Empresa.objects.last()
@@ -72,19 +73,22 @@ def agregar_proveedor(request):
             proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
-            return HttpResponseRedirect('agregarprov?enviado=True')
+            return HttpResponseRedirect('agregarprov?enviado_emp=True')
     else:
         form_persona = AgregarPersona
         form_empresa = AgregarEmpresa
         form_proveedor = ProveedorProveedorInsertar
-        if 'enviado' in request.GET:
-            enviado = True
+        if 'enviado_per' in request.GET:
+            enviado_per = True
+        elif 'enviado_emp' in request.GET:
+            enviado_emp = True
 
     context ={
         'form_persona':form_persona, 
         'form_empresa':form_empresa,
         'form_proveedor': form_proveedor,
-        'enviado':enviado
+        'enviado_per':enviado_per,
+        'enviado_emp':enviado_emp
     }
 
     return render(request,"Proveedores/formulario_insertar_proveedor.html", context)
@@ -123,6 +127,11 @@ def ver_proveedor(request, id):
     return render(request, 'Proveedores/proveedor.html', context)
 
 def editar_proveedor(request, id):
+    enviado_per = False
+    enviado_emp = False
+
+    editar_per = True
+    editar_emp = True
 
     proveedor = Proveedores.objects.get(id=id)
 
@@ -131,8 +140,19 @@ def editar_proveedor(request, id):
 
     if persona_put == None:
         persona_put = 0
+        enviado_per = False
+        enviado_emp = True
+
+        # if not enviado_per:
+        #     editar_per = True
+
     elif empresa_put == None:
         empresa_put = 0
+        enviado_emp = False
+        enviado_per = True
+
+        # if not enviado_emp:
+        #     editar_emp = True
 
     form_empresa = AgregarEmpresa(request.POST)
     form_persona = AgregarPersona(request.POST)
@@ -154,6 +174,10 @@ def editar_proveedor(request, id):
     context = {
         'form_empresa':form_empresa,
         'form_persona':form_persona,
+        'enviado_per':enviado_per,
+        'enviado_emp':enviado_emp,
+        'editar_emp':editar_emp,
+        'editar_per':editar_per
     }
 
     return render(request, "Proveedores/formulario_insertar_proveedor.html", context)
@@ -189,6 +213,7 @@ def clientes(request):
 def agregar_cliente(request):
     enviado = False
     codformpago=""
+    reg_porventa=False
     if request.method == 'POST':
         in_cliente_per = AgregarPersona(request.POST)
         in_cliente = ClienteClienteInsertar(request.POST)
@@ -202,16 +227,21 @@ def agregar_cliente(request):
             cliente.persona_id = int(ultima_persona)
             cliente.codformapago_id = int(codformpago)
             cliente.save()
+            if 'registro_from_ventas' in request.GET:
+                return HttpResponseRedirect('agregarclie?enviado=True&registro_from_ventas=True')
             return HttpResponseRedirect('agregarclie?enviado=True')
     else:
         in_cliente_per= AgregarPersona()
         in_cliente=ClienteClienteInsertar()
         if 'enviado' in request.GET:
             enviado = True
+            if 'registro_from_ventas' in request.GET:
+                reg_porventa = True
     context = {
         'in_cliente_per':in_cliente_per,
         'in_cliente':in_cliente,
-        'enviado':enviado, 
+        'enviado':enviado,
+        'reg_porventa':reg_porventa
     }
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
@@ -268,7 +298,7 @@ def eliminar_cliente(request, id):
     context = {
         'enviado':enviado
     }
-    return render(request, "Clientes/de/eliminar/8/erp/clie/lete_cliente.html", context)
+    return render(request, "Clientes/delete_cliente.html", context)
         
 
 #ARTICULOS
@@ -280,9 +310,72 @@ def articulos(request):
         'articulos_list': articulos_list,
         'busquedaform': busquedaform
     }
+
+    if request.method == 'POST':
+        busquedaform = ArticuloBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Articulos.objects.all()
+            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(referencia=busquedaform.cleaned_data['referencia'])  if busquedaform.cleaned_data['referencia'] else data
+            data = data.filter(familia=busquedaform.cleaned_data['familia'])  if busquedaform.cleaned_data['familia'] else data
+            data = data.filter(descripcion=busquedaform.cleaned_data['descripcion'])  if busquedaform.cleaned_data['descripcion'] else data
+            data = data.filter(proveedor_id=busquedaform.cleaned_data['proveedor'])  if busquedaform.cleaned_data['proveedor'] else data
+            data = data.filter(ubicacion=busquedaform.cleaned_data['ubicacion'])  if busquedaform.cleaned_data['ubicacion'] else data
+            context['articulos_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = ArticuloBusqueda()
+
     return render(request, "Articulos/estructura_crud_art.html",context)
 
+def agregar_articulo(request):
+    enviado = False
+    if request.method == 'POST':
+        in_articulo_per = AgregarArticulo(request.POST,request.FILES)
+        if in_articulo_per.is_valid():
+            
+            in_articulo_per.save()
+            return HttpResponseRedirect('agregarart?enviado=True')
+    else:
+        in_articulo_per= AgregarArticulo()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_articulo_per':in_articulo_per,
+        'enviado':enviado, 
+        'img_obj': in_articulo_per.instance,
+    }
+    return render(request, "Articulos/formulario_insertar_articulo.html", context)
 
+def ver_articulo(request,id):
+    articulo_list = Articulos.objects.get(id=id)
+    context = {
+        'art': articulo_list
+    }
+    return render(request, "Articulos/articulo.html", context)
+
+def editar_articulo(request, id):
+    articulo_put = Articulos.objects.get(id=id)
+    in_articulo_per = AgregarArticulo(request.POST or None, instance=articulo_put)
+    if in_articulo_per.is_valid():
+            in_articulo_per.save()       
+            return redirect('art')
+    context = {
+        'in_articulo_per':in_articulo_per,
+    }    
+    return render(request, "Articulos/formulario_insertar_articulo.html", context)
+
+def eliminar_articulo(request,id):
+    enviado = False
+    del_articulo = Articulos.objects.filter(id=id)
+    red = request.POST.get('art','/erp/art/')
+    if request.method =="POST":
+        del_articulo.delete()
+        return HttpResponseRedirect(red)
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "Articulos/delete_articulo.html", context)
 
 #FAMILIAS, CATEGORIAS
 
@@ -305,9 +398,7 @@ def familias(request):
         busquedaform = FamiliaBusqueda()
     return render(request, "Familias/estructura_crud_fam.html",context)
 
-# FACTURA ALBANARES
-def fac_albanar(request):
-    return 
+
 def agregar_familia(request):
     enviado = False
     if request.method == 'POST':
@@ -348,9 +439,10 @@ def editar_familia(request, id):
 def eliminar_familia(request,id):
     enviado = False
     del_familia = Familia.objects.filter(id=id)
+    red = request.POST.get('fam','/erp/fam/')
     if request.method =="POST":
         del_familia.delete()
-        return HttpResponseRedirect('?enviado=True')
+        return HttpResponseRedirect(red)
     context = {
         'enviado':enviado
     }
@@ -359,10 +451,11 @@ def eliminar_familia(request,id):
 
 #VENTAS CLIENTES
 def reg_venta(request):
-    elemento_venta_form = NuevoElemento()
-    codigoarticulo = elemento_venta_form.data.get("codigoarticulo")
+
+    articulo_venta = Articulos()
     context ={
-        'elemento_venta_form': elemento_venta_form,
+        'articulo_venta':articulo_venta,
+        'art_lista_fact':''
     }
     if 'dni_cliente' in request.GET:
         cod = request.GET['dni_cliente']
@@ -371,13 +464,44 @@ def reg_venta(request):
             context['dni_cliente'] = cod
             context['nombre_cliente'] = cliente[0] if cliente else "cliente inexistente"
     if request.method == 'POST':
-        articulo_venta = Articulos.objects.filter(id=codigoarticulo)
-    
-    # Al buscar el codigo de barras del producto se autocompleta la descripcion.
-    # El precio incrementa con la cantidad y se  reduce con el descuento
-    # Al darle agregar el producto se agrega a una lista
-    # La lista se muestra en una tabla con las opciones de eliminar y editar. 
-    # Solo se podra editar la cantidad 
+        nomarticulo = request.POST.get('nomarticulo', None) 
+        print(nomarticulo)
+        articulo_data = Articulos.objects.get(referencia=nomarticulo)
+        context['articulo_venta']=articulo_data
+        factura_linea_clie = Factura_linea_clie()
+        factura_linea_clie.codproducto = articulo_data.pk
+        cantidad = request.POST["cantidad_art"]
+        factura_linea_clie.cantidad = cantidad
+        descuento = request.POST["descuento_art"]
+        factura_linea_clie.dsctoproducto = descuento
+        factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
+        factura_linea_clie.save()
+
+
+
+    # if request.method == 'GET':
+    #     try:
+    #         nomarticulo = request.GET.get('nomarticulo', None) 
+    #         print(nomarticulo)
+    #         articulo_data = Articulos.objects.get(referencia=nomarticulo)
+    #         context['articulo_venta']=articulo_data
+    #         articulo_venta = articulo_data
+
+    #         if request.method == 'POST':
+    #             print('=============================================',articulo_venta)
+    #             factura_linea_clie = Factura_linea_clie()
+    #             factura_linea_clie.codproducto = articulo_venta.pk
+                # cantidad = request.POST["cantidad_art"]
+                # factura_linea_clie.cantidad = cantidad
+                # descuento = request.POST["descuento_art"]
+                # factura_linea_clie.dsctoproducto = descuento
+                # factura_linea_clie.importe = (articulo_venta.precio_compra * int(cantidad)) - float(descuento)
+                # factura_linea_clie.save()
+    #             print('factura',factura_linea_clie)
+
+    #             context['art_lista_fact']=Factura_linea_clie.objects.last()
+    #     except Exception as e: 
+    #         print(e)
     
     return render(request, "VentaClientes/registroventa.html", context)
 
@@ -387,4 +511,8 @@ def facturas(request):
 
 # ALBANARES
 def albanar(request):
+    return 
+
+# FACTURA ALBANARES
+def fac_albanar(request):
     return 

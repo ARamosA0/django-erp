@@ -8,12 +8,14 @@
         <p>Eliminado correctamente</p>
         <a class="btn btn-primary" href="{% url 'clie' %}" role="button">Volver</a> 
     {% else %}
-        <form action="" method="POST">
-            {% csrf_token %}
-            <h2>Estas Seguro/a?</h2>
-            <input type="submit" value="Si" class="btn btn-danger" />
-            <a href="{% url 'clie' %}" class="btn btn-warning"> Cancel </a>
-        </form>
+        <section class="card" style="margin: 2em;">
+            <form action="" method="POST" style="margin: 2em;">
+                {% csrf_token %}
+                <h2>¿Estás seguro(a)?</h2>
+                <input type="submit" value="Sí" class="btn btn-danger"/>
+                <a href="{% url 'fam' %}" class="btn btn-warning"> Cancelar </a>
+            </form>
+        </section>
     {% endif %}
 </div>
 
