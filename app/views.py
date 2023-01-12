@@ -447,3 +447,154 @@ def albanar(request):
 # FACTURA ALBANARES
 def fac_albanar(request):
     return 
+
+#UBICACIONES
+
+
+def ubicaciones(request):
+    ubicaciones_list = Ubicaciones.objects.all()
+    busquedaform = UbicacionesBusqueda()
+    context ={
+        'ubicaciones_list': ubicaciones_list,
+        'busquedaform': busquedaform
+    }
+    if request.method == 'POST':
+        busquedaform = UbicacionesBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Ubicaciones.objects.filter(borrado='0')
+            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+            context['ubicaciones_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = UbicacionesBusqueda()
+    return render(request, "Ubicaciones/estructura_crud_ubi.html",context)
+
+def agregar_ubicaciones(request):
+    enviado = False
+    if request.method == 'POST':
+        in_ubicaciones_per = AgregarUbicaciones(request.POST)
+        if in_ubicaciones_per.is_valid():
+            in_ubicaciones_per.save()
+            return HttpResponseRedirect('agregarubi?enviado=True')
+    else:
+        in_ubicaciones_per= AgregarUbicaciones()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_ubicaciones_per':in_ubicaciones_per,
+        'enviado':enviado, 
+    }
+    return render(request, "Ubicaciones/formulario_insertar_ubicacion.html", context)
+
+def editar_ubicacion(request, id):
+    ubicacion_put = Ubicaciones.objects.get(id=id)
+    in_ubicaciones_per = AgregarUbicaciones(request.POST or None, instance=ubicacion_put)
+    if in_ubicaciones_per.is_valid():
+            in_ubicaciones_per.save()       
+            return redirect('ubi')
+    
+    context = {
+        'in_ubicaciones_per':in_ubicaciones_per,
+    }    
+    return render(request, "Ubicaciones/formulario_insertar_ubicacion.html", context)
+
+
+#EMBALAJES
+def embalaje(request):
+    embalaje_list = Embalajes.objects.all()
+    busquedaform = EmbalajeBusqueda()
+    context ={
+        'embalaje_list': embalaje_list,
+        'busquedaform': busquedaform
+    }
+    if request.method == 'POST':
+        busquedaform = EmbalajeBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Embalajes.objects.all()
+            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+            context['embalaje_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = EmbalajeBusqueda()
+    return render(request, "Embalajes/estructura_crud_emb.html",context)
+
+def agregar_embalaje(request):
+    enviado = False
+    if request.method == 'POST':
+        in_embalaje_per = AgregarEmbalaje(request.POST)
+        if in_embalaje_per.is_valid():
+            in_embalaje_per.save()
+            return HttpResponseRedirect('agregaremb?enviado=True')
+    else:
+        in_embalaje_per= AgregarEmbalaje()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_embalaje_per':in_embalaje_per,
+        'enviado':enviado, 
+    }
+    return render(request, "Embalajes/formulario_insertar_embalaje.html", context)
+
+def editar_embalaje(request, id):
+    embalaje_put = Embalajes.objects.get(id=id)
+    in_embalaje_per = AgregarEmbalaje(request.POST or None, instance=embalaje_put)
+    if in_embalaje_per.is_valid():
+            in_embalaje_per.save()       
+            return redirect('emb')
+    
+    context = {
+        'in_embalaje_per':in_embalaje_per,
+    }    
+    return render(request, "Embalajes/formulario_insertar_embalaje.html", context)
+
+
+#ENTIDAD
+def entidad(request):
+    entidades_list = Entidades.objects.all()
+    busquedaform = EntidadBusqueda()
+    context ={
+        'entidades_list': entidades_list,
+        'busquedaform': busquedaform
+    }
+    if request.method == 'POST':
+        busquedaform = EntidadBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Entidades.objects.filter(borrado='0')
+            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+            data = data.filter(nombreentidad=busquedaform.cleaned_data['nombreentidad'])  if busquedaform.cleaned_data['nombreentidad'] else data
+            context['entidades_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = EntidadBusqueda()
+    return render(request, "Entidades/estructura_crud_ent.html",context)
+
+def agregar_entidad(request):
+    enviado = False
+    if request.method == 'POST':
+        in_entidades_per = AgregarEntidad(request.POST)
+        if in_entidades_per.is_valid():
+            in_entidades_per.save()
+            return HttpResponseRedirect('agregarent?enviado=True')
+    else:
+        in_entidades_per= AgregarEntidad()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_entidades_per':in_entidades_per,
+        'enviado':enviado, 
+    }
+    return render(request, "Entidades/formulario_insertar_entidad.html", context)
+
+def editar_entidad(request, id):
+    entidad_put = Entidades.objects.get(id=id)
+    in_entidades_per = AgregarEntidad(request.POST or None, instance=entidad_put)
+    if in_entidades_per.is_valid():
+            in_entidades_per.save()       
+            return redirect('ent')
+    
+    context = {
+        'in_entidades_per':in_entidades_per,
+    }    
+    return render(request, "Entidades/formulario_insertar_entidad.html", context)

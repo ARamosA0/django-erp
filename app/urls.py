@@ -15,6 +15,7 @@ urlpatterns =[
     path('prov/editar/<int:id>', editar_proveedor, name="edprov"),
     #Pag Clientes
     path('clie/', clientes, name="clie"),
+
     #Insertar Cliente
     path('clie/agregarclie', agregar_cliente, name="aclie"),
     #Eliminar Cliente
@@ -46,6 +47,28 @@ urlpatterns =[
     #Ver Familia
     path('fam/ver/<int:id>/', ver_familia, name="verfam"),
 
+
+    #Pag Ubicaciones
+    path('ubi/', ubicaciones, name="ubi"),
+    #Insertar Ubicaciones
+    path('ubi/agregarubi', agregar_ubicaciones, name="ubic"),
+    #Editar Ubicacion
+    path('ubi/editar/<int:id>/', editar_ubicacion, name="edubi"),
+
+    
+    #Pag Embalaje
+    path('emb/', embalaje, name="emb"),
+    #Insertar Embalaje
+    path('emb/agregaremb', agregar_embalaje, name="emba"),
+    #Editar Embalaje
+    path('emb/editar/<int:id>/', editar_embalaje, name="edemb"),
+
+    #Pag Entidades
+    path('ent/', entidad, name="ent"),
+    #Insertar Entidad
+    path('ent/agregarent', agregar_entidad, name="enti"),
+    #Editar Entidad
+    path('ent/editar/<int:id>/', editar_entidad, name="edent"),
 
     #Venta
     path('venta', reg_venta, name="venta")
