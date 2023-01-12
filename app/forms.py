@@ -177,4 +177,80 @@ class NuevoElemento(Form):
     importe = forms.DecimalField(label='Importe (S/.):',
         widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
      
+#FORMA DE PAGO
+class FormasPagoBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    fpago = forms.CharField(label='FORMA DE PAGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'fpago'}),required=False)
 
+class AgregarFormaPago(ModelForm):
+    class Meta:
+        model = Formapago
+        fields = '__all__'
+        widgets = {
+            'nombrefp':forms.TextInput(attrs={'class': 'form-control form-control'}),
+        }
+
+#IMPUESTO
+class ImpuestoBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+    valor = forms.FloatField(label='VALOR:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'valor'}),required=False)
+
+class AgregarImpuesto(ModelForm):
+    class Meta:
+        model = Impuestos
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'valor':forms.TextInput(attrs={'class':'form-control form-control'})
+        }
+  
+#UBICACIONES
+class UbicacionesBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+
+class AgregarUbicaciones(ModelForm):
+    class Meta:
+        model = Ubicaciones
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+        }
+
+#EMBALAJES
+class EmbalajeBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+  
+class AgregarEmbalaje(ModelForm):
+    class Meta:
+        model = Embalajes
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+        }
+
+#ENTIDADES
+class EntidadBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombreentidad = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+  
+class AgregarEntidad(ModelForm):
+    class Meta:
+        model = Entidades
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+        }
