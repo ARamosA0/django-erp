@@ -360,12 +360,19 @@ def eliminar_familia(request,id):
 #VENTAS CLIENTES
 def reg_venta(request):
     elemento_venta_form = NuevoElemento()
-    codigoarticulo = elemento_venta_form.data.get("codigoarticulo") 
-    if request.method == 'POST': 
-        articulo_venta = Articulos.objects.filter(id=codigoarticulo)
+    codigoarticulo = elemento_venta_form.data.get("codigoarticulo")
     context ={
         'elemento_venta_form': elemento_venta_form,
     }
+    if 'dni_cliente' in request.GET:
+        cod = request.GET['dni_cliente']
+        if  cod != '':
+            cliente = Clientes.objects.filter(persona_id__dni=cod)
+            context['dni_cliente'] = cod
+            context['nombre_cliente'] = cliente[0] if cliente else "cliente inexistente"
+    if request.method == 'POST':
+        articulo_venta = Articulos.objects.filter(id=codigoarticulo)
+    
     # Al buscar el codigo de barras del producto se autocompleta la descripcion.
     # El precio incrementa con la cantidad y se  reduce con el descuento
     # Al darle agregar el producto se agrega a una lista

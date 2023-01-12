@@ -3,47 +3,55 @@
 {% block content %}
 <div class='row justify-content-center m-5'>
     <div class="col-md-12 col-lg-10">
-      <h4><center>Venta</center></h4>
-      {% csrf_token %}
+        <h4><center>Venta</center></h4>
+        <div class="row my-2">
+            <div class="col-md-6 px-4">
+                <form method="GET">
+                    <div class="row">
+                        <label for="codigo_cliente">DNI CLIENTE</label>
+                        <div class="col-8 col-sm-10">
+                        <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
+                        </div>
+                        <div class="d-grid gap-2 col-4 col-sm-2">
+                        <button type="submit" class="btn btn-dark" >
+                        <i class="bi bi-search"></i>
+                        </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 px-4">
+                <label for="nombre_cliente">NOMBRE CLIENTE</label>
+                <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente" value="{{nombre_cliente}}" readOnly>
+            </div>
+        </div>
         <form method="POST">
-            <div class="row">
-                <div class="form-group col-sm">
-                    <label for="exampleInputEmail1">CODIGO CLIENTE</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <label for="exampleInputEmail1">NOMBRE CLIENTE</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="form-group col-sm">
+        {% csrf_token %}
+            <div class="row my-2">
+                <div class="col-md-6 px-4">
                     <label for="exampleInputEmail1">FECHA</label>
                     <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <label for="exampleInputEmail1">IVA</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm">
                     <label for="exampleInputEmail1">CODIGO ARTICULO</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="form-group col-sm">
-                    <label for="exampleInputEmail1">PRECIO</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="form-group col-sm">
                     <label for="exampleInputEmail1">CANTIDAD</label>
                     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="form-group col-sm">
-                    <label for="exampleInputEmail1">DESCUENTO</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="form-group col-sm">
                     <label for="exampleInputEmail1">IMPORTE</label>
                     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
+                <div class="col-md-6 px-4">
+                    <label for="exampleInputEmail1">IVA</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1">PRECIO</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1">DESCUENTO</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
             </div>
-            
-            <button type="submit" class="btn btn-success mt-4" >AGREGAR</button>
+            <div class="row">
+                <div class="col px-4">
+                <button type="submit" class="btn btn-success mt-4" >AGREGAR</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
