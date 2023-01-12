@@ -36,11 +36,11 @@
                         <div class="d-grid gap-2 col-4 col-sm-3 px-1">
                         {% if dni_cliente %}
                             <a type="button" class="btn btn-primary btn-block" href="{% url 'venta' %}?registro_cli_fac=1&dni_cliente={{dni_cliente}}" >
-                            Registro
+                            AGREGAR CLIENTE
                             </a>
                         {% else %}
                             <a type="button" class="btn btn-lg btn-primary btn-block" href="{% url 'venta' %}" >
-                            Registro
+                            AGREGAR CLIENTE
                             </a>
                         {% endif %}
                         </form>
@@ -65,7 +65,7 @@
             <div class="form-group col-sm-4">
                 <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" >
             </div>
-            <button type="submit" class="btn btn-success mt-4">AGREGAR</button>
+            <button type="submit" class="btn btn-success mt-4">AGREGAR ARTICULO</button>
         </form>
     </div>
 </div>
@@ -112,7 +112,7 @@
         <input type="checkbox" name="validfac_finalform" id="validfac_finalform" checked hidden/>
         <div class="form-group col-sm-12">
             <label for="exampleInputEmail1">SUBTOTAL</label>
-            <input type="number" class="form-control" name="subtotal_fac" >
+            <input type="number" class="form-control" name="subtotal_fac" value="{{ suma_importe }}">
         </div>
         <div class="form-group col-sm-12">
             <label for="exampleInputEmail1">IVA</label>
@@ -120,7 +120,7 @@
         </div>
         <div class="form-group col-sm-12">
             <label for="exampleInputEmail1">PRECIO TOTAL</label>
-            <input type="number" class="form-control" name="total_fac" >
+            <input type="number" class="form-control" name="total_fac" id="total_fac" value="{{ total_fac }}" >
         </div>
         <div class="row">
             <button type="submit" class="btn btn-success mt-2 col-sm-6">AGREGAR</button>
