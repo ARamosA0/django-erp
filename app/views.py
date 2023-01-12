@@ -591,6 +591,17 @@ def editar_embalaje(request, id):
     }    
     return render(request, "Embalajes/formulario_insertar_embalaje.html", context)
 
+def eliminar_embalaje(request,id):
+    enviado = False
+    del_embalaje = Embalajes.objects.filter(id=id)
+    red = request.POST.get('emb','/erp/emb/')
+    if request.method =="POST":
+        del_embalaje.delete()
+        return HttpResponseRedirect(red)
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "Embalajes/delete_embalaje.html", context)
 
 #ENTIDAD
 def entidad(request):
@@ -641,6 +652,13 @@ def editar_entidad(request, id):
     }    
     return render(request, "Entidades/formulario_insertar_entidad.html", context)
 
+def ver_entidad(request,id):
+    entidad_list = Entidades.objects.get(id=id)
+    context = {
+        'ent': entidad_list
+    }
+    return render(request, "Entidades/entidad.html", context)
+    
 def eliminar_entidad(request,id):
     enviado = False
     del_entidad = Entidades.objects.filter(id=id)
@@ -652,6 +670,7 @@ def eliminar_entidad(request,id):
         'enviado':enviado
     }
     return render(request, "Entidades/delete_entidad.html", context)
+    
 # FORMAS DE PAGO
 def formas_de_pago(request):
     formas_de_pago_list = Formapago.objects.all()

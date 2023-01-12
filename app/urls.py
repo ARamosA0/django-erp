@@ -51,13 +51,13 @@ urlpatterns =[
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),
     #Insertar Ubicaciones
-    path('ubi/agregarubi', agregar_ubicaciones, name="ubic"),
+    path('ubi/agregarubi', agregar_ubicacion, name="ubic"),
     #Editar Ubicacion
     path('ubi/editar/<int:id>/', editar_ubicacion, name="edubi"),
 
     
     #Pag Embalaje
-    path('emb/', embalaje, name="emb"),
+    path('emb/', embalajes, name="emb"),
     #Insertar Embalaje
     path('emb/agregaremb', agregar_embalaje, name="emba"),
     #Editar Embalaje
@@ -89,14 +89,14 @@ urlpatterns =[
     #Insertar Embalaje
     path('emb/agregaremb', agregar_embalaje, name="aemb"),
     #Eliminar Embalaje
-    path('emb/eliminar/<int:id>/', eliminar_embalaje, name="delemb"),
+    path('emb/eliminar/<int:id>/',eliminar_embalaje, name="delemb"),
     #Editar Embalaje
     path('emb/editar/<int:id>/', editar_embalaje, name="edemb"),
     #Ver Embalaje
     path('emb/ver/<int:id>/', ver_embalaje, name="veremb"),
 
     #Pag Entidades
-    path('ent/', entidades, name="ent"),
+    path('ent/', entidad, name="ent"),
     #Insertar Entidad
     path('ent/agregarent', agregar_entidad, name="aent"),
     #Eliminar Entidad
