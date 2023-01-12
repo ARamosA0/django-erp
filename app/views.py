@@ -94,6 +94,8 @@ def agregar_proveedor(request):
     return render(request,"Proveedores/formulario_insertar_proveedor.html", context)
 
 def eliminar_proveedor(request, id):
+    enviado = False
+    
     proveedor = Proveedores.objects.get(id=id)
 
     persona_p = proveedor.persona_id 
@@ -107,16 +109,28 @@ def eliminar_proveedor(request, id):
     print(persona_p)
     print(empresa_p)
 
+    red = request.POST.get('prov', '/erp/prov/')
+
     if persona_p == 0:
         empresa = Empresa.objects.get(id= int(empresa_p))
-        proveedor.delete()
-        empresa.delete()
+
+        if request.method =="POST":
+            proveedor.delete()
+            empresa.delete()
+            return HttpResponseRedirect(red)
     elif empresa_p == 0:
         persona = Persona.objects.get(id= int(persona_p))
-        proveedor.delete()
-        persona.delete()
 
-    return redirect('prov')
+        if request.method =="POST":
+            proveedor.delete()
+            persona.delete()
+            return HttpResponseRedirect(red)
+
+    context = {
+        'enviado':enviado
+    }
+    
+    return render(request, "Proveedores/delete_proveedor.html", context)
 
 def ver_proveedor(request, id):
     prov = Proveedores.objects.get(id=id)
@@ -212,6 +226,7 @@ def clientes(request):
 def agregar_cliente(request):
     enviado = False
     codformpago=""
+    reg_porventa=False
     if request.method == 'POST':
         in_cliente_per = AgregarPersona(request.POST)
         in_cliente = ClienteClienteInsertar(request.POST)
@@ -225,16 +240,21 @@ def agregar_cliente(request):
             cliente.persona_id = int(ultima_persona)
             cliente.codformapago_id = int(codformpago)
             cliente.save()
+            if 'registro_from_ventas' in request.GET:
+                return HttpResponseRedirect('agregarclie?enviado=True&registro_from_ventas=True')
             return HttpResponseRedirect('agregarclie?enviado=True')
     else:
         in_cliente_per= AgregarPersona()
         in_cliente=ClienteClienteInsertar()
         if 'enviado' in request.GET:
             enviado = True
+            if 'registro_from_ventas' in request.GET:
+                reg_porventa = True
     context = {
         'in_cliente_per':in_cliente_per,
         'in_cliente':in_cliente,
-        'enviado':enviado, 
+        'enviado':enviado,
+        'reg_porventa':reg_porventa
     }
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
@@ -446,29 +466,93 @@ def eliminar_familia(request,id):
 
 #VENTAS CLIENTES
 def reg_venta(request):
-    elemento_venta_form = NuevoElemento()
-    codigoarticulo = elemento_venta_form.data.get("codigoarticulo") 
-    if request.method == 'POST': 
-        articulo_venta = Articulos.objects.filter(id=codigoarticulo)
-    context ={
-        'elemento_venta_form': elemento_venta_form,
+    nueva_factura_form = NuevaFactura()
+    iva_factura = 8
+    articulo_factura = Factura_linea_clie.objects.all()
+    context = {
+        'nueva_factura_form': nueva_factura_form,
+        'iva_factura':iva_factura,
+        'articulo_factura':articulo_factura
     }
-    # Al buscar el codigo de barras del producto se autocompleta la descripcion.
-    # El precio incrementa con la cantidad y se  reduce con el descuento
-    # Al darle agregar el producto se agrega a una lista
-    # La lista se muestra en una tabla con las opciones de eliminar y editar. 
-    # Solo se podra editar la cantidad 
-    
+    if 'dni_cliente' in request.GET:
+        cod = request.GET['dni_cliente']
+        if  cod != '':
+            cliente = Clientes.objects.filter(persona_id__dni=cod)
+            context['dni_cliente'] = cod
+            context['nombre_cliente'] = cliente[0] if cliente else "cliente inexistente"
+    if 'registro_cli_fac' in request.GET:
+        print("=>>>>>>>>>>>>>")
+        fac_clie = Factura_clie()
+        fac_clie.factura = Factura.objects.last()
+        fac_clie.codcliente = Clientes.objects.filter(persona_id__dni=cod)[0]
+        fac_clie.save()
+        print("success")
+        
+
+    if request.method == 'POST':
+        nueva_factura = NuevaFactura(request.POST)
+        validfac_cliente_list_form = request.POST.get("validfac_cliente_list_form", None)
+        validfac_finalform = request.POST.get("validfac_finalform", None)
+        if nueva_factura.is_valid():
+            nueva_factura.save()
+            context['nueva_factura_form'] = nueva_factura
+            context['iva_factura'] = nueva_factura.cleaned_data['iva']
+            return render(request, "VentaClientes/registroventa.html", context)
+        
+        # fac_cliente_list_form
+        if validfac_cliente_list_form:
+            # Revisa el nombre del articulo del formulario y filtra los articulos por el nombre
+            nomarticulo = request.POST["nomarticulo"] 
+            articulo_data = Articulos.objects.get(referencia=nomarticulo)
+            # Trae el ultimo obj creado de Factura_clie y guarda el id
+            fac_clie_last = Factura_clie.objects.last()
+            fac_clie_last_id = fac_clie_last.factura.id
+            # Crea un objeto de Factura_liena_clie
+            factura_linea_clie = Factura_linea_clie()
+            # guarda el id de fac_clie 
+            factura_linea_clie.factura_cliente = Factura_clie.objects.last()
+            # guarda el id del articulo buscado
+            factura_linea_clie.codproducto = Articulos.objects.get(referencia=nomarticulo)
+            # Guarda el precio del articulo buscado
+            factura_linea_clie.precio = articulo_data.precio_compra
+            # Lee el campo cantidad_art del formulario y lo guarda en una variable
+            cantidad = request.POST["cantidad_art"]
+            factura_linea_clie.cantidad = cantidad
+            # Lee el campo descuento_art del formulario y lo guarda en una variable
+            descuento = request.POST["descuento_art"]
+            factura_linea_clie.dsctoproducto = descuento
+            # Hace la operacion para hallar el importe del producto y lo guarda
+            factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
+            # Guarda todos los datos
+            factura_linea_clie.save()    
+
+            last_fac_lie_clie = Factura_linea_clie.objects.last()
+            last_id_lie_clie = last_fac_lie_clie.id 
+            art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = fac_clie_last_id)
+            print('asdasdasdasdadasdasd',art_fac)
+            context['articulo_factura'] = art_fac
+
+        if validfac_finalform:
+            factura_clie = Factura_clie.objects.last()
+            familia_put = Factura.objects.filter(factura = id)
+            in_familia_per = AgregarFamilia(request.POST or None, instance=familia_put)
+            if in_familia_per.is_valid():
+                    in_familia_per.save()       
+                    return redirect('fam')
+
+            context = {
+                'in_familia_per':in_familia_per,
+            }    
     return render(request, "VentaClientes/registroventa.html", context)
 
-# FACTURAS VENTAS CLIENTE
-def facturas(request):
-    return
 
 # ALBANARES
 def albanar(request):
     return 
 
+# FACTURA ALBANARES
+def fac_albanar(request):
+    return 
 #UBICACIONES
 def ubicaciones(request):
     ubicaciones_list = Ubicaciones.objects.all()
