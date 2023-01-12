@@ -3,7 +3,11 @@
 {% block content %}
 <div class='row justify-content-center m-5'>
     <div class="col-md-10 col-lg-5">
+<<<<<<< HEAD
       <h4><center>Buscar Embalajes</center></h4>
+=======
+      <h4><center>Buscar Embalaje</center></h4>
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
       <div  class="form-group">
         <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
@@ -11,15 +15,24 @@
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
+<<<<<<< HEAD
             <a href="{% url 'emba' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>
+=======
+            <a href="{% url 'aemb' %}" type="button" class="btn btn-success" >Agregar</a>
+          </div>                   
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
         </form>
     </div>
     </div>
 
 <div style="display: flex; justify-content: space-between;">
     <div>
+<<<<<<< HEAD
         <p>N de Embalajes encontrados:</p>
+=======
+        <p>N de embalajes encontrados:</p>
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
     </div>
     <div style="display: flex;">
         <p style="margin:10px;">Mostrados:</p>
@@ -41,21 +54,35 @@
             <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
             <th scope="col">Acciones</th>
+<<<<<<< HEAD
          
+=======
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
         </tr>        
     </thead>
     
     <tbody>
+<<<<<<< HEAD
         {% if embalaje_list %}
         {% for emb in embalaje_list %}
+=======
+        {% if embalajes_list %}
+        {% for emb in embalajes_list %}
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
         <tr scope="row">
             <td>{{ emb.id }}</td>
             <td>{{ emb.id }}</td>
             <td>{{ emb.nombre }}</td>
             <td>
+<<<<<<< HEAD
                 <a type="button" href="" class="btn btn-primary">Ver</a>
                 <a type="button" href="{% url 'edemb' emb.id %}" class="btn btn-success">Editar</a>
                 <a type="button" href="" class="btn btn-danger">Eliminar</a>
+=======
+                <a type="button" href="{% url 'veremb' emb.id %}" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edemb' emb.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delemb' emb.id %}" class="btn btn-danger">Eliminar</a>
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
             </td>
         </tr>
         {% endfor %}

@@ -4,17 +4,29 @@
 <section class="container">
     <div class="card">
         <div class="card-header">
+<<<<<<< HEAD
             Insertar Familia
         </div>
         <div class="card-body">
             {% if enviado %}
                 <p>Familia fue agregada</p>
+=======
+            Insertar Ubicacion
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>Ubicacion fue agregada</p>
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
                 <a class="btn btn-primary" href="{% url 'ubi' %}" role="button">Volver</a>
             {% else %}
                 <form action="" method="POST" class="row g-3">
                     {% csrf_token %}
                     {{ in_ubicaciones_per.as_p }}
+<<<<<<< HEAD
                     <button type="submit" class="btn btn-primary">Guardar familia</button>
+=======
+                    <button type="submit" class="btn btn-primary">Guardar ubicacion</button>
+>>>>>>> d640963c86afad0a211e16f011522c4f833140fc
                 </form>
             {% endif %}
         </div>

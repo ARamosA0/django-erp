@@ -1,0 +1,24 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container">
+    <div class="card">
+        <div class="card-header">
+            Insertar Impuesto
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>Impuesto agregado</p>
+                <a class="btn btn-primary" href="{% url 'imp' %}" role="button">Volver</a>
+            {% else %}
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+                    {{ in_imp_per.as_p }}
+                    <button type="submit" class="btn btn-primary">Agregar Impuesto</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
