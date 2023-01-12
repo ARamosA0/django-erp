@@ -164,67 +164,7 @@ class NuevoElemento(Form):
         widget=forms.DateInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
     iva = forms.CharField(label='IVA:',
         widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-<<<<<<< HEAD
-    codigoarticulo = forms.DecimalField(label='CODIGO ARTICULO:',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigoarticulo'}),required=False)
-    precio = forms.DecimalField(label='PRECIO (S/.):',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    cantidad = forms.IntegerField(label='CANTIDAD:',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    descuento = forms.DecimalField(label='Dcto:',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    importe = forms.DecimalField(label='Importe (S/.):',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-
-#UBICACIONES
-
-class UbicacionesBusqueda(Form):
-    codigo = forms.CharField(label='CODIGO:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    nombre = forms.CharField(label='NOMBRE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
-  
-class AgregarUbicaciones(ModelForm):
-    class Meta:
-        model = Ubicaciones
-        fields = '__all__'
-        widgets = {
-            'nombre':forms.TextInput(attrs={'class':'form-control'})
-        }
-
-#EMBALAJES
-class EmbalajeBusqueda(Form):
-    codigo = forms.CharField(label='CODIGO:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    nombre = forms.CharField(label='NOMBRE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
-  
-class AgregarEmbalaje(ModelForm):
-    class Meta:
-        model = Embalajes
-        fields = '__all__'
-        widgets = {
-            'nombre':forms.TextInput(attrs={'class':'form-control'})
-        }
-     
-
-#ENTIDADES
-class EntidadBusqueda(Form):
-    codigo = forms.CharField(label='CODIGO:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    nombreentidad = forms.CharField(label='NOMBRE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
-  
-class AgregarEntidad(ModelForm):
-    class Meta:
-        model = Entidades
-        fields = '__all__'
-        widgets = {
-            'nombre':forms.TextInput(attrs={'class':'form-control'})
-        }
-=======
     
->>>>>>> 3240c8eac6963622ab00eeadc8fe3b9f92d208ee
      
 class NuevaFactura(ModelForm):
     class Meta:
