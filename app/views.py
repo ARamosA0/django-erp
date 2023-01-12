@@ -445,90 +445,60 @@ def eliminar_familia(request,id):
 
 #VENTAS CLIENTES
 def reg_venta(request):
-    
     nueva_factura_form = NuevaFactura()
     iva_factura = 8
+    articulo_factura = Factura_linea_clie.objects.all()
     context = {
         'nueva_factura_form': nueva_factura_form,
-        'iva_factura':iva_factura
-
+        'iva_factura':iva_factura,
+        'articulo_factura':articulo_factura
     }
 
     if request.method == 'POST':
         nueva_factura = NuevaFactura(request.POST)
+        validfac_cliente_list_form = request.POST["validfac_cliente_list_form"]
+        validfac_finalform = request.POST["validfac_finalform"]
         if nueva_factura.is_valid():
             nueva_factura.save()
             context['nueva_factura_form'] = nueva_factura
             context['iva_factura'] = nueva_factura.cleaned_data['iva']
         
-        
+        # fac_cliente_list_form
+        if validfac_cliente_list_form:
+            # Revisa el nombre del articulo del formulario y filtra los articulos por el nombre
+            nomarticulo = request.POST["nomarticulo"] 
+            articulo_data = Articulos.objects.get(referencia=nomarticulo)
+            # Trae el ultimo obj creado de Factura_clie y guarda el id
+            fac_clie_last = Factura_clie.objects.last()
+            fac_clie_last_id = fac_clie_last.factura.id
+            # Crea un objeto de Factura_liena_clie
+            factura_linea_clie = Factura_linea_clie()
+            # guarda el id de fac_clie 
+            factura_linea_clie.factura_cliente = fac_clie_last_id
+            # guarda el id del articulo buscado
+            factura_linea_clie.codproducto = articulo_data.id
+            # Guarda el precio del articulo buscado
+            factura_linea_clie.precio = articulo_data.precio_compra
+            # Lee el campo cantidad_art del formulario y lo guarda en una variable
+            cantidad = request.POST["cantidad_art"]
+            factura_linea_clie.cantidad = cantidad
+            # Lee el campo descuento_art del formulario y lo guarda en una variable
+            descuento = request.POST["descuento_art"]
+            factura_linea_clie.dsctoproducto = descuento
+            # Hace la operacion para hallar el importe del producto y lo guarda
+            factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
+            # Guarda todos los datos
+            factura_linea_clie.save()    
 
-    
-    
+            last_fac_lie_clie = Factura_linea_clie.objects.last()
+            last_id_lie_clie = last_fac_lie_clie.id 
+            art_fac = Factura_linea_clie.objects.filter(Factura_linea_clie__factura_cliente__factura__id = fac_clie_last_id)
+            context['articulo_factura'] = art_fac
 
-    # articulo_venta = Articulos()
-    # context ={
-    #     'articulo_venta':articulo_venta,
-    #     'art_lista_fact':''
-    # }
-
-    # if request.method == 'POST':
-    #     nomarticulo = request.POST.get('nomarticulo', None) 
-    #     print(nomarticulo)
-    #     articulo_data = Articulos.objects.get(referencia=nomarticulo)
-    #     context['articulo_venta']=articulo_data
-    #     factura_linea_clie = Factura_linea_clie()
-    #     factura_linea_clie.codproducto = articulo_data.pk
-    #     cantidad = request.POST["cantidad_art"]
-    #     factura_linea_clie.cantidad = cantidad
-    #     descuento = request.POST["descuento_art"]
-    #     factura_linea_clie.dsctoproducto = descuento
-    #     factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
-    #     factura_linea_clie.save()
-
-
-
-    # if request.method == 'GET':
-    #     try:
-    #         nomarticulo = request.GET.get('nomarticulo', None) 
-    #         print(nomarticulo)
-    #         articulo_data = Articulos.objects.get(referencia=nomarticulo)
-    #         context['articulo_venta']=articulo_data
-    #         articulo_venta = articulo_data
-
-    #         if request.method == 'POST':
-    #             print('=============================================',articulo_venta)
-    #             factura_linea_clie = Factura_linea_clie()
-    #             factura_linea_clie.codproducto = articulo_venta.pk
-                # cantidad = request.POST["cantidad_art"]
-                # factura_linea_clie.cantidad = cantidad
-                # descuento = request.POST["descuento_art"]
-                # factura_linea_clie.dsctoproducto = descuento
-                # factura_linea_clie.importe = (articulo_venta.precio_compra * int(cantidad)) - float(descuento)
-                # factura_linea_clie.save()
-    #             print('factura',factura_linea_clie)
-
-    #             context['art_lista_fact']=Factura_linea_clie.objects.last()
-    #     except Exception as e: 
-    #         print(e)
-    
+        if validfac_finalform:
+            return "a"
     return render(request, "VentaClientes/registroventa.html", context)
 
-# FACTURAS VENTAS CLIENTE
-def facturas(request):
-    context = {
-        
-    }
-
-    if request.method == 'POST':
-        fechafac = request.POST['fechafac']
-        ivafac = request.POST['ivafac']
-        fac = Factura()
-        fac.fecha = fechafac
-        fac.iva = ivafac
-        fac.save()
-
-    return render(request, "VentaClientes/registroventa.html", context)
 
 # ALBANARES
 def albanar(request):
