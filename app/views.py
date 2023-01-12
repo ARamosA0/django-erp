@@ -468,17 +468,7 @@ def facturas(request):
 def albanar(request):
     return 
 
-<<<<<<< HEAD
-# FACTURA ALBANARES
-def fac_albanar(request):
-    return 
-
 #UBICACIONES
-
-
-=======
-#UBICACIONES
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
 def ubicaciones(request):
     ubicaciones_list = Ubicaciones.objects.all()
     busquedaform = UbicacionesBusqueda()
@@ -498,11 +488,7 @@ def ubicaciones(request):
         busquedaform = UbicacionesBusqueda()
     return render(request, "Ubicaciones/estructura_crud_ubi.html",context)
 
-<<<<<<< HEAD
-def agregar_ubicaciones(request):
-=======
 def agregar_ubicacion(request):
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
     enviado = False
     if request.method == 'POST':
         in_ubicaciones_per = AgregarUbicaciones(request.POST)
@@ -519,8 +505,6 @@ def agregar_ubicacion(request):
     }
     return render(request, "Ubicaciones/formulario_insertar_ubicacion.html", context)
 
-<<<<<<< HEAD
-=======
 def ver_ubicacion(request,id):
     ubicacion_list = Ubicaciones.objects.get(id=id)
     context = {
@@ -528,31 +512,17 @@ def ver_ubicacion(request,id):
     }
     return render(request, "Ubicaciones/ubicacion.html", context)
 
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
 def editar_ubicacion(request, id):
     ubicacion_put = Ubicaciones.objects.get(id=id)
     in_ubicaciones_per = AgregarUbicaciones(request.POST or None, instance=ubicacion_put)
     if in_ubicaciones_per.is_valid():
             in_ubicaciones_per.save()       
             return redirect('ubi')
-<<<<<<< HEAD
-    
-=======
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
     context = {
         'in_ubicaciones_per':in_ubicaciones_per,
     }    
     return render(request, "Ubicaciones/formulario_insertar_ubicacion.html", context)
 
-<<<<<<< HEAD
-
-#EMBALAJES
-def embalaje(request):
-    embalaje_list = Embalajes.objects.all()
-    busquedaform = EmbalajeBusqueda()
-    context ={
-        'embalaje_list': embalaje_list,
-=======
 def eliminar_ubicacion(request,id):
     enviado = False
     del_ubicacion = Ubicaciones.objects.filter(id=id)
@@ -571,7 +541,6 @@ def embalajes(request):
     busquedaform = EmbalajeBusqueda()
     context ={
         'embalajes_list': embalajes_list,
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
         'busquedaform': busquedaform
     }
     if request.method == 'POST':
@@ -580,11 +549,7 @@ def embalajes(request):
             data = Embalajes.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
-<<<<<<< HEAD
-            context['embalaje_list']=data
-=======
             context['embalajes_list']=data
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
             context['busquedaform']=busquedaform
     else:
         busquedaform = EmbalajeBusqueda()
@@ -607,9 +572,6 @@ def agregar_embalaje(request):
     }
     return render(request, "Embalajes/formulario_insertar_embalaje.html", context)
 
-<<<<<<< HEAD
-def editar_embalaje(request, id):
-=======
 def ver_embalaje(request,id):
     embalaje_list = Embalajes.objects.get(id=id)
     context = {
@@ -618,7 +580,6 @@ def ver_embalaje(request,id):
     return render(request, "Embalajes/embalaje.html", context)
 
 def editar_embalaje(request, id):  
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
     embalaje_put = Embalajes.objects.get(id=id)
     in_embalaje_per = AgregarEmbalaje(request.POST or None, instance=embalaje_put)
     if in_embalaje_per.is_valid():
@@ -630,26 +591,9 @@ def editar_embalaje(request, id):
     }    
     return render(request, "Embalajes/formulario_insertar_embalaje.html", context)
 
-<<<<<<< HEAD
 
 #ENTIDAD
 def entidad(request):
-=======
-def eliminar_embalaje(request,id):
-    enviado = False
-    del_embalaje = Embalajes.objects.filter(id=id)
-    red = request.POST.get('emb','/erp/emb/')
-    if request.method =="POST":
-        del_embalaje.delete()
-        return HttpResponseRedirect(red)
-    context = {
-        'enviado':enviado
-    }
-    return render(request, "Embalajes/delete_embalaje.html", context)
-
-#ENTIDADES
-def entidades(request):
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
     entidades_list = Entidades.objects.all()
     busquedaform = EntidadBusqueda()
     context ={
@@ -685,18 +629,7 @@ def agregar_entidad(request):
     }
     return render(request, "Entidades/formulario_insertar_entidad.html", context)
 
-<<<<<<< HEAD
 def editar_entidad(request, id):
-=======
-def ver_entidad(request,id):
-    entidad_list = Entidades.objects.get(id=id)
-    context = {
-        'ent': entidad_list
-    }
-    return render(request, "Entidades/entidad.html", context)
-
-def editar_entidad(request, id):  
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
     entidad_put = Entidades.objects.get(id=id)
     in_entidades_per = AgregarEntidad(request.POST or None, instance=entidad_put)
     if in_entidades_per.is_valid():
@@ -706,9 +639,6 @@ def editar_entidad(request, id):
     context = {
         'in_entidades_per':in_entidades_per,
     }    
-<<<<<<< HEAD
-    return render(request, "Entidades/formulario_insertar_entidad.html", context)
-=======
     return render(request, "Entidades/formulario_insertar_entidad.html", context)
 
 def eliminar_entidad(request,id):
@@ -872,4 +802,3 @@ def eliminar_impuesto(request, id):
         'enviado':enviado
     }
     return render(request, "Impuestos/delete_impuesto.html", context)
->>>>>>> d640963c86afad0a211e16f011522c4f833140fc
