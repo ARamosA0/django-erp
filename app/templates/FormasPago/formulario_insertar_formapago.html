@@ -1,0 +1,24 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container">
+    <div class="card">
+        <div class="card-header">
+            Insertar Forma de Pago
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>Forma de pago agregado</p>
+                <a class="btn btn-primary" href="{% url 'fpago' %}" role="button">Volver</a>
+            {% else %}
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+                    {{ in_fpago_per.as_p }}
+                    <button type="submit" class="btn btn-primary">Agregar Forma de Pago</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

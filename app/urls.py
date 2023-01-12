@@ -86,4 +86,17 @@ urlpatterns =[
     path('ent/editar/<int:id>/', editar_entidad, name="edent"),
     #Ver Entidad
     path('ent/ver/<int:id>/', ver_entidad, name="verent"),
+    #Pag Formas de pago
+    path('formapago/', formas_de_pago, name="fpago"),
+    path('formapago/ver/<int:id>', ver_fpago, name="verfpago"),
+    path('formapago/agregarformapago', agregar_fpago, name="afpago"),
+    path('formapago/editar/<int:id>', editar_fpago, name="edfpago"),
+    path('formapago/eliminar/<int:id>', eliminar_fpago, name="delfpago"),
+    
+    #Pag Impuestos
+    path('impuestos/', impuestos, name="imp"),
+    path('impuestos/agregarimpuesto', agregar_impuesto, name="aimp"),
+    path('impuestos/ver/<int:id>', ver_impuesto, name="verimp"),
+    path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
+    path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp")
 ]
