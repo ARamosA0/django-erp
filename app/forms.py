@@ -166,17 +166,17 @@ class NuevoElemento(Form):
         widget=forms.DateInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
     iva = forms.CharField(label='IVA:',
         widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    codigoarticulo = forms.DecimalField(label='CODIGO ARTICULO:',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigoarticulo'}),required=False)
-    precio = forms.DecimalField(label='PRECIO (S/.):',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    cantidad = forms.IntegerField(label='CANTIDAD:',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    descuento = forms.DecimalField(label='Dcto:',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    importe = forms.DecimalField(label='Importe (S/.):',
-        widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
+    
      
+class NuevaFactura(ModelForm):
+    class Meta:
+        model = Factura
+        fields = ('fecha', 'iva')
+        widgets = {
+            'fecha':DateInput(attrs={'class':'form-control'}),
+            'iva':forms.TextInput(attrs={'class':'form-control', 'value':'8'})
+        }
+        
 #FORMA DE PAGO
 class FormasPagoBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
