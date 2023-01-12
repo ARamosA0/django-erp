@@ -213,6 +213,7 @@ def clientes(request):
 def agregar_cliente(request):
     enviado = False
     codformpago=""
+    reg_porventa=False
     if request.method == 'POST':
         in_cliente_per = AgregarPersona(request.POST)
         in_cliente = ClienteClienteInsertar(request.POST)
@@ -226,16 +227,21 @@ def agregar_cliente(request):
             cliente.persona_id = int(ultima_persona)
             cliente.codformapago_id = int(codformpago)
             cliente.save()
+            if 'registro_from_ventas' in request.GET:
+                return HttpResponseRedirect('agregarclie?enviado=True&registro_from_ventas=True')
             return HttpResponseRedirect('agregarclie?enviado=True')
     else:
         in_cliente_per= AgregarPersona()
         in_cliente=ClienteClienteInsertar()
         if 'enviado' in request.GET:
             enviado = True
+            if 'registro_from_ventas' in request.GET:
+                reg_porventa = True
     context = {
         'in_cliente_per':in_cliente_per,
         'in_cliente':in_cliente,
-        'enviado':enviado, 
+        'enviado':enviado,
+        'reg_porventa':reg_porventa
     }
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
@@ -453,6 +459,20 @@ def reg_venta(request):
         'iva_factura':iva_factura,
         'articulo_factura':articulo_factura
     }
+    if 'dni_cliente' in request.GET:
+        cod = request.GET['dni_cliente']
+        if  cod != '':
+            cliente = Clientes.objects.filter(persona_id__dni=cod)
+            context['dni_cliente'] = cod
+            context['nombre_cliente'] = cliente[0] if cliente else "cliente inexistente"
+    if 'registro_cli_fac' in request.GET:
+        print("=>>>>>>>>>>>>>")
+        fac_clie = Factura_clie()
+        fac_clie.factura = Factura.objects.last()
+        fac_clie.codcliente = Clientes.objects.filter(persona_id__dni=cod)[0]
+        fac_clie.save()
+        print("success")
+        
 
     if request.method == 'POST':
         nueva_factura = NuevaFactura(request.POST)
@@ -462,41 +482,42 @@ def reg_venta(request):
             nueva_factura.save()
             context['nueva_factura_form'] = nueva_factura
             context['iva_factura'] = nueva_factura.cleaned_data['iva']
+            return render(request, "VentaClientes/registroventa.html", context)
         
         # fac_cliente_list_form
-        if validfac_cliente_list_form:
-            # Revisa el nombre del articulo del formulario y filtra los articulos por el nombre
-            nomarticulo = request.POST["nomarticulo"] 
-            articulo_data = Articulos.objects.get(referencia=nomarticulo)
-            # Trae el ultimo obj creado de Factura_clie y guarda el id
-            fac_clie_last = Factura_clie.objects.last()
-            fac_clie_last_id = fac_clie_last.factura.id
-            # Crea un objeto de Factura_liena_clie
-            factura_linea_clie = Factura_linea_clie()
-            # guarda el id de fac_clie 
-            factura_linea_clie.factura_cliente = fac_clie_last_id
-            # guarda el id del articulo buscado
-            factura_linea_clie.codproducto = articulo_data.id
-            # Guarda el precio del articulo buscado
-            factura_linea_clie.precio = articulo_data.precio_compra
-            # Lee el campo cantidad_art del formulario y lo guarda en una variable
-            cantidad = request.POST["cantidad_art"]
-            factura_linea_clie.cantidad = cantidad
-            # Lee el campo descuento_art del formulario y lo guarda en una variable
-            descuento = request.POST["descuento_art"]
-            factura_linea_clie.dsctoproducto = descuento
-            # Hace la operacion para hallar el importe del producto y lo guarda
-            factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
-            # Guarda todos los datos
-            factura_linea_clie.save()    
+        # if validfac_cliente_list_form:
+        #     # Revisa el nombre del articulo del formulario y filtra los articulos por el nombre
+        #     nomarticulo = request.POST["nomarticulo"] 
+        #     articulo_data = Articulos.objects.get(referencia=nomarticulo)
+        #     # Trae el ultimo obj creado de Factura_clie y guarda el id
+        #     fac_clie_last = Factura_clie.objects.last()
+        #     fac_clie_last_id = fac_clie_last.factura.id
+        #     # Crea un objeto de Factura_liena_clie
+        #     factura_linea_clie = Factura_linea_clie()
+        #     # guarda el id de fac_clie 
+        #     factura_linea_clie.factura_cliente = fac_clie_last_id
+        #     # guarda el id del articulo buscado
+        #     factura_linea_clie.codproducto = articulo_data.id
+        #     # Guarda el precio del articulo buscado
+        #     factura_linea_clie.precio = articulo_data.precio_compra
+        #     # Lee el campo cantidad_art del formulario y lo guarda en una variable
+        #     cantidad = request.POST["cantidad_art"]
+        #     factura_linea_clie.cantidad = cantidad
+        #     # Lee el campo descuento_art del formulario y lo guarda en una variable
+        #     descuento = request.POST["descuento_art"]
+        #     factura_linea_clie.dsctoproducto = descuento
+        #     # Hace la operacion para hallar el importe del producto y lo guarda
+        #     factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
+        #     # Guarda todos los datos
+        #     factura_linea_clie.save()    
 
-            last_fac_lie_clie = Factura_linea_clie.objects.last()
-            last_id_lie_clie = last_fac_lie_clie.id 
-            art_fac = Factura_linea_clie.objects.filter(Factura_linea_clie__factura_cliente__factura__id = fac_clie_last_id)
-            context['articulo_factura'] = art_fac
+        #     last_fac_lie_clie = Factura_linea_clie.objects.last()
+        #     last_id_lie_clie = last_fac_lie_clie.id 
+        #     art_fac = Factura_linea_clie.objects.filter(Factura_linea_clie__factura_cliente__factura__id = fac_clie_last_id)
+        #     context['articulo_factura'] = art_fac
 
-        if validfac_finalform:
-            return "a"
+        # if validfac_finalform:
+        #     return "a"
     return render(request, "VentaClientes/registroventa.html", context)
 
 

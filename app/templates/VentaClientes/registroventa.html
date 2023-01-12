@@ -3,45 +3,78 @@
 {% block content %}
 <div class='row justify-content-center m-5'>
     <h4><center>Venta</center></h4>
-    <div class="col-md-12 col-lg-5">
+    <div class="col-md-12 col-lg-10">
       {% csrf_token %}
 <!-- CREA UNA NUEVA FACTURA -->
-        <form method="POST">
+        <form method="POST" class="col-md-12 col-lg-5">
             {% csrf_token %}
             <div class="form-group col-sm">
                 {{nueva_factura_form.as_p}}
                 <button type="submit" class="btn btn-success">Nueva Venta</button>
             </div>
         </form>
-    </div>
-<!-- se crea FACTURA_CLIE -->
-    <div class="col-md-12 col-lg-5">
+        <div class="row my-2">
+            <div class="col-md- px-4">
+                <form method="GET">
+                    <div class="row">
+                    <form method="GET">
+                        <label for="codigo_cliente">DNI CLIENTE</label>
+                        <div class="col-8 col-sm-7">
+                        <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
+                        </div>
+                        <div class="d-grid gap-2 col-4 col-sm-1 px-1">
+                        <button type="submit" class="btn btn-dark" >
+                        <i class="bi bi-search"></i>
+                        </button>
+                        </div>
+                    </form>
+                        <div class="d-grid gap-2 col-4 col-sm-1 px-1">
+                        <a type="button" class="btn btn-success" href="{% url 'aclie' %}?registro_from_ventas=0">
+                        <i class="bi bi-plus-circle"></i>
+                        </a>
+                        </div>
+                        <div class="d-grid gap-2 col-4 col-sm-3 px-1">
+                        {% if dni_cliente %}
+                            <a type="button" class="btn btn-primary btn-block" href="{% url 'venta' %}?registro_cli_fac=1&dni_cliente={{dni_cliente}}" >
+                            Registro
+                            </a>
+                        {% else %}
+                            <a type="button" class="btn btn-lg btn-primary btn-block" href="{% url 'venta' %}" >
+                            Registro
+                            </a>
+                        {% endif %}
+                        </form>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="col-md-6 px-4">
+                <label for="nombre_cliente">NOMBRE CLIENTE</label>
+                <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente" value="{{nombre_cliente}}" readOnly>
+            </div>
+        </div>
         <form method="POST">
+        {% csrf_token %}
+            <div class="row my-2">
+                <div class="col-md-6 px-4">
+                    
+                    <label for="exampleInputEmail1">CODIGO ARTICULO</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1">CANTIDAD</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1">IMPORTE</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="col-md-6 px-4">
+                    <label for="exampleInputEmail1">PRECIO</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1">DESCUENTO</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+            </div>
             <div class="row">
-                <div class="form-group col-sm">
-                    <label for="exampleInputEmail1">CODIGO CLIENTE</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <label for="exampleInputEmail1">NOMBRE CLIENTE</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-            </div>            
-        </form>
-    </div>
-        <div class="row"></div>
-    
-<!-- Se crea el factura_cliente_list -->
-    <div class="col-md-12 col-lg-10">
-            <form method="POST" class="row mt-4">
-                <input type="checkbox" name="validfac_cliente_list_form" checked hidden/>
-                {% csrf_token %}
-                <div class="form-group col-sm-4">
-                    <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" name="nomarticulo" value="{{ articulo_venta.referencia }}">
-                </div>
-                <div class="form-group col-sm-4">
-                    <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1">
-                </div>
-                <div class="form-group col-sm-4">
-                    <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" >
+                <div class="col px-4">
+                <button type="submit" class="btn btn-success mt-4" >AGREGAR</button>
                 </div>
                 <button type="submit" class="btn btn-success mt-4">AGREGAR</button>
             </form>

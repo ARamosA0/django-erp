@@ -10,7 +10,11 @@
         <div class="card-body">
             {% if enviado %}
                 <p>Persona fue agregado</p>
+                {% if reg_porventa %}
+                <a class="btn btn-primary" href="{% url 'venta' %}" role="button">Volver</a> 
+                {% else %}
                 <a class="btn btn-primary" href="{% url 'clie' %}" role="button">Volver</a> 
+                {% endif %}
             {% else %}
                 <form action="" method="POST" class="row g-3">
                     {% csrf_token %}
