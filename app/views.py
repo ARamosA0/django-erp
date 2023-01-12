@@ -467,26 +467,29 @@ def eliminar_familia(request,id):
 def reg_venta(request):
     nueva_factura_form = NuevaFactura()
     iva_factura = 8
-    articulo_factura = Factura_linea_clie.objects.all()
     context = {
         'nueva_factura_form': nueva_factura_form,
         'iva_factura':iva_factura,
-        'articulo_factura':articulo_factura
     }
+    #Buequeda de persona
     if 'dni_cliente' in request.GET:
         cod = request.GET['dni_cliente']
         if  cod != '':
             cliente = Clientes.objects.filter(persona_id__dni=cod)
             context['dni_cliente'] = cod
             context['nombre_cliente'] = cliente[0] if cliente else "cliente inexistente"
+    #Registro en tabla factura clie
     if 'registro_cli_fac' in request.GET:
-        print("=>>>>>>>>>>>>>")
         fac_clie = Factura_clie()
         fac_clie.factura = Factura.objects.last()
         fac_clie.codcliente = Clientes.objects.filter(persona_id__dni=cod)[0]
         fac_clie.save()
-        print("success")
-        
+    #eliminacion factura linea cliente
+    if 'factura_cliente_id' in request.GET:
+        del_flc = Factura_linea_clie.objects.get(pk=request.GET['factura_cliente_id'])
+        del_flc.delete()
+        context['articulo_factura'] = Factura_linea_clie.objects.filter(factura_cliente_id = Factura_clie.objects.last().pk)
+
 
     if request.method == 'POST':
         nueva_factura = NuevaFactura(request.POST)
@@ -528,7 +531,6 @@ def reg_venta(request):
             last_fac_lie_clie = Factura_linea_clie.objects.last()
             last_id_lie_clie = last_fac_lie_clie.id 
             art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = fac_clie_last_id)
-            print('asdasdasdasdadasdasd',art_fac)
             context['articulo_factura'] = art_fac
 
         if validfac_finalform:
@@ -541,7 +543,7 @@ def reg_venta(request):
 
             context = {
                 'in_familia_per':in_familia_per,
-            }    
+            }
     return render(request, "VentaClientes/registroventa.html", context)
 
 

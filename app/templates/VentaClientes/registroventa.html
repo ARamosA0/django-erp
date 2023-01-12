@@ -96,7 +96,7 @@
             <td>{{ artfac.importe }}</td>
             <td>
                 <button type="button" class="btn btn-success">Editar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <a type="button" href="{% url 'venta'%}?factura_cliente_id={{artfac.id}}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
