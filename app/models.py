@@ -133,10 +133,10 @@ class Articulos(models.Model):
 #Facturas
 
 class Factura(models.Model):
-    fecha = models.DateField(auto_now_add=True)
+    fecha = models.DateField(null=True)
     iva = models.IntegerField()
-    totalfactura = models.FloatField(default=0, null=True)     
-
+    totalfactura = models.FloatField(default=0, null=True)    
+    
 class Factura_clie(models.Model):
     factura = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)

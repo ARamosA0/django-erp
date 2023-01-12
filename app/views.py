@@ -292,7 +292,7 @@ def eliminar_cliente(request, id):
     context = {
         'enviado':enviado
     }
-    return render(request, "Clientes/de/eliminar/8/erp/clie/lete_cliente.html", context)
+    return render(request, "Clientes/delete_cliente.html", context)
         
 
 #ARTICULOS
@@ -445,26 +445,46 @@ def eliminar_familia(request,id):
 
 #VENTAS CLIENTES
 def reg_venta(request):
+    
+    nueva_factura_form = NuevaFactura()
+    iva_factura = 8
+    context = {
+        'nueva_factura_form': nueva_factura_form,
+        'iva_factura':iva_factura
 
-    articulo_venta = Articulos()
-    context ={
-        'articulo_venta':articulo_venta,
-        'art_lista_fact':''
     }
 
     if request.method == 'POST':
-        nomarticulo = request.POST.get('nomarticulo', None) 
-        print(nomarticulo)
-        articulo_data = Articulos.objects.get(referencia=nomarticulo)
-        context['articulo_venta']=articulo_data
-        factura_linea_clie = Factura_linea_clie()
-        factura_linea_clie.codproducto = articulo_data.pk
-        cantidad = request.POST["cantidad_art"]
-        factura_linea_clie.cantidad = cantidad
-        descuento = request.POST["descuento_art"]
-        factura_linea_clie.dsctoproducto = descuento
-        factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
-        factura_linea_clie.save()
+        nueva_factura = NuevaFactura(request.POST)
+        if nueva_factura.is_valid():
+            nueva_factura.save()
+            context['nueva_factura_form'] = nueva_factura
+            context['iva_factura'] = nueva_factura.cleaned_data['iva']
+        
+        
+
+    
+    
+
+    # articulo_venta = Articulos()
+    # context ={
+    #     'articulo_venta':articulo_venta,
+    #     'art_lista_fact':''
+    # }
+
+    # if request.method == 'POST':
+    #     nomarticulo = request.POST.get('nomarticulo', None) 
+    #     print(nomarticulo)
+    #     articulo_data = Articulos.objects.get(referencia=nomarticulo)
+    #     context['articulo_venta']=articulo_data
+    #     factura_linea_clie = Factura_linea_clie()
+    #     factura_linea_clie.codproducto = articulo_data.pk
+    #     cantidad = request.POST["cantidad_art"]
+    #     factura_linea_clie.cantidad = cantidad
+    #     descuento = request.POST["descuento_art"]
+    #     factura_linea_clie.dsctoproducto = descuento
+    #     factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
+    #     factura_linea_clie.save()
 
 
 
@@ -496,7 +516,19 @@ def reg_venta(request):
 
 # FACTURAS VENTAS CLIENTE
 def facturas(request):
-    return
+    context = {
+        
+    }
+
+    if request.method == 'POST':
+        fechafac = request.POST['fechafac']
+        ivafac = request.POST['ivafac']
+        fac = Factura()
+        fac.fecha = fechafac
+        fac.iva = ivafac
+        fac.save()
+
+    return render(request, "VentaClientes/registroventa.html", context)
 
 # ALBANARES
 def albanar(request):
