@@ -4,31 +4,86 @@
 <section class="container">
 
     <div class="accordion" id="accordionExample">
+        <!--Formulario de Empresa: Si el dato enviado es verdadero, entonces el botón de Empresa será seleccionado y mostrará un mensaje con el botón de volver.
+            Caso contrario, el botón de Empresa no será seleccionado.-->
         <div class="accordion-item">
+          {% if enviado_emp %}
           <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               Empresa
             </button>
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            {% if editar_emp %}
             <div class="accordion-body">
-                {% if enviado %}
-                    <p>Agregado Correctamente</p>
-                    <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a> 
-                {% else %}
-                    <form action="" method="POST" class="row g-3">
-                        {% csrf_token %}
+              <form action="" method="POST" class="row g-3">
+                {% csrf_token %}
 
-                        {{ form_proveedor.as_p }}
-                        {{ form_empresa.as_p }}
+                {{ form_proveedor.as_p }}
+                {{ form_empresa.as_p }}
 
-                        <input type="submit" value="Agregar" class="btn btn-primary"/>
-                    </form>   
-                {% endif %}
+                <input type="submit" value="Aceptar cambio" class="btn btn-primary"/>
+                <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>
+              </form>   
+            </div>
+            {% else %}
+            <div class="accordion-body">
+              <p>Agregado Correctamente</p>
+              <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>   
+            </div>
+            {% endif %}
+          </div>
+          {% else %}
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Empresa
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <form action="" method="POST" class="row g-3">
+                {% csrf_token %}
+
+                {{ form_proveedor.as_p }}
+                {{ form_empresa.as_p }}
+
+                <input type="submit" value="Agregar" class="btn btn-primary"/>
+              </form>   
             </div>
           </div>
+          {% endif %}
         </div>
+
+        <!--Formulario de Persona: Si el dato enviado es verdadero, entonces el botón de Persona será seleccionado y mostrará un mensaje con el botón de volver.
+            Caso contrario, el botón de Persona no será seleccionado.-->
         <div class="accordion-item">
+          {% if enviado_per %}
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Persona
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            {% if editar_per %}
+            <div class="accordion-body">
+              <form action="" method="POST" class="row g-3">
+                {% csrf_token %}
+
+                {{ form_proveedor.as_p }}
+                {{ form_persona.as_p }}
+
+                <input type="submit" value="Aceptar cambio" class="btn btn-primary"/>
+                <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>
+              </form>   
+            </div>
+            {% else %}
+            <div class="accordion-body">
+              <p>Agregado Correctamente</p>
+              <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>   
+            </div>
+            {% endif %}
+          </div>
+          {% else %}
           <h2 class="accordion-header" id="headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               Persona
@@ -36,21 +91,17 @@
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                {% if enviado %}
-                    <p>Agregado Correctamente</p>
-                    <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a> 
-                {% else %}
-                    <form action="" method="POST" class="row g-3">
-                        {% csrf_token %}
+              <form action="" method="POST" class="row g-3">
+                {% csrf_token %}
 
-                        {{ form_proveedor.as_p }}
-                        {{ form_persona.as_p }}
+                {{ form_proveedor.as_p }}
+                {{ form_persona.as_p }}
 
-                        <input type="submit" value="Agregar" class="btn btn-primary"/>
-                    </form>   
-                {% endif %}
+                <input type="submit" value="Agregar" class="btn btn-primary"/>
+              </form>   
             </div>
           </div>
+          {% endif %}
         </div>
       </div>
 
