@@ -155,37 +155,6 @@ class Factura_linea_clie(models.Model):
     def __str__(self):
         return "Nombre cliente:{}".format(self.factura_cliente.codcliente.persona.nombre)
 
-# class Factura(models.Model):
-#     fecha = models.DateField(auto_now_add=True)
-#     iva = models.IntegerField()
-#     importe = models.FloatField()
-#     totalfactura = models.FloatField()
-#     fechavencimiento = models.DateField(auto_now=True)        
-
-# class Factura_clie(models.Model):
-#     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
-#     cantidad = models.IntegerField()
-#     precio = models.FloatField()
-#     dsctoproducto = models.FloatField()
-
-# class Factura_linea_clie(models.Model):
-#     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
-#     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
-#     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
-
-#     def __str__(self):
-#         return "Numero de linea:{}".format(self.factura.numlinea)
-
-# class Factura_linea_prov(models.Model):
-#     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
-#     codproveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
-#     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE)
-#     cantidad = models.IntegerField()
-#     precio = models.FloatField()
-#     dsctoproducto = models.FloatField()
-
-#     def __str__(self):
-#         return "Numero de linea:{}".format(self.factura.numlinea)
 
 #Albaranes
 class Albaran_linea_clie(models.Model):

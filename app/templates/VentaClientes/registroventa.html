@@ -53,31 +53,20 @@
                 <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente" value="{{nombre_cliente}}" readOnly>
             </div>
         </div>
-        <form method="POST">
-        {% csrf_token %}
-            <div class="row my-2">
-                <div class="col-md-6 px-4">
-                    
-                    <label for="exampleInputEmail1">CODIGO ARTICULO</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <label for="exampleInputEmail1">CANTIDAD</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <label for="exampleInputEmail1">IMPORTE</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="col-md-6 px-4">
-                    <label for="exampleInputEmail1">PRECIO</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <label for="exampleInputEmail1">DESCUENTO</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
+        <form method="POST" class="row mt-4">
+            <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
+            {% csrf_token %}
+            <div class="form-group col-sm-4">
+                <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" name="nomarticulo" value="{{ articulo_venta.referencia }}">
             </div>
-            <div class="row">
-                <div class="col px-4">
-                <button type="submit" class="btn btn-success mt-4" >AGREGAR</button>
-                </div>
-                <button type="submit" class="btn btn-success mt-4">AGREGAR</button>
-            </form>
+            <div class="form-group col-sm-4">
+                <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1">
+            </div>
+            <div class="form-group col-sm-4">
+                <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" >
+            </div>
+            <button type="submit" class="btn btn-success mt-4">AGREGAR</button>
+        </form>
     </div>
 </div>
 
@@ -95,7 +84,7 @@
     </thead>
     
     <tbody>
-        {% if articulo_veta %}
+        {% if articulo_factura %}
         {% for artfac in articulo_factura %}
         <tr scope="row"> 
             <td>{{ artfac.codproducto.familia.nombre }}</td>
@@ -103,7 +92,7 @@
             <td>{{ artfac.codproducto.descripcion }}</td>
             <td>{{ artfac.cantidad }}</td>
             <td>{{ artfac.precio }}</td>
-            <td>{{ artfac.descuento }}</td>
+            <td>{{ artfac.dsctoproducto }}</td>
             <td>{{ artfac.importe }}</td>
             <td>
                 <button type="button" class="btn btn-success">Editar</button>
@@ -119,7 +108,8 @@
 
 <div class='row justify-content-end m-5'>
     <form method="POST" class="col-md-2 col-lg-2">
-        <input type="checkbox" name="validfac_finalform" checked hidden/>
+        {% csrf_token %}
+        <input type="checkbox" name="validfac_finalform" id="validfac_finalform" checked hidden/>
         <div class="form-group col-sm-12">
             <label for="exampleInputEmail1">SUBTOTAL</label>
             <input type="number" class="form-control" name="subtotal_fac" >
