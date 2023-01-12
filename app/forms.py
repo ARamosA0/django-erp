@@ -178,3 +178,50 @@ class NuevoElemento(Form):
         widget=forms.NumberInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
      
 
+#UBICACIONES
+
+class UbicacionesBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+  
+class AgregarUbicaciones(ModelForm):
+    class Meta:
+        model = Ubicaciones
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+        }
+
+#EMBALAJES
+
+class EmbalajeBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+  
+class AgregarEmbalaje(ModelForm):
+    class Meta:
+        model = Embalajes
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+        }
+
+#ENTIDADES
+
+class EntidadBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombreentidad = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+  
+class AgregarEntidad(ModelForm):
+    class Meta:
+        model = Entidades
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+        }
