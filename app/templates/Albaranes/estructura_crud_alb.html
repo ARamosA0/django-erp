@@ -38,11 +38,20 @@
     <thead>
         <tr>
             <th scope="col">Item</th>
+<<<<<<< HEAD
             <th scope="col">Codigo</th>
             <th scope="col">Cliente</th>
         
             <th scope="col">Descripcion producto</th>
          
+=======
+            <th scope="col">Código</th>
+            <th scope="col">Código factura</th>
+            <th scope="col">Fecha factura</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">DNI Cliente</th>
+            <th scope="col">Acciones</th>
+>>>>>>> 83d7b8e7ad8ebe7af0322045b4f9d9fa9f8cffa3
         </tr>        
     </thead>
     
@@ -52,8 +61,19 @@
         <tr scope="row">
             <td>{{ forloop.counter }}</td>
             <td>{{ alb.id }}</td>
+<<<<<<< HEAD
             <td>{{ alb.cliente }}</td>
             <td>{{ alb.descripcionproducto }}</td>
+=======
+            <td>{{ alb.cliente.factura_cliente.factura.id }}</td>
+            <td>{{ alb.cliente.factura_cliente.factura.fecha }}</td>
+            {% if alb.cliente.factura_cliente.codcliente.persona.nombre %}
+                <td>{{ alb.cliente.factura_cliente.codcliente.persona.nombre }}</td>
+            {% else %}
+                <td>{{ alb.cliente.factura_cliente.codcliente.empresa.nombre }}</td>
+            {% endif %}
+            <td>{{ alb.cliente.factura_cliente.codcliente.persona.dni }}</td>
+>>>>>>> 83d7b8e7ad8ebe7af0322045b4f9d9fa9f8cffa3
             <td>
                 <a type="button" href="" class="btn btn-primary">Ver</a>
                 <a type="button" href="{% url 'edalb' alb.id %}" class="btn btn-success">Editar</a>

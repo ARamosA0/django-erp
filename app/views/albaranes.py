@@ -52,10 +52,17 @@ def editar_albaran(request, id):
         'in_albaranes_per':in_albaranes_per,
     }    
     return render(request, "Albaranes/formulario_insertar_albaran.html", context)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d7b8e7ad8ebe7af0322045b4f9d9fa9f8cffa3
 
 def ver_albaran(request, id):
-    return
+    albaran_list = Albaran_linea_clie.objects.get(id=id)
+    context = {
+        'alb': albaran_list
+    }
+    return render(request, "Albaranes/albaran.html", context)
 
 def eliminar_albaran(request, id):
     enviado = False
