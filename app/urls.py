@@ -79,7 +79,7 @@ urlpatterns =[
 
 
     #Pag Entidades
-    path('ent/', entidades, name="ent"),
+    path('ent/', entidad, name="ent"),
     #Insertar Entidad
     path('ent/agregarent', agregar_entidad, name="aent"),
     #Eliminar Entidad

@@ -52,7 +52,7 @@
         {% if articulos_list %}
         {% for art in articulos_list %}
         <tr scope="row">
-            <td>{{ art.id }}</td>
+            <td>{{ forloop.counter }}</td>
             <td>{{ art.id }}</td>
             <td>{{ art.referencia }}</td>
             <td>{{ art.familia.nombre }}</td>

@@ -110,7 +110,6 @@ class ArticuloBusqueda(Form):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
-
 class AgregarArticulo(ModelForm):
     class Meta:
         model = Articulos
@@ -127,7 +126,7 @@ class AgregarArticulo(ModelForm):
             'stock_minimo':forms.TextInput(attrs={'class': 'form-control'}),
             'aviso_minimo':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'datos_producto':forms.TextInput(attrs={'class': 'form-control'}),
-            'fecha_alta':DateInput(),
+            'fecha_alta':DateInput(attrs={'class': 'form-control col-sm'}),
             'embalaje':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'unidades_por_caja':forms.TextInput(attrs={'class': 'form-control'}),
             'observaciones':forms.TextInput(attrs={'class': 'form-control'}),
@@ -137,7 +136,6 @@ class AgregarArticulo(ModelForm):
             'precio_con_iva':forms.TextInput(attrs={'class': 'form-control'}),
             'imagen':forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
-
 #CATEGORIAS
 
 class FamiliaBusqueda(Form):

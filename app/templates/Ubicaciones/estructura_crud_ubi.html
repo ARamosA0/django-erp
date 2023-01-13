@@ -48,7 +48,7 @@
         {% if ubicaciones_list %}
         {% for ubi in ubicaciones_list %}
         <tr scope="row">
-            <td>{{ ubi.id }}</td>
+            <td>{{ forloop.counter }}</td>
             <td>{{ ubi.id }}</td>
             <td>{{ ubi.nombre }}</td>
             <td>
