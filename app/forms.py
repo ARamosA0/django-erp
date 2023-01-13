@@ -154,18 +154,6 @@ class AgregarFamilia(ModelForm):
         }
 
 # ELEMENTO VENTA
-
-class NuevoElemento(Form):
-    codigocliente = forms.CharField(label='CODIGO CLIENTE:',
-        widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'codigocliente', 'name':'codigocliente'}),required=False)
-    nombrecliente = forms.CharField(label='NOMBRE CLIENTE:',
-        widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'nombrecliente'}),required=False)
-    fecha = forms.DateField(label='FECHA:',
-        widget=forms.DateInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    iva = forms.CharField(label='IVA:',
-        widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
-    
-     
 class NuevaFactura(ModelForm):
     class Meta:
         model = Factura
@@ -252,3 +240,13 @@ class AgregarEntidad(ModelForm):
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control'})
         }
+
+#FACTURA
+class FacturaBusqueda(Form):
+    dnicliente = forms.CharField(label='DNI CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'dniclie'}),required=False)
+    numfactura = forms.CharField(label='NUMERO DE FACTURA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'numfactura'}),required=False)
+    fechafac = forms.DateField(label='FECHA:',
+        widget=forms.DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
+
