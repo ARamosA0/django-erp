@@ -52,7 +52,7 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ alb.id }}</td>
             <td>{{ alb.descripcionproducto }}</td>
-            <td>{{ alb.cliente.nombre }}</td>
+            <td>{{ alb.cliente_id }}</td>
             <td>
                 <a type="button" href="{% url 'veralb' alb.id %}" class="btn btn-primary">Ver</a>
                 <a type="button" href="{% url 'edalb' alb.id %}" class="btn btn-success">Editar</a>
