@@ -142,7 +142,7 @@ class Factura_clie(models.Model):
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.factura.pk
+        return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.persona.nombre, self.factura.pk)
 
 class Factura_linea_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
@@ -153,7 +153,7 @@ class Factura_linea_clie(models.Model):
     dsctoproducto = models.FloatField()
 
     def __str__(self):
-        return "Nombre cliente:{}".format(self.factura_cliente.codcliente.persona.nombre)
+        return "Nombre articulo:{}".format(self.codproducto.referencia)
 
 
 #Albaranes
