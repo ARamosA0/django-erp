@@ -38,7 +38,9 @@
     <thead>
         <tr>
             <th scope="col">Item</th>
+            <th scope="col">Código</th>
             <th scope="col">Forma de pago</th>
+            <th scope="col">Acciones</th>
         </tr>        
     </thead>
     
@@ -46,6 +48,7 @@
         {% if formas_de_pago_list %}
         {% for fp in formas_de_pago_list %}
         <tr scope="row">
+            <td>{{ forloop.counter }}</td>
             <td>{{ fp.id }}</td>
             <td>{{ fp.nombrefp }}</td>
             <td>

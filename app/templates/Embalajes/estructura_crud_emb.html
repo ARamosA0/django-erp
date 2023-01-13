@@ -48,7 +48,7 @@
         {% if embalajes_list %}
         {% for emb in embalajes_list %}
         <tr scope="row">
-            <td>{{ emb.id }}</td>
+            <td>{{ forloop.counter }}</td>
             <td>{{ emb.id }}</td>
             <td>{{ emb.nombre }}</td>
             <td>

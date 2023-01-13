@@ -48,7 +48,7 @@
         {% if entidades_list %}
         {% for ent in entidades_list %}
         <tr scope="row">
-            <td>{{ ent.id }}</td>
+            <td>{{ forloop.counter }}</td>
             <td>{{ ent.id }}</td>
             <td>{{ ent.nombreentidad }}</td>
             <td>

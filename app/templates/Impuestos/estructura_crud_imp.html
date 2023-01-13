@@ -38,8 +38,10 @@
     <thead>
         <tr>
             <th scope="col">Item</th>
+            <th scope="col">Código</th>
             <th scope="col">Nombre de impuesto</th>
             <th scope="col">Valor</th>
+            <th scope="col">Acciones</th>
         </tr>        
     </thead>
     
@@ -47,6 +49,7 @@
         {% if impuestos_list %}
         {% for imp in impuestos_list %}
         <tr scope="row">
+            <td>{{ forloop.counter }}</td>
             <td>{{ imp.id }}</td>
             <td>{{ imp.nombre }}</td>
             <td>{{ imp.valor }}</td>
