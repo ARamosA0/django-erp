@@ -43,10 +43,11 @@ def agregar_familia(request):
     return render(request, "Familias/formulario_insertar_familia.html", context)
 
 def ver_factura(request, id):
-    factura_clie = Factura_clie.objects.get(id=factura_clie)
+    factura_clie = Factura_clie.objects.get(factura__id=id)
     art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = factura_clie)
     context = {
-        'fac': factura_clie
+        'fac': factura_clie,
+        'art_fac':art_fac
     }
     return render(request, "FacturaClie/facturaclie.html", context)
 
