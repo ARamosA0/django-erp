@@ -11,6 +11,7 @@ from app.views.proveedores import *
 from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
+from app.views.albaranes import *
 
 urlpatterns =[
     # Pagina Principal
@@ -83,7 +84,20 @@ urlpatterns =[
 
     #Venta
     path('venta', reg_venta, name="venta"),
+
+
+    #Pag Albaranes
+    path('alb/', albaranes, name="alb"),
+    #Insertar Albaran
+    path('alb/agregaralb', agregar_albaran, name="aalb"),
+    #Eliminar Albaran
+    path('alb/eliminar/<int:id>/', eliminar_albaran, name="delalb"),
+    #Editar Albaran
+    path('alb/editar/<int:id>/', editar_albaran, name="edalb"),
+    #Ver Albaran
+    path('alb/ver/<int:id>/', ver_albaran, name="veralb"),
    
+
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),
     #Insertar Ubicacion

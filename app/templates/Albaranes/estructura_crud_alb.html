@@ -11,7 +11,7 @@
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
-            <a href="{% url 'alba' %}" type="button" class="btn btn-success" >Agregar</a>
+            <a href="{% url 'aalb' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>
         </form>
     </div>
@@ -19,7 +19,7 @@
 
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <p>N de familias encontrados:</p>
+        <p>N de albaran encontrados:</p>
     </div>
     <div style="display: flex;">
         <p style="margin:10px;">Mostrados:</p>
@@ -40,6 +40,7 @@
             <th scope="col">Item</th>
             <th scope="col">Codigo</th>
             <th scope="col">Cliente</th>
+        
             <th scope="col">Descripcion producto</th>
          
         </tr>        
@@ -55,8 +56,8 @@
             <td>{{ alb.descripcionproducto }}</td>
             <td>
                 <a type="button" href="" class="btn btn-primary">Ver</a>
-                <a type="button" href="" class="btn btn-success">Editar</a>
-                <a type="button" href="" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'edalb' alb.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delalb' alb.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
