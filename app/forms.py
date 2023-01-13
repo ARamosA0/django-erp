@@ -241,27 +241,6 @@ class AgregarEntidad(ModelForm):
             'nombre':forms.TextInput(attrs={'class':'form-control'})
         }
 
-<<<<<<< HEAD
-#ALBARANES
-
-#ALBARANES
-class AlbaranBusqueda(Form):
-    codigo = forms.CharField(label='CODIGO:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    descripcionproducto = forms.CharField(label='DESCRIPCION PRODUCTO:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'descripcionproducto'}),required=False)
-    cliente = forms.ModelChoiceField(label='CLIENTE:',queryset=Factura_linea_clie.objects.all(),
-        widget=forms.Select(attrs={'class':'form-control','id':'cliente'}),required=False)
-
-class AgregarAlbaran(ModelForm):
-    class Meta:
-        model = Albaran_linea_clie
-        fields = '__all__'
-        widgets = {
-            'cliente':forms.TextInput(attrs={'class':'form-select form-select-sm'}),
-            'descripcionproducto':forms.TextInput(attrs={'class':'form-control'})
-        }
-=======
 #FACTURA
 class FacturaBusqueda(Form):
     dnicliente = forms.CharField(label='DNI CLIENTE:',
@@ -271,4 +250,3 @@ class FacturaBusqueda(Form):
     fechafac = forms.DateField(label='FECHA:',
         widget=forms.DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
 
->>>>>>> 7a293917e24207cc761eb683bc237655191445be
