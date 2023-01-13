@@ -1,7 +1,17 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import *
-# from . import views
+from app.views.articulos import *
+from app.views.clientes import *
+from app.views.embalajes import *
+from app.views.entidad import *
+from app.views.familias import *
+from app.views.formas_pago import *
+from app.views.impuestos import *
+from app.views.proveedores import *
+from app.views.ubicaciones import *
+from app.views.ventas_clie import *
+from app.views.factura_clie import *
+from app.views.albaranes import *
 
 urlpatterns =[
     # Pagina Principal
@@ -114,5 +124,8 @@ urlpatterns =[
     path('impuestos/agregarimpuesto', agregar_impuesto, name="aimp"),
     path('impuestos/ver/<int:id>', ver_impuesto, name="verimp"),
     path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
-    path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp")
+    path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
+
+    #Factura Cliente
+    path('facturaclie/', factura, name='facturaclie')
 ]
