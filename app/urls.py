@@ -72,8 +72,7 @@ urlpatterns =[
 
     #Venta
     path('venta', reg_venta, name="venta"),
-
-
+   
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),
     #Insertar Ubicacion
