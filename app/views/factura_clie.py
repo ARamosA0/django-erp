@@ -44,7 +44,8 @@ def agregar_familia(request):
 
 def ver_factura(request, id):
     factura_clie = Factura_clie.objects.get(factura__id=id)
-    art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = factura_clie)
+    art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = id)
+    print(art_fac)
     context = {
         'fac': factura_clie,
         'art_fac':art_fac
