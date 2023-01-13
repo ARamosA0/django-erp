@@ -209,7 +209,6 @@ def clientes(request):
         if busquedaform.is_valid():
             data = Clientes.objects.filter(borrado='0')
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            
             data = data.filter(persona_id__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
             data = data.filter(persona_id__nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             data = data.filter(persona_id__telefono=busquedaform.cleaned_data['telefono'])  if busquedaform.cleaned_data['telefono'] else data
@@ -281,7 +280,7 @@ def editar_cliente(request, id):
             #Se extrae la data como string del formulario
             codformpago = in_cliente.data.get("codformapago")  
             print(codformpago)
-            print(type(codformpago))
+            print(type(codformpago))    
             cliente = Clientes()
             cliente.persona_id = int(ultima_persona)
             cliente.codformapago_id = int(codformpago)
@@ -301,7 +300,7 @@ def editar_cliente(request, id):
     return render(request, "Clientes/formulario_insertar_cliente.html", context)
 
 def eliminar_cliente(request, id):
-    enviado = False
+    enviado=False
     del_cliente = Clientes.objects.filter(persona__id=id)
     del_persona = Persona.objects.filter(id=id)
     red = request.POST.get('clie','/erp/clie/')
@@ -391,6 +390,7 @@ def eliminar_articulo(request,id):
     }
     return render(request, "Articulos/delete_articulo.html", context)
 
+
 #FAMILIAS, CATEGORIAS
 
 def familias(request):
@@ -403,7 +403,8 @@ def familias(request):
     if request.method == 'POST':
         busquedaform = FamiliaBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Familia.objects.filter(borrado='0')
+            
+            data = Familia.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             context['familias_list']=data
@@ -420,7 +421,6 @@ def agregar_familia(request):
         if in_familia_per.is_valid():
             in_familia_per.save()
             return HttpResponseRedirect('agregarfam?enviado=True')
-
     else:
         in_familia_per= AgregarFamilia()
         if 'enviado' in request.GET:
@@ -473,6 +473,7 @@ def suma_importes(context):
     context['articulo_factura'] = art_fac
     context['suma_importe'] = suma_importes
     context['total_fac'] = total_fac
+
 
 #VENTAS CLIENTES
 def reg_venta(request):
@@ -569,7 +570,7 @@ def ubicaciones(request):
     if request.method == 'POST':
         busquedaform = UbicacionesBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Ubicaciones.objects.filter(borrado='0')
+            data = Ubicaciones.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             context['ubicaciones_list']=data
@@ -693,8 +694,8 @@ def eliminar_embalaje(request,id):
     }
     return render(request, "Embalajes/delete_embalaje.html", context)
 
-#ENTIDADES
-def entidades(request):
+#ENTIDAD
+def entidad(request):
     entidades_list = Entidades.objects.all()
     busquedaform = EntidadBusqueda()
     context ={
@@ -704,7 +705,7 @@ def entidades(request):
     if request.method == 'POST':
         busquedaform = EntidadBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Entidades.objects.filter(borrado='0')
+            data = Entidades.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombreentidad=busquedaform.cleaned_data['nombreentidad'])  if busquedaform.cleaned_data['nombreentidad'] else data
             context['entidades_list']=data
@@ -730,14 +731,7 @@ def agregar_entidad(request):
     }
     return render(request, "Entidades/formulario_insertar_entidad.html", context)
 
-def ver_entidad(request,id):
-    entidad_list = Entidades.objects.get(id=id)
-    context = {
-        'ent': entidad_list
-    }
-    return render(request, "Entidades/entidad.html", context)
-
-def editar_entidad(request, id):  
+def editar_entidad(request, id):
     entidad_put = Entidades.objects.get(id=id)
     in_entidades_per = AgregarEntidad(request.POST or None, instance=entidad_put)
     if in_entidades_per.is_valid():
@@ -749,6 +743,13 @@ def editar_entidad(request, id):
     }    
     return render(request, "Entidades/formulario_insertar_entidad.html", context)
 
+def ver_entidad(request,id):
+    entidad_list = Entidades.objects.get(id=id)
+    context = {
+        'ent': entidad_list
+    }
+    return render(request, "Entidades/entidad.html", context)
+    
 def eliminar_entidad(request,id):
     enviado = False
     del_entidad = Entidades.objects.filter(id=id)
@@ -760,6 +761,7 @@ def eliminar_entidad(request,id):
         'enviado':enviado
     }
     return render(request, "Entidades/delete_entidad.html", context)
+    
 # FORMAS DE PAGO
 def formas_de_pago(request):
     formas_de_pago_list = Formapago.objects.all()
@@ -773,7 +775,7 @@ def formas_de_pago(request):
     if request.method == 'POST':
         busquedaform = FormasPagoBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Formapago.objects.filter(borrado='0')
+            data = Formapago.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['fpago'])  if busquedaform.cleaned_data['fpago'] else data
             context['formas_de_pago_list']=data
@@ -848,7 +850,7 @@ def impuestos(request):
     if request.method == 'POST':
         busquedaform = ImpuestoBusqueda(request.POST)
         if busquedaform.is_valid():
-            data = Impuestos.objects.filter(borrado='0')
+            data = Impuestos.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             data = data.filter(nombre=busquedaform.cleaned_data['valor'])  if busquedaform.cleaned_data['valor'] else data
@@ -866,12 +868,10 @@ def agregar_impuesto(request):
         if in_imp_per.is_valid():
             in_imp_per.save()
             return HttpResponseRedirect('agregarimpuesto?enviado=True')
-
     else:
         in_imp_per = AgregarImpuesto()
         if 'enviado' in request.GET:
             enviado = True
-
     context = {
         'in_imp_per':in_imp_per,
         'enviado':enviado, 
@@ -884,7 +884,6 @@ def editar_impuesto(request, id):
     if in_imp_per.is_valid():
             in_imp_per.save()       
             return redirect('imp')
-    
     context = {
         'in_imp_per':in_imp_per,
     }    
@@ -905,7 +904,6 @@ def eliminar_impuesto(request, id):
     if request.method =="POST":
         del_imp.delete()
         return HttpResponseRedirect(red)
-
     context = {
         'enviado':enviado
     }

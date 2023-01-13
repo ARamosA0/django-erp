@@ -48,7 +48,7 @@
         {% if familias_list %}
         {% for fam in familias_list %}
         <tr scope="row">
-            <td>{{ fam.id }}</td>
+            <td>{{ forloop.counter }}</td>
             <td>{{ fam.id }}</td>
             <td>{{ fam.nombre }}</td>
             <td>

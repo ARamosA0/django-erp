@@ -4,28 +4,21 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Provincias(models.Model):
     nombreprovincia = models.CharField(max_length=100)
-
     def __str__(self):
         return self.nombreprovincia
 
 class Formapago(models.Model):
     nombrefp = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
-
     def __str__(self):
         return self.nombrefp
 
 class Entidades(models.Model):
     nombreentidad = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
-
     def __str__(self):
         return self.nombreentidad
 
 class Familia(models.Model):
     nombre = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
-
     def __str__(self):
         return self.nombre
 
@@ -86,14 +79,12 @@ def upload_path(instance, filename):
 
 class Ubicaciones(models.Model):
     nombre = models.CharField(max_length=100)
-    borrado = models.CharField(max_length=1, default=0)
     def __str__(self):
         return self.nombre
 
 class Impuestos(models.Model):
     nombre = models.CharField(max_length=100)
     valor = models.FloatField(validators=[MinValueValidator(0.0)])
-    borrado = models.CharField(max_length=1, default=0)
     def __str__(self):
         return self.nombre
 
