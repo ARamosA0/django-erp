@@ -250,10 +250,5 @@ class AgregarEntidad(ModelForm):
         model = Entidades
         fields = '__all__'
         widgets = {
-<<<<<<< HEAD
-            'nombre':forms.TextInput(attrs={'class': 'form-control'})
-        }
-=======
             'nombre':forms.TextInput(attrs={'class':'form-control'})
         }
->>>>>>> 2bda418dcffa208698382393fe081b67ed65ae52

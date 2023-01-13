@@ -9,31 +9,16 @@ class Provincias(models.Model):
 
 class Formapago(models.Model):
     nombrefp = models.CharField(max_length=100)
-<<<<<<< HEAD
-    
-
-=======
->>>>>>> 2bda418dcffa208698382393fe081b67ed65ae52
     def __str__(self):
         return self.nombrefp
 
 class Entidades(models.Model):
     nombreentidad = models.CharField(max_length=100)
-<<<<<<< HEAD
-    
-
-=======
->>>>>>> 2bda418dcffa208698382393fe081b67ed65ae52
     def __str__(self):
         return self.nombreentidad
 
 class Familia(models.Model):
     nombre = models.CharField(max_length=100)
-<<<<<<< HEAD
-    
-
-=======
->>>>>>> 2bda418dcffa208698382393fe081b67ed65ae52
     def __str__(self):
         return self.nombre
 
@@ -94,20 +79,12 @@ def upload_path(instance, filename):
 
 class Ubicaciones(models.Model):
     nombre = models.CharField(max_length=100)
-<<<<<<< HEAD
-   
-=======
->>>>>>> 2bda418dcffa208698382393fe081b67ed65ae52
     def __str__(self):
         return self.nombre
 
 class Impuestos(models.Model):
     nombre = models.CharField(max_length=100)
     valor = models.FloatField(validators=[MinValueValidator(0.0)])
-<<<<<<< HEAD
-   
-=======
->>>>>>> 2bda418dcffa208698382393fe081b67ed65ae52
     def __str__(self):
         return self.nombre
 
