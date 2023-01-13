@@ -120,5 +120,10 @@ urlpatterns =[
     path('impuestos/agregarimpuesto', agregar_impuesto, name="aimp"),
     path('impuestos/ver/<int:id>', ver_impuesto, name="verimp"),
     path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
-    path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp")
+    path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
+
+    #Pag Albaran
+    path('alb/', albaran, name="alb"),
+    #Insertar Entidad
+    path('alb/agregaralb', agregar_albaran, name="alba")
 ]
