@@ -41,13 +41,35 @@ def agregar_albaran(request):
     return render(request, "Albaranes/formulario_insertar_albaran.html", context)
 
 def editar_albaran(request, id): 
-    return
+    albaranes_put = Albaran_linea_clie.objects.get(id=id)
+    in_albaranes_per = AgregarAlbaran(request.POST or None, instance=albaranes_put)
+    if in_albaranes_per.is_valid():
+            in_albaranes_per.save()       
+            return redirect('alb')
+    
+    context = {
+        'in_albaranes_per':in_albaranes_per,
+    }    
+    return render(request, "Albaranes/formulario_insertar_albaran.html", context)
 
 def ver_albaran(request, id):
-    return
+    albaran_list = Albaran_linea_clie.objects.get(id=id)
+    context = {
+        'alb': albaran_list
+    }
+    return render(request, "Albaranes/albaran.html", context)
 
 def eliminar_albaran(request, id):
-    return
+    enviado = False
+    del_albaranes = Albaran_linea_clie.objects.filter(id=id)
+    red = request.POST.get('alb','/erp/alb/')
+    if request.method =="POST":
+        del_albaranes.delete()
+        return HttpResponseRedirect(red)
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "Albaranes/delete_albaran.html", context)
 
 # FACTURA ALBANARES
 def fac_albanar(request):
