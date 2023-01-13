@@ -1,6 +1,21 @@
 from django.urls import path
 from django.views.generic import TemplateView
+<<<<<<< HEAD
 from .views import *
+=======
+from app.views.articulos import *
+from app.views.clientes import *
+from app.views.embalajes import *
+from app.views.entidad import *
+from app.views.familias import *
+from app.views.formas_pago import *
+from app.views.impuestos import *
+from app.views.proveedores import *
+from app.views.ubicaciones import *
+from app.views.ventas_clie import *
+from app.views.factura_clie import *
+
+>>>>>>> 7a293917e24207cc761eb683bc237655191445be
 urlpatterns =[
     # Pagina Principal
     path('', TemplateView.as_view(template_name="Inicio/inicio.html"), name="inicio"),
@@ -122,8 +137,13 @@ urlpatterns =[
     path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
     path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
 
+<<<<<<< HEAD
     #Pag Albaran
     path('alb/', albaran, name="alb"),
     #Insertar Entidad
     path('alb/agregaralb', agregar_albaran, name="alba")
+=======
+    #Factura Cliente
+    path('facturaclie/', factura, name='facturaclie')
+>>>>>>> 7a293917e24207cc761eb683bc237655191445be
 ]

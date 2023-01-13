@@ -1,74 +1,74 @@
 {%extends 'index.html'%}
 
 {% block content %}
-<div class='row justify-content-center m-5'>
+<div class='container justify-content-center'>
     <h4><center>Venta</center></h4>
-    <div class="col-md-12 col-lg-10">
+    <div class="row">
       {% csrf_token %}
 <!-- CREA UNA NUEVA FACTURA -->
-        <form method="POST" class="col-md-12 col-lg-3">
+        <form method="POST" class="col-md-12 col-lg-3 border p-2 m-1">
             {% csrf_token %}
-            <div class="form-group col-sm">
-                {{nueva_factura_form.as_p}}
-                <button type="submit" class="btn btn-success">Nueva Venta</button>
-            </div>
+            {{nueva_factura_form}}
+            <button type="submit" class="col-lg-12 btn btn-success mt-3">Nueva Venta</button>
         </form>
 
 
-        <div class="col-md-12 col-lg-9">
-            <div class="col-md-3">
-                <form method="GET">
-                    <div class="row">
-                        <label for="codigo_cliente">DNI CLIENTE</label>
-                        <div class="col-8 col-sm-7">
+        <div class="col-md-12 col-lg-8 border p-2 m-1">
+            <form method="GET">
+                <div class="row">
+                    <label for="codigo_cliente">DNI CLIENTE</label>
+                    <div class="col-md-12 col-lg-8">
                         <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
-                        </div>
-                        <div class="d-grid gap-2 col-4 col-md-1 ">
+                    </div>
+                    <div class="col-md-12 col-lg-1">
                         <button type="submit" class="btn btn-dark" >
-                        <i class="bi bi-search"></i>
+                            <i class="bi bi-search"></i>
                         </button>
-                        </div>
-
-                        <div class="d-grid gap-2 col-4 col-md-1 pl-5">
+                    </div>
+                    <div class="col-md-12 col-lg-1">
                         <a type="button" class="btn btn-success" href="{% url 'aclie' %}?registro_from_ventas=0">
-                        <i class="bi bi-plus-circle"></i>
+                            <i class="bi bi-plus-circle"></i>
                         </a>
-                        </div>
-                        <div class="d-grid gap-2 col-4 col-sm-3 px-1">
+                    </div>
+                    <div class="col-md-12 col-lg-2">
                         {% if dni_cliente %}
-                            <a type="button" class="btn btn-primary btn-block" href="{% url 'venta' %}?registro_cli_fac=1&dni_cliente={{dni_cliente}}" >
-                            Registro
+                            <a type="button" class="btn btn-primary" href="{% url 'venta' %}?registro_cli_fac=1&dni_cliente={{dni_cliente}}" >
+                                Registro
                             </a>
                         {% else %}
-                            <button class="btn disabled btn-primary" href="{% url 'venta' %}" >
-                            Registro
+                            <button class="col-lg-12 btn disabled btn-primary" href="{% url 'venta' %}" >
+                                Registro
                             </button>
                         {% endif %}
-                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="col-md-6 px-4">
-                <label for="nombre_cliente">NOMBRE CLIENTE</label>
-                <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente" value="{{nombre_cliente}}" readOnly>
+                </div>
+            </form>
+            <div>
+                <input type="text" class="form-control mt-4" name="nombre_cliente" id="nombre_cliente" placeholder="NOMBRE CLIENTE" value="{{nombre_cliente}}" readOnly>
             </div>
         </div>
 
 
-        <form method="POST" class="row mt-4">
-            <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
-            {% csrf_token %}
-            <div class="form-group col-sm-4">
-                <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" name="nomarticulo" value="{{ articulo_venta.referencia }}">
-            </div>
-            <div class="form-group col-sm-4">
-                <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1">
-            </div>
-            <div class="form-group col-sm-4">
-                <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" >
-            </div>
-            <button type="submit" class="btn btn-success mt-4">AGREGAR ARTICULO</button>
-        </form>
+        <div class="row">
+            <form method="POST" class="col-lg-11 border p-2 m-1">
+                <div class="row">
+                    <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
+                    {% csrf_token %}
+                    <div class="col-sm-4 col-lg-4">
+                        <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" name="nomarticulo" value="{{ articulo_venta.referencia }}">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" >
+                    </div>
+                    <div class="col-md-12 col-lg-12 mt-3">
+                        <button type="submit" class=" col-lg-12 btn btn-success btn-block">AGREGAR ARTICULO</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
