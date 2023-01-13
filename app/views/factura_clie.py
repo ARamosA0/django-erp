@@ -42,13 +42,13 @@ def agregar_familia(request):
     }
     return render(request, "Familias/formulario_insertar_familia.html", context)
 
-def ver_familia(request, id):
-    factura_clie = Factura_clie.objects.get(id=id)
+def ver_factura(request, id):
+    factura_clie = Factura_clie.objects.get(id=factura_clie)
     art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = factura_clie)
     context = {
         'fac': factura_clie
     }
-    return render(request, "Familias/familia.html", context)
+    return render(request, "FacturaClie/facturaclie.html", context)
 
 def editar_familia(request, id):
     familia_put = Familia.objects.get(id=id)

@@ -113,5 +113,6 @@ urlpatterns =[
     path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
 
     #Factura Cliente
-    path('facturaclie/', factura, name='facturaclie')
+    path('facturaclie/', factura, name='facturaclie'),
+    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie')
 ]
