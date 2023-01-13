@@ -47,12 +47,12 @@
             <div>
                 <input type="text" class="form-control mt-4" name="nombre_cliente" id="nombre_cliente" placeholder="NOMBRE CLIENTE" value="{{nombre_cliente}}" readOnly>
                 {% if mensaje_registro == 'failed'%}
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger mt-3" role="alert">
                     Necesita crear una nueva factura
                     </div>
                 {% else %}
                     {% if mensaje_registro == 'succeed'%}
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success mt-3" role="alert">
                     Cliente facturado
                     </div>
                     {% endif %}

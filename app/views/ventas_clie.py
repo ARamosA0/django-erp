@@ -57,16 +57,15 @@ def reg_venta(request):
             cliente = Clientes.objects.filter(persona_id__dni=reg_fac_clie)[0]
             last_factura = Factura.objects.last().pk
             last_fac_clie =Factura_clie.objects.last().pk
-            
+            if last_factura != last_fac_clie:
+                context['mensaje_registro'] = 'succeed'
+            else:
+                context['mensaje_registro'] = 'failed'
             fac_clie.codcliente = cliente
             fac_clie.factura = Factura.objects.last()
             fac_clie.save()
-            # context['mensaje_registro'] = 'succeed'
-            # print("",fac_clie.pk)
-            # if last_factura == last_fac_clie:
-            #     context['mensaje_registro'] = 'failed'
-            # context['dni_cliente'] = reg_fac_clie
-            # context['nombre_cliente'] = cliente
+            context['dni_cliente'] = reg_fac_clie
+            context['nombre_cliente'] = cliente
 
         if eliminar_art_venta:
             del_flc = Factura_linea_clie.objects.filter(pk=request.POST['eliminar_art_venta'])
