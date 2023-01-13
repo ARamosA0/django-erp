@@ -178,8 +178,12 @@ class NuevaFactura(ModelForm):
 class AlbaranBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    cliente = forms.ModelChoiceField(label='CLIENTE:',queryset=Factura_linea_clie.objects.all(),
-        widget=forms.Select(attrs={'class':'form-control','id':'cliente'}),required=False)
+    factura = forms.CharField(label='NRO FACTURA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
+    dni = forms.CharField(label='DNI CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
+    cliente = forms.CharField(label='NOMBRE CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
 
 class AgregarAlbaran(ModelForm):
     class Meta:

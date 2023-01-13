@@ -16,7 +16,9 @@ def albaranes(request):
         if busquedaform.is_valid():
             data = Albaran_linea_clie.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            data = data.filter(cliente=busquedaform.cleaned_data['cliente'])  if busquedaform.cleaned_data['cliente'] else data
+            data = data.filter(cliente__factura_cliente__factura__id=busquedaform.cleaned_data['factura'])  if busquedaform.cleaned_data['factura'] else data
+            data = data.filter(cliente__factura_cliente__codcliente__persona__dni=busquedaform.cleaned_data['dni'])  if busquedaform.cleaned_data['dni'] else data
+            data = data.filter(cliente__factura_cliente__codcliente__persona__nombre=busquedaform.cleaned_data['cliente'])  if busquedaform.cleaned_data['cliente'] else data
             context['albaranes_list']=data
             context['busquedaform']=busquedaform
     else:
