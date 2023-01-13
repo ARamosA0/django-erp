@@ -52,8 +52,12 @@
         {% if articulos_list %}
         {% for art in articulos_list %}
         <tr scope="row">
+<<<<<<< HEAD
           
             <td>{{ art.id }}</td>
+=======
+            <td>{{ forloop.counter }}</td>
+>>>>>>> 2bda418dcffa208698382393fe081b67ed65ae52
             <td>{{ art.id }}</td>
             <td>{{ art.referencia }}</td>
             <td>{{ art.familia }}</td>

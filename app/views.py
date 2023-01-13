@@ -868,12 +868,10 @@ def agregar_impuesto(request):
         if in_imp_per.is_valid():
             in_imp_per.save()
             return HttpResponseRedirect('agregarimpuesto?enviado=True')
-
     else:
         in_imp_per = AgregarImpuesto()
         if 'enviado' in request.GET:
             enviado = True
-
     context = {
         'in_imp_per':in_imp_per,
         'enviado':enviado, 
@@ -886,7 +884,6 @@ def editar_impuesto(request, id):
     if in_imp_per.is_valid():
             in_imp_per.save()       
             return redirect('imp')
-    
     context = {
         'in_imp_per':in_imp_per,
     }    
@@ -907,7 +904,6 @@ def eliminar_impuesto(request, id):
     if request.method =="POST":
         del_imp.delete()
         return HttpResponseRedirect(red)
-
     context = {
         'enviado':enviado
     }
