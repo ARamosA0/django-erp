@@ -193,7 +193,7 @@ class AgregarAlbaran(ModelForm):
         fields = '__all__'
         widgets = {
             'descripcionproducto':forms.TextInput(attrs={'class':'form-control'}),
-            'cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'factura_cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
         }
 
 #FORMA DE PAGO

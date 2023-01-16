@@ -174,7 +174,7 @@ class Compra_linea_prov(models.Model):
 
 #Albaranes
 class Albaran_linea_clie(models.Model):
-    cliente = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE)
+    factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
     descripcionproducto = models.TextField()
 
     def __str__(self):

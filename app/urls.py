@@ -12,6 +12,7 @@ from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
 from app.views.albaranes import *
+from app.views.albaranes_prov import *
 
 urlpatterns =[
     # Pagina Principal
@@ -128,5 +129,16 @@ urlpatterns =[
 
     #Factura Cliente
     path('facturaclie/', factura, name='facturaclie'),
-    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie')
+    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie'),
+
+    #Pag Albaranes Proveedores
+    path('albprov/', albaranes_prov, name="albprov"),
+    #Insertar Albaran Proveedores
+    path('albprov/agregaralbprov', agregar_albaran_prov, name="aalbprov"),
+    #Eliminar Albaran Proveedores
+    path('albprov/eliminar/<int:id>/', eliminar_albaran_prov, name="delalbprov"),
+    #Editar Albaran Proveedores
+    path('albprov/editar/<int:id>/', editar_albaran_prov, name="edalbprov"),
+    #Ver Albaran Proveedores
+    path('albprov/ver/<int:id>/', ver_albaran_prov, name="veralbprov"),
 ]

@@ -55,7 +55,7 @@ def editar_albaran(request, id):
     return render(request, "Albaranes/formulario_insertar_albaran.html", context)
 
 def ver_albaran(request, id):
-    albaran_list = Albaran_linea_clie.objects.get(cliente__id=id)
+    albaran_list = Albaran_linea_clie.objects.get(factura_cliente__factura__id=id)
     art_fac = Factura_linea_clie.objects.filter(id = id)
     context = {
         'art_fac':art_fac,
@@ -74,7 +74,3 @@ def eliminar_albaran(request, id):
         'enviado':enviado
     }
     return render(request, "Albaranes/delete_albaran.html", context)
-
-# FACTURA ALBANARES
-def fac_albanar(request):
-    return 
