@@ -19,13 +19,12 @@
                 <div class="row gx-1">
                     <input type="hidden" name="estado_registro" value={{estado_registro}}>
                     <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
-                    <input type="hidden" name="estado_compra" value={{estado_compra}}>
                     <input type="hidden" name="iva_fac" value="{{ iva_factura }}">
                     <label for="codigo_cliente" class="col-12">RUC PROVEEDOR</label>
                     <div class="col-10">
                         <input type="text" class="form-control" name="ruc_prov" id="ruc_prov"  value="{{ruc_prov}}">
                     </div>
-                    {% if True %}
+                    {% if not estado_registro %}
                         <div class="col-1 d-grid gap-2">
                             <button type="submit" class="btn btn-dark p-0" >
                                 <i class="bi bi-search"></i>
@@ -50,19 +49,20 @@
                         </div>
 
                     {% endif %}
-                    <input type="hidden" name="reg_fac_clie" value="{{ruc_prov}}">
+                    
                 </div>
                 <input type="text" class="form-control mt-4" name="nombre_prov" id="nombre_prov" placeholder="NOMBRE PROVEEDOR" value="{{nombre_prov}}" readOnly>
             </div>
         </div>
-        {% if False %}
+        {% if estado_registro %}
         <div class="alert alert-success m-0" role="alert">
-            Compra: Proveedor-{{nombre_cliente}}, RUC-{{dni_cliente}}.
+            {{compra_prov}}
         </div>
         {% endif %}
         <div class="col-12">
+            <input type="hidden" name="reg_com_clie" value="{{ruc_prov}}">
             <div class=" d-grid gap-2 border p-2">
-                {% if dni_cliente and nombre_cliente != 'DNI INVÁLIDO'%}
+            {% if not estado_registro and ruc_prov and nombre_prov != 'RUC INVÁLIDO'%}
             
             <button type="submit" class="btn btn-primary btn-block" >
             REGISTRO
@@ -81,10 +81,6 @@
                 <div>
                     <input type="hidden" name="estado_venta" value={{estado_venta}}>
                     <input type="hidden" name="estado_registro" value={{estado_registro}}>
-                    <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
-                    <input type="hidden" name="nombre_cliente" value="{{nombre_cliente}}">
-                    <input type="hidden" name="dni_cliente" value="{{dni_cliente}}">
-                    <input type="hidden" name="mensaje_registro" value="{{mensaje_registro}}">
                 </div>
                 <div class="row">
                     <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
@@ -98,7 +94,7 @@
                     <div class="col-sm-4">
                         <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" required>
                     </div>
-                    {% if estado_registro and estado_venta %}
+                    {% if estado_registro %}
                     <div class="col-md-12 col-lg-12 mt-3">
                         <button type="submit" class=" col-lg-12 btn btn-success btn-block">AGREGAR ARTICULO</button>
                     </div>
@@ -167,15 +163,15 @@
             <input type="checkbox" name="validfac_finalform" id="validfac_finalform" checked hidden/>
             <div class="form-group col-sm-12">
                 <label for="exampleInputEmail1">SUBTOTAL</label>
-                <input type="number" class="form-control" name="subtotal_fac" value="{{ suma_importe }}">
+                <input type="number" class="form-control" name="subtotal_fac" value="{{ suma_importe }}" readOnly>
             </div>
             <div class="form-group col-sm-12">
                 <label for="exampleInputEmail1">IVA</label>
-                <input type="number" class="form-control" name="iva_fac" value="{{ iva_factura }}">
+                <input type="number" class="form-control" name="iva_fac" value="{{ iva_factura }}" readOnly>
             </div>
             <div class="form-group col-sm-12">
                 <label for="exampleInputEmail1">PRECIO TOTAL</label>
-                <input type="number" class="form-control" name="total_fac" id="total_fac" value="{{ total_fac }}" >
+                <input type="number" class="form-control" name="total_fac" id="total_fac" value="{{ total_fac }}" readOnly>
             </div>
 
             <div class="d-grid gap-2">
@@ -187,6 +183,9 @@
             </div>
         </form>
         <form method="POST" class="d-grid gap-2">{% csrf_token %}
+            <input type="hidden" name="estado_registro" value={{estado_registro}}>
+            <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
+            <input type="hidden" class="form-control" name="ruc_prov" id="ruc_prov"  value="{{ruc_prov}}">
             <input type="checkbox" name="cancelado" id="cancelado" checked hidden/>
             <button type="submit" class="btn btn-danger mt-2">CANCELAR</button>
         </form>

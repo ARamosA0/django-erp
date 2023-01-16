@@ -160,9 +160,9 @@ class Compra_prov(models.Model):
 
     def __str__(self):
         if self.codprov.persona:
-            compra_prov = "Nombre proveedor:{}, Cod. Compra:{}".format(self.codprov.persona.nombre, self.compra.pk)
+            compra_prov = "Nombre proveedor: {}, Cod. Compra: {}".format(self.codprov.persona.nombre, self.compra.pk)
         else:
-            compra_prov = "Nombre proveedor:{}, Cod. Compra:{}".format(self.codprov.empresa.nombre, self.compra.pk)
+            compra_prov = "Nombre proveedor: {}, Cod. Compra: {}".format(self.codprov.empresa.nombre, self.compra.pk)
         return compra_prov
 
 class Compra_linea_prov(models.Model):
