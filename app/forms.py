@@ -162,6 +162,8 @@ class NuevaFactura(ModelForm):
             'fecha':DateInput(attrs={'class':'form-control'}),
             'iva':forms.TextInput(attrs={'class':'form-control', 'value':'8'})
         }
+
+ 
         
 #FORMA DE PAGO
 class FormasPagoBusqueda(Form):
@@ -244,9 +246,9 @@ class AgregarEntidad(ModelForm):
 #FACTURA
 class FacturaBusqueda(Form):
     dnicliente = forms.CharField(label='DNI CLIENTE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'dniclie'}),required=False)
+        widget=forms.TextInput(attrs={'class':'form-control','id':'dnicliente'}),required=False)
     numfactura = forms.CharField(label='NUMERO DE FACTURA:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'numfactura'}),required=False)
     fechafac = forms.DateField(label='FECHA:',
-        widget=forms.DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
+        widget=DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
 
