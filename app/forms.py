@@ -173,26 +173,21 @@ class NuevaFactura(ModelForm):
             'fecha':DateInput(attrs={'class':'form-control'}),
             'iva':forms.TextInput(attrs={'class':'form-control', 'value':'8'})
         }
-
- 
         
-#ALBARANES
-class AlbaranBusqueda(Form):
+#REMISION
+class RemisionBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     factura = forms.CharField(label='NRO FACTURA:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
-    dni = forms.CharField(label='DNI CLIENTE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
 
-class AgregarAlbaran(ModelForm):
+class AgregarRemision(ModelForm):
     class Meta:
-        model = Albaran_linea_clie
+        model = Remision_linea_clie
         fields = '__all__'
         widgets = {
-            'descripcionproducto':forms.TextInput(attrs={'class':'form-control'}),
             'factura_cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
         }
 
