@@ -9,6 +9,7 @@ from app.views.formas_pago import *
 from app.views.impuestos import *
 from app.views.proveedores import *
 from app.views.ubicaciones import *
+from app.views.provincia import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
 from app.views.compra_prov import *
@@ -112,6 +113,16 @@ urlpatterns =[
     path('impuestos/ver/<int:id>', ver_impuesto, name="verimp"),
     path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
     path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
+
+    #Pag Provincias
+    path('provi/', provincia, name="provi"),
+    path('provi/agregarprovi', agregar_provincia, name="aprov"),
+    #Eliminar Provincia
+    path('provi/eliminar/<int:id>/', eliminar_provincia, name="delprovi"),
+    #Editar Provincia
+    path('provi/editar/<int:id>/', editar_provincia, name="edprovi"),
+    #Ver Provincia
+    path('provi/ver/<int:id>/', ver_provincia, name="verprovi"),
 
     #Venta
     path('venta', reg_venta, name="venta"),

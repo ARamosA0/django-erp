@@ -153,6 +153,21 @@ class AgregarFamilia(ModelForm):
             'nombre':forms.TextInput(attrs={'class':'form-control'})
         }
 
+#PROVINCIA
+class ProvinciaBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombreprovincia = forms.CharField(label='PROVINCIA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+
+class AgregarProvincia(ModelForm):
+    class Meta:
+        model = Provincias
+        fields = '__all__'
+        widgets = {
+            'nombreprovincia':forms.TextInput(attrs={'class':'form-control'})
+        }
+
 # ELEMENTO VENTA
 class NuevoElemento(Form):
     codigocliente = forms.CharField(label='CODIGO CLIENTE:',
