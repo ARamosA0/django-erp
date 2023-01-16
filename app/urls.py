@@ -129,7 +129,6 @@ urlpatterns =[
 
     #Factura Cliente
     path('facturaclie/', factura, name='facturaclie'),
-    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie'),
 
     #Pag Albaranes Proveedores
     path('albprov/', albaranes_prov, name="albprov"),
@@ -141,4 +140,9 @@ urlpatterns =[
     path('albprov/editar/<int:id>/', editar_albaran_prov, name="edalbprov"),
     #Ver Albaran Proveedores
     path('albprov/ver/<int:id>/', ver_albaran_prov, name="veralbprov"),
+
+    path('facturaclie/ver/<int:id>', ver_factura, name="verfacturaclie"),
+    path('facturaclie/eliminar/referenciaarticulo/<int:id>', ver_factura_eliminar_articulo, name="eliminarartref"),
+    path('facturaclie/editar/<int:id>', editar_factura, name="edfacturaclie"),
+    path('facturaclie/eliminar/<int:id>', eliminar_factura, name="delfacturaclie")
 ]
