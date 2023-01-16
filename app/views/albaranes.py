@@ -55,8 +55,10 @@ def editar_albaran(request, id):
     return render(request, "Albaranes/formulario_insertar_albaran.html", context)
 
 def ver_albaran(request, id):
-    albaran_list = Albaran_linea_clie.objects.get(id=id)
+    albaran_list = Albaran_linea_clie.objects.get(cliente__id=id)
+    art_fac = Factura_linea_clie.objects.filter(id = id)
     context = {
+        'art_fac':art_fac,
         'alb': albaran_list
     }
     return render(request, "Albaranes/albaran.html", context)
