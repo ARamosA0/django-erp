@@ -43,7 +43,6 @@ def reg_venta(request):
         # Crea Factura
         if nueva_factura.is_valid():
             nueva_factura.save()
-            print('CREO FACTURA')
             context['nueva_factura_form'] = nueva_factura
             context['iva_factura'] = nueva_factura.cleaned_data['iva']
             return render(request, "VentaClientes/registroventa.html", context)
@@ -52,30 +51,27 @@ def reg_venta(request):
             cliente = Clientes.objects.filter(persona_id__dni=cod)  
             context['dni_cliente'] = cod
             context['nombre_cliente'] = cliente[0] if cliente else "cliente inexistente"
+
         if reg_fac_clie and reg_fac_clie==cod:
             fac_clie = Factura_clie()
             cliente = Clientes.objects.filter(persona_id__dni=reg_fac_clie)[0]
             last_factura = Factura.objects.last().pk
             last_fac_clie =Factura_clie.objects.last().pk
-            
+            if last_factura != last_fac_clie:
+                context['mensaje_registro'] = 'succeed'
+            else:
+                context['mensaje_registro'] = 'failed'
             fac_clie.codcliente = cliente
             fac_clie.factura = Factura.objects.last()
             fac_clie.save()
-            # context['mensaje_registro'] = 'succeed'
-            # print("",fac_clie.pk)
-            # if last_factura == last_fac_clie:
-            #     context['mensaje_registro'] = 'failed'
-            # context['dni_cliente'] = reg_fac_clie
-            # context['nombre_cliente'] = cliente
+            context['dni_cliente'] = reg_fac_clie
+            context['nombre_cliente'] = cliente
 
         if eliminar_art_venta:
             del_flc = Factura_linea_clie.objects.filter(pk=request.POST['eliminar_art_venta'])
             del_flc.delete()
             suma_importes(context)
-
-
-
-        
+ 
         # fac_cliente_list_form
         if validfac_cliente_list_form:
             nomarticulo = request.POST["nomarticulo"] 
