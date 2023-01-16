@@ -297,6 +297,7 @@ class FacturaBusqueda(Form):
     fechafac = forms.DateField(label='FECHA:',
         widget=DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
 
+<<<<<<< HEAD
 #ALBARANES
 class AlbaranBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
@@ -313,4 +314,12 @@ class AgregarAlbaran(ModelForm):
         widgets = {
             'descripcionproducto':forms.TextInput(attrs={'class':'form-control'}),
             'cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+=======
+class EditarFactura(ModelForm):
+    class Meta:
+        model = Factura
+        fields = ('fecha',)
+        widgets = {
+            'fecha':forms.DateInput(attrs={'class':'form-control'})
+>>>>>>> 37ec972cab076f091e7639737a44a9d586e21a2c
         }
