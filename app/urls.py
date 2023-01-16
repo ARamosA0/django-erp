@@ -14,6 +14,7 @@ from app.views.factura_clie import *
 from app.views.compra_prov import *
 from app.views.albaranes import *
 from app.views.albaranes_prov import *
+
 urlpatterns =[
     # Pagina Principal
     path('', TemplateView.as_view(template_name="Inicio/inicio.html"), name="inicio"),
@@ -118,7 +119,10 @@ urlpatterns =[
 
     #Factura Cliente
     path('facturaclie/', factura, name='facturaclie'),
-    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie'),
+    path('facturaclie/ver/<int:id>', ver_factura, name="verfacturaclie"),
+    path('facturaclie/eliminar/referenciaarticulo/<int:id>', ver_factura_eliminar_articulo, name="eliminarartref"),
+    path('facturaclie/editar/<int:id>', editar_factura, name="edfacturaclie"),
+    path('facturaclie/eliminar/<int:id>', eliminar_factura, name="delfacturaclie"),
 
 
     #Pag Albaranes
@@ -136,5 +140,16 @@ urlpatterns =[
     #Compra Proveedor
     path('compra', compra_prov, name="compraprov"),
     #Agregar factura
-    path('agregarcom', agregar_compra_prov, name="agcompra" )
+    path('agregarcom', agregar_compra_prov, name="agcompra" ),
+
+    #Pag Albaranes Proveedores
+    path('albprov/', albaranes_prov, name="albprov"),
+    #Insertar Albaran Proveedores
+    path('albprov/agregaralbprov', agregar_albaran_prov, name="aalbprov"),
+    #Eliminar Albaran Proveedores
+    path('albprov/eliminar/<int:id>/', eliminar_albaran_prov, name="delalbprov"),
+    #Editar Albaran Proveedores
+    path('albprov/editar/<int:id>/', editar_albaran_prov, name="edalbprov"),
+    #Ver Albaran Proveedores
+    path('albprov/ver/<int:id>/', ver_albaran_prov, name="veralbprov"),
 ]

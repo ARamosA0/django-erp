@@ -56,9 +56,9 @@
             <td>{{ fac.codcliente.persona.dni }}</td>
             <td>{{ fac.factura.totalfactura }}</td>
             <td>
-                <a type="button" href="{% url 'verfacclie' fac.factura.id %}" class="btn btn-primary">Ver</a> 
-                <a type="button" href="#" class="btn btn-success">Editar</a>
-                <a type="button" href="#" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'verfacturaclie' fac.factura.id %}" class="btn btn-primary">Ver</a> 
+                <a type="button" href="{% url 'edfacturaclie' fac.factura.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delfacturaclie' fac.factura.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

@@ -53,14 +53,14 @@
         <tr scope="row">
             <td>{{ forloop.counter }}</td>
             <td>{{ alb.id }}</td>
-            <td>{{ alb.cliente.factura_cliente.factura.id }}</td>
-            <td>{{ alb.cliente.factura_cliente.factura.fecha }}</td>
-            {% if alb.cliente.factura_cliente.codcliente.persona.nombre %}
-                <td>{{ alb.cliente.factura_cliente.codcliente.persona.nombre }}</td>
+            <td>{{ alb.factura_cliente.factura.id }}</td>
+            <td>{{ alb.factura_cliente.factura.fecha }}</td>
+            {% if alb.factura_cliente.codcliente.persona.nombre %}
+                <td>{{ alb.factura_cliente.codcliente.persona.nombre }}</td>
             {% else %}
-                <td>{{ alb.cliente.factura_cliente.codcliente.empresa.nombre }}</td>
+                <td>{{ alb.factura_cliente.codcliente.empresa.nombre }}</td>
             {% endif %}
-            <td>{{ alb.cliente.factura_cliente.codcliente.persona.dni }}</td>
+            <td>{{ alb.factura_cliente.codcliente.persona.dni }}</td>
             <td>
                 <a type="button" href="{% url 'veralb' alb.id %}" class="btn btn-primary">Ver</a>
                 <a type="button" href="{% url 'edalb' alb.id %}" class="btn btn-success">Editar</a>
