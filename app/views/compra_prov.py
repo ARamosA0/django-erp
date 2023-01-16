@@ -5,9 +5,15 @@ from app.models import *
 from app.forms import *
 
 def compra_prov(request):
-    
+
     context = {
 
     }
 
     return render(request, "CompraProv/compraprov_crud.html", context)
+
+def agregar_compra_prov(request):
+
+    context={}
+
+    return render(request, "CompraProv/agregar_fac_prov.html", context)

@@ -132,6 +132,9 @@ urlpatterns =[
     #Ver Albaran
     path('alb/ver/<int:id>/', ver_albaran, name="veralb"),
 
+
     #Compra Proveedor
     path('compra', compra_prov, name="compraprov"),
+    #Agregar factura
+    path('agregarcom', agregar_compra_prov, name="agcompra" )
 ]
