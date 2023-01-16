@@ -178,7 +178,9 @@ class NuevaFactura(ModelForm):
 class AlbaranBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    cliente = forms.ModelChoiceField(label='CLIENTE:',queryset=Factura_linea_clie.objects.all(),
+    descripcionproducto = forms.CharField(label='DESCRIPCION PRODUCTO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'descripcionproducto'}),required=False)
+    cliente = forms.ModelChoiceField(label='CLIENTE:',queryset=Clientes.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'cliente'}),required=False)
 
 class AgregarAlbaran(ModelForm):

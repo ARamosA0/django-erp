@@ -84,6 +84,8 @@ urlpatterns =[
 
     #Venta
     path('venta', reg_venta, name="venta"),
+    #Compra
+   
 
 
     #Pag Albaranes

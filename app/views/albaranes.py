@@ -16,7 +16,7 @@ def albaranes(request):
         if busquedaform.is_valid():
             data = Albaran_linea_clie.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            data = data.filter(cliente=busquedaform.cleaned_data['cliente'])  if busquedaform.cleaned_data['cliente'] else data
+            data = data.filter(cliente_factura_clientefactura_id=busquedaform.cleaned_data['factura'])  if busquedaform.cleaned_data['factura'] else data
             data = data.filter(descripcionproducto=busquedaform.cleaned_data['descripcionproducto'])  if busquedaform.cleaned_data['descripcionproducto'] else data
             context['albaranes_list']=data
             context['busquedaform']=busquedaform
@@ -52,10 +52,6 @@ def editar_albaran(request, id):
         'in_albaranes_per':in_albaranes_per,
     }    
     return render(request, "Albaranes/formulario_insertar_albaran.html", context)
-<<<<<<< HEAD
-
-=======
->>>>>>> 83d7b8e7ad8ebe7af0322045b4f9d9fa9f8cffa3
 
 def ver_albaran(request, id):
     albaran_list = Albaran_linea_clie.objects.get(id=id)
