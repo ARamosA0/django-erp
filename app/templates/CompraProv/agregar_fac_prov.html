@@ -1,71 +1,112 @@
 {%extends 'index.html'%}
 
 {% block content %}
-<div class='container justify-content-center'>
+<div class='container justify-content-center my-3'>
     <h4><center>Compra</center></h4>
-    <div class="row">
-      {% csrf_token %}
-<!-- CREA UNA NUEVA FACTURA -->
-        <form method="POST" class="col-md-12 col-lg-3 border p-2 m-1">
-            {% csrf_token %}
-            #hacer un nuevo formulario
-            <button type="submit" class="col-lg-12 btn btn-success mt-3">Nueva Venta</button>
-        </form>
-
-
-        <div class="col-md-12 col-lg-8 border p-2 m-1">
-            <form method="GET">
-                <div class="row">
-                    <label for="codigo_cliente">DNI CLIENTE</label>
-                    <div class="col-md-12 col-lg-8">
-                        <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
-                    </div>
-                    <div class="col-md-12 col-lg-1">
-                        <button type="submit" class="btn btn-dark" >
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                    <div class="col-md-12 col-lg-1">
-                        <a type="button" class="btn btn-success" href="">
-                            <i class="bi bi-plus-circle"></i>
-                        </a>
-                    </div>
-                    <div class="col-md-12 col-lg-2">
-                        {% if dni_cliente %}
-                            <a type="button" class="btn btn-primary" href="" >
-                                Registro
-                            </a>
-                        {% else %}
-                            <button class="col-lg-12 btn disabled btn-primary" href="{% url 'compraprov' %}" >
-                                Registro
-                            </button>
-                        {% endif %}
-                    </div>
-                </div>
-            </form>
-            <div>
-                <input type="text" class="form-control mt-4" name="nombre_cliente" id="nombre_cliente" placeholder="NOMBRE CLIENTE" value="{{nombre_cliente}}" readOnly>
+    <form method="POST" class="row gx-0 pb-3 ">
+        {% csrf_token %}
+        <div class="blockquote col-12">
+            <p>{{nombre_factura}}</p>
+        </div>
+        <!-- CREA UNA NUEVA FACTURA -->
+        <div class="col-3">
+            <div class="border p-2">
+            {{nueva_factura_form}}
             </div>
         </div>
+        <div class="col-9">
+            <div class="border p-2">
+                <div class="row gx-1">
+                    <input type="hidden" name="estado_registro" value={{estado_registro}}>
+                    <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
+                    <input type="hidden" name="estado_compra" value={{estado_compra}}>
+                    <input type="hidden" name="iva_fac" value="{{ iva_factura }}">
+                    <label for="codigo_cliente" class="col-12">RUC PROVEEDOR</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="ruc_prov" id="ruc_prov"  value="{{ruc_prov}}">
+                    </div>
+                    {% if True %}
+                        <div class="col-1 d-grid gap-2">
+                            <button type="submit" class="btn btn-dark p-0" >
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <div class="col-1 d-grid gap-2">
+                            <a class="btn btn-success align-items-center" href="{% url 'aprov' %}?estado_registro={{estado_registro}}">
+                                <i class="bi bi-plus-circle"></i>
+                            </a>
+                        </div>
+                        
+                    {% else %}
+                        <div class="col-1 d-grid gap-2">
+                            <button type="submit" class="btn btn-dark p-0" disabled >
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <div class="col-1 d-grid gap-2">
+                            <button class="btn btn-success p-auto" disabled>
+                                <i class="bi bi-plus-circle"></i>
+                            </button>
+                        </div>
 
-
-        <div class="row">
-            <form method="POST" class="col-lg-11 border p-2 m-1">
+                    {% endif %}
+                    <input type="hidden" name="reg_fac_clie" value="{{ruc_prov}}">
+                </div>
+                <input type="text" class="form-control mt-4" name="nombre_prov" id="nombre_prov" placeholder="NOMBRE PROVEEDOR" value="{{nombre_prov}}" readOnly>
+            </div>
+        </div>
+        {% if False %}
+        <div class="alert alert-success m-0" role="alert">
+            Compra: Proveedor-{{nombre_cliente}}, RUC-{{dni_cliente}}.
+        </div>
+        {% endif %}
+        <div class="col-12">
+            <div class=" d-grid gap-2 border p-2">
+                {% if dni_cliente and nombre_cliente != 'DNI INVÁLIDO'%}
+            
+            <button type="submit" class="btn btn-primary btn-block" >
+            REGISTRO
+            </button>
+            {% else %}
+            <button type="submit" class="btn btn-primary btn-block" disabled >
+            REGISTRO
+            </button>
+            {% endif %}
+            </div>
+        </div>
+    </form>
+    <div class="row g-3 pb-3">
+        <div class="col-12">
+            <form method="POST" class="border p-2">
+                <div>
+                    <input type="hidden" name="estado_venta" value={{estado_venta}}>
+                    <input type="hidden" name="estado_registro" value={{estado_registro}}>
+                    <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
+                    <input type="hidden" name="nombre_cliente" value="{{nombre_cliente}}">
+                    <input type="hidden" name="dni_cliente" value="{{dni_cliente}}">
+                    <input type="hidden" name="mensaje_registro" value="{{mensaje_registro}}">
+                </div>
                 <div class="row">
                     <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
                     {% csrf_token %}
                     <div class="col-sm-4 col-lg-4">
-                        <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" name="nomarticulo" value="{{ articulo_venta.referencia }}">
+                        <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" required name="nomarticulo" value="{{ articulo_venta.referencia }}">
                     </div>
                     <div class="col-sm-4">
-                        <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1">
+                        <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1" required>
                     </div>
                     <div class="col-sm-4">
-                        <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" >
+                        <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" required>
                     </div>
+                    {% if estado_registro and estado_venta %}
                     <div class="col-md-12 col-lg-12 mt-3">
                         <button type="submit" class=" col-lg-12 btn btn-success btn-block">AGREGAR ARTICULO</button>
                     </div>
+                    {% else %}
+                    <div class="col-md-12 col-lg-12 mt-3">
+                        <button type="submit" class=" col-lg-12 btn btn-success btn-block" disabled>AGREGAR ARTICULO</button>
+                    </div>
+                    {% endif %}
                 </div>
             </form>
         </div>
@@ -97,8 +138,19 @@
             <td>{{ artfac.dsctoproducto }}</td>
             <td>{{ artfac.importe }}</td>
             <td>
-                <button type="button" class="btn btn-success">Editar</button>
-                <a type="button" href="" class="btn btn-danger">Eliminar</a>
+                <form method="POST">{% csrf_token %}
+                    <div>
+                        <input type="hidden" name="eliminar_art_venta" value="{{artfac.id}}">
+                        <input type="hidden" name="estado_registro" value={{estado_registro}}>
+                        <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
+                        <input type="hidden" name="nombre_cliente" value="{{nombre_cliente}}">
+                        <input type="hidden" name="dni_cliente" value="{{dni_cliente}}">
+                        <input type="hidden" name="mensaje_registro" value="{{mensaje_registro}}">
+                        <input type="hidden" name="estado_venta" value={{estado_venta}}>
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash3"></i>
+                    </button>
+                </form>
             </td>
         </tr>
         {% endfor %}
@@ -109,26 +161,35 @@
 </table>
 
 <div class='row justify-content-end m-5'>
-    <form method="POST" class="col-md-2 col-lg-2">
-        {% csrf_token %}
-        <input type="checkbox" name="validfac_finalform" id="validfac_finalform" checked hidden/>
-        <div class="form-group col-sm-12">
-            <label for="exampleInputEmail1">SUBTOTAL</label>
-            <input type="number" class="form-control" name="subtotal_fac" value="">
-        </div>
-        <div class="form-group col-sm-12">
-            <label for="exampleInputEmail1">IVA</label>
-            <input type="number" class="form-control" name="iva_fac" value="">
-        </div>
-        <div class="form-group col-sm-12">
-            <label for="exampleInputEmail1">PRECIO TOTAL</label>
-            <input type="number" class="form-control" name="total_fac" id="total_fac" value="" >
-        </div>
-        <div class="row">
-            <button type="submit" class="btn btn-success mt-2 col-sm-6">AGREGAR</button>
-            <button type="submit" class="btn btn-danger mt-2 col-sm-6">CANCELAR</button>
-        </div>
-        
-    </form>
+    <div class="col-md-2 col-lg-2">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="checkbox" name="validfac_finalform" id="validfac_finalform" checked hidden/>
+            <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">SUBTOTAL</label>
+                <input type="number" class="form-control" name="subtotal_fac" value="{{ suma_importe }}">
+            </div>
+            <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">IVA</label>
+                <input type="number" class="form-control" name="iva_fac" value="{{ iva_factura }}">
+            </div>
+            <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">PRECIO TOTAL</label>
+                <input type="number" class="form-control" name="total_fac" id="total_fac" value="{{ total_fac }}" >
+            </div>
+
+            <div class="d-grid gap-2">
+                {% if articulo_factura %}
+                <button type="submit" class="btn btn-success mt-2">AGREGAR</button>
+                {% else %}
+                <button type="submit" class="btn btn-success mt-2" disabled>AGREGAR</button>
+                {% endif %}
+            </div>
+        </form>
+        <form method="POST" class="d-grid gap-2">{% csrf_token %}
+            <input type="checkbox" name="cancelado" id="cancelado" checked hidden/>
+            <button type="submit" class="btn btn-danger mt-2">CANCELAR</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
