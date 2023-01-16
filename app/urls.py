@@ -11,6 +11,7 @@ from app.views.proveedores import *
 from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
+from app.views.compra_prov import *
 
 urlpatterns =[
     # Pagina Principal
@@ -58,10 +59,6 @@ urlpatterns =[
     path('fam/editar/<int:id>/', editar_familia, name="edfam"),
     #Ver Familia
     path('fam/ver/<int:id>/', ver_familia, name="verfam"),
-
-
-    #Venta
-    path('venta', reg_venta, name="venta"),
    
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),
@@ -112,7 +109,13 @@ urlpatterns =[
     path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
     path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
 
+    #Venta
+    path('venta', reg_venta, name="venta"),
+
     #Factura Cliente
     path('facturaclie/', factura, name='facturaclie'),
-    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie')
+    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie'),
+
+    #Compra Proveedor
+    path('compra', compra_prov, name="compraprov"),
 ]
