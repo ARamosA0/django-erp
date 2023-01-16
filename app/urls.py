@@ -128,5 +128,8 @@ urlpatterns =[
 
     #Factura Cliente
     path('facturaclie/', factura, name='facturaclie'),
-    path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie')
+    path('facturaclie/ver/<int:id>', ver_factura, name="verfacturaclie"),
+    path('facturaclie/eliminar/referenciaarticulo/<int:id>', ver_factura_eliminar_articulo, name="eliminarartref"),
+    path('facturaclie/editar/<int:id>', editar_factura, name="edfacturaclie"),
+    path('facturaclie/eliminar/<int:id>', eliminar_factura, name="delfacturaclie")
 ]
