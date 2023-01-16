@@ -552,13 +552,8 @@ from .forms import *
 #     return render(request, "VentaClientes/registroventa.html", context)
 
 
-# ALBANARES
-def albanar(request):
-    return 
-
-# FACTURA ALBANARES
-def fac_albanar(request):
-    return 
+# ALBARANES
+#
 #UBICACIONES
 # def ubicaciones(request):
 #     ubicaciones_list = Ubicaciones.objects.all()

@@ -11,7 +11,6 @@ from app.views.proveedores import *
 from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
-from app.views.compra_prov import *
 
 urlpatterns =[
     # Pagina Principal
@@ -59,6 +58,10 @@ urlpatterns =[
     path('fam/editar/<int:id>/', editar_familia, name="edfam"),
     #Ver Familia
     path('fam/ver/<int:id>/', ver_familia, name="verfam"),
+
+
+    #Venta
+    path('venta', reg_venta, name="venta"),
    
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),

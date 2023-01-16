@@ -136,8 +136,8 @@ class AgregarArticulo(ModelForm):
             'precio_con_iva':forms.TextInput(attrs={'class': 'form-control'}),
             'imagen':forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
-#CATEGORIAS
 
+#CATEGORIAS
 class FamiliaBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
@@ -154,6 +154,17 @@ class AgregarFamilia(ModelForm):
         }
 
 # ELEMENTO VENTA
+class NuevoElemento(Form):
+    codigocliente = forms.CharField(label='CODIGO CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'codigocliente', 'name':'codigocliente'}),required=False)
+    nombrecliente = forms.CharField(label='NOMBRE CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'nombrecliente'}),required=False)
+    fecha = forms.DateField(label='FECHA:',
+        widget=forms.DateInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
+    iva = forms.CharField(label='IVA:',
+        widget=forms.TextInput(attrs={'class':'form-control form-control-sm','id':'codigo'}),required=False)
+    
+     
 class NuevaFactura(ModelForm):
     class Meta:
         model = Factura
@@ -165,6 +176,26 @@ class NuevaFactura(ModelForm):
 
  
         
+#ALBARANES
+class AlbaranBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    factura = forms.CharField(label='NRO FACTURA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
+    dni = forms.CharField(label='DNI CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
+    cliente = forms.CharField(label='NOMBRE CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
+
+class AgregarAlbaran(ModelForm):
+    class Meta:
+        model = Albaran_linea_clie
+        fields = '__all__'
+        widgets = {
+            'descripcionproducto':forms.TextInput(attrs={'class':'form-control'}),
+            'cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+        }
+
 #FORMA DE PAGO
 class FormasPagoBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
