@@ -7,10 +7,11 @@
       <div  class="form-group">
         <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
-          {{ busquedaform.as_p }}  
+          ### Nuevo Formulario
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
+            <a href="{% url 'agcompra' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
     </div>

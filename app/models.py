@@ -70,7 +70,11 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        return f'{self.persona} {self.empresa}'
+        if self.persona:
+            prov = f'{self.persona}'
+        else:
+            prov = f'{self.empresa}'
+        return prov
 
 CHOICES = (("1", "1"),
     ("0", "0"))

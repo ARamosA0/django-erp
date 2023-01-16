@@ -11,6 +11,7 @@ from app.views.proveedores import *
 from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
+from app.views.compra_prov import *
 from app.views.albaranes import *
 from app.views.albaranes_prov import *
 
@@ -62,22 +63,8 @@ urlpatterns =[
     path('fam/ver/<int:id>/', ver_familia, name="verfam"),
 
 
-    #Venta
-    path('venta', reg_venta, name="venta"),
-
-
-    #Pag Albaranes
-    path('alb/', albaranes, name="alb"),
-    #Insertar Albaran
-    path('alb/agregaralb', agregar_albaran, name="aalb"),
-    #Eliminar Albaran
-    path('alb/eliminar/<int:id>/', eliminar_albaran, name="delalb"),
-    #Editar Albaran
-    path('alb/editar/<int:id>/', editar_albaran, name="edalb"),
-    #Ver Albaran
-    path('alb/ver/<int:id>/', ver_albaran, name="veralb"),
    
-
+   
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),
     #Insertar Ubicacion
@@ -127,8 +114,33 @@ urlpatterns =[
     path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
     path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
 
+    #Venta
+    path('venta', reg_venta, name="venta"),
+
     #Factura Cliente
     path('facturaclie/', factura, name='facturaclie'),
+    path('facturaclie/ver/<int:id>', ver_factura, name="verfacturaclie"),
+    path('facturaclie/eliminar/referenciaarticulo/<int:id>', ver_factura_eliminar_articulo, name="eliminarartref"),
+    path('facturaclie/editar/<int:id>', editar_factura, name="edfacturaclie"),
+    path('facturaclie/eliminar/<int:id>', eliminar_factura, name="delfacturaclie"),
+
+
+    #Pag Albaranes
+    path('alb/', albaranes, name="alb"),
+    #Insertar Albaran
+    path('alb/agregaralb', agregar_albaran, name="aalb"),
+    #Eliminar Albaran
+    path('alb/eliminar/<int:id>/', eliminar_albaran, name="delalb"),
+    #Editar Albaran
+    path('alb/editar/<int:id>/', editar_albaran, name="edalb"),
+    #Ver Albaran
+    path('alb/ver/<int:id>/', ver_albaran, name="veralb"),
+
+
+    #Compra Proveedor
+    path('compra', compra_prov, name="compraprov"),
+    #Agregar factura
+    path('agregarcom', agregar_compra_prov, name="agcompra" ),
 
     #Pag Albaranes Proveedores
     path('albprov/', albaranes_prov, name="albprov"),
@@ -140,9 +152,4 @@ urlpatterns =[
     path('albprov/editar/<int:id>/', editar_albaran_prov, name="edalbprov"),
     #Ver Albaran Proveedores
     path('albprov/ver/<int:id>/', ver_albaran_prov, name="veralbprov"),
-
-    path('facturaclie/ver/<int:id>', ver_factura, name="verfacturaclie"),
-    path('facturaclie/eliminar/referenciaarticulo/<int:id>', ver_factura_eliminar_articulo, name="eliminarartref"),
-    path('facturaclie/editar/<int:id>', editar_factura, name="edfacturaclie"),
-    path('facturaclie/eliminar/<int:id>', eliminar_factura, name="delfacturaclie")
 ]
