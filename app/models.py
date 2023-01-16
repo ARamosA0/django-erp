@@ -172,20 +172,18 @@ class Compra_linea_prov(models.Model):
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
-#Albaranes
-class Albaran_linea_clie(models.Model):
-    cliente = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE)
-    descripcionproducto = models.TextField()
+######################
+#Albaranes Prueba
+class Remision_clie(models.Model):
+    factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
 
     def __str__(self):
         return "Numero de linea:{}".format(self.factura.numlinea)
 
+#Albaranes Linea intermedia Prueba
+class Remision_linea_clie(models.Model):
+    codremision = models.ForeignKey(Remision_clie, on_delete=models.CASCADE)
+    codproducto = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE, null=True)
 
-# class Albaran_linea_prov(models.Model):
-#     compra = models.ForeignKey(Factura, on_delete=models.CASCADE)
-#     codproveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
-#     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE)
-#     descripcionproducto = models.TextField()
-
-#     def __str__(self):
-#         return "Numero de linea:{}".format(self.compra.numlinea)
+    def __str__(self):
+        return "Numero de remisión:{}".format(self.codremision.pk)
