@@ -146,6 +146,31 @@ class Factura_linea_clie(models.Model):
     def __str__(self):
         return "Nombre cliente:{}".format(self.factura_cliente.codcliente.persona.nombre)
 
+#Compras a Proveedores
+def upload_path2(instance, filename):
+    return '/'.join(['Compras',str(instance.compra),filename])
+class Compra_prov(models.Model):
+    compra = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
+    codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+    imagen_factura_compra = models.ImageField(upload_to=upload_path2, null=True)
+
+    def __str__(self):
+        if self.codprov.persona:
+            compra_prov = "Nombre proveedor:{}, Cod. Compra:{}".format(self.codprov.persona.nombre, self.compra.pk)
+        else:
+            compra_prov = "Nombre proveedor:{}, Cod. Compra:{}".format(self.codprov.empresa.nombre, self.compra.pk)
+        return compra_prov
+
+class Compra_linea_prov(models.Model):
+    compra_cliente = models.ForeignKey(Compra_prov, on_delete=models.CASCADE, null=True)
+    codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
+    cantidad = models.IntegerField()
+    precio = models.FloatField()
+    importe = models.FloatField(null=True)
+    dsctoproducto = models.FloatField()
+
+    def __str__(self):
+        return "Nombre articulo:{}".format(self.codproducto.referencia)
 
 #Albaranes
 class Albaran_linea_clie(models.Model):
@@ -155,11 +180,12 @@ class Albaran_linea_clie(models.Model):
     def __str__(self):
         return "Numero de linea:{}".format(self.factura.numlinea)
 
+
 # class Albaran_linea_prov(models.Model):
-#     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+#     compra = models.ForeignKey(Factura, on_delete=models.CASCADE)
 #     codproveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
 #     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE)
 #     descripcionproducto = models.TextField()
 
 #     def __str__(self):
-#         return "Numero de linea:{}".format(self.factura.numlinea)
+#         return "Numero de linea:{}".format(self.compra.numlinea)

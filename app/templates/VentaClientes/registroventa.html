@@ -9,13 +9,14 @@
         <form method="POST" class="col-md-12 col-lg-3 border p-2 m-1">
             {% csrf_token %}
             {{nueva_factura_form}}
+            <input type="checkbox" name="mostrar_venta_completa" id="mostrar_venta_completa" hidden />
             <button type="submit" class="col-lg-12 btn btn-success mt-3">Nueva Venta</button>
         </form>
 
-
-        <div class="col-md-12 col-lg-8 border p-2 m-1">
-            <form method="GET">
+        <form method="POST"  class="col-md-12 col-lg-8 border p-2 m-1">
+            {% csrf_token %}
                 <div class="row">
+                <input type="hidden" name="registro_cliente_ventas" value="{{mensaje_registro}}">
                     <label for="codigo_cliente">DNI CLIENTE</label>
                     <div class="col-md-12 col-lg-8">
                         <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
@@ -31,22 +32,33 @@
                         </a>
                     </div>
                     <div class="col-md-12 col-lg-2">
-                        {% if dni_cliente %}
-                            <a type="button" class="btn btn-primary" href="{% url 'venta' %}?registro_cli_fac=1&dni_cliente={{dni_cliente}}" >
-                                Registro
-                            </a>
+                        {% if dni_cliente and nombre_cliente != 'cliente inexistente'%}
+                            <button type="submit" class="btn btn-primary btn-block" >
+                            Registro
+                            </button>
                         {% else %}
-                            <button class="col-lg-12 btn disabled btn-primary" href="{% url 'venta' %}" >
-                                Registro
+                            <button class="btn disabled btn-primary">
+                            Registro
                             </button>
                         {% endif %}
                     </div>
+                    <input type="hidden" name="reg_fac_clie" value="{{dni_cliente}}" >
                 </div>
-            </form>
             <div>
                 <input type="text" class="form-control mt-4" name="nombre_cliente" id="nombre_cliente" placeholder="NOMBRE CLIENTE" value="{{nombre_cliente}}" readOnly>
+                {% if mensaje_registro == 'failed'%}
+                    <div class="alert alert-danger mt-3" role="alert">
+                    Necesita crear una nueva factura
+                    </div>
+                {% else %}
+                    {% if mensaje_registro == 'succeed'%}
+                    <div class="alert alert-success mt-3" role="alert">
+                    Cliente facturado
+                    </div>
+                    {% endif %}
+                {% endif %}
             </div>
-        </div>
+        </form>
 
 
         <div class="row">
@@ -76,7 +88,7 @@
     <thead>
         <tr>
             <th scope="col">Familia</th>
-            <th scope="col">Referencia</th>
+            <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Precio</th>
@@ -98,7 +110,11 @@
             <td>{{ artfac.importe }}</td>
             <td>
                 <button type="button" class="btn btn-success">Editar</button>
-                <a type="button" href="{% url 'venta'%}?factura_cliente_id={{artfac.id}}" class="btn btn-danger">Eliminar</a>
+                <form method="POST">{% csrf_token %}
+                <input type="hidden" name="eliminar_art_venta" value="{{artfac.id}}">
+                <button type="submit" class="btn btn-danger">Eliminar
+                </button>
+                </form>
             </td>
         </tr>
         {% endfor %}

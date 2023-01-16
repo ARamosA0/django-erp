@@ -173,15 +173,26 @@ class NuevaFactura(ModelForm):
             'fecha':DateInput(attrs={'class':'form-control'}),
             'iva':forms.TextInput(attrs={'class':'form-control', 'value':'8'})
         }
+
+ 
         
 #ALBARANES
 class AlbaranBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+<<<<<<< HEAD
     descripcionproducto = forms.CharField(label='DESCRIPCION PRODUCTO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'descripcionproducto'}),required=False)
     cliente = forms.ModelChoiceField(label='CLIENTE:',queryset=Clientes.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'cliente'}),required=False)
+=======
+    factura = forms.CharField(label='NRO FACTURA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
+    dni = forms.CharField(label='DNI CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
+    cliente = forms.CharField(label='NOMBRE CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
+>>>>>>> bea819313ac3e5eaba4522a5201ca9487c5c4d14
 
 class AgregarAlbaran(ModelForm):
     class Meta:
@@ -273,11 +284,11 @@ class AgregarEntidad(ModelForm):
 #FACTURA
 class FacturaBusqueda(Form):
     dnicliente = forms.CharField(label='DNI CLIENTE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'dniclie'}),required=False)
+        widget=forms.TextInput(attrs={'class':'form-control','id':'dnicliente'}),required=False)
     numfactura = forms.CharField(label='NUMERO DE FACTURA:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'numfactura'}),required=False)
     fechafac = forms.DateField(label='FECHA:',
-        widget=forms.DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
+        widget=DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
 
 #ALBARANES
 class AlbaranBusqueda(Form):
