@@ -11,7 +11,9 @@ from app.views.proveedores import *
 from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
-
+from app.views.compra_prov import *
+from app.views.albaranes import *
+from app.views.albaranes_prov import *
 urlpatterns =[
     # Pagina Principal
     path('', TemplateView.as_view(template_name="Inicio/inicio.html"), name="inicio"),
@@ -60,8 +62,7 @@ urlpatterns =[
     path('fam/ver/<int:id>/', ver_familia, name="verfam"),
 
 
-    #Venta
-    path('venta', reg_venta, name="venta"),
+   
    
     #Pag Ubicaciones
     path('ubi/', ubicaciones, name="ubi"),
@@ -118,6 +119,18 @@ urlpatterns =[
     #Factura Cliente
     path('facturaclie/', factura, name='facturaclie'),
     path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie'),
+
+
+    #Pag Albaranes
+    path('alb/', albaranes, name="alb"),
+    #Insertar Albaran
+    path('alb/agregaralb', agregar_albaran, name="aalb"),
+    #Eliminar Albaran
+    path('alb/eliminar/<int:id>/', eliminar_albaran, name="delalb"),
+    #Editar Albaran
+    path('alb/editar/<int:id>/', editar_albaran, name="edalb"),
+    #Ver Albaran
+    path('alb/ver/<int:id>/', ver_albaran, name="veralb"),
 
     #Compra Proveedor
     path('compra', compra_prov, name="compraprov"),
