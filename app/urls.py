@@ -9,6 +9,7 @@ from app.views.formas_pago import *
 from app.views.impuestos import *
 from app.views.proveedores import *
 from app.views.ubicaciones import *
+from app.views.provincia import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
 from app.views.albaranes import *
@@ -111,6 +112,7 @@ urlpatterns =[
     #Ver Ubicacion
     path('ubi/ver/<int:id>/', ver_ubicacion, name="verubi"),
 
+    
 
     #Pag Embalajes
     path('emb/', embalajes, name="emb"),
@@ -149,12 +151,17 @@ urlpatterns =[
     path('impuestos/editar/<int:id>', editar_impuesto, name="edimp"),
     path('impuestos/eliminar/<int:id>', eliminar_impuesto, name="delimp"),
 
+    #Pag Provincias
+    path('provi/', provincia, name="provi"),
+    path('provi/agregarprovi', agregar_provincia, name="aprov"),
+    #Eliminar Ubicacion
+    path('provi/eliminar/<int:id>/', eliminar_provincia, name="delprovi"),
+    #Editar Ubicacion
+    path('provi/editar/<int:id>/', editar_provincia, name="edprovi"),
+    #Ver Ubicacion
+    path('provi/ver/<int:id>/', ver_provincia, name="verprovi"),
+
     #Factura Cliente
-<<<<<<< HEAD
-    path('facturaclie/', factura, name='facturaclie')
-    
-=======
     path('facturaclie/', factura, name='facturaclie'),
     path('facturaclie/ver/<int:id>', ver_factura, name='verfacclie')
->>>>>>> bea819313ac3e5eaba4522a5201ca9487c5c4d14
 ]
