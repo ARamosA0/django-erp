@@ -1,0 +1,23 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container" style="margin-top: 2em">
+    <div class="card">
+        <div class="card-header">
+            Insertar provincia
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>provincia fue agregada</p>
+                <a class="btn btn-primary" href="{% url 'provi' %}" role="button">Volver</a>
+            {% else %}
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+                    {{ in_provincia_per.as_p }}
+                    <button type="submit" class="btn btn-primary">Guardar provincia</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
