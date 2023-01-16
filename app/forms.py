@@ -283,3 +283,10 @@ class FacturaBusqueda(Form):
     fechafac = forms.DateField(label='FECHA:',
         widget=DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
 
+class EditarFactura(ModelForm):
+    class Meta:
+        model = Factura
+        fields = ('fecha',)
+        widgets = {
+            'fecha':forms.DateInput(attrs={'class':'form-control'})
+        }
