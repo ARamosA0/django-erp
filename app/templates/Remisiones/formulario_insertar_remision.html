@@ -4,7 +4,7 @@
 <section class="container" style="margin-top: 2em">
     <div class="card">
         <div class="card-header">
-            Insertar Albarán
+            Insertar Remisión
         </div>
         <div class="card-body">
             {% if enviado %}
@@ -14,7 +14,7 @@
                 <form action="" method="POST" class="row g-3">
                     {% csrf_token %}
                     {{ in_albaranes_per.as_p }}
-                    <button type="submit" class="btn btn-primary">Guardar albarán</button>
+                    <button type="submit" class="btn btn-primary">Guardar Remisión</button>
                 </form>
             {% endif %}
         </div>

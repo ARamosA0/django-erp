@@ -55,12 +55,12 @@ def reg_venta(request):
         if reg_fac_clie and reg_fac_clie==cod:
             fac_clie = Factura_clie()
             cliente = Clientes.objects.filter(persona_id__dni=reg_fac_clie)[0]
-            last_factura = Factura.objects.last().pk
-            last_fac_clie =Factura_clie.objects.last().pk
-            if last_factura != last_fac_clie:
-                context['mensaje_registro'] = 'succeed'
-            else:
-                context['mensaje_registro'] = 'failed'
+            #last_factura = Factura.objects.last().pk
+            #last_fac_clie =Factura_clie.objects.last().pk
+            #if last_factura != last_fac_clie:
+            #    context['mensaje_registro'] = 'succeed'
+            #else:
+            #    context['mensaje_registro'] = 'failed'
             fac_clie.codcliente = cliente
             fac_clie.factura = Factura.objects.last()
             fac_clie.save()

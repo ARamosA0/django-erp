@@ -183,9 +183,9 @@ class RemisionBusqueda(Form):
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
 
-class AgregarRemision(ModelForm):
+class NuevaRemision(ModelForm):
     class Meta:
-        model = Remision_linea_clie
+        model = Remision_clie
         fields = '__all__'
         widgets = {
             'factura_cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),

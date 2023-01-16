@@ -12,8 +12,7 @@ from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
 from app.views.compra_prov import *
-from app.views.albaranes import *
-from app.views.albaranes_prov import *
+from app.views.remisiones import *
 
 urlpatterns =[
     # Pagina Principal
@@ -125,31 +124,20 @@ urlpatterns =[
     path('facturaclie/eliminar/<int:id>', eliminar_factura, name="delfacturaclie"),
 
 
-    #Pag Albaranes
-    path('alb/', albaranes, name="alb"),
-    #Insertar Albaran
-    path('alb/agregaralb', agregar_albaran, name="aalb"),
-    #Eliminar Albaran
-    path('alb/eliminar/<int:id>/', eliminar_albaran, name="delalb"),
-    #Editar Albaran
-    path('alb/editar/<int:id>/', editar_albaran, name="edalb"),
-    #Ver Albaran
-    path('alb/ver/<int:id>/', ver_albaran, name="veralb"),
+    #Pag Remision
+    path('rem/', remisiones, name="rem"),
+    #Insertar Remision
+    path('rem/agregarrem', agregar_remision, name="arem"),
+    #Eliminar Remision
+    path('rem/eliminar/<int:id>/', eliminar_remision, name="delrem"),
+    #Editar Remision
+    path('rem/editar/<int:id>/', editar_remision, name="edrem"),
+    #Ver Remision
+    path('rem/ver/<int:id>/', ver_remision, name="verrem"),
 
 
     #Compra Proveedor
     path('compra', compra_prov, name="compraprov"),
     #Agregar factura
     path('agregarcom', agregar_compra_prov, name="agcompra" ),
-
-    #Pag Albaranes Proveedores
-    path('albprov/', albaranes_prov, name="albprov"),
-    #Insertar Albaran Proveedores
-    path('albprov/agregaralbprov', agregar_albaran_prov, name="aalbprov"),
-    #Eliminar Albaran Proveedores
-    path('albprov/eliminar/<int:id>/', eliminar_albaran_prov, name="delalbprov"),
-    #Editar Albaran Proveedores
-    path('albprov/editar/<int:id>/', editar_albaran_prov, name="edalbprov"),
-    #Ver Albaran Proveedores
-    path('albprov/ver/<int:id>/', ver_albaran_prov, name="veralbprov"),
 ]
