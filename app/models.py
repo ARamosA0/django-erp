@@ -150,6 +150,25 @@ class Factura_linea_clie(models.Model):
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
+#Facturas proveedores
+class Factura_prov(models.Model):
+    factura = models.ForeignKey(Factura, on_delete=models.CASCADE, primary_key=True)
+    codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "Nombre proveedor:{}, Cod. Factura:{}".format(self.codprov.empresa.nombre, self.factura.pk)
+
+class Factura_linea_prov(models.Model):
+    factura_proveedor = models.ForeignKey(Factura_prov, on_delete=models.CASCADE, null=True)
+    codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
+    cantidad = models.IntegerField()
+    precio = models.FloatField()
+    importe = models.FloatField(null=True)
+    dsctoproducto = models.FloatField()
+
+    def __str__(self):
+        return "Nombre articulo:{}".format(self.codproducto.referencia)
+
 #Compras a Proveedores
 def upload_path2(instance, filename):
     return '/'.join(['Compras',str(instance.compra),filename])
@@ -188,6 +207,20 @@ class Remision_clie(models.Model):
 class Remision_linea_clie(models.Model):
     codremision = models.ForeignKey(Remision_clie, on_delete=models.CASCADE)
     codproducto = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "Numero de remisión:{}".format(self.codremision.pk)
+
+#Remision de proveedores
+class Remision_prov(models.Model):
+    factura_proveedor = models.ForeignKey(Factura_prov, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "Numero de linea:{}".format(self.factura_proveedor)
+
+class Remision_linea_prov(models.Model):
+    codremision = models.ForeignKey(Remision_prov, on_delete=models.CASCADE)
+    codproducto = models.ForeignKey(Factura_linea_prov, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "Numero de remisión:{}".format(self.codremision.pk)
