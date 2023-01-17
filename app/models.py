@@ -100,6 +100,8 @@ class Embalajes(models.Model):
 CHOICES_YES_NO = (("Sí", "Sí"),
     ("No", "No"))
 
+############################
+#ARTICULOS
 class Articulos(models.Model):
     #cambiar luego por nombre
     referencia = models.CharField(max_length=20)
@@ -125,8 +127,8 @@ class Articulos(models.Model):
     def __str__(self):
         return self.referencia
 
-#Facturas
-
+######################
+#VENTAS
 class Factura(models.Model):
     fecha = models.DateField(null=True)
     iva = models.IntegerField()
@@ -150,6 +152,8 @@ class Factura_linea_clie(models.Model):
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
+#####################
+#COMPRAS
 #Facturas proveedores
 class Factura_prov(models.Model):
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE, primary_key=True)
@@ -175,13 +179,15 @@ def upload_path2(instance, filename):
 class Compra_prov(models.Model):
     compra = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
-    imagen_factura_compra = models.ImageField(upload_to=upload_path2, null=True)
+    imagen_factura_compra = models.ImageField(upload_to=upload_path2, null=True, blank=True)
+    recibido = models.BooleanField(null=True, blank=True, default=False)
+    detaller_entrega = models.TextField(null=True, blank=True)
 
     def __str__(self):
         if self.codprov.persona:
-            compra_prov = "Nombre proveedor:{}, Cod. Compra:{}".format(self.codprov.persona.nombre, self.compra.pk)
+            compra_prov = self.codprov.persona.nombre
         else:
-            compra_prov = "Nombre proveedor:{}, Cod. Compra:{}".format(self.codprov.empresa.nombre, self.compra.pk)
+            compra_prov = self.codprov.empresa.nombre
         return compra_prov
 
 class Compra_linea_prov(models.Model):
@@ -190,10 +196,11 @@ class Compra_linea_prov(models.Model):
     cantidad = models.IntegerField()
     precio = models.FloatField()
     importe = models.FloatField(null=True)
-    dsctoproducto = models.FloatField()
+    dsctoproducto = models.FloatField(null=True, default=0, blank=True)
 
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
+
 
 ######################
 #Albaranes Prueba
@@ -211,6 +218,7 @@ class Remision_linea_clie(models.Model):
     def __str__(self):
         return "Numero de remisión:{}".format(self.codremision.pk)
 
+    
 #Remision de proveedores
 class Remision_prov(models.Model):
     factura_proveedor = models.ForeignKey(Factura_prov, on_delete=models.CASCADE)
@@ -224,3 +232,22 @@ class Remision_linea_prov(models.Model):
 
     def __str__(self):
         return "Numero de remisión:{}".format(self.codremision.pk)
+
+
+
+#######################
+# TESORERIA
+#Caja Diaria
+# class Caja_diaria(models.Model):
+#     fecha = models.DateField(null=True)
+#     monto_total_inicial = models.FloatField(null=True)
+#     monto_total_final = models.FloatField(null=True)
+
+
+# class Caja_tipo_pago(models.Model):
+#     venta = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True, blank=True)
+#     compra = models.ForeignKey(Compra_prov, on_delete=models.CASCADE, null=True, blank=True)
+#     tipo_pago = models.ForeignKey(Formapago, on_delete=models.CASCADE, null=True)
+#     caja_diaria = models.ForeignKey(Caja_diaria, on_delete=models.CASCADE, null=True)
+#     total_tipo_pago = models.FloatField(null=True)
+
