@@ -13,11 +13,10 @@
             {% else %}
                 <form action="" method="POST">
                     {% csrf_token %}
-                    {{ in_remision_per.as_p }}
 
                     {% if productos_list %}
                         {% for prod in productos_list %}
-                            <input class="form-check-input mt-0" type="checkbox" value="{{ prod.codproducto.id }}">{{ prod.codproducto }}</input><br>
+                            <input class="form-check-input mt-0" type="checkbox" value="{{ prod.id }}" name="productos">{{ prod.codproducto }}</input><br>
                         {% endfor %}
                     {% else %}
                         <h4>No se encontraron datos</h4>

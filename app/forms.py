@@ -198,14 +198,6 @@ class RemisionBusqueda(Form):
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
 
-class NuevaRemision(ModelForm):
-    class Meta:
-        model = Remision_clie
-        fields = '__all__'
-        widgets = {
-            'factura_cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
-        }
-
 #FORMA DE PAGO
 class FormasPagoBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
