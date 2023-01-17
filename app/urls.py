@@ -14,7 +14,7 @@ from app.views.ventas_clie import *
 from app.views.factura_clie import *
 from app.views.compra_prov import *
 from app.views.albaranes import *
-from app.views.albaranes_prov import *
+from app.views.remision_prov import *
 
 urlpatterns =[
     # Pagina Principal
@@ -117,7 +117,7 @@ urlpatterns =[
 
     #Pag Provincias
     path('provi/', provincia, name="provi"),
-    path('provi/agregarprovi', agregar_provincia, name="aprov"),
+    path('provi/agregarprovi', agregar_provincia, name="aprovi"),
     #Eliminar Provincia
     path('provi/eliminar/<int:id>/', eliminar_provincia, name="delprovi"),
     #Editar Provincia
@@ -154,14 +154,10 @@ urlpatterns =[
     path('agregarcom', agregar_compra_prov, name="agcompra" ),
 
 
-    #Pag Albaranes Proveedores
-    path('albprov/', albaranes_prov, name="albprov"),
-    #Insertar Albaran Proveedores
-    path('albprov/agregaralbprov', agregar_albaran_prov, name="aalbprov"),
-    #Eliminar Albaran Proveedores
-    path('albprov/eliminar/<int:id>/', eliminar_albaran_prov, name="delalbprov"),
-    #Editar Albaran Proveedores
-    path('albprov/editar/<int:id>/', editar_albaran_prov, name="edalbprov"),
-    #Ver Albaran Proveedores
-    path('albprov/ver/<int:id>/', ver_albaran_prov, name="veralbprov"),
+    #Guia de remision de proveedores
+    path('provremision/', remision_proveedores, name="provrem"),
+    path('provremision/agregarremision', agregar_remision_proveedores, name="adprovrem"),
+    path('provremision/ver/<int:id>/', ver_remision_proveedores, name="verprovrem"),
+    path('provremision/editar/<int:id>', editar_remision_proveedores, name="edprovrem"),
+    path('provremision/eliminar/<int:id>', eliminar_remision_proveedores, name="delprovrem")
 ]
