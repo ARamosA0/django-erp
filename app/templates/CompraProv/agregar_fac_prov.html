@@ -31,7 +31,7 @@
                             </button>
                         </div>
                         <div class="col-1 d-grid gap-2">
-                            <a class="btn btn-success align-items-center" href="{% url 'aprov' %}?estado_registro={{estado_registro}}">
+                            <a class="btn btn-success align-items-center" href="{% url 'aprove' %}?reg_porcomp=True">
                                 <i class="bi bi-plus-circle"></i>
                             </a>
                         </div>
@@ -63,7 +63,6 @@
             <input type="hidden" name="reg_com_clie" value="{{ruc_prov}}">
             <div class=" d-grid gap-2 border p-2">
             {% if not estado_registro and ruc_prov and nombre_prov != 'RUC INVÁLIDO'%}
-            
             <button type="submit" class="btn btn-primary btn-block" >
             REGISTRO
             </button>
@@ -81,6 +80,7 @@
                 <div>
                     <input type="hidden" name="estado_venta" value={{estado_venta}}>
                     <input type="hidden" name="estado_registro" value={{estado_registro}}>
+                    <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
                 </div>
                 <div class="row">
                     <input type="checkbox" name="valid_prov_form" id="validfac_cliente_list_form" checked hidden/>
@@ -91,7 +91,7 @@
                     <div class="col-sm-4 col-lg-6">
                         <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1" required>
                     </div>
-                    {% if estado_registro or articulos_comp != 0 %}
+                    {% if estado_registro %}
                     <div class="col-md-12 col-lg-12 mt-3">
                         <button type="submit" class=" col-lg-12 btn btn-success btn-block">AGREGAR ARTICULO</button>
                     </div>
@@ -159,6 +159,7 @@
             {% csrf_token %}
             <input type="hidden" name="estado_registro" value={{estado_registro}}>
             <input type="checkbox" name="validfac_finalform" id="validfac_finalform" checked hidden/>
+            <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
             <div class="form-group col-sm-12">
                 <label for="exampleInputEmail1">SUBTOTAL</label>
                 <input type="number" class="form-control" name="subtotal_fac" value="{{ suma_importe }}" readOnly>

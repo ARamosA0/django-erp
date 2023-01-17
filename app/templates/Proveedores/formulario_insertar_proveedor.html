@@ -18,10 +18,8 @@
             <div class="accordion-body">
               <form action="" method="POST" class="row g-3">
                 {% csrf_token %}
-
                 {{ form_proveedor.as_p }}
                 {{ form_empresa.as_p }}
-
                 <input type="submit" value="Aceptar cambio" class="btn btn-primary"/>
                 <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>
               </form>   
@@ -29,7 +27,11 @@
             {% else %}
             <div class="accordion-body">
               <p>Agregado Correctamente</p>
+              {% if reg_porcomp %}
+              <a class="btn btn-primary" href="{% url 'agcompra' %}" role="button">Volver</a>
+              {% else %}
               <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>   
+              {% endif %}  
             </div>
             {% endif %}
           </div>
@@ -68,10 +70,8 @@
             <div class="accordion-body">
               <form action="" method="POST" class="row g-3">
                 {% csrf_token %}
-
                 {{ form_proveedor.as_p }}
                 {{ form_persona.as_p }}
-
                 <input type="submit" value="Aceptar cambio" class="btn btn-primary"/>
                 <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>
               </form>   
@@ -79,7 +79,11 @@
             {% else %}
             <div class="accordion-body">
               <p>Agregado Correctamente</p>
+              {% if reg_porcomp %}
+              <a class="btn btn-primary" href="{% url 'agcompra' %}" role="button">Volver</a>
+              {% else %}
               <a class="btn btn-primary" href="{% url 'prov' %}" role="button">Volver</a>   
+              {% endif %}
             </div>
             {% endif %}
           </div>
