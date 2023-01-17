@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            {{ alb_prov.codproducto.codproducto.descripcion_corta }}
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">DATOS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">DESCRIPCION DEL PRODUCTO:</th>
+                            <td>{{ alb_prov.codproducto.codproducto.descripcion_corta }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FACTURA A NOMBRE DE:</th>
+                            {% if alb_prov.codremision.factura_proveedor.codprov.persona.nombre %}
+                                <td>{{ alb_prov.codremision.factura_proveedor.codprov.persona.nombre }}</td>
+                            {% else %}
+                                <td>{{ alb_prov.codremision.factura_proveedor.codprov.empresa.nombre }}</td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <table class="container table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Familia</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">DCTO %</th>
+                    <th scope="col">Importe</th>
+                </tr>        
+            </thead>
+            
+            <tbody>
+                {% if art_fac_prov %}
+                {% for artfac in art_fac_prov %}
+                <tr scope="row"> 
+                    <td>{{ artfac.codproducto.familia.nombre }}</td>
+                    <td>{{ artfac.codproducto.referencia }}</td>
+                    <td>{{ artfac.codproducto.descripcion }}</td>
+                    <td>{{ artfac.cantidad }}</td>
+                    <td>{{ artfac.precio }}</td>
+                    <td>{{ artfac.dsctoproducto }}</td>
+                    <td>{{ artfac.importe }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h4>No se encontraron datos</h4>
+                {% endif %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'provrem' %}" class="btn btn-primary">Regresar</a>
+    </div>
+{% endblock %}
