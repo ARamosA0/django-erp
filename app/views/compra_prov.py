@@ -21,29 +21,34 @@ def agregar_compra_prov(request):
 
     context={
         'nueva_factura_form':NuevaFactura({'fecha': datetime.now(),'iva':8}),
-        'nombre_factura':'Nueva operación de compra',
+        'nombre_factura':'Nueva orden de compra',
         'iva_factura':8
     }
 
     if request.method == 'POST':
-        nueva_factura = NuevaFactura(request.POST)
         estado_registro = True if request.POST.get("estado_registro",False) == "True" else False
         cancelado = request.POST.get("cancelado", False)
         ruc_prov = request.POST.get('ruc_prov',None)
+        nombre_prov =request.POST.get('nombre_prov','')
         reg_com_clie = request.POST.get('reg_com_clie',None)
         nombre_factura = request.POST.get('nombre_factura','')
+        compra_prov = request.POST.get('compra_prov','')
         iva_factura = request.POST.get('iva_fac',None)
-        
         mensaje_registro = request.POST.get('mensaje_registro','')
         
+        context = define_context(context,ruc_prov=ruc_prov,estado_registro=estado_registro,nombre_factura=nombre_factura,
+                                         nombre_prov=nombre_prov,compra_prov=compra_prov,
+                                         iva_factura=iva_factura,mensaje_registro=mensaje_registro)
+
         if not estado_registro and not cancelado:
+            nueva_factura = NuevaFactura(request.POST)
+            context['nueva_factura_form'] = nueva_factura
             prov = Proveedores.objects.filter(ruc=ruc_prov)
             if ruc_prov!='':
                 nombre_prov = prov[0] if prov else "RUC INVÁLIDO"
                 context = define_context(context,ruc_prov=ruc_prov,
-                                        nombre_prov=nombre_prov,nueva_factura_form=nueva_factura)
-            
-            if prov!=[] and reg_com_clie==ruc_prov:
+                                        nombre_prov=nombre_prov)
+            if prov and reg_com_clie==ruc_prov:
                 nueva_factura.save()
                 last_factura = Factura.objects.last()
                 fac_prov = Compra_prov()

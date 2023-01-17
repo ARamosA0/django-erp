@@ -31,7 +31,7 @@
                             </button>
                         </div>
                         <div class="col-1 d-grid gap-2">
-                            <a class="btn btn-success align-items-center" href="{% url 'aprov' %}?estado_registro={{estado_registro}}">
+                            <a class="btn btn-success align-items-center" href="{% url 'aprov' %}?reg_porcomp=True">
                                 <i class="bi bi-plus-circle"></i>
                             </a>
                         </div>
@@ -63,7 +63,6 @@
             <input type="hidden" name="reg_com_clie" value="{{ruc_prov}}">
             <div class=" d-grid gap-2 border p-2">
             {% if not estado_registro and ruc_prov and nombre_prov != 'RUC INVÁLIDO'%}
-            
             <button type="submit" class="btn btn-primary btn-block" >
             REGISTRO
             </button>
