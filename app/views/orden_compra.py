@@ -47,12 +47,25 @@ def orden_compra(request):
 
 def agregar_orden_compra(request):
 
+    if 'n_factura' in request.GET:
+        fac_id = request.GET.get('n_factura',None)
+        if  fac_id:
+            compra_prov = Compra_prov.objects.get(pk=fac_id)
+            articulo_factura = Compra_linea_prov.objects.filter(compra_cliente_id = compra_prov.pk)
 
-    context={
-        'nueva_factura_form':NuevaFactura({'fecha': datetime.now(),'iva':18}),
-        'nombre_factura':'Nueva operación de compra',
-        'iva_factura':8
-    }
+            context=define_context(estado_registro=True,nueva_factura_form=NuevaFactura({'fecha':compra_prov.compra.fecha,'iva':compra_prov.compra.iva}),
+                                   nombre_prov=compra_prov.codprov,mensaje_registro='succeed',
+                                   ruc_prov=compra_prov.codprov.ruc,compra_prov=compra_prov,
+                                   articulo_factura=articulo_factura,iva_factura=compra_prov.compra.iva,
+                                   nombre_factura='COMPRA N° '+str(compra_prov.compra.pk),)
+            suma_importes(context,compra_prov.compra.pk)
+
+    else:
+        context={
+            'nueva_factura_form':NuevaFactura({'fecha': datetime.now(),'iva':18}),
+            'nombre_factura':'Nueva operación de compra',
+            'iva_factura':8
+        }
 
     if request.method == 'POST':
         nueva_factura = NuevaFactura(request.POST)
@@ -83,7 +96,7 @@ def agregar_orden_compra(request):
                 context = define_context(context,ruc_prov=ruc_prov,
                                         nombre_prov=nombre_prov,nueva_factura_form=nueva_factura)
             
-            if prov!=[] and reg_com_clie==ruc_prov:
+            if prov and reg_com_clie==ruc_prov:
                 print(prov, 'prov1')
                 print('estado de registro', estado_registro)
                 nueva_factura.save()
@@ -102,15 +115,12 @@ def agregar_orden_compra(request):
 
         else:
             if cancelado and ruc_prov:
-                last = Factura.objects.filter(pk=int(nombre_factura[10:]))
-                last[0].delete()
-                return redirect("agcompra")
-
-
-                '''
-                realizar todas las operaciones siguientes
-                los botones estarán desahabilitados hasta que cancele la compra eliminandola con el botón cancelar
-                '''
+                if 'n_factura' not in request.GET:
+                    last = Factura.objects.filter(pk=int(nombre_factura[10:]))
+                    last[0].delete()
+                    return redirect("agcompra")
+                else:
+                    return redirect('edorden',id=request.GET['n_factura'])
 
             if eliminar_art_compra:
                 del_flc = Compra_linea_prov.objects.filter(pk=request.POST['eliminar_art_compra'])
@@ -150,7 +160,7 @@ def agregar_orden_compra(request):
                 compra_put = Factura.objects.last()
                 compra_put.totalfactura = request.POST["total_fac"]
                 compra_put.save()
-                com_clie_last = Compra_prov.objects.last()
+                com_clie_last = Compra_prov.objects.get(pk=int(nombre_factura[10:]))
                 art_com = Compra_linea_prov.objects.filter(compra_cliente_id = com_clie_last.compra.id)
                 context['articulo_factura'] = art_com
                 context = define_context(context,
@@ -159,6 +169,7 @@ def agregar_orden_compra(request):
                                         estado_registro=True,
                                         iva_factura=compra_put.iva,
                                         compra_prov=com_clie_last)
+                return redirect('edorden',id=com_clie_last.compra.pk)
 
     return render(request, "CompraProv/agregar_fac_prov.html", context)
 

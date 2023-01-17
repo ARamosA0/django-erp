@@ -97,6 +97,6 @@
 
     <div class="container text-center">
         <a type="button" href="{% url 'compraprov' %}" class="btn btn-primary">Regresar</a>
-        <a type="submit" href="{% url 'agcompra' %}" class="btn btn-success">Editar Articulos</a>
+        <a type="submit" href="{% url 'agcompra' %}?n_factura={{ord.compra.id}}" class="btn btn-success">Editar Articulos</a>
     </div>
 {% endblock %}
