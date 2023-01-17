@@ -21,11 +21,11 @@
                             <td>{{ alb.descripcionproducto }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">CLIENTE - ARTICULO:</th>
-                            {% if alb.cliente.factura_cliente.codcliente.persona.nombre %}
-                                <td>{{ alb.cliente.factura_cliente.codcliente.persona.nombre }}</td>
+                            <th scope="row">FACTURA A NOMBRE DE:</th>
+                            {% if alb.factura_cliente.codcliente.persona.nombre %}
+                                <td>{{ alb.factura_cliente.codcliente.persona.nombre }}</td>
                             {% else %}
-                                <td>{{ alb.cliente.factura_cliente.codcliente.empresa.nombre }}</td>
+                                <td>{{ alb.factura_cliente.codcliente.empresa.nombre }}</td>
                             {% endif %}
                         </tr>
                     </tbody>

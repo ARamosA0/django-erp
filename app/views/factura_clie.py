@@ -21,39 +21,64 @@ def factura(request):
             context['factura_list']=data
             context['busquedaform']=busquedaform
     else:
-        busquedaform = FamiliaBusqueda()
+        busquedaform = FacturaBusqueda()
     return render(request, "FacturaClie/factura_crud.html",context)
 
-
 def ver_factura(request, id):
-    factura_clie = Factura_clie.objects.get(factura__id=id)
-    art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = id)
+    factura_clie = Factura_clie.objects.get(pk=id)
+    articulo_factura = Factura_linea_clie.objects.filter(factura_cliente_id=id)
+
     context = {
         'fac': factura_clie,
-        'art_fac':art_fac
+        'articulo_factura':articulo_factura
     }
     return render(request, "FacturaClie/facturaclie.html", context)
 
-def editar_familia(request, id):
-    familia_put = Familia.objects.get(id=id)
-    in_familia_per = AgregarFamilia(request.POST or None, instance=familia_put)
-    if in_familia_per.is_valid():
-            in_familia_per.save()       
-            return redirect('fam')
-    
-    context = {
-        'in_familia_per':in_familia_per,
-    }    
-    return render(request, "Familias/formulario_insertar_familia.html", context)
-
-def eliminar_familia(request,id):
+def ver_factura_eliminar_articulo(request, id):
     enviado = False
-    del_familia = Familia.objects.filter(id=id)
-    red = request.POST.get('fam','/erp/fam/')
+
+    del_articulo_factura = Factura_linea_clie.objects.get(pk=id)
+
+    red = request.POST.get('facturaclie','/erp/facturaclie/')
+
     if request.method =="POST":
-        del_familia.delete()
+        del_articulo_factura.delete()
         return HttpResponseRedirect(red)
+    
     context = {
         'enviado':enviado
     }
-    return render(request, "Familias/delete_familia.html", context)
+
+    return render(request, "FacturaClie/delete_factura.html", context)
+
+def editar_factura(request, id):
+    factura_clie = Factura_clie.objects.get(pk=id)
+    articulo_factura = Factura_linea_clie.objects.filter(factura_cliente_id=id)
+
+    context = {
+        'fac': factura_clie,
+        'articulo_factura':articulo_factura
+    }
+    return render(request, "FacturaClie/facturaclie_editar.html", context)
+
+def eliminar_factura(request,id):
+    enviado = False
+
+    del_factura_linea_clie = Factura_linea_clie.objects.filter(factura_cliente_id=id)
+    del_factura_clie = Factura_clie.objects.get(pk=id)
+    del_factura = Factura.objects.get(id=id)
+    
+    red = request.POST.get('facturaclie','/erp/facturaclie/')
+
+    if request.method =="POST":
+        for i in del_factura_linea_clie:
+            i.delete()
+
+        del_factura_clie.delete()
+        del_factura.delete()
+        return HttpResponseRedirect(red)
+
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "FacturaClie/delete_factura.html", context)

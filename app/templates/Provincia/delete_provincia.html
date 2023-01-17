@@ -5,14 +5,14 @@
 <div class="main" class="form-group container">
     {% if enviado %}
         <p>Eliminado correctamente</p>
-        <a class="btn btn-primary" href="{% url 'facturaclie' %}" role="button">Volver</a> 
+        <a class="btn btn-primary" href="{% url 'provi' %}" role="button">Volver</a> 
     {% else %}
         <section class="card" style="margin: 2em;">
             <form action="" method="POST" style="margin: 2em;">
                 {% csrf_token %}
                 <h2>¿Estás seguro(a)?</h2>
                 <input type="submit" value="Sí" class="btn btn-danger"/>
-                <a href="{% url 'facturaclie' %}" class="btn btn-warning"> Cancelar </a>
+                <a href="{% url 'provi' %}" class="btn btn-warning"> Cancelar </a>
             </form>
         </section>
     {% endif %}

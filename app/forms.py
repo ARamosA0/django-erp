@@ -153,6 +153,21 @@ class AgregarFamilia(ModelForm):
             'nombre':forms.TextInput(attrs={'class':'form-control'})
         }
 
+#PROVINCIA
+class ProvinciaBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombreprovincia = forms.CharField(label='PROVINCIA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+
+class AgregarProvincia(ModelForm):
+    class Meta:
+        model = Provincias
+        fields = '__all__'
+        widgets = {
+            'nombreprovincia':forms.TextInput(attrs={'class':'form-control'})
+        }
+
 # ELEMENTO VENTA
 class NuevoElemento(Form):
     codigocliente = forms.CharField(label='CODIGO CLIENTE:',
@@ -171,29 +186,24 @@ class NuevaFactura(ModelForm):
         fields = ('fecha', 'iva')
         widgets = {
             'fecha':DateInput(attrs={'class':'form-control'}),
-            'iva':forms.TextInput(attrs={'class':'form-control', 'value':'8'})
+            'iva':forms.TextInput(attrs={'class':'form-control', 'value':'18'})
         }
-
- 
         
-#ALBARANES
-class AlbaranBusqueda(Form):
+#REMISION
+class RemisionBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     factura = forms.CharField(label='NRO FACTURA:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
-    dni = forms.CharField(label='DNI CLIENTE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
 
-class AgregarAlbaran(ModelForm):
+class AgregarRemision(ModelForm):
     class Meta:
-        model = Albaran_linea_clie
+        model = Remision_linea_clie
         fields = '__all__'
         widgets = {
-            'descripcionproducto':forms.TextInput(attrs={'class':'form-control'}),
-            'cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+            'factura_cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
         }
 
 #FORMA DE PAGO
@@ -283,3 +293,32 @@ class FacturaBusqueda(Form):
     fechafac = forms.DateField(label='FECHA:',
         widget=DateInput(attrs={'class':'form-control','id':'fechafac'}),required=False)
 
+class EditarFactura(ModelForm):
+    class Meta:
+        model = Factura
+        fields = ('fecha',)
+        widgets = {
+            'fecha':forms.DateInput(attrs={'class':'form-control'})
+        }
+
+# ORDEN DE COMPRA
+
+class OrdenCompraBusqueda(Form):
+    rucproveedor = forms.CharField(label='RUC PROVEEDOR:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'rucproveedor'}),required=False)
+    numorden = forms.CharField(label='NUMERO DE ORDEN:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'numorden'}),required=False)
+    fechaorden = forms.DateField(label='FECHA:',
+        widget=DateInput(attrs={'class':'form-control','id':'fechaorden'}),required=False)
+    recibido = forms.CharField(label='RECIBIDO:',
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'recibido'}),required=False)
+
+class EditarCompra(ModelForm):
+    class Meta:
+        model = Compra_prov
+        fields = ('imagen_factura_compra','recibido', 'detaller_entrega')
+        widgets = {
+            'imagen_factura_compra':forms.Textarea(attrs={'class':'form-control'}),
+            'recibido':forms.TextInput(attrs={'class':'form-control'}),
+            'detaller_entrega':forms.ClearableFileInput(attrs={'class':'form-control'})
+        }

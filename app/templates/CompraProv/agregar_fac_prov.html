@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class='container justify-content-center my-3'>
-    <h4><center>Compra</center></h4>
+    <h4><center>Orden de Compra</center></h4>
     <form method="POST" class="row gx-0 pb-3 ">
         {% csrf_token %}
         <div class="blockquote col-12">
@@ -82,18 +82,15 @@
                     <input type="hidden" name="estado_registro" value={{estado_registro}}>
                 </div>
                 <div class="row">
-                    <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
+                    <input type="checkbox" name="valid_prov_form" id="validfac_cliente_list_form" checked hidden/>
                     {% csrf_token %}
-                    <div class="col-sm-4 col-lg-4">
+                    <div class="col-sm-12 col-lg-6">
                         <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" required name="nomarticulo" value="{{ articulo_venta.referencia }}">
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 col-lg-6">
                         <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1" required>
                     </div>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" placeholder="DESCUENTO" name="descuento_art" required>
-                    </div>
-                    {% if estado_registro %}
+                    {% if estado_registro or articulos_comp != 0 %}
                     <div class="col-md-12 col-lg-12 mt-3">
                         <button type="submit" class=" col-lg-12 btn btn-success btn-block">AGREGAR ARTICULO</button>
                     </div>
@@ -135,7 +132,7 @@
             <td>
                 <form method="POST">{% csrf_token %}
                     <div>
-                        <input type="hidden" name="eliminar_art_venta" value="{{artfac.id}}">
+                        <input type="hidden" name="eliminar_art_compra" value="{{artfac.id}}">
                         <input type="hidden" name="estado_registro" value={{estado_registro}}>
                         <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
                         <input type="hidden" name="nombre_cliente" value="{{nombre_cliente}}">
@@ -159,6 +156,7 @@
     <div class="col-md-2 col-lg-2">
         <form method="POST">
             {% csrf_token %}
+            <input type="hidden" name="estado_registro" value={{estado_registro}}>
             <input type="checkbox" name="validfac_finalform" id="validfac_finalform" checked hidden/>
             <div class="form-group col-sm-12">
                 <label for="exampleInputEmail1">SUBTOTAL</label>

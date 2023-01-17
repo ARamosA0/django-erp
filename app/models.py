@@ -157,12 +157,14 @@ class Compra_prov(models.Model):
     compra = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
     imagen_factura_compra = models.ImageField(upload_to=upload_path2, null=True)
+    recibido = models.BooleanField(null=True, blank=True, default=False)
+    detaller_entrega = models.TextField(null=True, blank=True)
 
     def __str__(self):
         if self.codprov.persona:
-            compra_prov = "Nombre proveedor: {}, Cod. Compra: {}".format(self.codprov.persona.nombre, self.compra.pk)
+            compra_prov = self.codprov.persona.nombre
         else:
-            compra_prov = "Nombre proveedor: {}, Cod. Compra: {}".format(self.codprov.empresa.nombre, self.compra.pk)
+            compra_prov = self.codprov.empresa.nombre
         return compra_prov
 
 class Compra_linea_prov(models.Model):
@@ -171,25 +173,24 @@ class Compra_linea_prov(models.Model):
     cantidad = models.IntegerField()
     precio = models.FloatField()
     importe = models.FloatField(null=True)
-    dsctoproducto = models.FloatField()
+    dsctoproducto = models.FloatField(null=True, default=0, blank=True)
 
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
-#Albaranes
-class Albaran_linea_clie(models.Model):
-    cliente = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE)
-    descripcionproducto = models.TextField()
+
+######################
+#Albaranes Prueba
+class Remision_clie(models.Model):
+    factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
 
     def __str__(self):
         return "Numero de linea:{}".format(self.factura.numlinea)
 
+#Albaranes Linea intermedia Prueba
+class Remision_linea_clie(models.Model):
+    codremision = models.ForeignKey(Remision_clie, on_delete=models.CASCADE)
+    codproducto = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE, null=True)
 
-# class Albaran_linea_prov(models.Model):
-#     compra = models.ForeignKey(Factura, on_delete=models.CASCADE)
-#     codproveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
-#     codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE)
-#     descripcionproducto = models.TextField()
-
-#     def __str__(self):
-#         return "Numero de linea:{}".format(self.compra.numlinea)
+    def __str__(self):
+        return "Numero de remisión:{}".format(self.codremision.pk)
