@@ -203,6 +203,8 @@ class Remision_linea_clie(models.Model):
 # TESORERIA
 #Caja Diaria
 
-# class CajaDiaria(models.Model):
-#     fech_inicial = models.DateField(null=True)
+class CajaDiaria(models.Model):
+    fecha = models.DateField(null=True)
+    monto_inicial_total = models.FloatField(null=True)
+    total_ventas = models
     
