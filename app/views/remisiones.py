@@ -26,11 +26,9 @@ def remisiones(request):
 
 def agregar_remision(request,id):
     enviado = False
+    productos_list = Factura_linea_clie.objects.filter(factura_cliente__factura__id=id)
     if request.method == 'POST':
         in_remision_per = NuevaRemision(request.POST)
-
-        productos=Factura_linea_clie.objects.filter(factura_cliente__factura__id=id)
-
         if in_remision_per.is_valid():
             in_remision_per.save()
             return HttpResponseRedirect('agregarrem?enviado=True')
@@ -39,6 +37,7 @@ def agregar_remision(request,id):
         if 'enviado' in request.GET:
             enviado = True
     context = {
+        'productos_list':productos_list,
         'in_remision_per':in_remision_per,
         'enviado':enviado, 
     }

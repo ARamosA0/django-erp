@@ -11,9 +11,18 @@
                 <p>La remisión fue agregada</p>
                 <a class="btn btn-primary" href="{% url 'rem' %}" role="button">Volver</a>
             {% else %}
-                <form action="" method="POST" class="row g-3">
+                <form action="" method="POST">
                     {% csrf_token %}
                     {{ in_remision_per.as_p }}
+
+                    {% if productos_list %}
+                        {% for prod in productos_list %}
+                            <input type="checkbox" class="btn btn-primary">{{ prod.codproducto }}</input><br>
+                        {% endfor %}
+                    {% else %}
+                        <h4>No se encontraron datos</h4>
+                    {% endif %}
+
                     <button type="submit" class="btn btn-primary">Guardar Remisión</button>
                 </form>
             {% endif %}
