@@ -206,6 +206,23 @@ class AgregarRemision(ModelForm):
             'factura_cliente':forms.Select(attrs={'class': 'form-select form-select-sm'}),
         }
 
+#REMISION PROVEEDORES
+class RemisionProvBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    factura = forms.CharField(label='NRO FACTURA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
+    fecha = forms.DateField(label='FECHA:',
+        widget=forms.DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+
+class AgregarRemisionProv(ModelForm):
+    class Meta:
+        model = Remision_linea_prov
+        fields = '__all__'
+        widgets = {
+            'factura_proveedor':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+        }
+
 #FORMA DE PAGO
 class FormasPagoBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
