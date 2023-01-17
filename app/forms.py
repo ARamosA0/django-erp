@@ -313,12 +313,17 @@ class OrdenCompraBusqueda(Form):
     recibido = forms.CharField(label='RECIBIDO:',
         widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'recibido'}),required=False)
 
+TRUE_FALSE_CHOICES = (
+    (True, 'Si'),
+    (False, 'No')
+)
+
 class EditarCompra(ModelForm):
     class Meta:
         model = Compra_prov
         fields = ('imagen_factura_compra','recibido', 'detaller_entrega')
         widgets = {
-            'imagen_factura_compra':forms.Textarea(attrs={'class':'form-control'}),
-            'recibido':forms.TextInput(attrs={'class':'form-control'}),
-            'detaller_entrega':forms.ClearableFileInput(attrs={'class':'form-control'})
+            'recibido':forms.Select(choices = TRUE_FALSE_CHOICES,attrs={'class':'form-select form-select-sm'}),
+            'imagen_factura_compra':forms.ClearableFileInput(attrs={'class':'form-control'}),
+            'detaller_entrega':forms.Textarea(attrs={'class':'form-control'}),
         }

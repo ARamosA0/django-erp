@@ -167,19 +167,18 @@ def ver_orden(request):
 
 def editar_orden(request, id):
     orden_compra = Compra_prov.objects.get(compra_id = id)
-    art_com = Compra_linea_prov.objects.filter(compra_cliente_id = id)   
+    art_com = Compra_linea_prov.objects.filter(compra_cliente_id = id)  
+    editarCompra = EditarCompra()
+    
+    editarCompra = EditarCompra(request.POST or None, instance=orden_compra)
+    if editarCompra.is_valid():
+        editarCompra.save()
+        
     context={
         'ord':orden_compra,
-        'articulo_factura':art_com
+        'articulo_factura':art_com,
+        'editarform':editarCompra,
     }
-        
-    if request.method == 'POST':
-        recibidoCheck = request.POST.get('recibidoCheck',None)
-        descripciontext = request.POST.get('descripciontext',None)
-        imgfactura = request.POST.get('imgfactura',None)
-        compra_prov = Compra_prov()
-        compra_prov.recibido = recibidoCheck
-        compra_prov.detaller_entrega = descripciontext
 
 
     return render(request, "CompraProv/compra_editar.html", context)

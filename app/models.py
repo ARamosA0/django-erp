@@ -100,6 +100,8 @@ class Embalajes(models.Model):
 CHOICES_YES_NO = (("Sí", "Sí"),
     ("No", "No"))
 
+############################
+#ARTICULOS
 class Articulos(models.Model):
     #cambiar luego por nombre
     referencia = models.CharField(max_length=20)
@@ -125,8 +127,8 @@ class Articulos(models.Model):
     def __str__(self):
         return self.referencia
 
-#Facturas
-
+######################
+#VENTAS
 class Factura(models.Model):
     fecha = models.DateField(null=True)
     iva = models.IntegerField()
@@ -150,13 +152,14 @@ class Factura_linea_clie(models.Model):
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
-#Compras a Proveedores
+#####################
+#COMPRAS
 def upload_path2(instance, filename):
     return '/'.join(['Compras',str(instance.compra),filename])
 class Compra_prov(models.Model):
     compra = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
-    imagen_factura_compra = models.ImageField(upload_to=upload_path2, null=True)
+    imagen_factura_compra = models.ImageField(upload_to=upload_path2, null=True, blank=True)
     recibido = models.BooleanField(null=True, blank=True, default=False)
     detaller_entrega = models.TextField(null=True, blank=True)
 
@@ -194,3 +197,12 @@ class Remision_linea_clie(models.Model):
 
     def __str__(self):
         return "Numero de remisión:{}".format(self.codremision.pk)
+
+
+#######################
+# TESORERIA
+#Caja Diaria
+
+# class CajaDiaria(models.Model):
+#     fech_inicial = models.DateField(null=True)
+    
