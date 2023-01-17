@@ -11,7 +11,6 @@
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
-            <a href="{% url 'arem' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
     </div>
@@ -19,7 +18,7 @@
 
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <p>N de remisiones encontrados:</p>
+        <p>N de remisiones encontradas:</p>
     </div>
     <div style="display: flex;">
         <p style="margin:10px;">Mostrados:</p>
@@ -48,23 +47,23 @@
     </thead>
     
     <tbody>
-        {% if albaranes_list %}
-        {% for alb in albaranes_list %}
+        {% if remisiones_list %}
+        {% for rem in remisiones_list %}
         <tr scope="row">
             <td>{{ forloop.counter }}</td>
-            <td>{{ alb.id }}</td>
-            <td>{{ alb.factura_cliente.factura.id }}</td>
-            <td>{{ alb.factura_cliente.factura.fecha }}</td>
-            {% if alb.factura_cliente.codcliente.persona.nombre %}
-                <td>{{ alb.factura_cliente.codcliente.persona.nombre }}</td>
+            <td>{{ rem.id }}</td>
+            <td>{{ rem.factura_cliente.factura.id }}</td>
+            <td>{{ rem.factura_cliente.factura.fecha }}</td>
+            {% if rem.factura_cliente.codcliente.persona.nombre %}
+                <td>{{ rem.factura_cliente.codcliente.persona.nombre }}</td>
             {% else %}
-                <td>{{ alb.factura_cliente.codcliente.empresa.nombre }}</td>
+                <td>{{ rem.factura_cliente.codcliente.empresa.nombre }}</td>
             {% endif %}
-            <td>{{ alb.factura_cliente.codcliente.persona.dni }}</td>
+            <td>{{ rem.factura_cliente.codcliente.persona.dni }}</td>
             <td>
-                <a type="button" href="{% url 'verrem' alb.id %}" class="btn btn-primary">Ver</a>
-                <a type="button" href="{% url 'edrem' alb.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delrem' alb.id %}" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'verrem' rem.id %}" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edrem' rem.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delrem' rem.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

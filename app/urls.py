@@ -138,7 +138,7 @@ urlpatterns =[
     #Pag Remision
     path('rem/', remisiones, name="rem"),
     #Insertar Remision
-    path('rem/agregarrem', agregar_remision, name="arem"),
+    path('rem/agregarrem/<int:id>/', agregar_remision, name="arem"),
     #Eliminar Remision
     path('rem/eliminar/<int:id>/', eliminar_remision, name="delrem"),
     #Editar Remision

@@ -8,12 +8,12 @@
         </div>
         <div class="card-body">
             {% if enviado %}
-                <p>Albarán fue agregado</p>
-                <a class="btn btn-primary" href="{% url 'alb' %}" role="button">Volver</a>
+                <p>La remisión fue agregada</p>
+                <a class="btn btn-primary" href="{% url 'rem' %}" role="button">Volver</a>
             {% else %}
                 <form action="" method="POST" class="row g-3">
                     {% csrf_token %}
-                    {{ in_albaranes_per.as_p }}
+                    {{ in_remision_per.as_p }}
                     <button type="submit" class="btn btn-primary">Guardar Remisión</button>
                 </form>
             {% endif %}
