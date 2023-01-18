@@ -1,0 +1,32 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container" style="margin-top: 2em">
+    <div class="card">
+        <div class="card-header">
+            Insertar Remisión
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>La remisión fue agregada</p>
+                <a class="btn btn-primary" href="{% url 'rem' %}" role="button">Volver</a>
+            {% else %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    {% if productos_list %}
+                        {% for prod in productos_list %}
+                            <input class="form-check-input mt-0" type="checkbox" value="{{ prod.id }}" name="productos">{{ prod.codproducto }}</input><br>
+                        {% endfor %}
+                    {% else %}
+                        <h4>No se encontraron datos</h4>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-primary">Guardar Remisión</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

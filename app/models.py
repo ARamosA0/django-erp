@@ -70,11 +70,7 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        if self.persona:
-            prov = f'{self.persona}'
-        else:
-            prov = f'{self.empresa}'
-        return prov
+        return f'{self.persona} {self.empresa}'
 
 CHOICES = (("1", "1"),
     ("0", "0"))
@@ -152,9 +148,10 @@ class Factura_linea_clie(models.Model):
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
-#####################
+####################################################################################
 #COMPRAS
 #Facturas proveedores
+# BORRAR
 class Factura_prov(models.Model):
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE, primary_key=True)
     codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
@@ -172,6 +169,8 @@ class Factura_linea_prov(models.Model):
 
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
+
+#####################################################################################
 
 #Compras a Proveedores
 def upload_path2(instance, filename):
@@ -202,15 +201,13 @@ class Compra_linea_prov(models.Model):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
 
-######################
-#Albaranes Prueba
+#Remision de clientes
 class Remision_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "Numero de linea:{}".format(self.factura.numlinea)
+        return "Numero de factura:{}".format(self.factura_cliente.factura.pk)
 
-#Albaranes Linea intermedia Prueba
 class Remision_linea_clie(models.Model):
     codremision = models.ForeignKey(Remision_clie, on_delete=models.CASCADE)
     codproducto = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE, null=True)
@@ -238,16 +235,16 @@ class Remision_linea_prov(models.Model):
 #######################
 # TESORERIA
 #Caja Diaria
-# class Caja_diaria(models.Model):
-#     fecha = models.DateField(null=True)
-#     monto_total_inicial = models.FloatField(null=True)
-#     monto_total_final = models.FloatField(null=True)
+class Caja_diaria(models.Model):
+    fecha = models.DateField(null=True)
+    monto_total_inicial = models.FloatField(null=True)
+    monto_total_final = models.FloatField(null=True)
 
 
-# class Caja_tipo_pago(models.Model):
-#     venta = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True, blank=True)
-#     compra = models.ForeignKey(Compra_prov, on_delete=models.CASCADE, null=True, blank=True)
-#     tipo_pago = models.ForeignKey(Formapago, on_delete=models.CASCADE, null=True)
-#     caja_diaria = models.ForeignKey(Caja_diaria, on_delete=models.CASCADE, null=True)
-#     total_tipo_pago = models.FloatField(null=True)
+class Caja_tipo_pago(models.Model):
+    venta = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True, blank=True)
+    compra = models.ForeignKey(Compra_prov, on_delete=models.CASCADE, null=True, blank=True)
+    tipo_pago = models.ForeignKey(Formapago, on_delete=models.CASCADE, null=True)
+    caja_diaria = models.ForeignKey(Caja_diaria, on_delete=models.CASCADE, null=True)
+    total_tipo_pago = models.FloatField(null=True)
 

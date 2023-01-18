@@ -35,13 +35,19 @@
                                 <th scope="row">MONTO INICIAL TOTAL:</th>
                                 <td>{{ clie.persona.codprovincia }}</td>
                             </tr>
+                            {% for tipo in tipo_pago %}
+                                <tr>
+                                    <th scope="row" style="text-transform:uppercase;">TOTAL VENTAS {{ tipo }}:</th>
+                                    <td>{{ clie.persona.direccion }}</td>
+                                </tr>
+                            {% endfor %}
                             <tr>
                                 <th scope="row">TOTAL VENTAS:</th>
                                 <td>{{ clie.persona.localidad }}</td>
                             </tr>
                             {% for tipo in tipo_pago %}
                                 <tr>
-                                    <th scope="row" style="text-transform:uppercase;">TOTAL VENTAS {{ tipo }}:</th>
+                                    <th scope="row" style="text-transform:uppercase;">TOTAL COMPRAS {{ tipo }}:</th>
                                     <td>{{ clie.persona.direccion }}</td>
                                 </tr>
                             {% endfor %}
