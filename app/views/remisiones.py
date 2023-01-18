@@ -26,7 +26,12 @@ def remisiones(request):
 
 def agregar_remision(request,id):
     enviado = False
-    productos_list = Factura_linea_clie.objects.filter(factura_cliente__factura__id=id)
+    
+    if Remision_clie.objects.filter(factura_cliente__factura__id=id).exists():
+        productos_list = Factura_linea_clie.objects.filter(factura_cliente__factura__id=id).filter(remision_hecha=False)
+    else:
+        productos_list = Factura_linea_clie.objects.filter(factura_cliente__factura__id=id)
+
     if request.method == 'POST':
         rem_clie = Remision_clie()
         rem_clie.factura_cliente=Factura_clie.objects.filter(factura__id=id).last()
@@ -37,6 +42,11 @@ def agregar_remision(request,id):
             rem_linea_clie=Remision_linea_clie()
             rem_linea_clie.codremision=Remision_clie.objects.last()
             rem_linea_clie.codproducto=Factura_linea_clie.objects.get(pk=producto_seleccionado)
+            
+            actualizar=Factura_linea_clie.objects.get(id=producto_seleccionado)
+            actualizar.remision_hecha=True
+            actualizar.save()
+
             rem_linea_clie.save()
         return HttpResponseRedirect('?enviado=True')
     else:

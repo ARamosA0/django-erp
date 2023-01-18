@@ -144,6 +144,7 @@ class Factura_linea_clie(models.Model):
     precio = models.FloatField()
     importe = models.FloatField(null=True)
     dsctoproducto = models.FloatField()
+    remision_hecha = models.BooleanField(null=True, blank=True, default=False)
 
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
