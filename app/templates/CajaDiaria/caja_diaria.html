@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    
+    <div class='row justify-content-center m-5'>
+        <div class="col-md-10 col-lg-5">
+            <h4><center>Buscar Fecha</center></h4>
+            <div  class="form-group">
+              <form id="form_busqueda" name="form_busqueda" method="post">
+                  {% csrf_token %}
+                  {{ formbusqueda.as_p }}
+                <div  style="float: right;">
+                  <button class="btn btn-primary" >Buscar</button>
+                </div>                   
+              </form>
+          </div>
+
+          <div class="row"></div>
+          
+          <div class="mt-5">
+            <h4><center>Detalles de la Caja</center></h4>
+            <div class="card-body">
+                <section class="container">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">CAJA FECHA:</th>
+                                <td>{{ clie.persona.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">NETO:</th>
+                                <td>{{ clie.persona.dni }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">MONTO INICIAL TOTAL:</th>
+                                <td>{{ clie.persona.codprovincia }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">TOTAL VENTAS:</th>
+                                <td>{{ clie.persona.localidad }}</td>
+                            </tr>
+                            {% for tipo in tipo_pago %}
+                                <tr>
+                                    <th scope="row" style="text-transform:uppercase;">TOTAL VENTAS {{ tipo }}:</th>
+                                    <td>{{ clie.persona.direccion }}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th scope="row">TOTAL COMPRAS:</th>
+                                <td>{{ clie.persona.codpostal }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">TOTAL FINAL:</th>
+                                <td>{{ clie.persona.cuentabancaria }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+          </div>
+        
+    </div>
+{% endblock %}

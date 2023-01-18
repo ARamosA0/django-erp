@@ -344,3 +344,8 @@ class EditarCompra(ModelForm):
             'imagen_factura_compra':forms.ClearableFileInput(attrs={'class':'form-control'}),
             'detaller_entrega':forms.Textarea(attrs={'class':'form-control'}),
         }
+
+
+class DateFormSearch(Form):
+    fecha = forms.DateField(label='FECHA CIERRE:',
+        widget=DateInput(attrs={'class':'form-control','id':'fechabusqueda'}),required=False)
