@@ -18,7 +18,7 @@ def articulos(request):
         if busquedaform.is_valid():
             data = Articulos.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            data = data.filter(referencia=busquedaform.cleaned_data['referencia'])  if busquedaform.cleaned_data['referencia'] else data
+            data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
             data = data.filter(familia=busquedaform.cleaned_data['familia'])  if busquedaform.cleaned_data['familia'] else data
             data = data.filter(descripcion=busquedaform.cleaned_data['descripcion'])  if busquedaform.cleaned_data['descripcion'] else data
             data = data.filter(proveedor_id=busquedaform.cleaned_data['proveedor'])  if busquedaform.cleaned_data['proveedor'] else data

@@ -42,7 +42,7 @@
         <thead>
             <tr>
                 <th scope="col">Familia</th>
-                <th scope="col">Referencia</th>
+                <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
@@ -56,7 +56,7 @@
             {% for artfac in articulo_factura %}
             <tr scope="row"> 
                 <td>{{ artfac.codproducto.codproducto.familia.nombre }}</td>
-                <td>{{ artfac.codproducto.codproducto.referencia }}</td>
+                <td>{{ artfac.codproducto.codproducto.nombre }}</td>
                 <td>{{ artfac.codproducto.codproducto.descripcion }}</td>
                 <td>{{ artfac.codproducto.cantidad }}</td>
                 <td>{{ artfac.codproducto.precio }}</td>

@@ -75,7 +75,7 @@ class Proveedores(models.Model):
 CHOICES = (("1", "1"),
     ("0", "0"))
 def upload_path(instance, filename):
-    return '/'.join(['articulos',str(instance.referencia),filename])
+    return '/'.join(['articulos',str(instance.nombre),filename])
 
 class Ubicaciones(models.Model):
     nombre = models.CharField(max_length=100)
@@ -96,11 +96,17 @@ class Embalajes(models.Model):
 CHOICES_YES_NO = (("Sí", "Sí"),
     ("No", "No"))
 
+
+CHOICES_PRIM_INS = [
+    ("Materia Prima", "Materia Prima"),
+    ("Insumo", "Insumo")
+]
+
 ############################
 #ARTICULOS
 class Articulos(models.Model):
     #cambiar luego por nombre
-    referencia = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=20)
     familia = models.ForeignKey(Familia,on_delete=models.CASCADE)
     descripcion = models.CharField(max_length=500)
     impuesto = models.ForeignKey(Impuestos, on_delete=models.CASCADE)
@@ -116,12 +122,23 @@ class Articulos(models.Model):
     unidades_por_caja = models.PositiveIntegerField()
     observaciones = models.CharField(max_length=500)
     precio_compra = models.FloatField(validators=[MinValueValidator(0.0)])
-    precio_almacen = models.FloatField(validators=[MinValueValidator(0.0)])
     precio_tienda = models.FloatField(validators=[MinValueValidator(0.0)])
-    precio_con_iva = models.FloatField(validators=[MinValueValidator(0.0)])
     imagen = models.ImageField(upload_to=upload_path, null=True)
+    tipo = CHOICES_PRIM_INS
     def __str__(self):
-        return self.referencia
+        return self.nombre
+
+class Producto(models.Model):
+    nombre = models.CharField(max_length=100)
+    cantidad = models.IntegerField(default=0)
+    descripcion_producto = models.TextField(null=True, blank=True)
+    
+class Producto_detalle(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulos, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(default=0)
+
+    
 
 ######################
 #VENTAS
@@ -147,28 +164,9 @@ class Factura_linea_clie(models.Model):
     remision_hecha = models.BooleanField(null=True, blank=True, default=False)
 
     def __str__(self):
-        return "Nombre articulo:{}".format(self.codproducto.referencia)
+        return "Nombre articulo:{}".format(self.codproducto.nombre)
 
-#####################
-#COMPRAS
-#Facturas proveedores
-class Factura_prov(models.Model):
-    factura = models.ForeignKey(Factura, on_delete=models.CASCADE, primary_key=True)
-    codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return "Nombre proveedor:{}, Cod. Factura:{}".format(self.codprov.empresa.nombre, self.factura.pk)
-
-class Factura_linea_prov(models.Model):
-    factura_proveedor = models.ForeignKey(Factura_prov, on_delete=models.CASCADE, null=True)
-    codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
-    cantidad = models.IntegerField()
-    precio = models.FloatField()
-    importe = models.FloatField(null=True)
-    dsctoproducto = models.FloatField()
-
-    def __str__(self):
-        return "Nombre articulo:{}".format(self.codproducto.referencia)
 
 #Compras a Proveedores
 def upload_path2(instance, filename):
@@ -177,7 +175,7 @@ class Compra_prov(models.Model):
     compra = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codprov = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
     imagen_factura_compra = models.ImageField(upload_to=upload_path2, null=True, blank=True)
-    recibido = models.BooleanField(null=True, blank=True, default=False)
+    estado = models.BooleanField(null=True, blank=True, default=False)
     detaller_entrega = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -196,7 +194,7 @@ class Compra_linea_prov(models.Model):
     dsctoproducto = models.FloatField(null=True, default=0, blank=True)
 
     def __str__(self):
-        return "Nombre articulo:{}".format(self.codproducto.referencia)
+        return "Nombre articulo:{}".format(self.codproducto.nombre)
 
 
 #Remision de clientes
@@ -216,14 +214,14 @@ class Remision_linea_clie(models.Model):
     
 #Remision de proveedores
 class Remision_prov(models.Model):
-    factura_proveedor = models.ForeignKey(Factura_prov, on_delete=models.CASCADE)
+    factura_proveedor = models.ForeignKey(Compra_prov, on_delete=models.CASCADE)
 
     def __str__(self):
         return "Numero de linea:{}".format(self.factura_proveedor)
 
 class Remision_linea_prov(models.Model):
     codremision = models.ForeignKey(Remision_prov, on_delete=models.CASCADE)
-    codproducto = models.ForeignKey(Factura_linea_prov, on_delete=models.CASCADE, null=True)
+    codproducto = models.ForeignKey(Compra_linea_prov, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "Numero de remisión:{}".format(self.codremision.pk)
@@ -233,16 +231,17 @@ class Remision_linea_prov(models.Model):
 #######################
 # TESORERIA
 #Caja Diaria
-# class Caja_diaria(models.Model):
-#     fecha = models.DateField(null=True)
-#     monto_total_inicial = models.FloatField(null=True)
-#     monto_total_final = models.FloatField(null=True)
+class Caja_diaria(models.Model):
+    fecha_apertura = models.DateTimeField(null=True, auto_now=True)
+    fecha_cierre = models.DateTimeField(null=True, auto_now=True)
+    monto_total_inicial = models.FloatField(null=True)
+    monto_total_final = models.FloatField(null=True)
 
 
-# class Caja_tipo_pago(models.Model):
-#     venta = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True, blank=True)
-#     compra = models.ForeignKey(Compra_prov, on_delete=models.CASCADE, null=True, blank=True)
-#     tipo_pago = models.ForeignKey(Formapago, on_delete=models.CASCADE, null=True)
-#     caja_diaria = models.ForeignKey(Caja_diaria, on_delete=models.CASCADE, null=True)
-#     total_tipo_pago = models.FloatField(null=True)
+class Caja_tipo_pago(models.Model):
+    venta = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True, blank=True)
+    compra = models.ForeignKey(Compra_prov, on_delete=models.CASCADE, null=True, blank=True)
+    tipo_pago = models.ForeignKey(Formapago, on_delete=models.CASCADE, null=True)
+    caja_diaria = models.ForeignKey(Caja_diaria, on_delete=models.CASCADE, null=True)
+    total_tipo_pago = models.FloatField(null=True)
 

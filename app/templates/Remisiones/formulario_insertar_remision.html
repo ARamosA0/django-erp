@@ -19,7 +19,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Familia</th>
-                                    <th scope="col">Referencia</th>
+                                    <th scope="col">Nombre</th>
                                     <th scope="col">Descripcion</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
@@ -33,7 +33,7 @@
                             {% for prod in productos_list %}
                             <tr scope="row"> 
                             <td>{{ prod.codproducto.familia.nombre }}</td>
-                            <td>{{ prod.codproducto.referencia }}</td>
+                            <td>{{ prod.codproducto.nombre }}</td>
                             <td>{{ prod.codproducto.descripcion }}</td>
                             <td>{{ prod.cantidad }}</td>
                             <td>{{ prod.precio }}</td>

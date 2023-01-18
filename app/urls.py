@@ -15,6 +15,7 @@ from app.views.factura_clie import *
 from app.views.orden_compra import *
 from app.views.remisiones import *
 from app.views.remision_prov import *
+from app.views.caja_diaria import *
 
 urlpatterns =[
     # Pagina Principal
@@ -166,5 +167,8 @@ urlpatterns =[
     path('provremision/agregarremision', agregar_remision_proveedores, name="adprovrem"),
     path('provremision/ver/<int:id>/', ver_remision_proveedores, name="verprovrem"),
     path('provremision/editar/<int:id>', editar_remision_proveedores, name="edprovrem"),
-    path('provremision/eliminar/<int:id>', eliminar_remision_proveedores, name="delprovrem")
+    path('provremision/eliminar/<int:id>', eliminar_remision_proveedores, name="delprovrem"),
+
+    #Caja Diaria
+    path('caja/', caja_diaria, name="caja"),
 ]
