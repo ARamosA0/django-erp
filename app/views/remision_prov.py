@@ -45,7 +45,7 @@ def agregar_remision_proveedores(request):
 
 def ver_remision_proveedores(request, id):
     albaran_prov_list = Remision_linea_prov.objects.get(codremision__factura_proveedor__factura__id=id)
-    art_fac_prov = Factura_linea_prov.objects.filter(id = id)
+    art_fac_prov = Compra_linea_prov.objects.filter(id = id)
     context = {
         'art_fac_prov':art_fac_prov,
         'alb_prov': albaran_prov_list

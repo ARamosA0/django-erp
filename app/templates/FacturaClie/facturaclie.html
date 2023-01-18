@@ -55,7 +55,7 @@
                 {% for artfac in art_fac %}
                 <tr scope="row"> 
                     <td>{{ artfac.codproducto.familia.nombre }}</td>
-                    <td>{{ artfac.codproducto.referencia }}</td>
+                    <td>{{ artfac.codproducto.nombre }}</td>
                     <td>{{ artfac.codproducto.descripcion }}</td>
                     <td>{{ artfac.cantidad }}</td>
                     <td>{{ artfac.precio }}</td>
@@ -74,7 +74,7 @@
         <thead>
             <tr>
                 <th scope="col">Familia</th>
-                <th scope="col">Referencia</th>
+                <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
@@ -88,7 +88,7 @@
             {% for artfac in articulo_factura %}
             <tr scope="row"> 
                 <td>{{ artfac.codproducto.familia.nombre }}</td>
-                <td>{{ artfac.codproducto.referencia }}</td>
+                <td>{{ artfac.codproducto.nombre }}</td>
                 <td>{{ artfac.codproducto.descripcion }}</td>
                 <td>{{ artfac.cantidad }}</td>
                 <td>{{ artfac.precio }}</td>

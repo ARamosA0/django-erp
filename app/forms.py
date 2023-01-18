@@ -97,8 +97,8 @@ class AgregarEmpresa(ModelForm):
 class ArticuloBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    referencia = forms.CharField(label='REFERENCIA:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'referencia'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
     familia = forms.ModelChoiceField(label='FAMILIA:',queryset=Familia.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'familia'}),required=False)
     descripcion = forms.CharField(label='DESCRIPCION:',
@@ -115,7 +115,7 @@ class AgregarArticulo(ModelForm):
         model = Articulos
         fields = '__all__'
         widgets = {
-            'referencia':forms.TextInput(attrs={'class':'form-control'}),
+            'nombre':forms.TextInput(attrs={'class':'form-control'}),
             'familia':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'descripcion':forms.TextInput(attrs={'class':'form-control'}),
             'impuesto':forms.Select(attrs={'class': 'form-select form-select-sm'}),
@@ -131,9 +131,7 @@ class AgregarArticulo(ModelForm):
             'unidades_por_caja':forms.TextInput(attrs={'class': 'form-control'}),
             'observaciones':forms.TextInput(attrs={'class': 'form-control'}),
             'precio_compra':forms.TextInput(attrs={'class': 'form-control'}),
-            'precio_almacen':forms.TextInput(attrs={'class': 'form-control'}),
             'precio_tienda':forms.TextInput(attrs={'class': 'form-control'}),
-            'precio_con_iva':forms.TextInput(attrs={'class': 'form-control'}),
             'imagen':forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
@@ -311,6 +309,11 @@ class EditarFactura(ModelForm):
         }
 
 # ORDEN DE COMPRA
+TRUE_FALSE_CHOICES = (
+    ('', '--------'),
+    (True, 'Completo'),
+    (False, 'Incompleto')
+)
 
 class OrdenCompraBusqueda(Form):
     rucproveedor = forms.CharField(label='RUC PROVEEDOR:',
@@ -319,25 +322,25 @@ class OrdenCompraBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'numorden'}),required=False)
     fechaorden = forms.DateField(label='FECHA:',
         widget=DateInput(attrs={'class':'form-control','id':'fechaorden'}),required=False)
-    recibido = forms.CharField(label='RECIBIDO:',
-        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'recibido'}),required=False)
-
-TRUE_FALSE_CHOICES = (
-    (True, 'Si'),
-    (False, 'No')
-)
+    estado = forms.CharField(label='ESTADO:',
+        widget=forms.Select(choices = TRUE_FALSE_CHOICES, attrs={'class':'form-select','id':'estado'}),required=False)
 
 class EditarCompra(ModelForm):
     class Meta:
         model = Compra_prov
-        fields = ('imagen_factura_compra','recibido', 'detaller_entrega')
+        fields = ('imagen_factura_compra','estado', 'detaller_entrega')
         widgets = {
-            'recibido':forms.Select(choices = TRUE_FALSE_CHOICES,attrs={'class':'form-select form-select-sm'}),
+            'estado':forms.Select(choices = TRUE_FALSE_CHOICES,attrs={'class':'form-select form-select-sm'}),
             'imagen_factura_compra':forms.ClearableFileInput(attrs={'class':'form-control'}),
             'detaller_entrega':forms.Textarea(attrs={'class':'form-control'}),
         }
 
 
 class DateFormSearch(Form):
-    fecha = forms.DateField(label='FECHA CIERRE:',
+    fecha = forms.DateTimeField(label='FECHA CIERRE:',
         widget=DateInput(attrs={'class':'form-control','id':'fechabusqueda'}),required=False)
+
+class NuevaCaja(ModelForm):
+    class Meta:
+        model = Caja_diaria
+        fields = ('__all__')

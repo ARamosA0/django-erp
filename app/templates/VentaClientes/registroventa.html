@@ -90,7 +90,7 @@
                     <input type="checkbox" name="validfac_cliente_list_form" id="validfac_cliente_list_form" checked hidden/>
                     {% csrf_token %}
                     <div class="col-sm-4 col-lg-4">
-                        <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" required name="nomarticulo" value="{{ articulo_venta.referencia }}">
+                        <input type="text" class="form-control" placeholder="NOMBRE ARTICULO" required name="nomarticulo" value="{{ articulo_venta.nombre }}">
                     </div>
                     <div class="col-sm-4">
                         <input type="number" class="form-control"  placeholder="CANTIDAD" name="cantidad_art" value="1" required>
@@ -117,7 +117,7 @@
     <thead>
         <tr>
             <th scope="col">Familia</th>
-            <th scope="col">Referencia</th>
+            <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Precio</th>
@@ -131,7 +131,7 @@
         {% for artfac in articulo_factura %}
         <tr scope="row"> 
             <td>{{ artfac.codproducto.familia.nombre }}</td>
-            <td>{{ artfac.codproducto.referencia }}</td>
+            <td>{{ artfac.codproducto.nombre }}</td>
             <td>{{ artfac.codproducto.descripcion }}</td>
             <td>{{ artfac.cantidad }}</td>
             <td>{{ artfac.precio }}</td>
@@ -140,8 +140,8 @@
             <td>
                 <form method="POST">{% csrf_token %}
                     <div>
-                        <input type="hidden" name="eliminar_art_venta" value="{{artfac.id}}">
-                        <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
+                    <input type="hidden" name="eliminar_art_venta" value="{{artfac.id}}">
+                    <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
                     <input type="hidden" name="estado_registro" value={{estado_registro}}>
                     <input type="hidden" name="dni_cliente" value="{{dni_cliente}}">
                     <input type="hidden" name="iva_fac" value="{{ iva_factura }}">
