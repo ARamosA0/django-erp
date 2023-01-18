@@ -12,8 +12,9 @@ from app.views.ubicaciones import *
 from app.views.provincia import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
-from app.views.compra_prov import *
+from app.views.orden_compra import *
 from app.views.remisiones import *
+from app.views.remision_prov import *
 
 urlpatterns =[
     # Pagina Principal
@@ -21,7 +22,7 @@ urlpatterns =[
     
     #Pag Provedores
     path('prov/', proveedores, name="prov"),
-    path('prov/agregarprov', agregar_proveedor, name="aprov"),
+    path('prov/agregarprov', agregar_proveedor, name="aprove"),
     path('prov/eliminar/<int:id>', eliminar_proveedor, name="delprov"),
     path('prov/ver/<int:id>', ver_proveedor, name="verprov"),
     path('prov/editar/<int:id>', editar_proveedor, name="edprov"),
@@ -116,7 +117,7 @@ urlpatterns =[
 
     #Pag Provincias
     path('provi/', provincia, name="provi"),
-    path('provi/agregarprovi', agregar_provincia, name="aprov"),
+    path('provi/agregarprovi', agregar_provincia, name="aprovi"),
     #Eliminar Provincia
     path('provi/eliminar/<int:id>/', eliminar_provincia, name="delprovi"),
     #Editar Provincia
@@ -147,8 +148,21 @@ urlpatterns =[
     path('rem/ver/<int:id>/', ver_remision, name="verrem"),
 
 
-    #Compra Proveedor
-    path('compra', compra_prov, name="compraprov"),
-    #Agregar factura
-    path('agregarcom', agregar_compra_prov, name="agcompra" ),
+    #Orden de Compra
+    path('compraprov/', orden_compra, name="compraprov"),
+    #Agregar Orden
+    path('agregarorden/', agregar_orden_compra, name="agcompra" ),
+    #Editar Orden
+    path('orden/editar/<int:id>', editar_orden, name='edorden'),
+    #Eliminar Orden
+    path('orden/eliminar/<int:id>', eliminar_orden, name='delorden'),
+    path('orden/eliminar/referenciaarticulo/<int:id>', ver_factura_eliminar_articulo, name="eliminarartref"),
+
+
+    #Guia de remision de proveedores
+    path('provremision/', remision_proveedores, name="provrem"),
+    path('provremision/agregarremision', agregar_remision_proveedores, name="adprovrem"),
+    path('provremision/ver/<int:id>/', ver_remision_proveedores, name="verprovrem"),
+    path('provremision/editar/<int:id>', editar_remision_proveedores, name="edprovrem"),
+    path('provremision/eliminar/<int:id>', eliminar_remision_proveedores, name="delprovrem")
 ]

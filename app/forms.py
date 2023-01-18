@@ -186,7 +186,7 @@ class NuevaFactura(ModelForm):
         fields = ('fecha', 'iva')
         widgets = {
             'fecha':DateInput(attrs={'class':'form-control'}),
-            'iva':forms.TextInput(attrs={'class':'form-control', 'value':'8'})
+            'iva':forms.TextInput(attrs={'class':'form-control', 'value':'18'})
         }
         
 #REMISION
@@ -197,6 +197,23 @@ class RemisionBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
+
+#REMISION PROVEEDORES
+class RemisionProvBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    factura = forms.CharField(label='NRO FACTURA:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
+    fecha = forms.DateField(label='FECHA:',
+        widget=forms.DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+
+class AgregarRemisionProv(ModelForm):
+    class Meta:
+        model = Remision_linea_prov
+        fields = '__all__'
+        widgets = {
+            'factura_proveedor':forms.Select(attrs={'class': 'form-select form-select-sm'}),
+        }
 
 #FORMA DE PAGO
 class FormasPagoBusqueda(Form):
@@ -291,4 +308,31 @@ class EditarFactura(ModelForm):
         fields = ('fecha',)
         widgets = {
             'fecha':forms.DateInput(attrs={'class':'form-control'})
+        }
+
+# ORDEN DE COMPRA
+
+class OrdenCompraBusqueda(Form):
+    rucproveedor = forms.CharField(label='RUC PROVEEDOR:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'rucproveedor'}),required=False)
+    numorden = forms.CharField(label='NUMERO DE ORDEN:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'numorden'}),required=False)
+    fechaorden = forms.DateField(label='FECHA:',
+        widget=DateInput(attrs={'class':'form-control','id':'fechaorden'}),required=False)
+    recibido = forms.CharField(label='RECIBIDO:',
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'recibido'}),required=False)
+
+TRUE_FALSE_CHOICES = (
+    (True, 'Si'),
+    (False, 'No')
+)
+
+class EditarCompra(ModelForm):
+    class Meta:
+        model = Compra_prov
+        fields = ('imagen_factura_compra','recibido', 'detaller_entrega')
+        widgets = {
+            'recibido':forms.Select(choices = TRUE_FALSE_CHOICES,attrs={'class':'form-select form-select-sm'}),
+            'imagen_factura_compra':forms.ClearableFileInput(attrs={'class':'form-control'}),
+            'detaller_entrega':forms.Textarea(attrs={'class':'form-control'}),
         }

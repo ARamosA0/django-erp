@@ -4,28 +4,28 @@
 
     <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
         <div class="card-header modal-title fs-5">
-            Remisión número: {{ rem.id }}
+            {{ alb_prov.codproducto.codproducto.descripcion_corta }}
         </div>
         <div class="card-body">
             <section class="container">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>DATOS</th>
+                        <th scope="col">#</th>
+                        <th scope="col">DATOS</th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th >PARA FACTURA NÚMERO:</th>
-                            <td>{{ rem.factura_cliente.factura.id }}</td>
+                            <th scope="row">DESCRIPCION DEL PRODUCTO:</th>
+                            <td>{{ alb_prov.codproducto.codproducto.descripcion_corta }}</td>
                         </tr>
                         <tr>
-                            <th >FACTURA A NOMBRE DE:</th>
-                            {% if rem.factura_cliente.codcliente.persona.nombre %}
-                                <td>{{ rem.factura_cliente.codcliente.persona.nombre }}</td>
+                            <th scope="row">FACTURA A NOMBRE DE:</th>
+                            {% if alb_prov.codremision.factura_proveedor.codprov.persona.nombre %}
+                                <td>{{ alb_prov.codremision.factura_proveedor.codprov.persona.nombre }}</td>
                             {% else %}
-                                <td>{{ rem.factura_cliente.codcliente.empresa.nombre }}</td>
+                                <td>{{ alb_prov.codremision.factura_proveedor.codprov.empresa.nombre }}</td>
                             {% endif %}
                         </tr>
                     </tbody>
@@ -47,16 +47,16 @@
             </thead>
             
             <tbody>
-                {% if articulo_factura %}
-                {% for artfac in articulo_factura %}
+                {% if art_fac_prov %}
+                {% for artfac in art_fac_prov %}
                 <tr scope="row"> 
-                    <td>{{ artfac.codproducto.codproducto.familia.nombre }}</td>
-                    <td>{{ artfac.codproducto.codproducto.referencia }}</td>
-                    <td>{{ artfac.codproducto.codproducto.descripcion }}</td>
-                    <td>{{ artfac.codproducto.cantidad }}</td>
-                    <td>{{ artfac.codproducto.precio }}</td>
-                    <td>{{ artfac.codproducto.dsctoproducto }}</td>
-                    <td>{{ artfac.codproducto.importe }}</td>
+                    <td>{{ artfac.codproducto.familia.nombre }}</td>
+                    <td>{{ artfac.codproducto.referencia }}</td>
+                    <td>{{ artfac.codproducto.descripcion }}</td>
+                    <td>{{ artfac.cantidad }}</td>
+                    <td>{{ artfac.precio }}</td>
+                    <td>{{ artfac.dsctoproducto }}</td>
+                    <td>{{ artfac.importe }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
@@ -67,6 +67,6 @@
 
     </div>
     <div class="container text-center">
-        <a type="button" href="{% url 'rem' %}" class="btn btn-primary">Regresar</a>
+        <a type="button" href="{% url 'provrem' %}" class="btn btn-primary">Regresar</a>
     </div>
 {% endblock %}

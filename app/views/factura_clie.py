@@ -11,17 +11,17 @@ def factura(request):
         'factura_list': factura_list,
         'busquedaform': busquedaform
     }
-    # if request.method == 'POST':
-    #     busquedaform = FamiliaBusqueda(request.POST)
-    #     if busquedaform.is_valid():
-            
-    #         data = Familia.objects.all()
-    #         data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-    #         data = data.filter(nombre=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
-    #         context['familias_list']=data
-    #         context['busquedaform']=busquedaform
-    # else:
-    #     busquedaform = FamiliaBusqueda()
+    if request.method == 'POST':
+        busquedaform = FacturaBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Factura_clie.objects.all()
+            data = data.filter(codcliente__persona__dni=busquedaform.cleaned_data['dnicliente'])  if busquedaform.cleaned_data['dnicliente'] else data
+            data = data.filter(factura_id=busquedaform.cleaned_data['numfactura'])  if busquedaform.cleaned_data['numfactura'] else data
+            data = data.filter(factura__fecha=busquedaform.cleaned_data['fechafac'])  if busquedaform.cleaned_data['fechafac'] else data
+            context['factura_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = FacturaBusqueda()
     return render(request, "FacturaClie/factura_crud.html",context)
 
 def ver_factura(request, id):

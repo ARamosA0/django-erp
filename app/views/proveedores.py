@@ -41,7 +41,7 @@ def proveedores(request):
 def agregar_proveedor(request):
     enviado_per = False
     enviado_emp = False
-
+    reg_porcomp = False
     if request.method == "POST":
         form_persona = AgregarPersona(request.POST)
         form_empresa = AgregarEmpresa(request.POST)
@@ -57,6 +57,8 @@ def agregar_proveedor(request):
             proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
+            if 'reg_porcomp' in request.GET:
+                return HttpResponseRedirect('agregarprov?enviado_per=True&reg_porcomp=True')
             return HttpResponseRedirect('agregarprov?enviado_per=True')
         elif form_empresa.is_valid() and form_proveedor.is_valid():
             form_empresa.save()
@@ -69,6 +71,8 @@ def agregar_proveedor(request):
             proveedor.ruc = int(rucproveedor)
 
             proveedor.save()
+            if 'reg_porcomp' in request.GET:
+                return HttpResponseRedirect('agregarprov?enviado_emp=True&reg_porcomp=True')
             return HttpResponseRedirect('agregarprov?enviado_emp=True')
     else:
         form_persona = AgregarPersona
@@ -76,15 +80,21 @@ def agregar_proveedor(request):
         form_proveedor = ProveedorProveedorInsertar
         if 'enviado_per' in request.GET:
             enviado_per = True
+            if 'reg_porcomp' in request.GET:
+                reg_porcomp = True
         elif 'enviado_emp' in request.GET:
             enviado_emp = True
+            if 'reg_porcomp' in request.GET:
+                reg_porcomp = True
+        
 
     context ={
         'form_persona':form_persona, 
         'form_empresa':form_empresa,
         'form_proveedor': form_proveedor,
         'enviado_per':enviado_per,
-        'enviado_emp':enviado_emp
+        'enviado_emp':enviado_emp,
+        'reg_porcomp':reg_porcomp
     }
 
     return render(request,"Proveedores/formulario_insertar_proveedor.html", context)

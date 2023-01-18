@@ -13,7 +13,7 @@
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
-            <a href="{% url 'aprov' %}" type="button" class="btn btn-success" >Agregar</a>
+            <a href="{% url 'aprove' %}" type="button" class="btn btn-success" >Agregar</a>
           </div>                   
         </form>
     </div>
@@ -54,7 +54,7 @@
     
     <tbody>
         {% if proveedores_list %}
-        {% for prov in proveedores_list|slice:contador %}
+        {% for prov in proveedores_list %}
         <tr scope="row"> 
             <td>{{ forlop.contador  }}</td>
             {% if prov.empresa == null %}

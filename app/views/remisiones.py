@@ -1,4 +1,3 @@
-import json
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -35,13 +34,11 @@ def agregar_remision(request,id):
         
         lista=request.POST.getlist('productos')
         for producto_seleccionado in lista:
-            print(producto_seleccionado)
-
             rem_linea_clie=Remision_linea_clie()
             rem_linea_clie.codremision=Remision_clie.objects.last()
             rem_linea_clie.codproducto=Factura_linea_clie.objects.get(pk=producto_seleccionado)
             rem_linea_clie.save()
-            #return HttpResponseRedirect('agregarrem?enviado=True')
+        return HttpResponseRedirect('?enviado=True')
     else:
         if 'enviado' in request.GET:
             enviado = True
@@ -52,10 +49,44 @@ def agregar_remision(request,id):
     return render(request, "Remisiones/formulario_insertar_remision.html", context)
 
 def editar_remision(request, id): 
-    return
+    productos_list = Factura_linea_clie.objects.filter(factura_cliente__factura__id=id)
+   # if rem_linea_clie.is_valid():  
+    #        rem_linea_clie.save()       
+     #       return redirect('rem')
+    
+    context = {
+        'productos_list':productos_list,
+    }    
+    return render(request, "Remisiones/formulario_insertar_remision.html", context)
 
 def ver_remision(request, id):
-    return
+    remisiones_list = Remision_clie.objects.get(id=id)
+    articulo_factura = Remision_linea_clie.objects.filter(codremision_id=id)
+
+    context = {
+        'rem': remisiones_list,
+        'articulo_factura':articulo_factura
+    }
+    return render(request, "Remisiones/remision.html", context)
 
 def eliminar_remision(request, id):
-    return
+    enviado = False
+
+    del_remision_linea_clie = Remision_linea_clie.objects.filter(codremision_id=id)
+    del_remision_clie = Remision_clie.objects.get(id=id)
+    #del_factura = Factura.objects.get(id=id)
+    
+    red = request.POST.get('rem','/erp/rem/')
+
+    if request.method =="POST":
+        for i in del_remision_linea_clie:
+            i.delete()
+
+        del_remision_clie.delete()
+        #del_remision.delete()
+        return HttpResponseRedirect(red)
+
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "Remisiones/delete_remision.html", context)
