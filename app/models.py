@@ -70,11 +70,7 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        if self.persona:
-            prov = f'{self.persona}'
-        else:
-            prov = f'{self.empresa}'
-        return prov
+        return f'{self.persona} {self.empresa}'
 
 CHOICES = (("1", "1"),
     ("0", "0"))
@@ -148,6 +144,7 @@ class Factura_linea_clie(models.Model):
     precio = models.FloatField()
     importe = models.FloatField(null=True)
     dsctoproducto = models.FloatField()
+    remision_hecha = models.BooleanField(null=True, blank=True, default=False)
 
     def __str__(self):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
@@ -202,15 +199,13 @@ class Compra_linea_prov(models.Model):
         return "Nombre articulo:{}".format(self.codproducto.referencia)
 
 
-######################
-#Albaranes Prueba
+#Remision de clientes
 class Remision_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "Numero de linea:{}".format(self.factura.numlinea)
+        return "Numero de factura:{}".format(self.factura_cliente.factura.pk)
 
-#Albaranes Linea intermedia Prueba
 class Remision_linea_clie(models.Model):
     codremision = models.ForeignKey(Remision_clie, on_delete=models.CASCADE)
     codproducto = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE, null=True)

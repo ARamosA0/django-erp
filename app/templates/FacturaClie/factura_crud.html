@@ -59,6 +59,7 @@
                 <a type="button" href="{% url 'verfacturaclie' fac.factura.id %}" class="btn btn-primary">Ver</a> 
                 <a type="button" href="{% url 'edfacturaclie' fac.factura.id %}" class="btn btn-success">Editar</a>
                 <a type="button" href="{% url 'delfacturaclie' fac.factura.id %}" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'arem' fac.factura.id %}" class="btn btn-secondary">Hacer remisión</a>
             </td>
         </tr>
         {% endfor %}
