@@ -144,6 +144,8 @@ urlpatterns =[
     path('rem/eliminar/<int:id>/', eliminar_remision, name="delrem"),
     #Editar Remision
     path('rem/editar/<int:id>/', editar_remision, name="edrem"),
+    #Eliminar Articulo Remision
+    path('rem/eliminarart/<int:id>/', eliminar_articulo_remision, name="delremart"),
     #Ver Remision
     path('rem/ver/<int:id>/', ver_remision, name="verrem"),
 
