@@ -33,7 +33,6 @@
                 <a class="nav-link dropdown-toggle nav-link navbar-brand mb-0 h1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Inter. Comerciales</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'prov' %}">Proveedor</a></li>
-                  <li><a class="dropdown-item" href="{% url 'provrem' %}">Remision proveedores</a></li>
                   <li><a class="dropdown-item" href="{% url 'clie' %}">Cliente</a></li>
                 </ul>
               </li>
@@ -49,21 +48,19 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'venta' %}">Venta</a></li>
                   <li><a class="dropdown-item" href="{% url 'facturaclie' %}">Factura</a></li>
-                  <li><a class="dropdown-item" href="{% url 'alb' %}">Albaran</a></li>
+                  <li><a class="dropdown-item" href="{% url 'alb' %}">Remision Venta</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link navbar-brand mb-0 h1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Compras</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'compraprov' %}">Orden de Compra</a></li>
-                  <li><a class="dropdown-item" href="{% url 'provrem' %}">Albaran</a></li>
+                  <li><a class="dropdown-item" href="{% url 'provrem' %}">Remision de Compra</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link navbar-brand mb-0 h1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Tesoreria</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Cobros</a></li>
-                  <li><a class="dropdown-item" href="#">Pagos</a></li>
                   <li><a class="dropdown-item" href="#">Caja Diria</a></li>
                   <li><a class="dropdown-item" href="#">Libro Diario</a></li>
                 </ul>
