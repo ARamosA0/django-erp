@@ -113,10 +113,10 @@ def reg_venta(request):
                     factura_linea_clie = Factura_linea_clie()
                     factura_linea_clie.factura_cliente = Factura_clie.objects.get(pk=factura.pk)
                     factura_linea_clie.codproducto = articulo_data
-                    factura_linea_clie.precio = articulo_data.precio_tienda
+                    factura_linea_clie.precio = articulo_data.precio_compra
                     factura_linea_clie.cantidad = cantidad
                     factura_linea_clie.dsctoproducto = descuento
-                    factura_linea_clie.importe = (articulo_data.precio_tienda * int(cantidad)) - float(descuento)
+                    factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
                     factura_linea_clie.save()    
                     suma_importes(context,factura.pk)
             if eliminar_art_venta:
