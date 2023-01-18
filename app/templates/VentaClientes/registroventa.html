@@ -140,8 +140,8 @@
             <td>
                 <form method="POST">{% csrf_token %}
                     <div>
-                        <input type="hidden" name="eliminar_art_venta" value="{{artfac.id}}">
-                        <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
+                    <input type="hidden" name="eliminar_art_venta" value="{{artfac.id}}">
+                    <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
                     <input type="hidden" name="estado_registro" value={{estado_registro}}>
                     <input type="hidden" name="dni_cliente" value="{{dni_cliente}}">
                     <input type="hidden" name="iva_fac" value="{{ iva_factura }}">

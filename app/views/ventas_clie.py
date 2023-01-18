@@ -9,27 +9,47 @@ from datetime import datetime
 def define_context(context={},**kwargs):
     return {**context,**kwargs}
 
-def suma_importes(context):
-    art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = Factura_clie.objects.last().pk)
+def suma_importes(context,id):
+    art_fac = Factura_linea_clie.objects.filter(factura_cliente_id = id)
     suma_importes = 0
     for i in art_fac:
         suma_importes += i.importe
-    factura_last = Factura.objects.last()
-    total_iva = suma_importes * (factura_last.iva/100) 
+    if art_fac:
+        factura_last = Factura.objects.get(pk=art_fac[0].factura_cliente.factura.pk)
+        total_iva = suma_importes * (factura_last.iva/100)
+    else:
+        total_iva = 0
     total_fac = suma_importes + total_iva
     context['articulo_factura'] = art_fac
     context['suma_importe'] = suma_importes
     context['total_fac'] = total_fac
 
 
+
+
 #VENTAS CLIENTES
 def reg_venta(request):
     
-    context={
-        'nueva_factura_form':NuevaFactura({'fecha': datetime.now(),'iva':8}),
-        'nombre_factura':'NUEVA VENTA',
-        'iva_factura':8
-    }
+    if 'n_factura' in request.GET:
+        fac_id = request.GET.get('n_factura',None)
+        if fac_id:
+            fac_clie = Factura_clie.objects.get(pk=fac_id)
+            articulo_factura = Factura_linea_clie.objects.filter(factura_cliente_id=fac_clie.pk)
+
+            context=define_context(estado_registro=True,nueva_factura_form=NuevaFactura({'fecha':fac_clie.factura.fecha,'iva':fac_clie.factura.iva}),
+                                   nombre_cliente=fac_clie.codcliente, mensaje_registro= 'succeed',
+                                   dni_cliente=fac_clie.codcliente.persona.dni,factura_clie=str(fac_clie),
+                                   articulo_factura=articulo_factura,iva_factura=fac_clie.factura.iva,
+                                   nombre_factura='VENTA N° '+str(fac_clie.factura.pk))
+            
+            suma_importes(context,fac_clie.factura.pk)
+    else:
+
+        context={
+            'nueva_factura_form':NuevaFactura({'fecha': datetime.now(),'iva':18}),
+            'nombre_factura':'NUEVA VENTA',
+            'iva_factura':18
+        }
 
     if request.method == 'POST':
         estado_registro = True if request.POST.get("estado_registro",False) == "True" else False
@@ -62,24 +82,28 @@ def reg_venta(request):
                 fac_clie.factura = last_factura
                 fac_clie.save()
                 factura_clie = Factura_clie.objects.last()
-                context = define_context(context,mensaje_registro='succeed',nombre_factura='VENTA N° '+str(last_factura.pk),
-                                                estado_registro=True,iva_factura=last_factura.iva,factura_clie=str(factura_clie))
+                context = define_context(context,mensaje_registro='succeed',
+                                                 nombre_factura='VENTA N° '+str(last_factura.pk),
+                                                 estado_registro=True,iva_factura=last_factura.iva,
+                                                 factura_clie=str(factura_clie))
 
         else:
             validfac_cliente_list_form = request.POST.get("validfac_cliente_list_form", None)
             validfac_finalform = request.POST.get("validfac_finalform", None)
             eliminar_art_venta = request.POST.get("eliminar_art_venta",None)
+            if nombre_factura != 'NUEVA VENTA':
+                factura  = Factura.objects.get(pk=int(nombre_factura[9:]))
+                context['nueva_factura_form']=NuevaFactura({'fecha':factura.fecha,'iva':factura.iva})
             
-            if nombre_factura != 'NUEVA VENTA' != "VENTA REALIZADA":
-                factura = Factura.objects.last()
-                fecha = factura.fecha
-                iva = factura.iva
-                context['nueva_factura_form'] = NuevaFactura({'fecha': fecha,'iva':iva})
+
 
             if cancelado and dni_cliente:
-                last = Factura.objects.filter(pk=int(nombre_factura[9:]))
-                last[0].delete()
-                return redirect("venta")
+                if 'n_factura' not in request.GET:
+                    last = Factura.objects.filter(pk=int(nombre_factura[9:]))
+                    last[0].delete()
+                    return redirect("venta")
+                else:
+                    return redirect('edfacturaclie',id=request.GET['n_factura'])
             
             if validfac_cliente_list_form:
                     nomarticulo = request.POST["nomarticulo"]
@@ -87,25 +111,23 @@ def reg_venta(request):
                     descuento = request.POST["descuento_art"]
                     articulo_data = Articulos.objects.get(referencia=nomarticulo)
                     factura_linea_clie = Factura_linea_clie()
-                    factura_linea_clie.factura_cliente = Factura_clie.objects.last()
+                    factura_linea_clie.factura_cliente = Factura_clie.objects.get(pk=factura.pk)
                     factura_linea_clie.codproducto = articulo_data
                     factura_linea_clie.precio = articulo_data.precio_compra
                     factura_linea_clie.cantidad = cantidad
                     factura_linea_clie.dsctoproducto = descuento
                     factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
                     factura_linea_clie.save()    
-                    suma_importes(context)
+                    suma_importes(context,factura.pk)
             if eliminar_art_venta:
                 del_flc = Factura_linea_clie.objects.filter(pk=eliminar_art_venta)
                 del_flc.delete()
-                suma_importes(context)
+                suma_importes(context,factura.pk)
             if validfac_finalform:
-                factura  = Factura.objects.filter(pk=int(nombre_factura[9:]))[0]
+                factura  = Factura.objects.filter(pk=factura.pk)[0]
                 factura.totalfactura = request.POST["total_fac"]
                 factura.save()
-                context={
-                    'nueva_factura_form':NuevaFactura({'fecha': datetime.now(),'iva':8}),
-                    'nombre_factura':'VENTA REALIZADA',
-                    'iva_factura':8
-                }
+                return redirect('edfacturaclie',id=factura.pk)
+
+
     return render(request, "VentaClientes/registroventa.html", context)

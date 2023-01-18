@@ -75,5 +75,6 @@
 
     <div class="container text-center">
         <a type="button" href="{% url 'facturaclie' %}" class="btn btn-primary">Regresar</a>
+        <a type="submit" href="{% url 'venta' %}?n_factura={{fac.factura.id}}" class="btn btn-success">Editar Articulos</a>
     </div>
 {% endblock %}
