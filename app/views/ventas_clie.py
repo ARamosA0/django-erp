@@ -38,7 +38,7 @@ def reg_venta(request):
 
             context=define_context(estado_registro=True,nueva_factura_form=NuevaFactura({'fecha':fac_clie.factura.fecha,'iva':fac_clie.factura.iva}),
                                    nombre_cliente=fac_clie.codcliente, mensaje_registro= 'succeed',
-                                   dni_cliente=fac_clie.codcliente.persona.dni,factura_clie=str(fac_clie),
+                                   dni_cliente=fac_clie.codcliente.ruc,factura_clie=str(fac_clie),
                                    articulo_factura=articulo_factura,iva_factura=fac_clie.factura.iva,
                                    nombre_factura='VENTA N° '+str(fac_clie.factura.pk))
             
@@ -69,9 +69,9 @@ def reg_venta(request):
         if not estado_registro and not cancelado:
             nueva_factura = NuevaFactura(request.POST)
             context['nueva_factura_form'] = nueva_factura
-            clie = Clientes.objects.filter(persona_id__dni=dni_cliente)
+            clie = Clientes.objects.filter(ruc=dni_cliente)
             if dni_cliente!='':
-                nombre_cliente = clie[0] if clie else "DNI INVÁLIDO"
+                nombre_cliente = clie[0] if clie else "RUC INVÁLIDO"
                 context = define_context(context,dni_cliente=dni_cliente,
                                     nombre_cliente=nombre_cliente)
             if clie and reg_fac_clie==dni_cliente:
