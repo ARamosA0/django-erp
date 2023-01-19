@@ -1,0 +1,24 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container" style="margin-top: 2em">
+    <div class="card">
+        <div class="card-header">
+            Insertar producto
+        </div>
+        <div class="card-body">
+            {% if enviado %}
+                <p>El producto fue agregado</p>
+                <a class="btn btn-primary" href="{% url 'prod' %}" role="button">Volver</a>
+            {% else %}
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+                    {{ in_producto_per.as_p }}
+                    <button type="submit" class="btn btn-primary">Guardar producto</button>
+                </form>
+            {% endif %}
+        </div>
+        
+    </div>
+</section>
+{% endblock %}

@@ -100,6 +100,16 @@ class ProductoBusqueda(Form):
     nombre = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
 
+class AgregarProducto(ModelForm):
+    class Meta:
+        model = Producto
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'cantidad':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'descripcion_producto':forms.TextInput(attrs={'class':'form-control form-control'})
+        }
+
 #ARTICULOS
 
 class ArticuloBusqueda(Form):

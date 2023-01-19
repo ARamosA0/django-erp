@@ -132,6 +132,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField(default=0)
     descripcion_producto = models.TextField(null=True, blank=True)
+    precio_final = models.FloatField(validators=[MinValueValidator(0.0)])
     
 class Producto_detalle(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

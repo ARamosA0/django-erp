@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            {{ prod.nombre }}
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">DATOS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">NOMBRE:</th>
+                            <td>{{ prod.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CANTIDAD:</th>
+                            <td>{{ prod.cantidad }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DESCRIPCION:</th>
+                            <td>{{ prod.descripcion_producto }}</td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'prod' %}" class="btn btn-primary">Regresar</a>
+    </div>
+{% endblock %}

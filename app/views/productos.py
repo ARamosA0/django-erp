@@ -27,13 +27,50 @@ def productos(request):
     return render(request, "Productos/estructura_crud_prod.html", context)
 
 def agregar_producto(request):
-    return
+    enviado = False
+    if request.method == 'POST':
+        in_producto_per = AgregarProducto(request.POST)
+        if in_producto_per.is_valid():
+            in_producto_per.save()
+            return HttpResponseRedirect('agregarprod?enviado=True')
+    else:
+        in_producto_per= AgregarProducto()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'in_producto_per':in_producto_per,
+        'enviado':enviado, 
+    }
+    return render(request, "Productos/formulario_insertar_producto.html", context)
 
 def editar_producto(request, id):
-    return
+    producto_put = Producto.objects.get(id=id)
+    in_producto_per = AgregarProducto(request.POST or None, instance=producto_put)
+    if in_producto_per.is_valid():
+            in_producto_per.save()       
+            return redirect('prod')
+    context = {
+        'in_producto_per':in_producto_per,
+    }    
+    return render(request, "Productos/formulario_insertar_producto.html", context)
+    
 
 def ver_producto(request, id):
-    return
+    productos_list = Producto.objects.get(id=id)
+    context = {
+        'prod': productos_list
+    }
+    return render(request, "Productos/producto.html", context)
+    
 
 def eliminar_producto(request, id):
-    return
+    enviado = False
+    del_producto = Producto.objects.filter(id=id)
+    red = request.POST.get('prod','/erp/prod/')
+    if request.method =="POST":
+        del_producto.delete()
+        return HttpResponseRedirect(red)
+    context = {
+        'enviado':enviado
+    }
+    return render(request, "Productos/delete_producto.html", context)
