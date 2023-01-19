@@ -28,16 +28,33 @@ def productos(request):
 
 def agregar_producto(request):
     enviado = False
+
+    articulos_list = Articulos.objects.all()
+
     if request.method == 'POST':
-        in_producto_per = AgregarProducto(request.POST)
-        if in_producto_per.is_valid():
-            in_producto_per.save()
-            return HttpResponseRedirect('agregarprod?enviado=True')
+        prod = Producto()
+        prod.nombre=request.POST["nombre_producto"]
+        prod.cantidad=request.POST["cantidad_producto"]
+        prod.descripcion_producto=request.POST["descripcion_producto"]
+        prod.precio_final=request.POST["precio_final_producto"]
+        prod.save()
+
+        lista=request.POST.getlist('articulos')
+        lista_cantidad=request.POST.getlist('cantidad')
+        for articulo_seleccionado in lista:
+            for cantidad in lista_cantidad:
+                prod_detalle=Producto_detalle()
+                prod_detalle.producto=Producto.objects.last()
+                prod_detalle.articulo=Articulos.objects.get(pk=articulo_seleccionado)
+                prod_detalle.cantidad=cantidad
+                prod_detalle.save()
+                return HttpResponseRedirect('agregarprod?enviado=True')
     else:
         in_producto_per= AgregarProducto()
         if 'enviado' in request.GET:
             enviado = True
     context = {
+        'articulos_list':articulos_list,
         'in_producto_per':in_producto_per,
         'enviado':enviado, 
     }

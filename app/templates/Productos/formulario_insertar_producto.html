@@ -13,7 +13,49 @@
             {% else %}
                 <form action="" method="POST" class="row g-3">
                     {% csrf_token %}
-                    {{ in_producto_per.as_p }}
+                    NOMBRE:
+                    <input class="form-control" type="text" name="nombre_producto" style="margin: 1mm;" />
+                    CANTIDAD:
+                    <input class="form-control" type="number" name="cantidad_producto" style="margin: 1mm;" />
+                    DESCRIPCION:
+                    <input class="form-control" type="text" name="descripcion_producto" style="margin: 1mm;" />
+                    PRECIO FINAL:
+                    <input class="form-control" type="number" name="precio_final_producto" style="margin: 1mm;" />
+                    <br>
+                    Agregar artículos a este producto:
+                    {% if articulos_list %}
+                        <table class="table table-striped table-hover" style="margin-top: 0em;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Familia</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Precio Compra</th>
+                                    <th scope="col">Precio Venta</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">¿Agregar?</th>
+                                </tr>        
+                            </thead>
+                        <tbody>
+                            
+                            {% for art in articulos_list %}
+                            <tr scope="row"> 
+                                <td>{{ art.familia.nombre }}</td>
+                                <td>{{ art.nombre }}</td>
+                                <td>{{ art.descripcion }}</td>
+                                <td>{{ art.precio_compra }}</td>
+                                <td>{{ art.precio_tienda }}</td>
+                                <td><input class="form-control" type="number" name="cantidad" style="margin: 1mm;" /></td><br>
+                                <td><input class="form-check-input mt-1" type="checkbox" value="{{ art.id }}" name="articulos" style="margin: 1mm;" />{{ art.nombre }}</td><br>  
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <p>No se encontraron artículos para añadir a este producto</p>
+                        <a class="btn btn-primary" href="{% url 'art' %}" role="button">Regresar</a>
+                    {% endif %}
                     <button type="submit" class="btn btn-primary">Guardar producto</button>
                 </form>
             {% endif %}

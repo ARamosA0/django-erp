@@ -42,6 +42,7 @@
             <th scope="col">Nombre del producto</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Descripción</th>
+            <th scope="col">Precio Final</th>
         </tr>        
     </thead>
     
@@ -54,6 +55,7 @@
             <td>{{ prod.nombre }}</td>
             <td>{{ prod.cantidad }}</td>
             <td>{{ prod.descripcion_producto }}</td>
+            <td>{{ prod.precio_final }}</td>
             <td>
                 <a type="button" href="{% url 'verprod' prod.id %}" class="btn btn-primary">Ver</a>
                 <a type="button" href="{% url 'edprod' prod.id %}" class="btn btn-success">Editar</a>

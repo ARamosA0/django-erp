@@ -133,12 +133,15 @@ class Producto(models.Model):
     cantidad = models.IntegerField(default=0)
     descripcion_producto = models.TextField(null=True, blank=True)
     precio_final = models.FloatField(validators=[MinValueValidator(0.0)])
+    def __str__(self):
+        return self.nombre
     
 class Producto_detalle(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     articulo = models.ForeignKey(Articulos, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=0)
-
+    def __str__(self):
+        return self.articulo.nombre
     
 
 ######################
