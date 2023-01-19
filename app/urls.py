@@ -16,6 +16,7 @@ from app.views.orden_compra import *
 from app.views.remisiones import *
 from app.views.remision_prov import *
 from app.views.caja_diaria import *
+from app.views.productos import *
 
 urlpatterns =[
     # Pagina Principal
@@ -39,6 +40,18 @@ urlpatterns =[
     path('clie/editar/<int:id>/', editar_cliente, name="edclie"),
     #Ver Cliente
     path('clie/ver/<int:id>/', ver_cliente, name="verclie"),
+
+
+    #Pag Productos
+    path('prod/', productos, name="prod"),
+    #Insertar Producto
+    path('prod/agregarprod', agregar_producto, name="aprod"),
+    #Eliminar Producto
+    path('prod/eliminar/<int:id>/', eliminar_producto, name="delprod"),
+    #Editar Producto
+    path('prod/editar/<int:id>/', editar_producto, name="edprod"),
+    #Ver Producto
+    path('prod/ver/<int:id>/', ver_producto, name="verprod"),
 
 
     #Pag Articulos
