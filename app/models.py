@@ -100,7 +100,8 @@ CHOICES_YES_NO = (("Sí", "Sí"),
 
 CHOICES_PRIM_INS = [
     ("Materia Prima", "Materia Prima"),
-    ("Insumo", "Insumo")
+    ("Insumo", "Insumo"),
+    ("Ninguno", "Ninguno")
 ]
 
 ############################
@@ -125,7 +126,7 @@ class Articulos(models.Model):
     precio_compra = models.FloatField(validators=[MinValueValidator(0.0)])
     precio_tienda = models.FloatField(validators=[MinValueValidator(0.0)])
     imagen = models.ImageField(upload_to=upload_path, null=True)
-    tipo = CHOICES_PRIM_INS
+    tipo = models.CharField(max_length=50, choices=CHOICES_PRIM_INS, default="Ninguno") 
     def __str__(self):
         return self.nombre
 
@@ -240,6 +241,8 @@ class Caja_diaria(models.Model):
     neto = models.FloatField(null=True, default=0)
     monto_total_inicial = models.FloatField(null=True, default=0)
     monto_total_final = models.FloatField(null=True, default=0)
+    total_ventas = models.FloatField(null=True, default=0)
+    total_compras = models.FloatField(null=True, default=0)
     estado = models.BooleanField(default=False)
 
     def __str__(self):
@@ -252,3 +255,20 @@ class Caja_tipo_pago(models.Model):
     caja_diaria = models.ForeignKey(Caja_diaria, on_delete=models.CASCADE, null=True)
     total_tipo_pago = models.FloatField(null=True)
 
+#Libro diario
+class Libro_diario(models.Model):
+    COMPRA = 'Compra'
+    VENTA = 'Venta'
+    NINGUNO = 'Ninguno'
+
+    TIPOS = [
+        (COMPRA, 'Compra'),
+        (VENTA, 'Venta'),
+        (NINGUNO, 'Ninguno')
+    ]
+
+    obtener_factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=20, choices=TIPOS, default=NINGUNO)
+
+    def __str__(self):
+        return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)

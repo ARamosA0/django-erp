@@ -127,6 +127,16 @@ def reg_venta(request):
                 factura  = Factura.objects.filter(pk=factura.pk)[0]
                 factura.totalfactura = request.POST["total_fac"]
                 factura.save()
+
+                #Guardado de la ultima factura creada a Libro_diario 
+                agregar_factura = Factura.objects.last()
+                factura_id = int(agregar_factura.pk)    
+
+                agregar_dato_libro_diario = Libro_diario()
+                agregar_dato_libro_diario.obtener_factura_id = factura_id
+                agregar_dato_libro_diario.tipo = "Venta"
+                agregar_dato_libro_diario.save()
+
                 return redirect('edfacturaclie',id=factura.pk)
 
 

@@ -1,8 +1,9 @@
 {% extends 'index.html' %} {% block content %}
 
 <div class="row justify-content-center m-5">
-  <div class="row justify-content-center mt-5 mb-5">
+  <div class="row justify-content-center mb-5">
     <div class="col-md-10 col-lg-5">
+      <h4><center>Iniciar Caja</center></h4>
       <form method="POST">
         {% csrf_token %}
         <label>MONTO INICIAL</label>
@@ -48,7 +49,6 @@
 </div>
 
 {% if not estado_busqueda  %}
-<p>{{estado_busqueda}}</p>
 <div class="row justify-content-center m-5">
   <div class="col-md-10 col-lg-5">
     <h4>
@@ -67,10 +67,6 @@
               <td>{{ ultima_caja_context.fecha_cierre }}</td>
             </tr>
             <tr>
-              <th scope="row">NETO:</th>
-              <td>{{ ultima_caja_context.neto }}</td>
-            </tr>
-            <tr>
               <th scope="row">MONTO INICIAL TOTAL:</th>
               <td>{{ ultima_caja_context.monto_total_inicial }}</td>
             </tr>
@@ -80,15 +76,15 @@
             </tr>
             <tr>
               <th scope="row">TOTAL VENTAS:</th>
-              <td>{{ ultima_caja_context }}</td>
+              <td>{{ ultima_caja_context.total_ventas }}</td>
             </tr>
             <tr>
               <th scope="row">TOTAL COMPRAS:</th>
-              <td>{{ ultima_caja_context }}</td>
+              <td>{{ ultima_caja_context.total_compras }}</td>
             </tr>
             <tr>
               <th scope="row">TOTAL FINAL:</th>
-              <td>{{ ultima_caja_context }}</td>
+              <td>{{ ultima_caja_context.monto_total_final }}</td>
             </tr>
           </tbody>
         </table>
@@ -97,7 +93,6 @@
   </div>
 </div>
 {% else %}
-<p>{{estado_busqueda}}</p>
 <div class="container">
   <div>
     <h3 style="text-align: center">CAJAS</h3>
@@ -109,34 +104,25 @@
         <th scope="col">Codigo</th>
         <th scope="col">Fecha Apertura</th>
         <th scope="col">Fecha Cierre</th>
+        <th scope="col">Total</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
 
     <tbody>
-      {% if entidades_list %} {% for ent in entidades_list %}
+      {% if caja_buscada %} {% for caja in caja_buscada %}
       <tr scope="row">
         <td>{{ forloop.counter }}</td>
-        <td>{{ ent.id }}</td>
-        <td>{{ ent.nombreentidad }}</td>
+        <td>{{ caja.id }}</td>
+        <td>{{ caja.fecha_apertura }}</td>
+        <td>{{ caja.fecha_cierre }}</td>
+        <td>{{ caja.monto_total_final }}</td>
         <td>
           <a
             type="button"
-            href="{% url 'verent' ent.id %}"
+            href="{% url 'vercaja' caja.id %}"
             class="btn btn-primary"
             >Ver</a
-          >
-          <a
-            type="button"
-            href="{% url 'edent' ent.id %}"
-            class="btn btn-success"
-            >Editar</a
-          >
-          <a
-            type="button"
-            href="{% url 'delent' ent.id %}"
-            class="btn btn-danger"
-            >Eliminar</a
           >
         </td>
       </tr>
@@ -146,4 +132,5 @@
     </tbody>
   </table>
 </div>
-{% endif %} {% endblock %}
+{% endif %} 
+{% endblock %}
