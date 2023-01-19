@@ -103,6 +103,8 @@ class ArticuloBusqueda(Form):
         widget=forms.Select(attrs={'class':'form-control','id':'familia'}),required=False)
     descripcion = forms.CharField(label='DESCRIPCION:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'descripcion'}),required=False)
+    tipo = forms.CharField(label='TIPO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
     proveedor = forms.ModelChoiceField(label='PROVEEDOR:',queryset=Proveedores.objects.all(),
         widget=forms.Select(attrs={'class':'form-control','id':'proveedor'}),required=False)
     ubicacion = forms.ModelChoiceField(label='UBICACION:',queryset=Ubicaciones.objects.all(),
@@ -118,6 +120,7 @@ class AgregarArticulo(ModelForm):
             'nombre':forms.TextInput(attrs={'class':'form-control'}),
             'familia':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'descripcion':forms.TextInput(attrs={'class':'form-control'}),
+            'tipo':forms.Select(attrs={'class':'form-select form-select-sm'}),
             'impuesto':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'proveedor':forms.Select(attrs={'class':'form-select form-select-sm'}),
             'descripcion_corta':forms.TextInput(attrs={'class': 'form-control'}),
@@ -344,3 +347,11 @@ class NuevaCaja(ModelForm):
     class Meta:
         model = Caja_diaria
         fields = ('__all__')
+
+#LIBRO DIARIO
+class LibroDiarioBusqueda(Form):
+    fecha = forms.DateField(label='FECHA:',
+        widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+    tipo = forms.CharField(label='TIPO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
+    

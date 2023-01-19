@@ -5,11 +5,24 @@ from app.models import *
 from app.forms import *
 
 def libro_diario(request):
-    factura_general = Libro_diario.objects.all()
+    factura_general = Libro_diario.objects.all().order_by('-obtener_factura__fecha')
+    busquedaform = LibroDiarioBusqueda()
     
     context = {
         'factura_general':factura_general,
+        'busquedaform': busquedaform
     }
+
+    if request.method == 'POST':
+        busquedaform = LibroDiarioBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Libro_diario.objects.all()
+            data = data.filter(obtener_factura__fecha=busquedaform.cleaned_data['fecha'])  if busquedaform.cleaned_data['fecha'] else data
+            data = data.filter(tipo=busquedaform.cleaned_data['tipo'])  if busquedaform.cleaned_data['tipo'] else data
+            context['factura_general']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = LibroDiarioBusqueda()
 
     return render(request, 'LibroDiario/estructura_librodiario.html', context)
 

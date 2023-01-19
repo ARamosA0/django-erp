@@ -99,7 +99,8 @@ CHOICES_YES_NO = (("Sí", "Sí"),
 
 CHOICES_PRIM_INS = [
     ("Materia Prima", "Materia Prima"),
-    ("Insumo", "Insumo")
+    ("Insumo", "Insumo"),
+    ("Ninguno", "Ninguno")
 ]
 
 ############################
@@ -124,7 +125,7 @@ class Articulos(models.Model):
     precio_compra = models.FloatField(validators=[MinValueValidator(0.0)])
     precio_tienda = models.FloatField(validators=[MinValueValidator(0.0)])
     imagen = models.ImageField(upload_to=upload_path, null=True)
-    tipo = CHOICES_PRIM_INS
+    tipo = models.CharField(max_length=50, choices=CHOICES_PRIM_INS, default="Ninguno") 
     def __str__(self):
         return self.nombre
 

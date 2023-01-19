@@ -8,8 +8,8 @@
       <h4><center>Buscar libro diario</center></h4>
       <div  class="form-group">
         <form id="form_busqueda" name="form_busqueda" method="post">
-            <!-- {% csrf_token %}
-          {{ busquedaform.as_p }}   -->
+            {% csrf_token %}
+          {{ busquedaform.as_p }}  
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
