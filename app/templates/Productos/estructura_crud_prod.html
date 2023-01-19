@@ -46,17 +46,18 @@
     </thead>
     
     <tbody>
-        {% if impuestos_list %}
-        {% for imp in impuestos_list %}
+        {% if productos_list %}
+        {% for prod in productos_list %}
         <tr scope="row">
             <td>{{ forloop.counter }}</td>
-            <td>{{ imp.id }}</td>
-            <td>{{ imp.nombre }}</td>
-            <td>{{ imp.valor }}</td>
+            <td>{{ prod.id }}</td>
+            <td>{{ prod.nombre }}</td>
+            <td>{{ prod.cantidad }}</td>
+            <td>{{ prod.descripcion_producto }}</td>
             <td>
-                <a type="button" href="{% url 'verimp' imp.id %}" class="btn btn-primary">Ver</a>
-                <a type="button" href="{% url 'edimp' imp.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delimp' imp.id %}" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'verprod' prod.id %}" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edprod' prod.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delprod' prod.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

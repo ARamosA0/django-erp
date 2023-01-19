@@ -92,6 +92,14 @@ class AgregarEmpresa(ModelForm):
             'web':forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+#PRODUCTOS
+
+class ProductoBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+
 #ARTICULOS
 
 class ArticuloBusqueda(Form):
