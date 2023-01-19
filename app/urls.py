@@ -47,6 +47,8 @@ urlpatterns =[
     path('prod/', productos, name="prod"),
     #Insertar Producto
     path('prod/agregarprod', agregar_producto, name="aprod"),
+    #Insertar Articulo a Producto
+    path('prod/agregarprod/<int:id>/', agregar_articulo_a_producto, name="aartprod"),
     #Eliminar Producto
     path('prod/eliminar/<int:id>/', eliminar_producto, name="delprod"),
     #Editar Producto

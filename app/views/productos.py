@@ -28,9 +28,6 @@ def productos(request):
 
 def agregar_producto(request):
     enviado = False
-
-    articulos_list = Articulos.objects.all()
-
     if request.method == 'POST':
         prod = Producto()
         prod.nombre=request.POST["nombre_producto"]
@@ -38,27 +35,37 @@ def agregar_producto(request):
         prod.descripcion_producto=request.POST["descripcion_producto"]
         prod.precio_final=request.POST["precio_final_producto"]
         prod.save()
-
-        lista=request.POST.getlist('articulos')
-        lista_cantidad=request.POST.getlist('cantidad')
-        for articulo_seleccionado in lista:
-            for cantidad in lista_cantidad:
-                prod_detalle=Producto_detalle()
-                prod_detalle.producto=Producto.objects.last()
-                prod_detalle.articulo=Articulos.objects.get(pk=articulo_seleccionado)
-                prod_detalle.cantidad=cantidad
-                prod_detalle.save()
-                return HttpResponseRedirect('agregarprod?enviado=True')
+        return HttpResponseRedirect('agregarprod?enviado=True')
     else:
-        in_producto_per= AgregarProducto()
+        if 'enviado' in request.GET:
+            enviado = True
+    context = {
+        'enviado':enviado, 
+    }
+    return render(request, "Productos/formulario_insertar_producto.html", context)
+
+def agregar_articulo_a_producto(request,id):
+    articulos_list = Articulos.objects.all()
+    enviado = False
+
+    
+    if request.method == 'POST':
+        #articulo_seleccionado=request.POST.getlist('test[]')
+        articulo_seleccionado=request.POST.get('test[]')
+        prod_detalle=Producto_detalle()
+        prod_detalle.producto=Producto.objects.get(id=id)
+        prod_detalle.articulo=Articulos.objects.get(pk=articulo_seleccionado)
+        prod_detalle.cantidad=request.POST["cantidad"]
+        prod_detalle.save()
+        return HttpResponseRedirect('?enviado=True')
+    else:
         if 'enviado' in request.GET:
             enviado = True
     context = {
         'articulos_list':articulos_list,
-        'in_producto_per':in_producto_per,
-        'enviado':enviado, 
+        'enviado':enviado,
     }
-    return render(request, "Productos/formulario_insertar_producto.html", context)
+    return render(request, "Productos/insertar_articulos.html", context)
 
 def editar_producto(request, id):
     producto_put = Producto.objects.get(id=id)

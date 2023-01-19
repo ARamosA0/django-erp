@@ -133,7 +133,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField(default=0)
     descripcion_producto = models.TextField(null=True, blank=True)
-    precio_final = models.FloatField(validators=[MinValueValidator(0.0)])
+    precio_final = models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
     def __str__(self):
         return self.nombre
     
