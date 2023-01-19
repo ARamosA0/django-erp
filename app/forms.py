@@ -338,9 +338,6 @@ class EditarCompra(ModelForm):
 
 class DateFormSearch(Form):
     fecha = forms.DateTimeField(label='FECHA CIERRE:',
-        widget=DateInput(attrs={'class':'form-control','id':'fechabusqueda'}),required=False)
+        widget=DateInput(attrs={'class':'form-date', 'id':'fechabusqueda'}),required=False)
 
-class NuevaCaja(ModelForm):
-    class Meta:
-        model = Caja_diaria
-        fields = ('__all__')
+
