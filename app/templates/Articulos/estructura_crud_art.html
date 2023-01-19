@@ -43,6 +43,7 @@
             <th scope="col">Familia</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Proveedor</th>
+            <th scope="col">Tipo</th>
             <th scope="col">Ubicacion</th>
             <th scope="col">Acciones</th>
         </tr>        
@@ -62,6 +63,7 @@
             {% else %}
                 <td>{{ art.proveedor.empresa.nombre }}</td>
             {% endif %}
+            <td>{{ art.tipo }}</td>
             <td>{{ art.ubicacion }}</td>
             <td>
                 <a type="button" href="{% url 'verart' art.id %}" class="btn btn-primary">Ver</a>
