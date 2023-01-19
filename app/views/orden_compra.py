@@ -110,6 +110,14 @@ def agregar_orden_compra(request):
                                         iva_factura=last_factura.iva,
                                         compra_prov=str(compra_prov))
 
+                #Guardado de la ultima factura creada a Libro_diario 
+                factura_id = int(last_factura.pk)    
+
+                agregar_dato_libro_diario = Libro_diario()
+                agregar_dato_libro_diario.obtener_factura_id = factura_id
+                agregar_dato_libro_diario.tipo = "Compra"
+                agregar_dato_libro_diario.save()
+
         else:
             if nombre_factura != 'Nueva orden de compra':
                     factura  = Factura.objects.get(pk=int(nombre_factura[9:]))

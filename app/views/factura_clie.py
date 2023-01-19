@@ -66,6 +66,7 @@ def eliminar_factura(request,id):
 
     del_factura_linea_clie = Factura_linea_clie.objects.filter(factura_cliente_id=id)
     del_factura_clie = Factura_clie.objects.get(pk=id)
+    del_factura_libro_diario = Libro_diario.objects.get(obtener_factura=id)
     del_factura = Factura.objects.get(id=id)
     
     red = request.POST.get('facturaclie','/erp/facturaclie/')
@@ -75,6 +76,7 @@ def eliminar_factura(request,id):
             i.delete()
 
         del_factura_clie.delete()
+        del_factura_libro_diario.delete()
         del_factura.delete()
         return HttpResponseRedirect(red)
 
