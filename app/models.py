@@ -245,3 +245,20 @@ class Caja_tipo_pago(models.Model):
     caja_diaria = models.ForeignKey(Caja_diaria, on_delete=models.CASCADE, null=True)
     total_tipo_pago = models.FloatField(null=True)
 
+#Libro diario
+class Libro_diario(models.Model):
+    COMPRA = 'Compra'
+    VENTA = 'Venta'
+    NINGUNO = 'Ninguno'
+
+    TIPOS = [
+        (COMPRA, 'Compra'),
+        (VENTA, 'Venta'),
+        (NINGUNO, 'Ninguno')
+    ]
+
+    obtener_factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=20, choices=TIPOS, default=NINGUNO)
+
+    def __str__(self):
+        return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)
