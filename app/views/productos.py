@@ -29,17 +29,16 @@ def productos(request):
 def agregar_producto(request):
     enviado = False
     if request.method == 'POST':
-        prod = Producto()
-        prod.nombre=request.POST["nombre_producto"]
-        prod.cantidad=request.POST["cantidad_producto"]
-        prod.descripcion_producto=request.POST["descripcion_producto"]
-        prod.precio_final=request.POST["precio_final_producto"]
-        prod.save()
-        return HttpResponseRedirect('agregarprod?enviado=True')
+        in_prod_per = AgregarProducto(request.POST)
+        if in_prod_per.is_valid():
+            in_prod_per.save()
+            return HttpResponseRedirect('agregarprod?enviado=True')
     else:
+        in_prod_per = AgregarProducto()
         if 'enviado' in request.GET:
             enviado = True
     context = {
+        'in_prod_per':in_prod_per,
         'enviado':enviado, 
     }
     return render(request, "Productos/formulario_insertar_producto.html", context)
@@ -81,8 +80,10 @@ def editar_producto(request, id):
 
 def ver_producto(request, id):
     productos_list = Producto.objects.get(id=id)
+    articulos_list=Producto_detalle.objects.filter(producto__id=id)
     context = {
-        'prod': productos_list
+        'prod': productos_list,
+        'articulos_list':articulos_list,
     }
     return render(request, "Productos/producto.html", context)
     

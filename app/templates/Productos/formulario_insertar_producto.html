@@ -13,15 +13,7 @@
             {% else %}
                 <form action="" method="POST" class="row g-3">
                     {% csrf_token %}
-                    NOMBRE:
-                    <input class="form-control" type="text" name="nombre_producto" style="margin: 1mm;" />
-                    CANTIDAD:
-                    <input class="form-control" type="number" name="cantidad_producto" style="margin: 1mm;" />
-                    DESCRIPCION:
-                    <input class="form-control" type="text" name="descripcion_producto" style="margin: 1mm;" />
-                    PRECIO FINAL:
-                    <input class="form-control" type="number" name="precio_final_producto" style="margin: 1mm;" />
-
+                    {{ in_prod_per.as_p }}
                     <button type="submit" class="btn btn-primary">Guardar producto</button>
                 </form>
             {% endif %}
