@@ -40,9 +40,9 @@
             <th scope="col">Item</th>
             <th scope="col">Código</th>
             <th scope="col">Nombre del producto</th>
-            <th scope="col">Cantidad</th>
+            <th scope="col">Stock</th>
             <th scope="col">Descripción</th>
-            <th scope="col">Precio Final</th>
+            <th scope="col">Precio Final de Artículos</th>
             <th scope="col">Acciones</th>
         </tr>        
     </thead>
@@ -58,10 +58,11 @@
             <td>{{ prod.descripcion_producto }}</td>
             <td>{{ prod.precio_final }}</td>
             <td>
-                <a type="button" href="{% url 'verprod' prod.id %}" class="btn btn-primary">Ver</a>
-                <a type="button" href="{% url 'edprod' prod.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delprod' prod.id %}" class="btn btn-danger">Eliminar</a>
-                <a type="button" href="{% url 'aartprod' prod.id %}" class="btn btn-warning">Agregar artículos</a>
+                <a type="button" href="{% url 'verprod' prod.id %}" class="btn btn-primary btn-sm">Ver</a>
+                <a type="button" href="{% url 'edprod' prod.id %}" class="btn btn-success btn-sm">Editar</a>
+                <a type="button" href="{% url 'delprod' prod.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                <a type="button" href="{% url 'aartprod' prod.id %}" class="btn btn-warning btn-sm">Agregar artículos</a>
+                <a type="button" href="{% url 'edprodart' prod.id %}" class="btn btn-info btn-sm">Editar artículos</a>
             </td>
         </tr>
         {% endfor %}

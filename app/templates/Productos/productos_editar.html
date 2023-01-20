@@ -38,6 +38,7 @@
 
             <table class="container table table-striped table-hover">
                 <thead>
+                    ARTICULOS DEL PRODUCTO
                     <tr>
                         <th scope="col">Familia</th>
                         <th scope="col">Nombre</th>
@@ -45,7 +46,6 @@
                         <th scope="col">Precio Compra</th>
                         <th scope="col">Precio Tienda</th>
                         <th scope="col">Tipo</th>
-                        <th scope="col">Cantidad</th>
                     </tr>        
                 </thead>
                 
@@ -59,7 +59,9 @@
                         <td>{{ artfac.articulo.precio_compra }}</td>
                         <td>{{ artfac.articulo.precio_tienda }}</td>
                         <td>{{ artfac.articulo.tipo }}</td>
-                        <td>{{ artfac.cantidad }}</td>
+                        <td>
+                            <a type="button" href="{% url 'delprodart' artfac.id %}" class="btn btn-danger">Eliminar</a>
+                        </td>
                     </tr>
                     {% endfor %}
                     {% else %}

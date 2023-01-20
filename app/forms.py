@@ -103,12 +103,12 @@ class ProductoBusqueda(Form):
 class AgregarProducto(ModelForm):
     class Meta:
         model = Producto
-        fields = '__all__'
+        fields = ('nombre', 'cantidad','descripcion_producto')
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
             'cantidad':forms.TextInput(attrs={'class':'form-control form-control'}),
             'descripcion_producto':forms.TextInput(attrs={'class':'form-control form-control'}),
-            'precio_final':forms.TextInput(attrs={'class':'form-control form-control'})
+            #'precio_final':forms.TextInput(attrs={'class':'form-control form-control'})
         }
 
 #ARTICULOS
