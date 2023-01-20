@@ -32,6 +32,15 @@ def agregar_producto(request):
         in_producto_per = AgregarProducto(request.POST)
         if in_producto_per.is_valid():
             in_producto_per.save()
+
+            ultimo_producto_agregado=Producto.objects.all().last()
+            precio_total_manufactura=ultimo_producto_agregado.precio_horas_manufactura*ultimo_producto_agregado.horas_manufactura
+            precio_costos_extras=ultimo_producto_agregado.costos_extra
+            precio_final=precio_total_manufactura+precio_costos_extras
+            ultimo_producto_agregado.precio_inicial=precio_final
+            ultimo_producto_agregado.precio_final=precio_final
+            ultimo_producto_agregado.save()
+
             return HttpResponseRedirect('agregarprod?enviado=True')
     else:
         in_producto_per = AgregarProducto()
@@ -64,7 +73,8 @@ def agregar_articulo_a_producto(request,id):
             precio_total=cantidad*precio
             precio_total_final+=precio_total
 
-        Producto.objects.filter(id=id).update(precio_final=precio_total_final)
+        precio_final=precio_total_final+prod_detalle.producto.precio_inicial
+        Producto.objects.filter(id=id).update(precio_final=precio_final)
 
         return HttpResponseRedirect('?enviado=True')
     else:
@@ -81,6 +91,14 @@ def editar_producto(request, id):
     in_producto_per = AgregarProducto(request.POST or None, instance=producto_put)
     if in_producto_per.is_valid():
             in_producto_per.save()
+
+            ultimo_producto_agregado=Producto.objects.get(id=id)
+            precio_total_manufactura=ultimo_producto_agregado.precio_horas_manufactura*ultimo_producto_agregado.horas_manufactura
+            precio_costos_extras=ultimo_producto_agregado.costos_extra
+            precio_final=precio_total_manufactura+precio_costos_extras
+            ultimo_producto_agregado.precio_inicial=precio_final
+            ultimo_producto_agregado.save()
+
             return redirect('prod')
     context = {
         'in_producto_per':in_producto_per,
@@ -121,16 +139,25 @@ def editar_producto_art(request, id):
     productos_list = Producto.objects.get(id=id)
     articulos_list=Producto_detalle.objects.filter(producto__id=id)
 
-    lista=Producto_detalle.objects.filter(producto__id=id)
+    if Producto_detalle.objects.filter(producto__id=id).exists():
+        lista=Producto_detalle.objects.filter(producto__id=id)
 
-    precio_total_final=0
-    for articulo in lista:
-        cantidad=articulo.cantidad
-        precio=articulo.articulo.precio_tienda
-        precio_total=cantidad*precio
-        precio_total_final+=precio_total
+        precio_total_final=0
+        for articulo in lista:
+            cantidad=articulo.cantidad
+            precio=articulo.articulo.precio_tienda
+            precio_total=cantidad*precio
+            precio_total_final+=precio_total
 
-    Producto.objects.filter(id=id).update(precio_final=precio_total_final)
+        Producto.objects.filter(id=id).update(precio_final=precio_total_final)
+    else:
+        ultimo_producto_agregado=Producto.objects.get(id=id)
+        precio_total_manufactura=ultimo_producto_agregado.precio_horas_manufactura*ultimo_producto_agregado.horas_manufactura
+        precio_costos_extras=ultimo_producto_agregado.costos_extra
+        precio_final=precio_total_manufactura+precio_costos_extras
+        ultimo_producto_agregado.precio_inicial=precio_final
+        ultimo_producto_agregado.precio_final=precio_final
+        ultimo_producto_agregado.save()
 
     context = {
         'prod': productos_list,

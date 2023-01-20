@@ -150,6 +150,7 @@ class Producto(models.Model):
     precio_horas_manufactura=models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
     horas_manufactura=models.IntegerField(default=0)
     costos_extra=models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
+    precio_inicial=models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
     def __str__(self):
         return self.nombre
     
