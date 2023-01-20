@@ -149,7 +149,6 @@ class Producto_detalle(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     articulo = models.ForeignKey(Articulos, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=0)
-
     
 
 ######################
@@ -215,6 +214,7 @@ class Compra_linea_prov(models.Model):
 #Remision de clientes
 class Remision_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
+    # fecha_remision = models.DateField(default=timezone.now())
 
     def __str__(self):
         return "Numero de factura:{}".format(self.factura_cliente.factura.pk)
