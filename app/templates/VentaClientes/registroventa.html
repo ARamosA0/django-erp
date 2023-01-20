@@ -20,7 +20,7 @@
                     <input type="hidden" name="estado_registro" value={{estado_registro}}>
                     <input type="hidden" name="nombre_factura" value="{{nombre_factura}}">
                     <input type="hidden" name="iva_fac" value="{{ iva_factura }}">
-                    <label for="codigo_cliente" class="col-12">DNI CLIENTE</label>
+                    <label for="codigo_cliente" class="col-12">RUC CLIENTE</label>
                     <div class="col-10">
                         <input type="text" class="form-control" name="dni_cliente" id="dni_cliente"  value="{{dni_cliente}}">
                     </div>
@@ -62,7 +62,7 @@
         <div class="col-12">
             <input type="hidden" name="reg_fac_clie" value="{{dni_cliente}}">
             <div class=" d-grid gap-2 border p-2">
-            {% if not estado_registro and dni_cliente and nombre_cliente != 'DNI INVÁLIDO'%}
+            {% if not estado_registro and dni_cliente and nombre_cliente != 'RUC INVÁLIDO'%}
             <button type="submit" class="btn btn-primary btn-block" >
             REGISTRO
             </button>
@@ -117,7 +117,7 @@
     <thead>
         <tr>
             <th scope="col">Familia</th>
-            <th scope="col">Nombre</th>
+            <th scope="col">Referencia</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Precio</th>
@@ -131,7 +131,7 @@
         {% for artfac in articulo_factura %}
         <tr scope="row"> 
             <td>{{ artfac.codproducto.familia.nombre }}</td>
-            <td>{{ artfac.codproducto.nombre }}</td>
+            <td>{{ artfac.codproducto.referencia }}</td>
             <td>{{ artfac.codproducto.descripcion }}</td>
             <td>{{ artfac.cantidad }}</td>
             <td>{{ artfac.precio }}</td>

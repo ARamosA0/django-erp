@@ -196,4 +196,6 @@ urlpatterns =[
 
     #Caja Diaria
     path('caja/', caja_diaria, name="caja"),
+    path('caja/ver/<int:id>', ver_caja, name="vercaja"),
+
 ]

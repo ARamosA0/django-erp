@@ -1,63 +1,63 @@
 {% extends 'index.html' %}
 
 {% block content %}
-
+    {% if clie.empresa == null %}
     <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
         <div class="card-header modal-title fs-5">
-            {{ clie.persona.nombre }}
+            <h1 class="modal-title fs-5" >{{ clie.persona.nombre }}</h1>
         </div>
         <div class="card-body">
             <section class="container">
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">DATOS</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATOS</th>
+                        </tr>        
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">NOMBRE:</th>
+                            <th scope="row">NOMBRE: </th>
                             <td>{{ clie.persona.nombre }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">DNI:</th>
+                            <th scope="row">DNI: </th>
                             <td>{{ clie.persona.dni }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">PROVINCIA:</th>
+                            <th scope="row">PROVINCIA: </th>
                             <td>{{ clie.persona.codprovincia }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">LOCALIDAD:</th>
+                            <th scope="row">LOCALIDAD: </th>
                             <td>{{ clie.persona.localidad }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">DIRECCION:</th>
+                            <th scope="row">DIRECCION: </th>
                             <td>{{ clie.persona.direccion }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">CODIGO POSTAL:</th>
+                            <th scope="row">CODIGO POSTAL: </th>
                             <td>{{ clie.persona.codpostal }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">CUENTA BANCARIA:</th>
+                            <th scope="row">CUENTA BANCARIA: </th>
                             <td>{{ clie.persona.cuentabancaria }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">FORMA DE PAGO:</th>
+                            <th scope="row">FORMA DE PAGO: </th>
                             <td>{{ clie.codformapago }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">TELEFONO:</th>
+                            <th scope="row">TELEFONO: </th>
                             <td>{{ clie.persona.telefono }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">CELULAR:</th>
+                            <th scope="row">CELULAR: </th>
                             <td>{{ clie.persona.movil }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">WEB:</th>
+                            <th scope="row">WEB: </th>
                             <td>{{ clie.persona.web }}</td>
                         </tr>
                     </tbody>
@@ -68,4 +68,82 @@
     <div class="container text-center">
         <a type="button" href="{% url 'clie' %}" class="btn btn-primary">Regresar</a>
     </div>
+    
+    {% else %}
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            <h1 class="modal-title fs-5" >{{ clie.empresa.nombre }}</h1>
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATOS</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">NOMBRE: </th>
+                            <td>{{ clie.empresa.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ESTRUCTURA JURIDICA: </th>
+                            <td>{{ clie.empresa.estructurajuridica }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TIPO: </th>
+                            <td>{{ clie.empresa.tipo }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">RUC: </th>
+                            <td>{{ clie.empresa.ruc }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PROVINCIA: </th>
+                            <td>{{ clie.empresa.codprovincia }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">LOCALIDAD: </th>
+                            <td>{{ clie.empresa.localidad }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DIRECCION: </th>
+                            <td>{{ clie.empresa.direccion }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CODIGO POSTAL: </th>
+                            <td>{{ clie.empresa.codpostal }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CUENTA BANCARIA: </th>
+                            <td>{{ clie.empresa.cuentabancaria }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FORMA DE PAGO: </th>
+                            <td>{{ clie.codformapago }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TELEFONO: </th>
+                            <td>{{ clie.persona.telefono }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CELULAR: </th>
+                            <td>{{ clie.empresa.movil }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">WEB: </th>
+                            <td>{{ clie.empresa.web }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'clie' %}" class="btn btn-primary">Regresar</a>
+    </div>
+    {% endif%}
+
 {% endblock %}

@@ -38,7 +38,7 @@ def reg_venta(request):
 
             context=define_context(estado_registro=True,nueva_factura_form=NuevaFactura({'fecha':fac_clie.factura.fecha,'iva':fac_clie.factura.iva}),
                                    nombre_cliente=fac_clie.codcliente, mensaje_registro= 'succeed',
-                                   dni_cliente=fac_clie.codcliente.persona.dni,factura_clie=str(fac_clie),
+                                   dni_cliente=fac_clie.codcliente.ruc,factura_clie=str(fac_clie),
                                    articulo_factura=articulo_factura,iva_factura=fac_clie.factura.iva,
                                    nombre_factura='VENTA N° '+str(fac_clie.factura.pk))
             
@@ -63,15 +63,15 @@ def reg_venta(request):
         factura_clie = request.POST.get('factura_clie','')
 
         context = define_context(context,dni_cliente=dni_cliente,estado_registro=estado_registro,nombre_factura=nombre_factura,
-                                         nombre_cliente=nombre_cliente,factura_clie=factura_clie,
-                                         iva_factura=iva_factura,mensaje_registro=mensaje_registro)
+                                    nombre_cliente=nombre_cliente,factura_clie=factura_clie,
+                                    iva_factura=iva_factura,mensaje_registro=mensaje_registro)
 
         if not estado_registro and not cancelado:
             nueva_factura = NuevaFactura(request.POST)
             context['nueva_factura_form'] = nueva_factura
-            clie = Clientes.objects.filter(persona_id__dni=dni_cliente)
+            clie = Clientes.objects.filter(ruc=dni_cliente)
             if dni_cliente!='':
-                nombre_cliente = clie[0] if clie else "DNI INVÁLIDO"
+                nombre_cliente = clie[0] if clie else "RUC INVÁLIDO"
                 context = define_context(context,dni_cliente=dni_cliente,
                                     nombre_cliente=nombre_cliente)
             if clie and reg_fac_clie==dni_cliente:
@@ -83,9 +83,9 @@ def reg_venta(request):
                 fac_clie.save()
                 factura_clie = Factura_clie.objects.last()
                 context = define_context(context,mensaje_registro='succeed',
-                                                 nombre_factura='VENTA N° '+str(last_factura.pk),
-                                                 estado_registro=True,iva_factura=last_factura.iva,
-                                                 factura_clie=str(factura_clie))
+                                            nombre_factura='VENTA N° '+str(last_factura.pk),
+                                            estado_registro=True,iva_factura=last_factura.iva,
+                                            factura_clie=str(factura_clie))
 
         else:
             validfac_cliente_list_form = request.POST.get("validfac_cliente_list_form", None)

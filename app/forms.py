@@ -23,8 +23,8 @@ class ProveedorBusqueda(Form):
 class ClienteBusqueda(Form):
     codigo = forms.CharField(label='CODIGO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
-    dni = forms.CharField(label='DNI:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'dni'}),required=False)
+    ruc = forms.CharField(label='RUC:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'ruc'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
     telefono = forms.CharField(label='TELEFONO:',
@@ -33,6 +33,8 @@ class ClienteBusqueda(Form):
         widget=forms.Select(attrs={'class':'form-control','id':'provincia'}),required=False)
     localidad = forms.CharField(label='LOCALIDAD:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
+    empresa = forms.CharField(label='EMPRESA:',
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'empresa', 'name':'empresa'}),required=False)
 
 
 class ProveedorInsertar(ModelForm):
@@ -43,9 +45,10 @@ class ProveedorInsertar(ModelForm):
 class ClienteClienteInsertar(ModelForm):
     class Meta:
         model = Clientes
-        fields = ('codformapago',)
+        fields = ('codformapago','ruc')
         widgets = {
-            'codformapago': forms.Select(attrs={'class': 'form-control'})
+            'codformapago': forms.Select(attrs={'class': 'form-control'}),
+            'ruc': forms.TextInput(attrs={'class': 'form-control'})
         }
 
 class ProveedorProveedorInsertar(ModelForm):
@@ -360,7 +363,8 @@ class EditarCompra(ModelForm):
 
 class DateFormSearch(Form):
     fecha = forms.DateTimeField(label='FECHA CIERRE:',
-        widget=DateInput(attrs={'class':'form-control','id':'fechabusqueda'}),required=False)
+        widget=DateInput(attrs={'class':'form-date', 'id':'fechabusqueda'}),required=False)
+
 
 class NuevaCaja(ModelForm):
     class Meta:

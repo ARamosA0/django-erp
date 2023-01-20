@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone
 # Create your models here.
 
 class Provincias(models.Model):
@@ -55,12 +56,17 @@ class Empresa(models.Model):
         return self.nombre
 
 class Clientes(models.Model):
-    persona = models.OneToOneField(Persona, on_delete=models.CASCADE, primary_key=True)
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
     codformapago = models.ForeignKey(Formapago, on_delete=models.CASCADE)
+    ruc = models.CharField(max_length=100)
     borrado = models.CharField(max_length=1, default=0)
 
     def __str__(self):
-        return self.persona.nombre
+        if self.persona:
+            return f'{self.persona.nombre}'
+        else:
+            return f'{self.empresa.nombre}'
 
 class Proveedores(models.Model):
     persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
@@ -70,7 +76,10 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        return f'{self.persona} {self.empresa}'
+        if self.persona:
+            return f'{self.persona.nombre}'
+        else:
+            return f'{self.empresa.nombre}'
 
 CHOICES = (("1", "1"),
     ("0", "0"))
@@ -129,6 +138,8 @@ class Articulos(models.Model):
     def __str__(self):
         return self.nombre
 
+############################
+#PRODUCTOS
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField(default=0)
@@ -157,7 +168,10 @@ class Factura_clie(models.Model):
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.persona.nombre, self.factura.pk)
+        if self.codcliente.persona:
+            return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.persona.nombre, self.factura.pk)    
+        else:
+            return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.empresa.nombre, self.factura.pk)
 
 class Factura_linea_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
@@ -237,11 +251,16 @@ class Remision_linea_prov(models.Model):
 # TESORERIA
 #Caja Diaria
 class Caja_diaria(models.Model):
-    fecha_apertura = models.DateTimeField(null=True, auto_now=True)
-    fecha_cierre = models.DateTimeField(null=True, auto_now=True)
-    monto_total_inicial = models.FloatField(null=True)
-    monto_total_final = models.FloatField(null=True)
+    fecha_apertura = models.DateTimeField(null=True, auto_now_add=True)
+    fecha_cierre = models.DateTimeField(null=True, auto_now_add=True)
+    monto_total_inicial = models.FloatField(null=True, default=0)
+    monto_total_final = models.FloatField(null=True, default=0)
+    total_ventas = models.FloatField(null=True, default=0)
+    total_compras = models.FloatField(null=True, default=0)
+    estado = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "Monto inicial:{}, Monto final:{}, Estado:{}".format(self.monto_total_inicial, self.monto_total_final, self.estado)
 
 class Caja_tipo_pago(models.Model):
     venta = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True, blank=True)
