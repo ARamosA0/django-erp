@@ -9,7 +9,7 @@ class ProveedorBusqueda(Form):
     ruc = forms.CharField(label='RUC:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'ruc'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre','list':'proveedores','autocomplete':'off'}),required=False)
     telefono = forms.CharField(label='TELEFONO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'telefono'}),required=False)
     provincia = forms.ModelChoiceField(label='PROVINCIA:',queryset=Provincias.objects.all(),

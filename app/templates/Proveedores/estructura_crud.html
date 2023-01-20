@@ -9,12 +9,17 @@
       <div  class="form-group">
         <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
-          {{ busquedaform.as_p }}  
-          <div  style="float: right;">
+            {{busquedaform.as_p}}
+            <datalist id="proveedores">
+                {% for prov in search_list_prov %}
+                <option>{{prov}}</option>
+                {% endfor %}
+            </datalist>
+            <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
             <a href="{% url 'aprove' %}" type="button" class="btn btn-success" >Agregar</a>
-          </div>                   
+            </div>                   
         </form>
     </div>
 </div>
