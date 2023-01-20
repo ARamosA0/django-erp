@@ -249,7 +249,6 @@ class Remision_linea_prov(models.Model):
 class Caja_diaria(models.Model):
     fecha_apertura = models.DateTimeField(null=True, auto_now_add=True)
     fecha_cierre = models.DateTimeField(null=True, auto_now_add=True)
-    neto = models.FloatField(null=True, default=0)
     monto_total_inicial = models.FloatField(null=True, default=0)
     monto_total_final = models.FloatField(null=True, default=0)
     total_ventas = models.FloatField(null=True, default=0)

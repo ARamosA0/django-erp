@@ -35,7 +35,6 @@ def caja_diaria(request):
             if dinero_total.estado:
                 montoinicial = request.POST.get("monto_inicial") 
                 nueva_caja.monto_total_inicial = montoinicial
-                nueva_caja.neto = dinero_total.monto_total_final
                 nueva_caja.save()
                 ultima_caja = Caja_diaria.objects.last()
                 context=define_context(context,
