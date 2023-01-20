@@ -145,6 +145,11 @@ class Producto(models.Model):
     cantidad = models.IntegerField(default=0)
     descripcion_producto = models.TextField(null=True, blank=True)
     precio_final = models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
+    color=models.TextField(null=True, blank=True)
+    talla=models.TextField(null=True, blank=True)
+    precio_horas_manufactura=models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
+    horas_manufactura=models.IntegerField(default=0)
+    costos_extra=models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
     def __str__(self):
         return self.nombre
     
