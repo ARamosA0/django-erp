@@ -36,7 +36,7 @@ def agregar_remision(request,id):
         rem_clie = Remision_clie()
         rem_clie.factura_cliente=Factura_clie.objects.filter(factura__id=id).last()
         rem_clie.save()
-        
+        contador = 0
         lista=request.POST.getlist('productos')
         for producto_seleccionado in lista:
             rem_linea_clie=Remision_linea_clie()
@@ -47,7 +47,11 @@ def agregar_remision(request,id):
             actualizar.remision_hecha=True
             actualizar.save()
 
+            contador += 1
             rem_linea_clie.save()
+        rem_clie2 = Remision_clie.objects.last()
+        rem_clie2.contador = contador
+        rem_clie2.save()
         return HttpResponseRedirect('?enviado=True')
     else:
         if 'enviado' in request.GET:

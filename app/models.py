@@ -144,11 +144,16 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField(default=0)
     descripcion_producto = models.TextField(null=True, blank=True)
+    precio_final = models.FloatField(validators=[MinValueValidator(0.0)], default=0.0)
+    def __str__(self):
+        return self.nombre
     
 class Producto_detalle(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     articulo = models.ForeignKey(Articulos, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=0)
+    def __str__(self):
+        return self.articulo.nombre
     
 
 ######################
@@ -214,7 +219,8 @@ class Compra_linea_prov(models.Model):
 #Remision de clientes
 class Remision_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
-    # fecha_remision = models.DateField(default=timezone.now())
+    fecha_remision = models.DateField(auto_now_add=True)
+    contador = models.IntegerField(default=0, null=True)
 
     def __str__(self):
         return "Numero de factura:{}".format(self.factura_cliente.factura.pk)
