@@ -56,12 +56,17 @@ class Empresa(models.Model):
         return self.nombre
 
 class Clientes(models.Model):
-    persona = models.OneToOneField(Persona, on_delete=models.CASCADE, primary_key=True)
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
     codformapago = models.ForeignKey(Formapago, on_delete=models.CASCADE)
+    ruc = models.CharField(max_length=100)
     borrado = models.CharField(max_length=1, default=0)
 
     def __str__(self):
-        return self.persona.nombre
+        if self.persona:
+            return f'{self.persona.nombre}'
+        else:
+            return f'{self.empresa.nombre}'
 
 class Proveedores(models.Model):
     persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
@@ -71,7 +76,10 @@ class Proveedores(models.Model):
 
     def __str__(self):
         # return self.persona.nombre
-        return f'{self.persona} {self.empresa}'
+        if self.persona:
+            return f'{self.persona.nombre}'
+        else:
+            return f'{self.empresa.nombre}'
 
 CHOICES = (("1", "1"),
     ("0", "0"))
@@ -156,7 +164,10 @@ class Factura_clie(models.Model):
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.persona.nombre, self.factura.pk)
+        if self.codcliente.persona:
+            return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.persona.nombre, self.factura.pk)    
+        else:
+            return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.empresa.nombre, self.factura.pk)
 
 class Factura_linea_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)

@@ -39,8 +39,9 @@
             <th scope="col">Item</th>
             <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
-            <th scope="col">DNI</th>
+            <th scope="col">RUC</th>
             <th scope="col">Telefono</th>
+            <th scope="col">Empresa</th>
             <th scope="col">Acciones</th>
         </tr>        
     </thead>
@@ -50,15 +51,30 @@
         {% for clie in clientes_list %}
         <tr scope="row">
             <td>{{ forloop.counter }}</td>
-            <td>{{ clie.persona.id }}</td>
-            <td>{{ clie.persona.nombre }}</td>
-            <td>{{ clie.persona.dni }}</td>
-            <td>{{ clie.persona.telefono }}</td>
+            {% if clie.empresa == null %}
+                <td>{{ clie.id}}</td>
+                <td>{{ clie.persona.nombre }}</td>
+                <td>{{ clie.ruc }}</td>
+                <td>{{ clie.persona.telefono }}</td>
+                <td>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                </td>
+
+            {% else %}
+                <td>{{ clie.id }}</td>
+                <td>{{ clie.empresa.nombre }}</td>
+                <td>{{ clie.ruc }}</td>
+                <td>{{ clie.empresa.telefono }}</td>
+                <td>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                </td>
+            {% endif %}
             <td>
-                <a type="button" href="{% url 'verclie' clie.persona.id %}"  class="btn btn-primary">Ver</a>
-                <a type="button" href="{% url 'edclie' clie.persona.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delclie' clie.persona.id %}" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'verclie' clie.id %}" class="btn btn-primary">Ver</a>
+                <a type="button" href="{% url 'edclie' clie.id %}" class="btn btn-success">Editar</a>
+                <a type="button" href="{% url 'delclie' clie.id %}" class="btn btn-danger">Eliminar</a>
             </td>
+            
         </tr>
         {% endfor %}
         {% else %}
