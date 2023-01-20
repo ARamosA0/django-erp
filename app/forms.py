@@ -106,11 +106,16 @@ class ProductoBusqueda(Form):
 class AgregarProducto(ModelForm):
     class Meta:
         model = Producto
-        fields = ('nombre', 'cantidad','descripcion_producto')
+        fields = ('nombre', 'cantidad','descripcion_producto','color','talla','precio_horas_manufactura','horas_manufactura','costos_extra')
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
-            'cantidad':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'cantidad':forms.NumberInput(attrs={'class':'form-control form-control'}),
             'descripcion_producto':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'color':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'talla':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'precio_horas_manufactura':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'horas_manufactura':forms.NumberInput(attrs={'class':'form-control form-control'}),
+            'costos_extra':forms.TextInput(attrs={'class':'form-control form-control'})
             #'precio_final':forms.TextInput(attrs={'class':'form-control form-control'})
         }
 

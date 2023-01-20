@@ -42,7 +42,8 @@
             <th scope="col">Nombre del producto</th>
             <th scope="col">Stock</th>
             <th scope="col">Descripción</th>
-            <th scope="col">Precio Final de Artículos</th>
+            <th scope="col">Precio Inicial</th>
+            <th scope="col">Precio con Artículos</th>
             <th scope="col">Acciones</th>
         </tr>        
     </thead>
@@ -56,6 +57,7 @@
             <td>{{ prod.nombre }}</td>
             <td>{{ prod.cantidad }}</td>
             <td>{{ prod.descripcion_producto }}</td>
+            <td>{{ prod.precio_inicial }}</td>
             <td>{{ prod.precio_final }}</td>
             <td>
                 <a type="button" href="{% url 'verprod' prod.id %}" class="btn btn-primary btn-sm">Ver</a>
