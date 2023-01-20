@@ -1,0 +1,46 @@
+{% extends 'index.html' %} {% block content %}
+
+<div class="row justify-content-center m-5">
+    <div class="col-md-10 col-lg-5">
+      <h4>
+        <center>Balance General del:</center>
+      </h4>
+      <div class="card-body">
+        <section class="container">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">CAJA FECHA APERTURA:</th>
+                <td>{{ ultima_caja_context.fecha_apertura }}</td>
+              </tr>
+              <tr>
+                <th scope="row">CAJA FECHA FIN:</th>
+                <td>{{ ultima_caja_context.fecha_cierre }}</td>
+              </tr>
+              <tr>
+                <th scope="row">MONTO INICIAL TOTAL:</th>
+                <td>{{ ultima_caja_context.monto_total_inicial }}</td>
+              </tr>
+              <tr>
+                <th scope="row">MONTO FINAL TOTAL:</th>
+                <td>{{ ultima_caja_context.monto_total_final }}</td>
+              </tr>
+              <tr>
+                <th scope="row">TOTAL VENTAS:</th>
+                <td>{{ ultima_caja_context.total_ventas }}</td>
+              </tr>
+              <tr>
+                <th scope="row">TOTAL COMPRAS:</th>
+                <td>{{ ultima_caja_context.total_compras }}</td>
+              </tr>
+              <tr>
+                <th scope="row">TOTAL FINAL:</th>
+                <td>{{ ultima_caja_context.monto_total_final }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock %}

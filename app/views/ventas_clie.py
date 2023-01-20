@@ -63,8 +63,8 @@ def reg_venta(request):
         factura_clie = request.POST.get('factura_clie','')
 
         context = define_context(context,dni_cliente=dni_cliente,estado_registro=estado_registro,nombre_factura=nombre_factura,
-                                         nombre_cliente=nombre_cliente,factura_clie=factura_clie,
-                                         iva_factura=iva_factura,mensaje_registro=mensaje_registro)
+                                    nombre_cliente=nombre_cliente,factura_clie=factura_clie,
+                                    iva_factura=iva_factura,mensaje_registro=mensaje_registro)
 
         if not estado_registro and not cancelado:
             nueva_factura = NuevaFactura(request.POST)
@@ -83,9 +83,9 @@ def reg_venta(request):
                 fac_clie.save()
                 factura_clie = Factura_clie.objects.last()
                 context = define_context(context,mensaje_registro='succeed',
-                                                 nombre_factura='VENTA N° '+str(last_factura.pk),
-                                                 estado_registro=True,iva_factura=last_factura.iva,
-                                                 factura_clie=str(factura_clie))
+                                            nombre_factura='VENTA N° '+str(last_factura.pk),
+                                            estado_registro=True,iva_factura=last_factura.iva,
+                                            factura_clie=str(factura_clie))
 
         else:
             validfac_cliente_list_form = request.POST.get("validfac_cliente_list_form", None)

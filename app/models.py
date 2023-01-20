@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone
 # Create your models here.
 
 class Provincias(models.Model):
@@ -137,6 +138,8 @@ class Articulos(models.Model):
     def __str__(self):
         return self.nombre
 
+############################
+#PRODUCTOS
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField(default=0)
@@ -244,11 +247,17 @@ class Remision_linea_prov(models.Model):
 # TESORERIA
 #Caja Diaria
 class Caja_diaria(models.Model):
-    fecha_apertura = models.DateTimeField(null=True, auto_now=True)
-    fecha_cierre = models.DateTimeField(null=True, auto_now=True)
-    monto_total_inicial = models.FloatField(null=True)
-    monto_total_final = models.FloatField(null=True)
+    fecha_apertura = models.DateTimeField(null=True, auto_now_add=True)
+    fecha_cierre = models.DateTimeField(null=True, auto_now_add=True)
+    neto = models.FloatField(null=True, default=0)
+    monto_total_inicial = models.FloatField(null=True, default=0)
+    monto_total_final = models.FloatField(null=True, default=0)
+    total_ventas = models.FloatField(null=True, default=0)
+    total_compras = models.FloatField(null=True, default=0)
+    estado = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "Monto inicial:{}, Monto final:{}, Estado:{}".format(self.monto_total_inicial, self.monto_total_final, self.estado)
 
 class Caja_tipo_pago(models.Model):
     venta = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True, blank=True)
