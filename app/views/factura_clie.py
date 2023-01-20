@@ -27,10 +27,11 @@ def factura(request):
 def ver_factura(request, id):
     factura_clie = Factura_clie.objects.get(pk=id)
     articulo_factura = Factura_linea_clie.objects.filter(factura_cliente_id=id)
-
+    remision_fac = Remision_clie.objects.filter(factura_cliente__factura__id= id)
     context = {
         'fac': factura_clie,
-        'articulo_factura':articulo_factura
+        'articulo_factura':articulo_factura,
+        'remision_fac':remision_fac,
     }
     return render(request, "FacturaClie/facturaclie.html", context)
 
@@ -40,6 +41,8 @@ def ver_factura_eliminar_articulo(request, id):
     del_articulo_factura = Factura_linea_clie.objects.get(pk=id)
 
     red = request.POST.get('facturaclie','/erp/facturaclie/')
+
+
 
     if request.method =="POST":
         del_articulo_factura.delete()
@@ -66,7 +69,7 @@ def eliminar_factura(request,id):
 
     del_factura_linea_clie = Factura_linea_clie.objects.filter(factura_cliente_id=id)
     del_factura_clie = Factura_clie.objects.get(pk=id)
-    del_factura_libro_diario = Libro_diario.objects.get(obtener_factura=id)
+    del_factura_libro_diario = Libro_diario.objects.filter(obtener_factura=id)
     del_factura = Factura.objects.get(id=id)
     
     red = request.POST.get('facturaclie','/erp/facturaclie/')
