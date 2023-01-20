@@ -219,6 +219,8 @@ class Compra_linea_prov(models.Model):
 #Remision de clientes
 class Remision_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
+    fecha_remision = models.DateField(auto_now_add=True)
+    contador = models.IntegerField(default=0, null=True)
 
     def __str__(self):
         return "Numero de factura:{}".format(self.factura_cliente.factura.pk)
