@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            Datos
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">DATOS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">ID:</th>
+                            <td>{{ librodiario.obtener_factura.id }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FECHA:</th>
+                            <td>{{ librodiario.obtener_factura.fecha }}</td>
+                        </tr>
+                        {% if librodiario.tipo == "Venta" %}
+                        <tr>
+                            <th scope="row">RUC:</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DNI:</th>
+                            <td>{{ cliente.codcliente.persona.dni }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <th scope="row">RUC:</th>
+                            <td>{{ proveedor.codprov.ruc }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DNI:</th>
+                            <td></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'libdia' %}" class="btn btn-primary">Regresar</a>
+    </div>
+{% endblock %}

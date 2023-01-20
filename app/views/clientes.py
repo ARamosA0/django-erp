@@ -70,7 +70,7 @@ def agregar_cliente(request):
             ruccliente = form_cliente.data.get("ruc")
             codformapago = form_cliente.data.get("codformapago")
             cliente = Clientes()
-            cliente.persona_id = int(ultima_empresa)
+            cliente.empresa_id = int(ultima_empresa)
             cliente.ruc = int(ruccliente)
             cliente.codformapago_id = int(codformapago)
 
