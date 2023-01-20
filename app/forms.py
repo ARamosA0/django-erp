@@ -384,6 +384,31 @@ class LibroDiarioBusqueda(Form):
         widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
     tipo = forms.CharField(label='TIPO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
+
+#SERVICIOS
+class AgregarServicio(ModelForm):
+    class Meta:
+        model = Servicios
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'trabajador':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control'}),
+            'precio':forms.TextInput(attrs={'class':'form-control'}),
+        }
+
+#ORDEN DE SERVICIO
+class AgregarOrdenServicio(ModelForm):
+    class Meta:
+        model = Servicio_compra
+        fields = '__all__'
+        widgets = {
+            'servicio':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'fecha_compra':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha_inicio_servicio':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha_fin_servicio':forms.DateInput(attrs={'class':'form-control'}),
+            'descripcion_compra_servicio':forms.Textarea(attrs={'class':'form-control'}),
+        }
     
 #PRODUCCION 
 NINGUNO = 'No Iniciado'

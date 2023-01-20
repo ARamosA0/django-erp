@@ -307,6 +307,38 @@ class Libro_diario(models.Model):
     def __str__(self):
         return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)
 
+#######################
+# SERVICIOS
+#Servicio
+class Servicios(models.Model):
+    nombre = models.CharField(max_length=200)
+    trabajador = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    precio = models.FloatField()
+
+    def __str__(self):
+        return "Servicio:{}, Cliente:{}".format(self.nombre, self.trabajador.ruc)
+
+class Servicio_compra(models.Model):
+    servicio = models.ForeignKey(Servicios, on_delete=models.CASCADE)
+    fecha_compra = models.DateTimeField()
+    fecha_inicio_servicio = models.DateField()
+    fecha_fin_servicio = models.DateField()
+    descripcion_compra_servicio = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return "Compra a servicio:{}".format(self.servicio.nombre)
+
+class Servicio_factura(models.Model):
+    factura_servicio = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
+    servicio_compra_referencia = models.OneToOneField(Servicio_compra, on_delete=models.CASCADE, null=True)
+    fecha_pedido = models.DateTimeField()
+    costo_total = models.FloatField()
+    
+    def __str__(self):
+        return "Codigo de factura:{}, Fecha de pedido:{}".format(self.factura_servicio.id, self.fecha_pedido)
+
+
 
 # Prduccion
 class Produccion(models.Model):
