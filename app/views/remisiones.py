@@ -111,6 +111,10 @@ def eliminar_articulo_remision(request, id):
 
     if request.method =="POST":
         del_remision_linea_clie.delete()
+
+        actualizar=Factura_linea_clie.objects.get(id=del_remision_linea_clie.codproducto.id)
+        actualizar.remision_hecha=True
+        actualizar.save()
         return HttpResponseRedirect(red)
 
     context = {
