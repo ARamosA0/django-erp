@@ -106,19 +106,19 @@ def reg_venta(request):
                     return redirect('edfacturaclie',id=request.GET['n_factura'])
             
             if validfac_cliente_list_form:
-                    nomarticulo = request.POST["nomarticulo"]
-                    cantidad = request.POST["cantidad_art"]
-                    descuento = request.POST["descuento_art"]
-                    articulo_data = Articulos.objects.get(nombre=nomarticulo)
-                    factura_linea_clie = Factura_linea_clie()
-                    factura_linea_clie.factura_cliente = Factura_clie.objects.get(pk=factura.pk)
-                    factura_linea_clie.codproducto = articulo_data
-                    factura_linea_clie.precio = articulo_data.precio_compra
-                    factura_linea_clie.cantidad = cantidad
-                    factura_linea_clie.dsctoproducto = descuento
-                    factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
-                    factura_linea_clie.save()    
-                    suma_importes(context,factura.pk)
+                nomproducto = request.POST["nomproducto"]
+                cantidad = request.POST["cantidad_prod"]
+                descuento = request.POST["descuento_prod"]
+                producto_data = Producto.objects.get(nombre=nomproducto)
+                factura_linea_clie = Factura_linea_clie()
+                factura_linea_clie.factura_cliente = Factura_clie.objects.get(pk=factura.pk)
+                factura_linea_clie.codproducto = producto_data
+                factura_linea_clie.precio = producto_data.precio_final
+                factura_linea_clie.cantidad = cantidad
+                factura_linea_clie.dsctoproducto = descuento
+                factura_linea_clie.importe = (producto_data.precio_final * int(cantidad)) - float(descuento)
+                factura_linea_clie.save()    
+                suma_importes(context,factura.pk)
             if eliminar_art_venta:
                 del_flc = Factura_linea_clie.objects.filter(pk=eliminar_art_venta)
                 del_flc.delete()

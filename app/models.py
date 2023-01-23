@@ -181,7 +181,7 @@ class Factura_clie(models.Model):
 
 class Factura_linea_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
-    codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
+    codproducto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     cantidad = models.IntegerField()
     precio = models.FloatField()
     importe = models.FloatField(null=True)
