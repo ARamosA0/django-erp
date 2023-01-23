@@ -168,10 +168,11 @@ class Factura(models.Model):
     fecha = models.DateField(null=True)
     iva = models.IntegerField()
     totalfactura = models.FloatField(default=0, null=True)    
-    
+
 class Factura_clie(models.Model):
     factura = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+    contador_productos = models.IntegerField(null=True, default=0)
 
     def __str__(self):
         if self.codcliente.persona:
