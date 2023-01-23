@@ -383,3 +383,21 @@ class LibroDiarioBusqueda(Form):
     tipo = forms.CharField(label='TIPO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
     
+#PRODUCCION 
+
+PRODUCCION_ESTADOS = (
+    ('', '--------'),
+    ('PROCESO', 'En proceso'),
+    ('TERMINADO', 'Terminado'),
+    ('SALIENDO', 'Saliendo')
+)
+
+class ProduccioBusqueda(Form):
+    fecha_inicio = forms.DateField(label='FECHA DE INICIO:',
+        widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+    fecha_fin = forms.DateField(label='FECHA DE FIN:',
+        widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+    estado = forms.CharField(label='ESTADO:',
+        widget=forms.Select(choices=PRODUCCION_ESTADOS,attrs={'class':'form-select','id':'tipo'}),required=False)
+    
+

@@ -1,0 +1,57 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<div class='row justify-content-center m-5'>
+    <div class="col-md-10 col-lg-5">
+      <h4><center>Produccion</center></h4>
+    </div>
+
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        <p>N de entidades encontradas:</p>
+    </div>
+    <div style="display: flex;">
+        <p style="margin:10px;">Mostrados:</p>
+        <select style="width: 80px;" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option selected>1-10</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+</div>
+<div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">N.Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Estado</th>
+            </tr>        
+        </thead>
+        
+        <tbody>
+            {% if produccion_list %}
+            {% for prod in produccion_list %}
+            <tr scope="row">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ prod.id }}</td>
+                <td>{{ prod.factura_clie.factura.id }}</td>
+                <td>{{ contador }}</td>
+                <td>
+                    <a type="button" href="#" class="btn btn-primary">Ver</a> 
+                    <a type="button" href="#" class="btn btn-success">Editar</a>
+                    <a type="button" href="{% url 'delprodu' prod.id %}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <h4>No se encontraron datos</h4>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

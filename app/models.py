@@ -172,6 +172,7 @@ class Factura(models.Model):
 class Factura_clie(models.Model):
     factura = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+    estadoprod = models.BooleanField(null=True, default=False)
 
     def __str__(self):
         if self.codcliente.persona:
@@ -295,3 +296,45 @@ class Libro_diario(models.Model):
 
     def __str__(self):
         return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)
+
+
+# Prduccion
+class Produccion(models.Model):
+
+    NINGUNO = '------'
+    PROCESO = 'En proceso'
+    TERMINADO = 'Terminado'
+    SALIENDO = 'Saliendo'
+
+    PROCESOSPROD = [
+        (NINGUNO, '-----'),
+        (PROCESO, 'En proceso'),
+        (TERMINADO, 'Terminado'),
+        (SALIENDO, 'Saliendo')
+    ]
+
+    factura_clie = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
+    fecha_inicio = models.DateField(auto_now_add=True)
+    fecha_fin = models.DateField()
+    estdo_produccion = models.CharField(max_length=100, choices=PROCESOSPROD, default=NINGUNO)
+
+    def __str__(self):
+        return str(self.factura_clie)
+
+class Produccion_linea(models.Model):
+
+    NINGUNO = '------'
+    PROCESO = 'En proceso'
+    TERMINADO = 'Terminado'
+    SALIENDO = 'Saliendo'
+
+    PROCESOSPROD = [
+        (NINGUNO, '-----'),
+        (PROCESO, 'En proceso'),
+        (TERMINADO, 'Terminado'),
+        (SALIENDO, 'Saliendo')
+    ]
+
+    produccion = models.ForeignKey(Produccion, on_delete=models.CASCADE, null=True)
+    cod_producto = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE, null=True)
+    estdo_produccion_prod = models.CharField(max_length=100, choices=PROCESOSPROD, default=NINGUNO)

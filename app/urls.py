@@ -199,6 +199,10 @@ urlpatterns =[
     path('caja/', caja_diaria, name="caja"),
     path('caja/ver/<int:id>', ver_caja, name="vercaja"),
 
+    #Produccion
+    path('produccion/', produccion, name='prod'),
+    path('produccion/agregar/', agr_produccion, name='agprod'),
+    path('produccion/eliminar/<int:id>/',del_produccion, name='delprodu'),
+    path('produccion/ver/<int:id>/',ver_produccion, name='verprodu'),
 
-    path('produccion/', produccion, name='prod')
 ]
