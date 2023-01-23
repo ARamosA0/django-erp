@@ -31,21 +31,26 @@ def agregar_remision_proveedores(request,id):
         productos_list = Compra_linea_prov.objects.filter(compra_cliente__compra__id=id)
 
     if request.method == 'POST':
-        rem_clie = Remision_prov()
-        rem_clie.factura_proveedor=Compra_prov.objects.filter(compra__id=id).last()
-        rem_clie.save()
+        rem_prov = Remision_prov()
+        rem_prov.factura_proveedor=Compra_prov.objects.filter(compra__id=id).last()
+        rem_prov.save()
         
         lista=request.POST.getlist('productos')
         for producto_seleccionado in lista:
-            rem_linea_clie=Remision_linea_prov()
-            rem_linea_clie.codremision=Remision_prov.objects.last()
-            rem_linea_clie.codproducto=Compra_linea_prov.objects.get(pk=producto_seleccionado)
+            rem_linea_prov=Remision_linea_prov()
+            rem_linea_prov.codremision=Remision_prov.objects.last()
+            rem_linea_prov.codproducto=Compra_linea_prov.objects.get(pk=producto_seleccionado)
             
+            art_com = Compra_linea_prov.objects.get(pk=producto_seleccionado)
+            art = Articulos.objects.get(pk=art_com.codproducto.pk)
+            art.stock = art.stock + art_com.cantidad
+            art.save()
+
             actualizar=Compra_linea_prov.objects.get(id=producto_seleccionado)
             actualizar.remision_hecha=True
             actualizar.save()
 
-            rem_linea_clie.save()
+            rem_linea_prov.save()
         return HttpResponseRedirect('?enviado=True')
     else:
         if 'enviado' in request.GET:
@@ -75,9 +80,15 @@ def editar_remision_proveedores(request, id):
     if request.method == 'POST':
         id_rem_art = request.POST['id_rem_art']
         id_com_art = request.POST['id_com_art']
-        id_com_art = Compra_linea_prov.objects.get(pk=id_com_art)
-        id_com_art.remision_hecha = False
-        id_com_art.save()
+        #Cambiando el estado de la remision del producto a falso
+        art_com = Compra_linea_prov.objects.get(pk=id_com_art)
+        art_com.remision_hecha = False
+        art_com.save()
+        #Cambiando el estado del stock a menos ya que se cancelo la remision
+        art = Articulos.objects.get(pk=art_com.codproducto.pk)
+        art.stock = art.stock - art_com.cantidad
+        art.save()
+        #Eliminación en la tabla de Remision_linea_prov 
         del_remision_linea_prov = Remision_linea_prov.objects.get(pk=id_rem_art)
         del_remision_linea_prov.delete()
         context['articulo_factura']=Remision_linea_prov.objects.filter(codremision_id=id)
@@ -86,14 +97,6 @@ def editar_remision_proveedores(request, id):
         return redirect('provrem')
     return render(request, 'RemisionesProv/remisionprov_editar.html',context)
 
-
-
-
-
-
-
-
-    return render(request, "Remisiones/remision_editar.html", context)
 
 def eliminar_remision_proveedores(request, id):
     enviado = False
