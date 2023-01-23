@@ -9,7 +9,7 @@ class ProveedorBusqueda(Form):
     ruc = forms.CharField(label='RUC:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'ruc'}),required=False)
     nombre = forms.CharField(label='NOMBRE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre','list':'proveedores','autocomplete':'off'}),required=False)
     telefono = forms.CharField(label='TELEFONO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'telefono'}),required=False)
     provincia = forms.ModelChoiceField(label='PROVINCIA:',queryset=Provincias.objects.all(),
@@ -149,7 +149,7 @@ class AgregarArticulo(ModelForm):
             'descripcion':forms.TextInput(attrs={'class':'form-control'}),
             'tipo':forms.Select(attrs={'class':'form-select form-select-sm'}),
             'impuesto':forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'proveedor':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'proveedor':forms.TextInput(attrs={'class':'form-select form-select-sm awesomplete','list':'proveedores','autocomplete':'off'}),
             'descripcion_corta':forms.TextInput(attrs={'class': 'form-control'}),
             'ubicacion':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'stock':forms.TextInput(attrs={'class': 'form-control'}),
@@ -232,8 +232,8 @@ class RemisionProvBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     factura = forms.CharField(label='NRO FACTURA:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
-    fecha = forms.DateField(label='FECHA:',
-        widget=forms.DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+    proveedor = forms.CharField(label='NOMBRE PROVEEDOR:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'proveedor'}),required=False)
 
 class AgregarRemisionProv(ModelForm):
     class Meta:

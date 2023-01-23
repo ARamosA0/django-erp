@@ -12,7 +12,8 @@ def proveedores(request):
         'proveedores_list': proveedores_list,
         'busquedaform': busquedaform,
         'contador':len(proveedores_list),
-        'num':0
+        'num':0,
+        'search_list_prov':proveedores_list
     }
     if request.method == 'POST':
         busquedaform = ProveedorBusqueda(request.POST)

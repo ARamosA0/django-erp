@@ -182,9 +182,9 @@ urlpatterns =[
     path('orden/eliminar/referenciaarticulo/<int:id>', ver_factura_eliminar_articulo, name="eliminarartref"),
 
 
-    #Guia de remision de proveedores
+    #Guia de remision de compras proveedores
     path('provremision/', remision_proveedores, name="provrem"),
-    path('provremision/agregarremision', agregar_remision_proveedores, name="adprovrem"),
+    path('provremision/agregarremision/<int:id>/', agregar_remision_proveedores, name="adprovrem"),
     path('provremision/ver/<int:id>/', ver_remision_proveedores, name="verprovrem"),
     path('provremision/editar/<int:id>', editar_remision_proveedores, name="edprovrem"),
     path('provremision/eliminar/<int:id>', eliminar_remision_proveedores, name="delprovrem"),

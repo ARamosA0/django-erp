@@ -14,6 +14,11 @@
                 <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ in_articulo_per.as_p }}                   
+                    <datalist id="proveedores">
+                        {% for prov in search_list_prov %}
+                        <option value="{{prov.id}}">{{prov}}</option>
+                        {% endfor %}
+                    </datalist>
                     <button type="submit" class="btn btn-primary">Guardar articulo</button>
                 </form>
             {% endif %}
