@@ -38,8 +38,8 @@ def orden_compra(request):
         if busquedaform.is_valid():
             data = Compra_prov.objects.all()
             data = data.filter(codprov__ruc=busquedaform.cleaned_data['rucproveedor'])  if busquedaform.cleaned_data['rucproveedor'] else data
-            data = data.filter(factura_id=busquedaform.cleaned_data['numorden'])  if busquedaform.cleaned_data['numorden'] else data
-            data = data.filter(factura__fecha=busquedaform.cleaned_data['fechaorden'])  if busquedaform.cleaned_data['fechaorden'] else data
+            data = data.filter(compra_id=busquedaform.cleaned_data['numorden'])  if busquedaform.cleaned_data['numorden'] else data
+            data = data.filter(compra__fecha=busquedaform.cleaned_data['fechaorden'])  if busquedaform.cleaned_data['fechaorden'] else data
             data = data.filter(estado=busquedaform.cleaned_data['estado'])  if busquedaform.cleaned_data['estado'] else data
             context['compra_list']=data
             context['busquedaform']=busquedaform

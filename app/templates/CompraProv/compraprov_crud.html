@@ -5,7 +5,7 @@
     <div class="col-md-10 col-lg-5">
       <h4><center>Buscar Orden de Compra</center></h4>
       <div  class="form-group">
-        <form id="form_busqueda" name="form_busqueda" method="post">
+        <form id="form_busqueda" name="form_busqueda" method="POST">
             {% csrf_token %}
             {{ busquedaform.as_p }}
           <div  style="float: right;">
@@ -54,10 +54,10 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ com.compra.id }}</td>
             <td>{{ com.compra.fecha }}</td>
-            {% if com.codporv.empresa %}
-                <td>{{ com}}</td>          
+            {% if com.codprov.empresa %}
+                <td>{{ com.codprov}}</td>          
             {% else %}
-                <td>{{ com }}</td>
+                <td>{{ com.codprov }}</td>
             {% endif %}
             <td>{{ com.codprov.ruc }}</td>
             <td>{{ com.compra.totalfactura }}</td>
@@ -73,6 +73,7 @@
             <td>
                 <a type="button" href="{% url 'edorden' com.compra.id %}" class="btn btn-success">Editar</a>
                 <a type="button" href="{% url 'delorden' com.compra.id %}" class="btn btn-danger">Eliminar</a>
+                <a type="button" href="{% url 'adprovrem' com.compra.id %}" class="btn btn-secondary">Hacer remisión</a>
             </td>
         </tr>
         {% endfor %}

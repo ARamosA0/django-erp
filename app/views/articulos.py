@@ -47,6 +47,7 @@ def agregar_articulo(request):
         'in_articulo_per':in_articulo_per,
         'enviado':enviado, 
         'img_obj': in_articulo_per.instance,
+        'search_list_prov':Proveedores.objects.all()
     }
     return render(request, "Articulos/formulario_insertar_articulo.html", context)
 
