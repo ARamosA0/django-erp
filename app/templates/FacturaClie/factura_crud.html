@@ -40,7 +40,7 @@
             <th scope="col">N.Factura</th>
             <th scope="col">Fecha</th>
             <th scope="col">Cliente</th>
-            <th scope="col">DNI</th>
+            <th scope="col">RUC</th>
             <th scope="col">Importe</th>
         </tr>        
     </thead>
@@ -52,8 +52,8 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ fac.factura.id }}</td>
             <td>{{ fac.factura.fecha }}</td>
-            <td>{{ fac.codcliente.persona.nombre }}</td>
-            <td>{{ fac.codcliente.persona.dni }}</td>
+            <td>{{ fac.codcliente }}</td>
+            <td>{{ fac.codcliente.ruc }}</td>
             <td>{{ fac.factura.totalfactura }}</td>
             <td>
                 <a type="button" href="{% url 'verfacturaclie' fac.factura.id %}" class="btn btn-primary">Ver</a> 

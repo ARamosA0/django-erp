@@ -41,7 +41,6 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th scope="col">Familia</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Cantidad</th>
@@ -55,15 +54,19 @@
             {% if articulo_factura %}
             {% for artfac in articulo_factura %}
             <tr scope="row"> 
-                <td>{{ artfac.codproducto.codproducto.familia.nombre }}</td>
-                <td>{{ artfac.codproducto.codproducto.nombre }}</td>
-                <td>{{ artfac.codproducto.codproducto.descripcion }}</td>
+                <td>{{ artfac.codproducto.codproducto }}</td>
+                <td>{{ artfac.codproducto.codproducto.descripcion_producto }}</td>
                 <td>{{ artfac.codproducto.cantidad }}</td>
                 <td>{{ artfac.codproducto.precio }}</td>
                 <td>{{ artfac.codproducto.dsctoproducto }}</td>
                 <td>{{ artfac.codproducto.importe }}</td>
                 <td>
-                    <a type="button" href="{% url 'delremart' artfac.id %}" class="btn btn-danger">Eliminar</a>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_rem_art" value={{artfac.id}}>
+                        <input type="hidden" name="id_ven_art" value={{artfac.codproducto.id}}>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}
