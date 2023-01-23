@@ -1,0 +1,41 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<section class="container" style="margin-top: 2em">
+    <div class="card">
+        <div class="card-header">
+            Insertar artículos a este producto
+        </div>
+        <div class="card-body">
+            
+            <form action="" method="POST" class="row g-3" style="margin: 2em;">
+                {% csrf_token %}
+                Escoga el artículo:
+                {% if articulos_list %}
+                    <select class="form-select" aria-label="Default select example" name="test[]">
+                        <option selected>------</option>
+                        {% for art in articulos_list %}
+                            <option value="{{ art.id }}" id="{{ art.id }}">{{ art.nombre }}</option>
+                        {% endfor %}
+                    </select><br>
+                    Cantidad:
+                    <input class="form-control" type="number" name="cantidad" style="margin: 1mm;" />
+                {% else %}
+                    <p>No se encontraron artículos para añadir a este producto</p>
+                    <a class="btn btn-primary" href="{% url 'prod' %}" role="button">Regresar</a>
+                {% endif %}
+
+                <button type="submit" class="btn btn-primary">Guardar articulo</button>
+                {% if enviado %}
+                    <div class="alert alert-success" role="alert">
+                        El artículo fue agregado, puede seguir añadiendo, o puede volver a productos
+                    </div>
+                    <a class="btn btn-primary" href="{% url 'prod' %}" role="button">Volver a productos</a>
+                {% else %}
+                {% endif %}
+            </form>
+        </div>
+        
+    </div>
+</section>
+{% endblock %}
