@@ -10,4 +10,4 @@ from app.views.ubicaciones import *
 from app.views.ventas_clie import *
 from app.views.factura_clie import *
 from app.views.orden_compra import *
-
+from app.views.produccion import *

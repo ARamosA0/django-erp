@@ -22,6 +22,16 @@ def remisiones(request):
             context['busquedaform']=busquedaform
     else:
         busquedaform = RemisionBusqueda()
+    if 'btnestadono' in request.POST:
+        remid = request.POST['remid']
+        rem_item = Remision_clie.objects.get(id = remid)
+        rem_item.estado = Remision_clie.ENVIADO
+        rem_item_list = Remision_linea_clie.objects.filter(codremision = rem_item.id)
+        for rem in rem_item_list:
+            rem_producto = Producto.objects.get(id = rem.codproducto.codproducto.id)
+            rem_producto.cantidad = rem_producto.cantidad - rem.codproducto.cantidad
+            rem_producto.save()
+        rem_item.save() 
     return render(request, "Remisiones/estructura_crud_rem.html",context)
 
 def agregar_remision(request,id):
