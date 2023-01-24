@@ -225,6 +225,8 @@ class RemisionBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
+    empresa = forms.CharField(label='EMPRESA:',
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'empresa', 'name':'empresa'}),required=False)
 
 #REMISION PROVEEDORES
 class RemisionProvBusqueda(Form):
