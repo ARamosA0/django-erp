@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class='row justify-content-center m-5'>
-    <div class="col-md-10 col-lg-5">
+    <div class="col-md-10 col-lg-5 mb-4">
       <h4><center>Buscar Ubicación</center></h4>
       <div  class="form-group">
         <form id="form_busqueda" name="form_busqueda" method="post">
@@ -16,10 +16,10 @@
         </form>
     </div>
     </div>
-
+<hr>
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <p>N de ubicaciones encontradas:</p>
+        <p>N de ubicaciones encontradas: {{contador}}</p>
     </div>
     <div style="display: flex;">
         <p style="margin:10px;">Mostrados:</p>
@@ -32,13 +32,13 @@
     </div>
 </div>
 <div>
-    <h3 style="text-align: center;">Relacion de Ubicaciones</h3>
+    <h3 style="text-align: center;">Relación de Ubicaciones</h3>
 </div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th scope="col">Item</th>
-            <th scope="col">Codigo</th>
+            <th scope="col">Código</th>
             <th scope="col">Nombre</th>
             <th scope="col">Acciones</th>
         </tr>        
@@ -52,14 +52,18 @@
             <td>{{ ubi.id }}</td>
             <td>{{ ubi.nombre }}</td>
             <td>
-                <a type="button" href="{% url 'verubi' ubi.id %}" class="btn btn-primary">Ver</a>
-                <a type="button" href="{% url 'edubi' ubi.id %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delubi' ubi.id %}" class="btn btn-danger">Eliminar</a>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a type="button" href="{% url 'verubi' ubi.id %}" class="btn btn-primary btn-sm">Ver</a>
+                    <a type="button" href="{% url 'edubi' ubi.id %}" class="btn btn-success btn-sm">Editar</a>
+                    <a type="button" href="{% url 'delubi' ubi.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
             </td>
         </tr>
         {% endfor %}
         {% else %}
-        <h4>No se encontraron datos</h4>
+        <div class="alert alert-danger" role="alert">
+            No se encontraron datos
+        </div>
         {% endif %}
     </tbody>
 </table>

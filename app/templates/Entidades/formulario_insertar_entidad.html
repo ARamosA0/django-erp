@@ -8,7 +8,9 @@
         </div>
         <div class="card-body">
             {% if enviado %}
-                <p>Entidad fue agregado </p>
+                <div class="alert alert-success" role="alert">
+                La entidad fue agregada
+                </div>
                 <a class="btn btn-primary" href="{% url 'ent' %}" role="button">Volver</a>
             {% else %}
                 <form action="" method="POST" class="row g-3">

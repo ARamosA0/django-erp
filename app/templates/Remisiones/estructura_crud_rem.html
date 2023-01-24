@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class='row justify-content-center m-5'>
-    <div class="col-md-10 col-lg-5">
-      <h4><center>Buscar Remision</center></h4>
+    <div class="col-md-10 col-lg-5 mb-4">
+      <h4><center>Buscar Remisión</center></h4>
       <div  class="form-group">
         <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
@@ -15,10 +15,10 @@
         </form>
     </div>
     </div>
-
+<hr>
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <p>N de remisiones encontradas:</p>
+        <p>N de remisiones encontradas: {{contador}}</p>
     </div>
     <div style="display: flex;">
         <p style="margin:10px;">Mostrados:</p>
@@ -41,7 +41,7 @@
             <th scope="col">Código factura</th>
             <th scope="col">Fecha factura</th>
             <th scope="col">Cliente</th>
-            <th scope="col">DNI Cliente</th>
+            <th scope="col">DNI O RUC</th>
             <th scope="col">Acciones</th>
         </tr>        
     </thead>
@@ -59,16 +59,24 @@
             {% else %}
                 <td>{{ rem.factura_cliente.codcliente.empresa.nombre }}</td>
             {% endif %}
-            <td>{{ rem.factura_cliente.codcliente.persona.dni }}</td>
+            {% if rem.factura_cliente.codcliente.persona.dni %}
+                <td>{{ rem.factura_cliente.codcliente.persona.dni }}</td>
+            {% else %}
+                <td>{{ rem.factura_cliente.codcliente.ruc }}</td>
+            {% endif %}
             <td>
-                <a type="button" href="{% url 'verrem' rem.pk %}" class="btn btn-primary">Ver</a>
-                <a type="button" href="{% url 'edrem' rem.pk %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delrem' rem.pk %}" class="btn btn-danger">Eliminar</a>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a type="button" href="{% url 'verrem' rem.pk %}" class="btn btn-primary btn-sm">Ver</a>
+                    <a type="button" href="{% url 'edrem' rem.pk %}" class="btn btn-success btn-sm">Editar</a>
+                    <a type="button" href="{% url 'delrem' rem.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
             </td>
         </tr>
         {% endfor %}
         {% else %}
-        <h4>No se encontraron datos</h4>
+        <div class="alert alert-danger" role="alert">
+            No se encontraron datos
+        </div>
         {% endif %}
     </tbody>
 </table>

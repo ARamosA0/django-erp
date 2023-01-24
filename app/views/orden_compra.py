@@ -31,6 +31,7 @@ def orden_compra(request):
     busquedaform = OrdenCompraBusqueda()
     context = { 
         'compra_list':compra_list,
+        'contador':len(compra_list),
         'busquedaform':busquedaform
     }
     if request.method == 'POST':

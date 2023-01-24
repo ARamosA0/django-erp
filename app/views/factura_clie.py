@@ -9,6 +9,7 @@ def factura(request):
     busquedaform = FacturaBusqueda()
     context ={
         'factura_list': factura_list,
+        'contador':len(factura_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

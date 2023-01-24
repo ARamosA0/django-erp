@@ -9,6 +9,7 @@ def entidad(request):
     busquedaform = EntidadBusqueda()
     context ={
         'entidades_list': entidades_list,
+        'contador':len(entidades_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

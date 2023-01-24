@@ -9,6 +9,7 @@ def remisiones(request):
     busquedaform = RemisionBusqueda()
     context ={
         'remisiones_list': remisiones_list,
+        'contador':len(remisiones_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

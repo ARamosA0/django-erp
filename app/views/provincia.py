@@ -9,6 +9,7 @@ def provincia(request):
     busquedaform = ProvinciaBusqueda()
     context ={
         'provincias_list': provincias_list,
+        'contador':len(provincias_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

@@ -9,6 +9,7 @@ def clientes(request):
     busquedaform = ClienteBusqueda()
     context ={
         'clientes_list': clientes_list,
+        'contador':len(clientes_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

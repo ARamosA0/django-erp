@@ -10,6 +10,7 @@ def familias(request):
     busquedaform = FamiliaBusqueda()
     context ={
         'familias_list': familias_list,
+        'contador':len(familias_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

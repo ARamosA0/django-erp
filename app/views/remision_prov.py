@@ -9,6 +9,7 @@ def remision_proveedores(request):
     busquedaform = RemisionProvBusqueda()
     context ={
         'remisiones_list': remisiones_list,
+        'contador':len(remisiones_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

@@ -9,17 +9,19 @@
         </div>
         <div class="card-body">
             {% if enviado %}
-                <p>La remisión fue agregada</p>
+            <div class="alert alert-success" role="alert">
+                La remisión fue agregada
+                </div>
                 <a class="btn btn-primary" href="{% url 'facturaclie' %}" role="button">Volver</a>
             {% else %}
                 <form action="" method="POST">
                     {% csrf_token %}
                         {% if productos_list %}
-                        <table class="table table-striped table-hover" style="margin-top: -3em;">
+                        <table class="table table-striped table-hover" style="margin-top: -2em;">
                             <thead>
                                 <tr>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Descripción</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">DCTO %</th>
@@ -44,7 +46,9 @@
                         </tbody>
                     </table>
                     {% else %}
-                        <p>Ya se completaron las remisiones de esta factura</p>
+                        <div class="alert alert-danger" role="alert">
+                            Ya se completaron las remisiones de esta factura
+                        </div>
                         <a class="btn btn-primary" href="{% url 'rem' %}" role="button">Regresar a remisiones</a>
                     {% endif %}
                     <button type="submit" class="btn btn-primary">Guardar Remisión</button>
