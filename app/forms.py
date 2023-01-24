@@ -225,6 +225,8 @@ class RemisionBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
+    empresa = forms.CharField(label='EMPRESA:',
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'empresa', 'name':'empresa'}),required=False)
 
 #REMISION PROVEEDORES
 class RemisionProvBusqueda(Form):
@@ -383,3 +385,26 @@ class LibroDiarioBusqueda(Form):
     tipo = forms.CharField(label='TIPO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
     
+#PRODUCCION 
+NINGUNO = 'No Iniciado'
+PROCESO = 'En proceso'
+TERMINADO = 'Terminado'
+SALIENDO = 'Saliendo'
+
+PROCESOSPROD = [
+    ('', '---------'),
+    (NINGUNO, 'No Iniciado'),
+    (PROCESO, 'En proceso'),
+    (TERMINADO, 'Terminado'),
+    (SALIENDO, 'Saliendo')
+]
+
+class ProduccioBusqueda(Form):
+    fecha_inicio = forms.DateField(label='FECHA DE INICIO:',
+        widget=DateInput(attrs={'class':'form-control','id':'fecha_inicio'}),required=False)
+    fecha_fin = forms.DateField(label='FECHA DE FIN:',
+        widget=DateInput(attrs={'class':'form-control','id':'fecha_fin'}),required=False)
+    estado = forms.CharField(label='ESTADO:',
+        widget=forms.Select(choices=PROCESOSPROD,attrs={'class':'form-select','id':'estado'}),required=False)
+    
+

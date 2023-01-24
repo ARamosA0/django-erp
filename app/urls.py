@@ -18,6 +18,7 @@ from app.views.remision_prov import *
 from app.views.libro_diario import *
 from app.views.caja_diaria import *
 from app.views.productos import *
+from app.views.produccion import *
 
 urlpatterns =[
     # Pagina Principal
@@ -195,5 +196,11 @@ urlpatterns =[
     #Caja Diaria
     path('caja/', caja_diaria, name="caja"),
     path('caja/ver/<int:id>', ver_caja, name="vercaja"),
+
+    #Produccion
+    path('produccion/', produccion, name='produc'),
+    path('produccion/agregar/', agr_produccion, name='agprod'),
+    path('produccion/eliminar/<int:id>/',del_produccion, name='delprodu'),
+    path('produccion/ver/<int:id>/',ver_produccion, name='verprodu'),
 
 ]

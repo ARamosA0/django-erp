@@ -124,13 +124,21 @@ def reg_venta(request):
                 del_flc.delete()
                 suma_importes(context,factura.pk)
             if validfac_finalform:
+                
+                #Modificación en el contador de productos
+                factura_clie = Factura_clie.objects.get(pk=factura.pk)
+                contador_productos = Factura_linea_clie.objects.filter(factura_cliente_id=factura.pk).count()
+                factura_clie.contador_productos = contador_productos
+                factura_clie.save()
+
+                #Modificación en el total facturado
                 factura  = Factura.objects.filter(pk=factura.pk)[0]
                 factura.totalfactura = request.POST["total_fac"]
                 factura.save()
 
                 #Guardado de la ultima factura creada a Libro_diario 
                 agregar_factura = Factura.objects.last()
-                factura_id = int(agregar_factura.pk)    
+                factura_id = int(agregar_factura.pk)
 
                 agregar_dato_libro_diario = Libro_diario()
                 agregar_dato_libro_diario.obtener_factura_id = factura_id
