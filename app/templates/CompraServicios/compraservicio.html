@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            <h3>Orden de compra de servicios</h3>
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">DATOS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">TRABAJADOR:</th>
+                            <td>{{ orden_compra.trabajador }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FECHA DE EMISION DE ORDEN:</th>
+                            <td>{{ orden_compra.fecha_orden_servicio }}</td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <div class="card-header modal-title fs-5">
+            <h3>Servicios</h3>
+          </div>
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Servicio</th>
+                <th scope="col">Fecha de compra</th>
+                <th scope="col">Fecha de inicio</th>
+                <th scope="col">Fecha de fin</th>
+                <th scope="col">Precio de servicio</th>
+              </tr>
+            </thead>
+        
+            <tbody>
+                {% if servicios %} {% for serv in servicios %}
+                <tr scope="row">
+                    <td>{{ serv.servicio.nombre }}</td>
+                    <td>{{ serv.fecha_compra }}</td>
+                    <td>{{ serv.fecha_inicio }}</td>
+                    <td>{{ serv.fecha_fin }}</td>
+                    <td>{{ serv.precio_compra }}</td>
+                </tr>
+                {% endfor %} {% else %}
+                <h4>No se encontraron datos</h4>
+                {% endif %}
+            </tbody>
+          </table>
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'peserv' %}" class="btn btn-primary">Regresar</a>
+    </div>
+{% endblock %}
