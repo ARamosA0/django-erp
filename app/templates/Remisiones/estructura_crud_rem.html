@@ -41,7 +41,8 @@
             <th scope="col">Código factura</th>
             <th scope="col">Fecha factura</th>
             <th scope="col">Cliente</th>
-            <th scope="col">DNI O RUC</th>
+            <th scope="col">DNI o RUC</th>
+            <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
         </tr>        
     </thead>
@@ -64,6 +65,24 @@
             {% else %}
                 <td>{{ rem.factura_cliente.codcliente.ruc }}</td>
             {% endif %}
+            <td>
+               
+                <form method="POST">
+                    {% csrf_token %} {% if rem.estado == "No Enviado" %}
+                    <button class="btn btn-secondary" name="btnestadono" type="submit">
+                      <input type="hidden" name="remid" id="remid" value="{{rem.id}}">
+                      {{rem.estado}}
+                    </button>
+                    {% elif rem.estado == 'Enviado' %}
+                    <button class="btn btn-success name="btnestadoenviado" type="submit" value="{prod.id}">
+                      <input type="hidden" name="remid" id="remid" value="{{rem.id}}">
+                      {{rem.estado}}
+                    </button>
+                    {% else %}
+                    NADA
+                    {% endif %}
+                  </form>
+            </td>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a type="button" href="{% url 'verrem' rem.pk %}" class="btn btn-primary btn-sm">Ver</a>

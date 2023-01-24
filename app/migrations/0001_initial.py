@@ -48,6 +48,14 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Clientes',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('ruc', models.CharField(max_length=100)),
+                ('borrado', models.CharField(default=0, max_length=1)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Compra_linea_prov',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -132,6 +140,14 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Orden_compra_servicio',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('fecha_orden_servicio', models.DateTimeField()),
+                ('trabajador', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.clientes')),
+            ],
+        ),
+        migrations.CreateModel(
             name='Persona',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -144,6 +160,15 @@ class Migration(migrations.Migration):
                 ('telefono', models.CharField(max_length=100)),
                 ('movil', models.CharField(max_length=100)),
                 ('web', models.CharField(max_length=100)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Produccion',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('fecha_inicio', models.DateField(auto_now_add=True)),
+                ('fecha_fin', models.DateField()),
+                ('estdo_produccion', models.CharField(choices=[('No Iniciado', 'No Iniciado'), ('En proceso', 'En proceso'), ('Terminado', 'Terminado'), ('Saliendo', 'Saliendo')], default='No Iniciado', max_length=100)),
             ],
         ),
         migrations.CreateModel(
@@ -163,6 +188,16 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Proveedores',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('ruc', models.CharField(max_length=100)),
+                ('borrado', models.CharField(default=0, max_length=1)),
+                ('empresa', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.empresa')),
+                ('persona', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.persona')),
+            ],
+        ),
+        migrations.CreateModel(
             name='Provincias',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -175,6 +210,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('fecha_remision', models.DateField(auto_now_add=True)),
                 ('contador', models.IntegerField(default=0, null=True)),
+                ('estado', models.CharField(choices=[('No Enviado', 'No Enviado'), ('Enviado', 'Enviado')], default='No Enviado', max_length=100)),
             ],
         ),
         migrations.CreateModel(
@@ -197,13 +233,37 @@ class Migration(migrations.Migration):
                 ('imagen_factura_compra', models.ImageField(blank=True, null=True, upload_to=app.models.upload_path2)),
                 ('estado', models.BooleanField(blank=True, default=False, null=True)),
                 ('detaller_entrega', models.TextField(blank=True, null=True)),
+                ('codprov', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.proveedores')),
             ],
         ),
         migrations.CreateModel(
             name='Factura_clie',
             fields=[
                 ('factura', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='app.factura')),
+                ('estadoprod', models.BooleanField(default=False, null=True)),
                 ('contador_productos', models.IntegerField(default=0, null=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Servicios',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('nombre', models.CharField(max_length=200)),
+                ('descripcion', models.TextField()),
+                ('precio', models.FloatField()),
+                ('contratista', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.proveedores')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Servicio_compra',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('fecha_compra', models.DateField()),
+                ('fecha_inicio', models.DateField()),
+                ('fecha_fin', models.DateField()),
+                ('precio_compra', models.FloatField(null=True)),
+                ('orden_compra', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='app.orden_compra_servicio')),
+                ('servicio', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.servicios')),
             ],
         ),
         migrations.CreateModel(
@@ -223,13 +283,12 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Proveedores',
+            name='Recibir_orden_servicio',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ruc', models.CharField(max_length=100)),
-                ('borrado', models.CharField(default=0, max_length=1)),
-                ('empresa', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.empresa')),
-                ('persona', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.persona')),
+                ('fecha_pedido', models.DateTimeField()),
+                ('costo_total', models.FloatField()),
+                ('orden_compra_referencia', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='app.orden_compra_servicio')),
             ],
         ),
         migrations.CreateModel(
@@ -239,6 +298,15 @@ class Migration(migrations.Migration):
                 ('cantidad', models.IntegerField(default=0)),
                 ('articulo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.articulos')),
                 ('producto', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.producto')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Produccion_linea',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('estdo_produccion_prod', models.CharField(choices=[('No Iniciado', 'No Iniciado'), ('En proceso', 'En proceso'), ('Terminado', 'Terminado'), ('Saliendo', 'Saliendo')], default='No Iniciado', max_length=100)),
+                ('cod_producto', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='app.factura_linea_clie')),
+                ('produccion', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='app.produccion')),
             ],
         ),
         migrations.AddField(
@@ -264,16 +332,20 @@ class Migration(migrations.Migration):
             name='codprovincia',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.provincias'),
         ),
-        migrations.CreateModel(
-            name='Clientes',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ruc', models.CharField(max_length=100)),
-                ('borrado', models.CharField(default=0, max_length=1)),
-                ('codformapago', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.formapago')),
-                ('empresa', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.empresa')),
-                ('persona', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.persona')),
-            ],
+        migrations.AddField(
+            model_name='clientes',
+            name='codformapago',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.formapago'),
+        ),
+        migrations.AddField(
+            model_name='clientes',
+            name='empresa',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.empresa'),
+        ),
+        migrations.AddField(
+            model_name='clientes',
+            name='persona',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.persona'),
         ),
         migrations.AddField(
             model_name='articulos',
@@ -309,6 +381,11 @@ class Migration(migrations.Migration):
             model_name='remision_clie',
             name='factura_cliente',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.factura_clie'),
+        ),
+        migrations.AddField(
+            model_name='produccion',
+            name='factura_clie',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='app.factura_clie'),
         ),
         migrations.AddField(
             model_name='factura_linea_clie',

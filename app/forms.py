@@ -253,6 +253,8 @@ class RemisionBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'factura'}),required=False)
     cliente = forms.CharField(label='NOMBRE CLIENTE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'cliente'}),required=False)
+    empresa = forms.CharField(label='EMPRESA:',
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'empresa', 'name':'empresa'}),required=False)
 
 #REMISION PROVEEDORES
 class RemisionProvBusqueda(Form):
@@ -416,4 +418,62 @@ class LibroDiarioBusqueda(Form):
         widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
     tipo = forms.CharField(label='TIPO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
+
+#SERVICIOS
+class AgregarServicio(ModelForm):
+    class Meta:
+        model = Servicios
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'contratista':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control'}),
+            'precio':forms.TextInput(attrs={'class':'form-control'}),
+        }
+
+#ORDEN DE SERVICIO
+class AgregarOrdenServicio(ModelForm):
+    class Meta:
+        model = Orden_compra_servicio
+        fields = '__all__'
+        widgets = {
+            'trabajador':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'fecha_orden_servicio':forms.DateInput(attrs={'class':'form-control'}),
+        }
+
+class AgregarServicioEnOrdenCompra(ModelForm):
+    class Meta:
+        model = Servicio_compra
+        fields = '__all__'
+        widgets = {
+            'contratista':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'orden_compra':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'fecha_compra':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha_inicio':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha_fin':forms.DateInput(attrs={'class':'form-control'}),
+        }
+
     
+#PRODUCCION 
+NINGUNO = 'No Iniciado'
+PROCESO = 'En proceso'
+TERMINADO = 'Terminado'
+SALIENDO = 'Saliendo'
+
+PROCESOSPROD = [
+    ('', '---------'),
+    (NINGUNO, 'No Iniciado'),
+    (PROCESO, 'En proceso'),
+    (TERMINADO, 'Terminado'),
+    (SALIENDO, 'Saliendo')
+]
+
+class ProduccioBusqueda(Form):
+    fecha_inicio = forms.DateField(label='FECHA DE INICIO:',
+        widget=DateInput(attrs={'class':'form-control','id':'fecha_inicio'}),required=False)
+    fecha_fin = forms.DateField(label='FECHA DE FIN:',
+        widget=DateInput(attrs={'class':'form-control','id':'fecha_fin'}),required=False)
+    estado = forms.CharField(label='ESTADO:',
+        widget=forms.Select(choices=PROCESOSPROD,attrs={'class':'form-select','id':'estado'}),required=False)
+    
+

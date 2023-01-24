@@ -1,0 +1,99 @@
+{%extends 'index.html'%}
+
+{% block content %}
+<div class='row justify-content-center m-5'>
+    <div class="col-md-10 col-lg-5">
+      <h4><center>Produccion</center></h4>
+      <div  class="form-group">
+        <form id="form_busqueda" name="form_busqueda" method="post">
+            {% csrf_token %}
+          {{ busquedaform.as_p }}  
+          <div  style="float: right;">
+            <button class="btn btn-primary" name="busquedaproduccion">Buscar</button>
+            <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
+            <a type="button" href="{% url 'agprod' %}" class="btn btn-success" >Registrar Pedido</a>
+          </div>                   
+        </form>
+    </div>
+    </div>
+
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        <p>N de entidades encontradas:</p>
+    </div>
+    <div style="display: flex;">
+        <p style="margin:10px;">Mostrados:</p>
+        <select style="width: 80px;" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option selected>1-10</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+</div>
+<div>
+    <h3 style="text-align: center;">Relación de Entidades</h3>
+</div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">N.Produccion</th>
+            <th scope="col">N.Factura</th>
+            <th scope="col">N.Productos</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Fecha Fin</th>
+            <th scope="col">Estado</th>
+        </tr>        
+    </thead>
+    
+    <tbody>
+        {% if produccion_list %}
+        {% for prod in produccion_list %}
+        <tr scope="row">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ prod.id }}</td>
+            <td>{{ prod.factura_clie.factura.id }}</td>
+            <td>{{ prod.factura_clie.contador_productos }}</td>
+            <td>{{ prod.fecha_inicio }}</td>
+            <td>{{ prod.fecha_fin }}</td>
+            <td>
+                <form method="POST">
+                  {% csrf_token %} {% if prod.estdo_produccion == "No Iniciado" %}
+                  <button class="btn btn-secondary" name="btnestadoinicio" type="submit">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion}}
+                  </button>
+                  {% elif prod.estdo_produccion == 'En proceso' %}
+                  <button class="btn btn-warning" name="btnestadoproceso" type="submit" value="{prod.id}">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion}}
+                  </button>
+                  {% elif prod.estdo_produccion == 'Terminado' %}
+                  <button class="btn btn-success" name="btnestadoterminado" type="submit" value="{prod.id}">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion}}
+                  </button>
+                  {% elif prod.estdo_produccion == 'Saliendo' %}
+                  <button class="btn btn-danger" name="btnestadosaliendo" type="submit" value="{prod.id}">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion }}
+                  </button>
+                  {% else %}
+                  NADA
+                  {% endif %}
+                </form>
+              </td>
+            <td>
+                <a type="button" href="{% url 'verprodu' prod.id %}" class="btn btn-primary">Ver</a> 
+                <a type="button" href="{% url 'delprodu' prod.id %}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h4>No se encontraron datos</h4>
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

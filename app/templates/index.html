@@ -60,10 +60,14 @@
                 </ul>
               </li>
               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-link navbar-brand mb-0 h1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Produccion</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'produc' %}">Estado de Produccion</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link navbar-brand mb-0 h1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Tesoreria</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="">Cobros</a></li>
-                  <li><a class="dropdown-item" href="">Pagos</a></li>
                   <li><a class="dropdown-item" href="{% url 'caja' %}">Caja Diria</a></li>
                   <li><a class="dropdown-item" href="{% url 'libdia' %}">Libro Diario</a></li>
                 </ul>
@@ -77,6 +81,15 @@
                   <li><a class="dropdown-item" href="{% url 'fpago' %}">Formas de pago</a></li>
                   <li><a class="dropdown-item" href="{% url 'imp' %}">Impuestos</a></li>
                   <li><a class="dropdown-item" href="{% url 'provi' %}">Provincias</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-link navbar-brand mb-0 h1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Servicios</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'serv' %}">Servicios</a></li>
+                  <li><a class="dropdown-item" href="{% url 'peserv' %}">Orden de servicios</a></li>
+                  <li><a class="dropdown-item" href="{% url 'regorden' %}">Registros</a></li>
+                  <li><a class="dropdown-item" href="">Recibo de servicios</a></li>
                 </ul>
               </li>
             </ul>

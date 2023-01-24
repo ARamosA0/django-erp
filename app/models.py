@@ -172,6 +172,7 @@ class Factura(models.Model):
 class Factura_clie(models.Model):
     factura = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+    estadoprod = models.BooleanField(null=True, default=False)
     contador_productos = models.IntegerField(null=True, default=0)
 
     def __str__(self):
@@ -226,9 +227,18 @@ class Compra_linea_prov(models.Model):
 
 #Remision de clientes
 class Remision_clie(models.Model):
+    NOENVIADO = 'No Enviado'
+    ENVIADO = 'Enviado'
+    
+
+    ESTADOREM = [
+        (NOENVIADO, 'No Enviado'),
+        (ENVIADO, 'Enviado'),
+    ]
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
     fecha_remision = models.DateField(auto_now_add=True)
     contador = models.IntegerField(default=0, null=True)
+    estado = models.CharField(max_length=100, choices=ESTADOREM, default=NOENVIADO)
 
     def __str__(self):
         return "Numero de factura:{}".format(self.factura_cliente.factura.pk)
@@ -296,3 +306,86 @@ class Libro_diario(models.Model):
 
     def __str__(self):
         return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)
+
+
+#######################
+# SERVICIOS
+#Servicio
+#"contratista" en Servicios es la empresa o persona al que se va a pedir el servicio 
+class Servicios(models.Model):
+    nombre = models.CharField(max_length=200)
+    contratista = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    precio = models.FloatField()
+
+    def __str__(self):
+        return "Servicio:{}, Cliente:{}".format(self.nombre, self.contratista.ruc)
+
+#Orden de compra para el servicio
+##"trabajador" es la persona de logistica que va a realizar el pedido 
+class Orden_compra_servicio(models.Model):
+    trabajador = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+    fecha_orden_servicio = models.DateTimeField()
+
+    def __str__(self):
+        return "Trabajador:{}".format(self.trabajador.ruc)
+
+#Servicio(s) dentro de la orden de compra
+class Servicio_compra(models.Model):
+    servicio = models.ForeignKey(Servicios, on_delete=models.CASCADE)
+    orden_compra = models.ForeignKey(Orden_compra_servicio, on_delete=models.CASCADE, null=True)
+    fecha_compra = models.DateField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
+    precio_compra = models.FloatField(null=True)
+
+#Comprobante que muestra el total de servicios 
+class Recibir_orden_servicio(models.Model):
+    orden_compra_referencia = models.OneToOneField(Orden_compra_servicio, on_delete=models.CASCADE, null=True)
+    fecha_pedido = models.DateTimeField()
+    costo_total = models.FloatField()
+    
+    def __str__(self):
+        return "Orden de compra:{}".format(self.servicio_compra_referencia)
+
+
+# Prduccion
+class Produccion(models.Model):
+
+    NINGUNO = 'No Iniciado'
+    PROCESO = 'En proceso'
+    TERMINADO = 'Terminado'
+    SALIENDO = 'Saliendo'
+
+    PROCESOSPROD = [
+        (NINGUNO, 'No Iniciado'),
+        (PROCESO, 'En proceso'),
+        (TERMINADO, 'Terminado'),
+        (SALIENDO, 'Saliendo')
+    ]
+
+    factura_clie = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
+    fecha_inicio = models.DateField(auto_now_add=True)
+    fecha_fin = models.DateField()
+    estdo_produccion = models.CharField(max_length=100, choices=PROCESOSPROD, default=NINGUNO)
+
+    def __str__(self):
+        return str(self.factura_clie)
+
+class Produccion_linea(models.Model):
+
+    NINGUNO = 'No Iniciado'
+    PROCESO = 'En proceso'
+    TERMINADO = 'Terminado'
+    SALIENDO = 'Saliendo'
+
+    PROCESOSPROD = [
+        (NINGUNO, 'No Iniciado'),
+        (PROCESO, 'En proceso'),
+        (TERMINADO, 'Terminado'),
+        (SALIENDO, 'Saliendo')
+    ]
+
+    produccion = models.ForeignKey(Produccion, on_delete=models.CASCADE, null=True)
+    cod_producto = models.ForeignKey(Factura_linea_clie, on_delete=models.CASCADE, null=True)
+    estdo_produccion_prod = models.CharField(max_length=100, choices=PROCESOSPROD, default=NINGUNO)
