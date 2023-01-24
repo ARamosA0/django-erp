@@ -5,6 +5,7 @@
     <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
         <div class="card-header modal-title fs-5">
             <h3>Orden de compra de servicios</h3>
+            <a type="button" href="{% url 'eddatospeserv' orden_compra_list.id %}" class="btn btn-primary">Editar</a>
         </div>
         <div class="card-body">
             <section class="container">
@@ -18,11 +19,11 @@
                     <tbody>
                         <tr>
                             <th scope="row">TRABAJADOR:</th>
-                            <td>{{ orden_compra.trabajador }}</td>
+                            <td>{{ orden_compra_list.trabajador }}</td>
                         </tr>
                         <tr>
                             <th scope="row">FECHA DE EMISION DE ORDEN:</th>
-                            <td>{{ orden_compra.fecha_orden_servicio }}</td>
+                            <td>{{ orden_compra_list.fecha_orden_servicio }}</td>
                         </tr>
                         </tr>
                     </tbody>
@@ -31,6 +32,7 @@
         </div>
         <div class="card-header modal-title fs-5">
             <h3>Servicios</h3>
+            <a type="button" href="{% url 'aservorcomp' %}" class="btn btn-primary">Agregar</a>
           </div>
           <table class="table table-striped table-hover">
             <thead>
@@ -40,6 +42,7 @@
                 <th scope="col">Fecha de inicio</th>
                 <th scope="col">Fecha de fin</th>
                 <th scope="col">Precio de servicio</th>
+                <th scope="col">Acciones</th>
               </tr>
             </thead>
         
@@ -51,6 +54,10 @@
                     <td>{{ serv.fecha_inicio }}</td>
                     <td>{{ serv.fecha_fin }}</td>
                     <td>{{ serv.precio_compra }}</td>
+                    <td>
+                        <a type="button" href="{% url 'edservorcomp' serv.id %}" class="btn btn-success">Editar</a>
+                        <a type="button" href="{% url 'delservorcomp' serv.id %}" class="btn btn-danger">Eliminar</a>
+                    </td>
                 </tr>
                 {% endfor %} {% else %}
                 <h4>No se encontraron datos</h4>
