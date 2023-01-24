@@ -33,6 +33,18 @@ def produccion(request):
         'busquedaform':busquedaform,
         'produccion_list':produccion_list
     }
+    if 'busquedaproduccion' in request.POST:
+        busquedaform = ProduccioBusqueda(request.POST)
+        if busquedaform.is_valid():
+            data = Produccion.objects.all()
+            print(data.filter(fecha_fin=busquedaform.cleaned_data['fecha_fin']))
+            data = data.filter(fecha_inicio=busquedaform.cleaned_data['fecha_inicio'])  if busquedaform.cleaned_data['fecha_inicio'] else data
+            data = data.filter(fecha_fin=busquedaform.cleaned_data['fecha_fin'])  if busquedaform.cleaned_data['fecha_fin'] else data
+            data = data.filter(estdo_produccion=busquedaform.cleaned_data['estado'])  if busquedaform.cleaned_data['estado'] else data
+            context['produccion_list']=data
+            context['busquedaform']=busquedaform
+    else:
+        busquedaform = ProduccioBusqueda()
     return render(request, 'Produccion/produccion_crud.html', context)
 
 def agr_produccion(request):

@@ -384,20 +384,25 @@ class LibroDiarioBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
     
 #PRODUCCION 
+NINGUNO = 'No Iniciado'
+PROCESO = 'En proceso'
+TERMINADO = 'Terminado'
+SALIENDO = 'Saliendo'
 
-PRODUCCION_ESTADOS = (
-    ('', '--------'),
-    ('PROCESO', 'En proceso'),
-    ('TERMINADO', 'Terminado'),
-    ('SALIENDO', 'Saliendo')
-)
+PROCESOSPROD = [
+    ('', '---------'),
+    (NINGUNO, 'No Iniciado'),
+    (PROCESO, 'En proceso'),
+    (TERMINADO, 'Terminado'),
+    (SALIENDO, 'Saliendo')
+]
 
 class ProduccioBusqueda(Form):
     fecha_inicio = forms.DateField(label='FECHA DE INICIO:',
-        widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+        widget=DateInput(attrs={'class':'form-control','id':'fecha_inicio'}),required=False)
     fecha_fin = forms.DateField(label='FECHA DE FIN:',
-        widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
+        widget=DateInput(attrs={'class':'form-control','id':'fecha_fin'}),required=False)
     estado = forms.CharField(label='ESTADO:',
-        widget=forms.Select(choices=PRODUCCION_ESTADOS,attrs={'class':'form-select','id':'tipo'}),required=False)
+        widget=forms.Select(choices=PROCESOSPROD,attrs={'class':'form-select','id':'estado'}),required=False)
     
 

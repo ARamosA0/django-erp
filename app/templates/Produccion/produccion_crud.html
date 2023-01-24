@@ -9,7 +9,7 @@
             {% csrf_token %}
           {{ busquedaform.as_p }}  
           <div  style="float: right;">
-            <button class="btn btn-primary" >Buscar</button>
+            <button class="btn btn-primary" name="busquedaproduccion">Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
             <a type="button" href="{% url 'agprod' %}" class="btn btn-success" >Registrar Pedido</a>
           </div>                   
