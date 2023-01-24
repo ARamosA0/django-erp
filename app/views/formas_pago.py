@@ -10,6 +10,7 @@ def formas_de_pago(request):
     
     context = {
         'formas_de_pago_list':formas_de_pago_list,
+        'contador':len(formas_de_pago_list),
         'busquedaform':busquedaform
     }
 

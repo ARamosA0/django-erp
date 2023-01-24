@@ -8,7 +8,9 @@
         </div>
         <div class="card-body">
             {% if enviado %}
-                <p>provincia fue agregada</p>
+                <div class="alert alert-success" role="alert">
+                La provincia fue agregada
+                </div>
                 <a class="btn btn-primary" href="{% url 'provi' %}" role="button">Volver</a>
             {% else %}
                 <form action="" method="POST" class="row g-3">

@@ -10,6 +10,7 @@ def impuestos(request):
 
     context = {
         'impuestos_list':impuestos_list,
+        'contador':len(impuestos_list),
         'busquedaform':busquedaform
     }
 

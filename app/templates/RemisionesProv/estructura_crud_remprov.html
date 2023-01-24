@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class='row justify-content-center m-5'>
-    <div class="col-md-10 col-lg-5">
-      <h4><center>Buscar Remision de Compras</center></h4>
+    <div class="col-md-10 col-lg-5 mb-4">
+      <h4><center>Buscar Remisión de Compras</center></h4>
       <div  class="form-group">
         <form id="form_busqueda" name="form_busqueda" method="post">
             {% csrf_token %}
@@ -15,10 +15,10 @@
         </form>
     </div>
     </div>
-
+<hr>
 <div style="display: flex; justify-content: space-between;">
     <div>
-        <p>N de remisiones encontradas:</p>
+        <p>N de remisiones de compras encontradas: {{contador}}</p>
     </div>
     <div style="display: flex;">
         <p style="margin:10px;">Mostrados:</p>
@@ -61,14 +61,18 @@
             {% endif %}
             <td>{{ rem.factura_proveedor.codprov.ruc }}</td>
             <td>
-                <a type="button" href="{% url 'verprovrem' rem.pk %}" class="btn btn-primary">Ver</a>
-                <a type="button" href="{% url 'edprovrem' rem.pk %}" class="btn btn-success">Editar</a>
-                <a type="button" href="{% url 'delprovrem' rem.pk %}" class="btn btn-danger">Eliminar</a>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a type="button" href="{% url 'verprovrem' rem.pk %}" class="btn btn-primary btn-sm">Ver</a>
+                    <a type="button" href="{% url 'edprovrem' rem.pk %}" class="btn btn-success btn-sm">Editar</a>
+                    <a type="button" href="{% url 'delprovrem' rem.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
             </td>
         </tr>
         {% endfor %}
         {% else %}
-        <h4>No se encontraron datos</h4>
+        <div class="alert alert-danger" role="alert">
+            No se encontraron datos
+        </div>
         {% endif %}
     </tbody>
 </table>

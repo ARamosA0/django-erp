@@ -26,7 +26,9 @@
             </div>
             {% else %}
             <div class="accordion-body">
-              <p>Agregado Correctamente</p>
+                <div class="alert alert-success" role="alert">
+                Agregado correctamente
+                </div>
               {% if reg_porcomp %}
               <a class="btn btn-primary" href="{% url 'agcompra' %}" role="button">Volver</a>
               {% else %}
@@ -78,7 +80,9 @@
             </div>
             {% else %}
             <div class="accordion-body">
-              <p>Agregado Correctamente</p>
+                <div class="alert alert-success" role="alert">
+                Agregado correctamente
+                </div>
               {% if reg_porcomp %}
               <a class="btn btn-primary" href="{% url 'agcompra' %}" role="button">Volver</a>
               {% else %}
