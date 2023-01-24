@@ -4,7 +4,9 @@
 
 <div class="main" class="form-group container">
     {% if enviado %}
-        <p>Eliminado correctamente</p>
+        <div class="alert alert-primary" role="alert">
+            Eliminado correctamente
+        </div>
         <a class="btn btn-primary" href="{% url 'ubi' %}" role="button">Volver</a> 
     {% else %}
         <section class="card" style="margin: 2em;">

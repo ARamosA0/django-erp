@@ -8,7 +8,9 @@
         </div>
         <div class="card-body">
             {% if enviado %}
-                <p>Forma de pago agregado</p>
+                <div class="alert alert-success" role="alert">
+                La forma de pago fue agregada
+                </div>
                 <a class="btn btn-primary" href="{% url 'fpago' %}" role="button">Volver</a>
             {% else %}
                 <form action="" method="POST" class="row g-3">

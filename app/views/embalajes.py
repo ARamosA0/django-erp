@@ -9,6 +9,7 @@ def embalajes(request):
     busquedaform = EmbalajeBusqueda()
     context ={
         'embalajes_list': embalajes_list,
+        'contador':len(embalajes_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

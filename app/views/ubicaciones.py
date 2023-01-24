@@ -9,6 +9,7 @@ def ubicaciones(request):
     busquedaform = UbicacionesBusqueda()
     context ={
         'ubicaciones_list': ubicaciones_list,
+        'contador':len(ubicaciones_list),
         'busquedaform': busquedaform
     }
     if request.method == 'POST':

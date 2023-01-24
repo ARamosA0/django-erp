@@ -86,7 +86,11 @@
                     <tbody>
                         <tr>
                             <th scope="row">NOMBRE: </th>
-                            <td>{{ prov.empresa.nombre }}</td>
+                            {% if prov.empresa.nombre %}
+                                <td>{{ prov.empresa.nombre }}</td>
+                            {% else %}
+                                <td>{{ prov.persona.nombre }}</td>
+                            {% endif %}
                         </tr>
                         <tr>
                             <th scope="row">ESTRUCTURA JURIDICA: </th>
@@ -98,7 +102,7 @@
                         </tr>
                         <tr>
                             <th scope="row">RUC: </th>
-                            <td>{{ prov.empresa.ruc }}</td>
+                            <td>{{ prov.ruc }}</td>
                         </tr>
                         <tr>
                             <th scope="row">PROVINCIA: </th>
@@ -121,12 +125,8 @@
                             <td>{{ prov.empresa.cuentabancaria }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">FORMA DE PAGO: </th>
-                            <td>{{ prov.codformapago }}</td>
-                        </tr>
-                        <tr>
                             <th scope="row">TELEFONO: </th>
-                            <td>{{ prov.persona.telefono }}</td>
+                            <td>{{ prov.empresa.telefono }}</td>
                         </tr>
                         <tr>
                             <th scope="row">CELULAR: </th>

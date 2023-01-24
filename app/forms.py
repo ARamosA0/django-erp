@@ -46,6 +46,10 @@ class ClienteClienteInsertar(ModelForm):
     class Meta:
         model = Clientes
         fields = ('codformapago','ruc')
+        labels = {
+            'codformapago':'Forma de pago',
+            'ruc':'RUC',
+        }
         widgets = {
             'codformapago': forms.Select(attrs={'class': 'form-control'}),
             'ruc': forms.TextInput(attrs={'class': 'form-control'})
@@ -55,6 +59,9 @@ class ProveedorProveedorInsertar(ModelForm):
     class Meta:
         model = Proveedores
         fields = ('ruc',)
+        labels = {
+            'ruc':'RUC',
+        }
         widgets = {
             'ruc': forms.TextInput(attrs={'class': 'form-control'})
         }
@@ -63,6 +70,15 @@ class AgregarPersona(ModelForm):
     class Meta:
         model = Persona
         fields = '__all__'
+        labels = {
+            'dni':'DNI',
+            'codprovincia':'Provincia',
+            'direccion':'Dirección',
+            'codpostal':'Código Postal',
+            'cuentabancaria':'Cuenta Bancaria',
+            'telefono':'Teléfono',
+            'movil':'Móvil'
+        }
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control'}),
             'dni':forms.TextInput(attrs={'class': 'form-control'}),
@@ -80,6 +96,16 @@ class AgregarEmpresa(ModelForm):
     class Meta:
         model = Empresa
         fields = '__all__'
+        labels = {
+            'estructurajuridica': 'Estructura jurídica',
+            'ruc':'RUC',
+            'codprovincia':'Provincia',
+            'direccion':'Dirección',
+            'codpostal':'Código Postal',
+            'cuentabancaria':'Cuenta Bancaria',
+            'telefono':'Teléfono',
+            'movil':'Móvil'
+        }
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control'}),
             'estructurajuridica':forms.TextInput(attrs={'class':'form-control'}),
@@ -113,10 +139,9 @@ class AgregarProducto(ModelForm):
             'descripcion_producto':forms.TextInput(attrs={'class':'form-control form-control'}),
             'color':forms.TextInput(attrs={'class':'form-control form-control'}),
             'talla':forms.TextInput(attrs={'class':'form-control form-control'}),
-            'precio_horas_manufactura':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'precio_horas_manufactura':forms.NumberInput(attrs={'class':'form-control form-control', 'step': 0.1}),
             'horas_manufactura':forms.NumberInput(attrs={'class':'form-control form-control'}),
-            'costos_extra':forms.TextInput(attrs={'class':'form-control form-control'})
-            #'precio_final':forms.TextInput(attrs={'class':'form-control form-control'})
+            'costos_extra':forms.NumberInput(attrs={'class':'form-control form-control', 'step': 0.1})
         }
 
 #ARTICULOS
@@ -152,16 +177,16 @@ class AgregarArticulo(ModelForm):
             'proveedor':forms.TextInput(attrs={'class':'form-select form-select-sm awesomplete','list':'proveedores','autocomplete':'off'}),
             'descripcion_corta':forms.TextInput(attrs={'class': 'form-control'}),
             'ubicacion':forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'stock':forms.TextInput(attrs={'class': 'form-control'}),
-            'stock_minimo':forms.TextInput(attrs={'class': 'form-control'}),
+            'stock':forms.NumberInput(attrs={'class': 'form-control'}),
+            'stock_minimo':forms.NumberInput(attrs={'class': 'form-control'}),
             'aviso_minimo':forms.Select(attrs={'class': 'form-select form-select-sm'}),
             'datos_producto':forms.TextInput(attrs={'class': 'form-control'}),
             'fecha_alta':DateInput(attrs={'class': 'form-control col-sm'}),
             'embalaje':forms.Select(attrs={'class': 'form-select form-select-sm'}),
-            'unidades_por_caja':forms.TextInput(attrs={'class': 'form-control'}),
+            'unidades_por_caja':forms.NumberInput(attrs={'class': 'form-control'}),
             'observaciones':forms.TextInput(attrs={'class': 'form-control'}),
-            'precio_compra':forms.TextInput(attrs={'class': 'form-control'}),
-            'precio_tienda':forms.TextInput(attrs={'class': 'form-control'}),
+            'precio_compra':forms.NumberInput(attrs={'class': 'form-control', 'step':0.1}),
+            'precio_tienda':forms.NumberInput(attrs={'class': 'form-control', 'step':0.1}),
             'imagen':forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
@@ -192,6 +217,9 @@ class AgregarProvincia(ModelForm):
     class Meta:
         model = Provincias
         fields = '__all__'
+        labels = {
+            'nombreprovincia':'Nombre'
+        }
         widgets = {
             'nombreprovincia':forms.TextInput(attrs={'class':'form-control'})
         }
@@ -256,6 +284,9 @@ class AgregarFormaPago(ModelForm):
     class Meta:
         model = Formapago
         fields = '__all__'
+        labels = {
+            'nombrefp':'Nombre'
+        }
         widgets = {
             'nombrefp':forms.TextInput(attrs={'class': 'form-control form-control'}),
         }
@@ -275,7 +306,7 @@ class AgregarImpuesto(ModelForm):
         fields = '__all__'
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
-            'valor':forms.TextInput(attrs={'class':'form-control form-control'})
+            'valor':forms.NumberInput(attrs={'class':'form-control form-control', 'step': 0.1})
         }
   
 #UBICACIONES
@@ -314,13 +345,16 @@ class EntidadBusqueda(Form):
         widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
     nombreentidad = forms.CharField(label='NOMBRE:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
-  
+
 class AgregarEntidad(ModelForm):
     class Meta:
         model = Entidades
         fields = '__all__'
+        labels = {
+            'nombreentidad':'Nombre'
+        }
         widgets = {
-            'nombre':forms.TextInput(attrs={'class':'form-control'})
+            'nombreentidad':forms.TextInput(attrs={'class':'form-control'})
         }
 
 #FACTURA
@@ -384,6 +418,41 @@ class LibroDiarioBusqueda(Form):
         widget=DateInput(attrs={'class':'form-control','id':'fecha'}),required=False)
     tipo = forms.CharField(label='TIPO:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
+
+#SERVICIOS
+class AgregarServicio(ModelForm):
+    class Meta:
+        model = Servicios
+        fields = '__all__'
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
+            'contratista':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control'}),
+            'precio':forms.TextInput(attrs={'class':'form-control'}),
+        }
+
+#ORDEN DE SERVICIO
+class AgregarOrdenServicio(ModelForm):
+    class Meta:
+        model = Orden_compra_servicio
+        fields = '__all__'
+        widgets = {
+            'trabajador':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'fecha_orden_servicio':forms.DateInput(attrs={'class':'form-control'}),
+        }
+
+class AgregarServicioEnOrdenCompra(ModelForm):
+    class Meta:
+        model = Servicio_compra
+        fields = '__all__'
+        widgets = {
+            'contratista':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'orden_compra':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'fecha_compra':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha_inicio':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha_fin':forms.DateInput(attrs={'class':'form-control'}),
+        }
+
     
 #PRODUCCION 
 NINGUNO = 'No Iniciado'

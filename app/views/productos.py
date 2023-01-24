@@ -10,6 +10,7 @@ def productos(request):
 
     context = {
         'productos_list':productos_list,
+        'contador':len(productos_list),
         'busquedaform':busquedaform
     }
 
@@ -97,6 +98,7 @@ def editar_producto(request, id):
             precio_costos_extras=ultimo_producto_agregado.costos_extra
             precio_final=precio_total_manufactura+precio_costos_extras
             ultimo_producto_agregado.precio_inicial=precio_final
+            ultimo_producto_agregado.precio_final=precio_final
             ultimo_producto_agregado.save()
 
             return redirect('prod')

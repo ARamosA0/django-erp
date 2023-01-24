@@ -10,6 +10,7 @@ def articulos(request):
     busquedaform = ArticuloBusqueda()
     context ={
         'articulos_list': articulos_list,
+        'contador':len(articulos_list),
         'busquedaform': busquedaform
     }
 

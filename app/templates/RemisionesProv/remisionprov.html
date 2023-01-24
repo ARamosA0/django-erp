@@ -60,7 +60,9 @@
                 </tr>
                 {% endfor %}
                 {% else %}
-                <h4>No se encontraron datos</h4>
+                <div class="alert alert-danger" role="alert">
+                    No se encontraron datos
+                </div>
                 {% endif %}
             </tbody>
         </table>
