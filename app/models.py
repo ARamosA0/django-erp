@@ -307,6 +307,7 @@ class Libro_diario(models.Model):
     def __str__(self):
         return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)
 
+
 #######################
 # SERVICIOS
 #Servicio
@@ -345,8 +346,7 @@ class Recibir_orden_servicio(models.Model):
     costo_total = models.FloatField()
     
     def __str__(self):
-        return "Codigo de factura:{}, Fecha de pedido:{}".format(self.factura_servicio.id, self.fecha_pedido)
-
+        return "Orden de compra:{}".format(self.servicio_compra_referencia)
 
 
 # Prduccion
