@@ -20,6 +20,7 @@ from app.views.caja_diaria import *
 from app.views.servicios import *
 from app.views.orden_compra_servicio import *
 from app.views.productos import *
+from app.views.recibir_orden_compra import *
 from app.views.produccion import *
 
 urlpatterns =[
@@ -212,8 +213,19 @@ urlpatterns =[
     path('compraservicio/agregarservicio', agregar_orden_compra_servicio, name="apeserv"),
     path('compraservicio/ver/<int:id>/', ver_orden_compra_servicio, name="verpeserv"),
     path('compraservicio/editar/<int:id>/', editar_orden_compra_servicio, name="edpeserv"),
+    path('compraservicio/editar/datosgenerales/<int:id>/', editar_datos_generales_orden_compra, name="eddatospeserv"),
     path('compraservicio/eliminar/<int:id>/', eliminar_orden_compra_servicio, name="delpeserv"),
     path('caja/ver/<int:id>', ver_caja, name="vercaja"),
+
+    #Servicios dentro de la orden de compra
+    path('compraservicio/agregarservicioenordencompra', agregar_servicio_orden_compra, name="aservorcomp"),
+    path('compraservicio/agregarservicioenordencompra/editar/<int:id>/', editar_servicio_orden_compra, name="edservorcomp"),
+    path('compraservicio/agregarservicioenordencompra/eliminar/<int:id>/', eliminar_servicio_orden_compra, name="delservorcomp"),
+
+    #Registrar la orden de compra de servicio
+    path('regitrarorden/', recibir_orden_compra_servicio, name="regorden"),
+    path('regitrarorden/agregarregistro/<int:id>', agregar_recibir_orden_compra_servicio, name="adregorden"),
+    path('regitrarorden/eliminar/<int:id>', eliminar_recibir_orden_compra_servicio, name="delregorden"),
 
     #Produccion
     path('produccion/', produccion, name='produc'),

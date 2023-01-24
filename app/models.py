@@ -310,28 +310,37 @@ class Libro_diario(models.Model):
 #######################
 # SERVICIOS
 #Servicio
+#"contratista" en Servicios es la empresa o persona al que se va a pedir el servicio 
 class Servicios(models.Model):
     nombre = models.CharField(max_length=200)
-    trabajador = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+    contratista = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
     descripcion = models.TextField()
     precio = models.FloatField()
 
     def __str__(self):
-        return "Servicio:{}, Cliente:{}".format(self.nombre, self.trabajador.ruc)
+        return "Servicio:{}, Cliente:{}".format(self.nombre, self.contratista.ruc)
 
-class Servicio_compra(models.Model):
-    servicio = models.ForeignKey(Servicios, on_delete=models.CASCADE)
-    fecha_compra = models.DateTimeField()
-    fecha_inicio_servicio = models.DateField()
-    fecha_fin_servicio = models.DateField()
-    descripcion_compra_servicio = models.TextField(null=True, blank=True)
+#Orden de compra para el servicio
+##"trabajador" es la persona de logistica que va a realizar el pedido 
+class Orden_compra_servicio(models.Model):
+    trabajador = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+    fecha_orden_servicio = models.DateTimeField()
 
     def __str__(self):
-        return "Compra a servicio:{}".format(self.servicio.nombre)
+        return "Trabajador:{}".format(self.trabajador.ruc)
 
-class Servicio_factura(models.Model):
-    factura_servicio = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
-    servicio_compra_referencia = models.OneToOneField(Servicio_compra, on_delete=models.CASCADE, null=True)
+#Servicio(s) dentro de la orden de compra
+class Servicio_compra(models.Model):
+    servicio = models.ForeignKey(Servicios, on_delete=models.CASCADE)
+    orden_compra = models.ForeignKey(Orden_compra_servicio, on_delete=models.CASCADE, null=True)
+    fecha_compra = models.DateField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
+    precio_compra = models.FloatField(null=True)
+
+#Comprobante que muestra el total de servicios 
+class Recibir_orden_servicio(models.Model):
+    orden_compra_referencia = models.OneToOneField(Orden_compra_servicio, on_delete=models.CASCADE, null=True)
     fecha_pedido = models.DateTimeField()
     costo_total = models.FloatField()
     

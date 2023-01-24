@@ -392,7 +392,7 @@ class AgregarServicio(ModelForm):
         fields = '__all__'
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control form-control'}),
-            'trabajador':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'contratista':forms.Select(attrs={'class':'form-select form-select-sm'}),
             'descripcion':forms.Textarea(attrs={'class':'form-control'}),
             'precio':forms.TextInput(attrs={'class':'form-control'}),
         }
@@ -400,15 +400,25 @@ class AgregarServicio(ModelForm):
 #ORDEN DE SERVICIO
 class AgregarOrdenServicio(ModelForm):
     class Meta:
+        model = Orden_compra_servicio
+        fields = '__all__'
+        widgets = {
+            'trabajador':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'fecha_orden_servicio':forms.DateInput(attrs={'class':'form-control'}),
+        }
+
+class AgregarServicioEnOrdenCompra(ModelForm):
+    class Meta:
         model = Servicio_compra
         fields = '__all__'
         widgets = {
-            'servicio':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'contratista':forms.Select(attrs={'class':'form-select form-select-sm'}),
+            'orden_compra':forms.Select(attrs={'class':'form-select form-select-sm'}),
             'fecha_compra':forms.DateInput(attrs={'class':'form-control'}),
-            'fecha_inicio_servicio':forms.DateInput(attrs={'class':'form-control'}),
-            'fecha_fin_servicio':forms.DateInput(attrs={'class':'form-control'}),
-            'descripcion_compra_servicio':forms.Textarea(attrs={'class':'form-control'}),
+            'fecha_inicio':forms.DateInput(attrs={'class':'form-control'}),
+            'fecha_fin':forms.DateInput(attrs={'class':'form-control'}),
         }
+
     
 #PRODUCCION 
 NINGUNO = 'No Iniciado'
