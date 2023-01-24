@@ -8,21 +8,41 @@
         {% csrf_token %}
         <label>MONTO INICIAL</label>
         <input type="checkbox" name="crearcaja" id="crearcaja" checked hidden />
-        <input
+        <input 
+          {% if readonly %}
+          readOnly
+          {% endif %}
           type="number"
           name="monto_inicial"
           id="monto_inicial"
-          value="{{ultima_caja_context.monto_total_final}}"
+          {% if ultima_caja_context %}
+            {% if ultima_caja_context.estado%}
+              value="{{ultima_caja_context.monto_total_final}}"
+            {% else %}
+              value="{{ultima_caja_context.monto_total_inicial}}"
+            {% endif %}
+          {% else %}
+            value=0.0
+          {% endif %}
         />
 
         {% if ultima_caja_context.estado %}
+        <input type="hidden" name="abriendo_caja" value="abriendo" />
         <div class="d-grid gap-2 p-2">
           <button class="btn btn-success btn-block">ABRIR CAJA</button>
         </div>
         {% else %}
-        <div class="d-grid gap-2 p-2">
-          <button class="btn btn-danger btn-block">CERRAR CAJA</button>
-        </div>
+          {% if ultima_caja_context %}
+          <input type="hidden" name="cerrando_caja" value="cerrando" />
+          <div class="d-grid gap-2 p-2">
+            <button class="btn btn-danger btn-block">CERRAR CAJA</button>
+          </div>
+          {% else %}
+          <input type="hidden" name="abriendo_caja" value="abriendo" />
+          <div class="d-grid gap-2 p-2">
+            <button class="btn btn-success btn-block">ABRIR CAJA</button>
+          </div>
+          {% endif %}
         {% endif %}
       </form>
     </div>

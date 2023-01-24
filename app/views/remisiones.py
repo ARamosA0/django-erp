@@ -15,11 +15,19 @@ def remisiones(request):
         busquedaform = RemisionBusqueda(request.POST)
         if busquedaform.is_valid():
             data = Remision_clie.objects.all()
-            data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            data = data.filter(factura_cliente__factura__id=busquedaform.cleaned_data['factura'])  if busquedaform.cleaned_data['factura'] else data
-            data = data.filter(factura_cliente__codcliente__persona__nombre=busquedaform.cleaned_data['cliente'])  if busquedaform.cleaned_data['cliente'] else data
-            context['remisiones_list']=data
-            context['busquedaform']=busquedaform
+            if str(busquedaform.cleaned_data['empresa']) == 'True':
+                data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+                data = data.filter(factura_cliente__factura__id=busquedaform.cleaned_data['factura'])  if busquedaform.cleaned_data['factura'] else data
+                data = data.filter(factura_cliente__codcliente__empresa__nombre=busquedaform.cleaned_data['cliente'])  if busquedaform.cleaned_data['cliente'] else data
+                context['remisiones_list']=data
+                context['busquedaform']=busquedaform
+            else:
+                data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
+                data = data.filter(factura_cliente__factura__id=busquedaform.cleaned_data['factura'])  if busquedaform.cleaned_data['factura'] else data
+                data = data.filter(factura_cliente__codcliente__persona__nombre=busquedaform.cleaned_data['cliente'])  if busquedaform.cleaned_data['cliente'] else data
+                context['remisiones_list']=data
+                context['busquedaform']=busquedaform
+
     else:
         busquedaform = RemisionBusqueda()
     if 'btnestadono' in request.POST:

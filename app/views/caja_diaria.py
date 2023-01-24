@@ -13,61 +13,59 @@ def caja_diaria(request):
     tipo_pago = Formapago.objects.all()
     dinero_total = Caja_diaria.objects.last()
     estado_busqueda = False
+    if(dinero_total == None):
+        readonly = False
+    else:
+        readonly = True
     context = {
         'formbusqueda':formbusqueda,
         'tipo_pago':tipo_pago,
         'ultima_caja_context':dinero_total,
+        'readonly' : readonly,
     }
     
-    if(dinero_total == None):
-        caja_diaria = Caja_diaria()
-        caja_diaria.estado = True
-        caja_diaria.save()
-        dinero_total = Caja_diaria.objects.last()
-        
-    
-
     if request.method == 'POST':
         crearcaja = request.POST.get('crearcaja',None)
         check = request.POST.get('check', None)
+        cerrando_caja = request.POST.get('cerrando_caja',None)
+        abriendo_caja = request.POST.get('abriendo_caja', None)
         nueva_caja = Caja_diaria()
         if crearcaja:
-            if dinero_total.estado:
-                montoinicial = request.POST.get("monto_inicial") 
+            if abriendo_caja and abriendo_caja == 'abriendo':
+                montoinicial = request.POST.get("monto_inicial")
                 nueva_caja.monto_total_inicial = montoinicial
                 nueva_caja.save()
                 ultima_caja = Caja_diaria.objects.last()
                 context=define_context(context,
                                     ultima_caja_context=ultima_caja,
+                                    estado_busqueda=estado_busqueda,
+                                    )
+            if cerrando_caja and cerrando_caja == 'cerrando':
+                total_ventas_list = Libro_diario.objects.filter(tipo = 'Venta').filter(obtener_factura__fecha = datetime.now())
+                total_compras_list = Libro_diario.objects.filter(tipo = 'Compra').filter(obtener_factura__fecha = datetime.now())
+                total_ventas = 0
+                total_compras = 0
+                for ventas in total_ventas_list:
+                    total_factura_ventas = ventas.obtener_factura.totalfactura
+                    total_ventas += total_factura_ventas 
+
+                for compras in total_compras_list:
+                    total_factura_compras = compras.obtener_factura.totalfactura
+                    total_compras += total_factura_compras
+
+                print(total_ventas)
+                print(total_compras)
+                current_caja = Caja_diaria.objects.last()
+                total = (current_caja.monto_total_inicial+total_ventas)-total_compras
+                current_caja.total_compras = total_compras
+                current_caja.total_ventas = total_ventas
+                current_caja.monto_total_final = total
+                current_caja.estado = True
+                current_caja.save()
+                context=define_context(context,
+                                    ultima_caja_context=current_caja,
                                     estado_busqueda=estado_busqueda)
-            dinero_total.estado = True
-            
-            total_ventas_list = Libro_diario.objects.filter(tipo = 'Venta').filter(obtener_factura__fecha = datetime.now())
-            total_compras_list = Libro_diario.objects.filter(tipo = 'Compra').filter(obtener_factura__fecha = datetime.now())
-            total_ventas = 0
-            total_compras = 0
-            for ventas in total_ventas_list:
-                total_factura_ventas = ventas.obtener_factura.totalfactura
-                total_ventas += total_factura_ventas 
 
-            for compras in total_compras_list:
-                total_factura_compras = compras.obtener_factura.totalfactura
-                total_compras += total_factura_compras
-
-            print(total_ventas)
-            print(total_compras)
-            ultima_caja_inicial = Caja_diaria.objects.last()
-            total = (ultima_caja_inicial.monto_total_inicial+total_ventas)-total_compras
-            dinero_total.monto_total_final = total
-            dinero_total.total_ventas = total_ventas
-            dinero_total.total_compras = total_compras
-
-            dinero_total.save()
-            ultima_caja = Caja_diaria.objects.last()
-            context=define_context(context,
-                                ultima_caja_context=ultima_caja,
-                                estado_busqueda=estado_busqueda)
-            
         if check:
             if formbusqueda.is_valid():
                 data = Caja_diaria.objects.filter(estado=True)
