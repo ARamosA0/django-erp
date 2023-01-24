@@ -106,31 +106,39 @@ def reg_venta(request):
                     return redirect('edfacturaclie',id=request.GET['n_factura'])
             
             if validfac_cliente_list_form:
-                    nomarticulo = request.POST["nomarticulo"]
-                    cantidad = request.POST["cantidad_art"]
-                    descuento = request.POST["descuento_art"]
-                    articulo_data = Articulos.objects.get(nombre=nomarticulo)
-                    factura_linea_clie = Factura_linea_clie()
-                    factura_linea_clie.factura_cliente = Factura_clie.objects.get(pk=factura.pk)
-                    factura_linea_clie.codproducto = articulo_data
-                    factura_linea_clie.precio = articulo_data.precio_compra
-                    factura_linea_clie.cantidad = cantidad
-                    factura_linea_clie.dsctoproducto = descuento
-                    factura_linea_clie.importe = (articulo_data.precio_compra * int(cantidad)) - float(descuento)
-                    factura_linea_clie.save()    
-                    suma_importes(context,factura.pk)
+                nomproducto = request.POST["nomproducto"]
+                cantidad = request.POST["cantidad_prod"]
+                descuento = request.POST["descuento_prod"]
+                producto_data = Producto.objects.get(nombre=nomproducto)
+                factura_linea_clie = Factura_linea_clie()
+                factura_linea_clie.factura_cliente = Factura_clie.objects.get(pk=factura.pk)
+                factura_linea_clie.codproducto = producto_data
+                factura_linea_clie.precio = producto_data.precio_final
+                factura_linea_clie.cantidad = cantidad
+                factura_linea_clie.dsctoproducto = descuento
+                factura_linea_clie.importe = (producto_data.precio_final * int(cantidad)) - float(descuento)
+                factura_linea_clie.save()    
+                suma_importes(context,factura.pk)
             if eliminar_art_venta:
                 del_flc = Factura_linea_clie.objects.filter(pk=eliminar_art_venta)
                 del_flc.delete()
                 suma_importes(context,factura.pk)
             if validfac_finalform:
+                
+                #Modificación en el contador de productos
+                factura_clie = Factura_clie.objects.get(pk=factura.pk)
+                contador_productos = Factura_linea_clie.objects.filter(factura_cliente_id=factura.pk).count()
+                factura_clie.contador_productos = contador_productos
+                factura_clie.save()
+
+                #Modificación en el total facturado
                 factura  = Factura.objects.filter(pk=factura.pk)[0]
                 factura.totalfactura = request.POST["total_fac"]
                 factura.save()
 
                 #Guardado de la ultima factura creada a Libro_diario 
                 agregar_factura = Factura.objects.last()
-                factura_id = int(agregar_factura.pk)    
+                factura_id = int(agregar_factura.pk)
 
                 agregar_dato_libro_diario = Libro_diario()
                 agregar_dato_libro_diario.obtener_factura_id = factura_id

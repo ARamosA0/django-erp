@@ -168,11 +168,12 @@ class Factura(models.Model):
     fecha = models.DateField(null=True)
     iva = models.IntegerField()
     totalfactura = models.FloatField(default=0, null=True)    
-    
+
 class Factura_clie(models.Model):
     factura = models.OneToOneField(Factura, on_delete=models.CASCADE, primary_key=True)
     codcliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
     estadoprod = models.BooleanField(null=True, default=False)
+    contador_productos = models.IntegerField(null=True, default=0)
 
     def __str__(self):
         if self.codcliente.persona:
@@ -182,7 +183,7 @@ class Factura_clie(models.Model):
 
 class Factura_linea_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
-    codproducto = models.ForeignKey(Articulos, on_delete=models.CASCADE, null=True)
+    codproducto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True)
     cantidad = models.IntegerField()
     precio = models.FloatField()
     importe = models.FloatField(null=True)
@@ -226,9 +227,18 @@ class Compra_linea_prov(models.Model):
 
 #Remision de clientes
 class Remision_clie(models.Model):
+    NOENVIADO = 'No Enviado'
+    ENVIADO = 'Enviado'
+    
+
+    ESTADOREM = [
+        (NOENVIADO, 'No Enviado'),
+        (ENVIADO, 'Enviado'),
+    ]
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE)
     fecha_remision = models.DateField(auto_now_add=True)
     contador = models.IntegerField(default=0, null=True)
+    estado = models.CharField(max_length=100, choices=ESTADOREM, default=NOENVIADO)
 
     def __str__(self):
         return "Numero de factura:{}".format(self.factura_cliente.factura.pk)
@@ -301,13 +311,13 @@ class Libro_diario(models.Model):
 # Prduccion
 class Produccion(models.Model):
 
-    NINGUNO = '------'
+    NINGUNO = 'No Iniciado'
     PROCESO = 'En proceso'
     TERMINADO = 'Terminado'
     SALIENDO = 'Saliendo'
 
     PROCESOSPROD = [
-        (NINGUNO, '-----'),
+        (NINGUNO, 'No Iniciado'),
         (PROCESO, 'En proceso'),
         (TERMINADO, 'Terminado'),
         (SALIENDO, 'Saliendo')
@@ -323,13 +333,13 @@ class Produccion(models.Model):
 
 class Produccion_linea(models.Model):
 
-    NINGUNO = '------'
+    NINGUNO = 'No Iniciado'
     PROCESO = 'En proceso'
     TERMINADO = 'Terminado'
     SALIENDO = 'Saliendo'
 
     PROCESOSPROD = [
-        (NINGUNO, '-----'),
+        (NINGUNO, 'No Iniciado'),
         (PROCESO, 'En proceso'),
         (TERMINADO, 'Terminado'),
         (SALIENDO, 'Saliendo')

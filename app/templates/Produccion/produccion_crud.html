@@ -11,7 +11,7 @@
           <div  style="float: right;">
             <button class="btn btn-primary" >Buscar</button>
             <a type="button" onClick="limpiar()" class="btn btn-warning" >Limpiar</a>
-            <a type="button" href="{% url 'agprod' %}" class="btn btn-success" >Agregar</a>
+            <a type="button" href="{% url 'agprod' %}" class="btn btn-success" >Registrar Pedido</a>
           </div>                   
         </form>
     </div>
@@ -43,6 +43,7 @@
             <th scope="col">N.Productos</th>
             <th scope="col">Fecha Inicio</th>
             <th scope="col">Fecha Fin</th>
+            <th scope="col">Estado</th>
         </tr>        
     </thead>
     
@@ -53,12 +54,38 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ prod.id }}</td>
             <td>{{ prod.factura_clie.factura.id }}</td>
-            <td>{{ contador }}</td>
+            <td>{{ prod.factura_clie.contador_productos }}</td>
             <td>{{ prod.fecha_inicio }}</td>
             <td>{{ prod.fecha_fin }}</td>
             <td>
+                <form method="POST">
+                  {% csrf_token %} {% if prod.estdo_produccion == "No Iniciado" %}
+                  <button class="btn btn-secondary" name="btnestadoinicio" type="submit">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion}}
+                  </button>
+                  {% elif prod.estdo_produccion == 'En proceso' %}
+                  <button class="btn btn-warning" name="btnestadoproceso" type="submit" value="{prod.id}">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion}}
+                  </button>
+                  {% elif prod.estdo_produccion == 'Terminado' %}
+                  <button class="btn btn-success" name="btnestadoterminado" type="submit" value="{prod.id}">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion}}
+                  </button>
+                  {% elif prod.estdo_produccion == 'Saliendo' %}
+                  <button class="btn btn-danger" name="btnestadosaliendo" type="submit" value="{prod.id}">
+                    <input type="hidden" name="prodid" id="prodid" value="{{prod.id}}">
+                    {{prod.estdo_produccion }}
+                  </button>
+                  {% else %}
+                  NADA
+                  {% endif %}
+                </form>
+              </td>
+            <td>
                 <a type="button" href="{% url 'verprodu' prod.id %}" class="btn btn-primary">Ver</a> 
-                <a type="button" href="#" class="btn btn-success">Editar</a>
                 <a type="button" href="{% url 'delprodu' prod.id %}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>

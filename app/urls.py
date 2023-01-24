@@ -164,10 +164,8 @@ urlpatterns =[
     path('rem/agregarrem/<int:id>/', agregar_remision, name="arem"),
     #Eliminar Remision
     path('rem/eliminar/<int:id>/', eliminar_remision, name="delrem"),
-    #Editar Remision
+    #Editar Remision / eliminar artículo
     path('rem/editar/<int:id>/', editar_remision, name="edrem"),
-    #Eliminar Articulo Remision
-    path('rem/eliminarart/<int:id>/', eliminar_articulo_remision, name="delremart"),
     #Ver Remision
     path('rem/ver/<int:id>/', ver_remision, name="verrem"),
 
@@ -200,7 +198,7 @@ urlpatterns =[
     path('caja/ver/<int:id>', ver_caja, name="vercaja"),
 
     #Produccion
-    path('produccion/', produccion, name='prod'),
+    path('produccion/', produccion, name='produc'),
     path('produccion/agregar/', agr_produccion, name='agprod'),
     path('produccion/eliminar/<int:id>/',del_produccion, name='delprodu'),
     path('produccion/ver/<int:id>/',ver_produccion, name='verprodu'),
