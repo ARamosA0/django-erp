@@ -244,6 +244,9 @@ class NuevaFactura(ModelForm):
             'fecha':DateInput(attrs={'class':'form-control'}),
             'iva':forms.TextInput(attrs={'class':'form-control', 'value':'18'})
         }
+        labels={
+            'iva':'igv'
+        }
         
 #REMISION
 class RemisionBusqueda(Form):
@@ -359,8 +362,8 @@ class AgregarEntidad(ModelForm):
 
 #FACTURA
 class FacturaBusqueda(Form):
-    dnicliente = forms.CharField(label='DNI CLIENTE:',
-        widget=forms.TextInput(attrs={'class':'form-control','id':'dnicliente'}),required=False)
+    ruccliente = forms.CharField(label='RUC CLIENTE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'ruccliente'}),required=False)
     numfactura = forms.CharField(label='NUMERO DE FACTURA:',
         widget=forms.TextInput(attrs={'class':'form-control','id':'numfactura'}),required=False)
     fechafac = forms.DateField(label='FECHA:',

@@ -177,9 +177,9 @@ class Factura_clie(models.Model):
 
     def __str__(self):
         if self.codcliente.persona:
-            return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.persona.nombre, self.factura.pk)    
+            return "Nombre cliente: {}, Cod. Factura:{}".format(self.codcliente.persona.nombre, self.factura.pk)    
         else:
-            return "Nombre cliente:{}, Cod. Factura:{}".format(self.codcliente.empresa.nombre, self.factura.pk)
+            return "Nombre cliente: {}, Cod. Factura:{}".format(self.codcliente.empresa.nombre, self.factura.pk)
 
 class Factura_linea_clie(models.Model):
     factura_cliente = models.ForeignKey(Factura_clie, on_delete=models.CASCADE, null=True)
@@ -191,7 +191,7 @@ class Factura_linea_clie(models.Model):
     remision_hecha = models.BooleanField(null=True, blank=True, default=False)
 
     def __str__(self):
-        return "Nombre articulo:{}".format(self.codproducto.nombre)
+        return "Nombre articulo: {}".format(self.codproducto.nombre)
 
 
 
@@ -207,10 +207,9 @@ class Compra_prov(models.Model):
 
     def __str__(self):
         if self.codprov.persona:
-            compra_prov = self.codprov.persona.nombre
+            return "Nombre Proveedor: {}, Orden de compra: {}".format(self.codprov.persona.nombre, self.compra.pk)    
         else:
-            compra_prov = self.codprov.empresa.nombre
-        return compra_prov
+            return "Nombre Proveedor: {}, Orden de compra: {}".format(self.codprov.empresa.nombre, self.compra.pk)
 
 class Compra_linea_prov(models.Model):
     compra_cliente = models.ForeignKey(Compra_prov, on_delete=models.CASCADE, null=True)
