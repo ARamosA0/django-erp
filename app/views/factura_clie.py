@@ -16,7 +16,7 @@ def factura(request):
         busquedaform = FacturaBusqueda(request.POST)
         if busquedaform.is_valid():
             data = Factura_clie.objects.all()
-            data = data.filter(codcliente__persona__dni=busquedaform.cleaned_data['dnicliente'])  if busquedaform.cleaned_data['dnicliente'] else data
+            data = data.filter(codcliente_id__ruc=busquedaform.cleaned_data['ruccliente'])  if busquedaform.cleaned_data['ruccliente'] else data
             data = data.filter(factura_id=busquedaform.cleaned_data['numfactura'])  if busquedaform.cleaned_data['numfactura'] else data
             data = data.filter(factura__fecha=busquedaform.cleaned_data['fechafac'])  if busquedaform.cleaned_data['fechafac'] else data
             context['factura_list']=data
