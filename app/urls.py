@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 from app.views.articulos import *
 from app.views.clientes import *
+from app.views.trabajador import *
 from app.views.embalajes import *
 from app.views.entidad import *
 from app.views.familias import *
@@ -46,6 +47,12 @@ urlpatterns =[
     #Ver Cliente
     path('clie/ver/<int:id>/', ver_cliente, name="verclie"),
 
+    #Pagina de trabajador
+    path('trabajador/', trabajadores, name="trabajador"),
+    path('trabajador/agregartrab', agregar_trabajador, name="adtrabajador"),
+    path('trabajador/ver/<int:id>/', ver_trabajador, name="vertrabajador"),
+    path('trabajador/editar/<int:id>/', editar_trabajador, name="editrabajador"),
+    path('trabajador/eliminar/<int:id>/', eliminar_trabajador, name="deltrabajador"),
 
     #Pag Productos
     path('prod/', productos, name="prod"),

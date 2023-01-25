@@ -1,0 +1,145 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    {% if trab.empresa == null %}
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            <h1 class="modal-title fs-5" >{{ trab.persona.nombre }}</h1>
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATOS</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">NOMBRE: </th>
+                            <td>{{ trab.persona.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DNI: </th>
+                            <td>{{ trab.persona.dni }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PROVINCIA: </th>
+                            <td>{{ trab.persona.codprovincia }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">LOCALIDAD: </th>
+                            <td>{{ trab.persona.localidad }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DIRECCION: </th>
+                            <td>{{ trab.persona.direccion }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CODIGO POSTAL: </th>
+                            <td>{{ trab.persona.codpostal }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CUENTA BANCARIA: </th>
+                            <td>{{ trab.persona.cuentabancaria }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TIPO: </th>
+                            <td>{{ trab.tipo_trabajador }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TELEFONO: </th>
+                            <td>{{ trab.persona.telefono }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CELULAR: </th>
+                            <td>{{ trab.persona.movil }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">WEB: </th>
+                            <td>{{ trab.persona.web }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'trabajador' %}" class="btn btn-primary">Regresar</a>
+    </div>
+    
+    {% else %}
+    <div class="card container text-center" style="width: 100%; padding-top: 1em; margin-top: 3em; margin-bottom: 3em;">
+        <div class="card-header modal-title fs-5">
+            <h1 class="modal-title fs-5" >{{ trab.empresa.nombre }}</h1>
+        </div>
+        <div class="card-body">
+            <section class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">DATOS</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">NOMBRE: </th>
+                            <td>{{ trab.empresa.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ESTRUCTURA JURIDICA: </th>
+                            <td>{{ trab.empresa.estructurajuridica }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TIPO: </th>
+                            <td>{{ trab.empresa.tipo }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">PROVINCIA: </th>
+                            <td>{{ trab.empresa.codprovincia }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">LOCALIDAD: </th>
+                            <td>{{ trab.empresa.localidad }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DIRECCION: </th>
+                            <td>{{ trab.empresa.direccion }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CODIGO POSTAL: </th>
+                            <td>{{ trab.empresa.codpostal }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CUENTA BANCARIA: </th>
+                            <td>{{ trab.empresa.cuentabancaria }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TIPO: </th>
+                            <td>{{ trab.tipo_trabajador }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">TELEFONO: </th>
+                            <td>{{ trab.empresa.telefono }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CELULAR: </th>
+                            <td>{{ trab.empresa.movil }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">WEB: </th>
+                            <td>{{ trab.empresa.web }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <div class="container text-center">
+        <a type="button" href="{% url 'trabajador' %}" class="btn btn-primary">Regresar</a>
+    </div>
+    {% endif%}
+
+{% endblock %}

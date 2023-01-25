@@ -306,6 +306,29 @@ class Libro_diario(models.Model):
     def __str__(self):
         return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)
 
+#Trabajador
+class Trabajador(models.Model):
+    INTERNO = 'Interno'
+    CONTRATISTA = 'Contratista'
+    NINGUNO = 'Ninguno'
+
+    TIPOS = [
+        (INTERNO, 'Interno'),
+        (CONTRATISTA, 'Contratista'),
+        (NINGUNO, 'Ninguno')
+    ]
+
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
+    tipo_trabajador = models.CharField(max_length=30, choices=TIPOS, default=NINGUNO)
+    borrado = models.CharField(max_length=1, default=0)
+
+    def __str__(self):
+        if self.persona:
+            return "Nombre trabajador:{}, Tipo:{}".format(self.persona.nombre, self.tipo)    
+        else:
+            return "Nombre trabajador:{}, Tipo:{}".format(self.empresa.nombre, self.tipo)
+
 
 #######################
 # SERVICIOS
