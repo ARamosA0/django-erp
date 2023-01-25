@@ -10,6 +10,7 @@ def libro_diario(request):
     
     context = {
         'factura_general':factura_general,
+        'contador':len(factura_general),
         'busquedaform': busquedaform
     }
 

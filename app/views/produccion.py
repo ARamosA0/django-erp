@@ -31,6 +31,7 @@ def produccion(request):
         prod_item.save() 
     context = {
         'busquedaform':busquedaform,
+        'contador':len(produccion_list),
         'produccion_list':produccion_list
     }
     if 'busquedaproduccion' in request.POST:
