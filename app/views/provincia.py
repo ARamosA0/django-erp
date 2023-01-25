@@ -17,7 +17,7 @@ def provincia(request):
         if busquedaform.is_valid():
             data = Provincias.objects.all()
             data = data.filter(pk=busquedaform.cleaned_data['codigo'])  if busquedaform.cleaned_data['codigo'] else data
-            data = data.filter(nombreprovincia=busquedaform.cleaned_data['nombre'])  if busquedaform.cleaned_data['nombre'] else data
+            data = data.filter(nombreprovincia=busquedaform.cleaned_data['nombreprovincia'])  if busquedaform.cleaned_data['nombreprovincia'] else data
             context['provincias_list']=data
             context['busquedaform']=busquedaform
     else:
