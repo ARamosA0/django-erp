@@ -38,6 +38,7 @@
       <tbody>
         {% if prod_linea_list %} {% for prod in prod_linea_list %}
         <tr scope="row">
+          
           <td>{{ forloop.counter }}</td>
           <td>{{ prod.id }}</td>
           <td>{{ prod.cod_producto.codproducto.id }}</td>
@@ -68,6 +69,9 @@
               {% endif %}
             </form>
           </td>
+          <td><a class="btn btn-outline-info" href="{% url 'verprod' prod.cod_producto.codproducto.id %}">
+            <i class="bi bi-archive"></i>
+          </a></td>
         </tr>
         {% endfor %} {% else %}
         <h4>No se encontraron datos</h4>
