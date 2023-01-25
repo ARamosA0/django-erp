@@ -128,35 +128,34 @@ def editar_cliente(request, id):
         enviado_per = False
         enviado_emp = True
 
-        # if not enviado_per:
-        #     editar_per = True
 
     elif empresa_put == None:
         empresa_put = 0
         enviado_emp = False
         enviado_per = True
 
-        # if not enviado_emp:
-        #     editar_emp = True
-
+    form_cliente = ClienteClienteInsertar(request.POST or None, instance=cliente)
     form_empresa = AgregarEmpresa(request.POST)
     form_persona = AgregarPersona(request.POST)
 
     if persona_put == 0:
         empresa = Empresa.objects.get(id= int(empresa_put))
         form_empresa = AgregarEmpresa(request.POST or None, instance=empresa)
-        if form_empresa.is_valid():
+        if form_empresa.is_valid() and form_cliente.is_valid():
+            form_cliente.save()
             form_empresa.save()
             return redirect('clie')
 
     elif empresa_put == 0:
         persona = Persona.objects.get(id= int(persona_put))
         form_persona = AgregarPersona(request.POST or None, instance=persona)
-        if form_persona.is_valid():
+        if form_persona.is_valid() and form_cliente.is_valid():
+            form_cliente.save()
             form_persona.save()
             return redirect('clie')
 
     context = {
+        'form_cliente':form_cliente,
         'form_empresa':form_empresa,
         'form_persona':form_persona,
         'enviado_per':enviado_per,
