@@ -306,6 +306,29 @@ class Libro_diario(models.Model):
     def __str__(self):
         return "Factura:{}, Tipo:{}".format(self.factura.id, self.tipo)
 
+#Trabajador
+class Trabajador(models.Model):
+    INTERNO = 'Interno'
+    CONTRATISTA = 'Contratista'
+    NINGUNO = 'Ninguno'
+
+    TIPOS = [
+        (INTERNO, 'Interno'),
+        (CONTRATISTA, 'Contratista'),
+        (NINGUNO, 'Ninguno')
+    ]
+
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, blank=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
+    tipo_trabajador = models.CharField(max_length=30, choices=TIPOS, default=NINGUNO)
+    borrado = models.CharField(max_length=1, default=0)
+
+    def __str__(self):
+        if self.persona:
+            return "Nombre trabajador:{}, Tipo:{}".format(self.persona.nombre, self.tipo_trabajador)    
+        else:
+            return "Nombre trabajador:{}, Tipo:{}".format(self.empresa.nombre, self.tipo_trabajador)
+
 
 #######################
 # SERVICIOS
@@ -313,21 +336,27 @@ class Libro_diario(models.Model):
 #"contratista" en Servicios es la empresa o persona al que se va a pedir el servicio 
 class Servicios(models.Model):
     nombre = models.CharField(max_length=200)
-    contratista = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
+    contratista = models.ForeignKey(Trabajador, on_delete=models.CASCADE)
     descripcion = models.TextField()
     precio = models.FloatField()
 
     def __str__(self):
-        return "Servicio:{}, Cliente:{}".format(self.nombre, self.contratista.ruc)
+        if self.contratista.persona:
+            return "Servicio:{}, Trabajador:{}".format(self.nombre, self.contratista.persona.nombre)
+        else:
+            return "Servicio:{}, Trabajador:{}".format(self.nombre, self.contratista.empresa.nombre)
 
 #Orden de compra para el servicio
 ##"trabajador" es la persona de logistica que va a realizar el pedido 
 class Orden_compra_servicio(models.Model):
-    trabajador = models.ForeignKey(Clientes, on_delete=models.CASCADE)
+    trabajador = models.ForeignKey(Trabajador, on_delete=models.CASCADE)
     fecha_orden_servicio = models.DateTimeField()
 
     def __str__(self):
-        return "Trabajador:{}".format(self.trabajador.ruc)
+        if self.trabajador.persona:
+            return "Trabajador:{}".format(self.trabajador.persona.nombre)
+        else:
+            return "Trabajador:{}".format(self.trabajador.empresa.nombre)
 
 #Servicio(s) dentro de la orden de compra
 class Servicio_compra(models.Model):

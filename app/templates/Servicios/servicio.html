@@ -21,12 +21,16 @@
                             <td>{{ serv.nombre }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">RUC DE TRABAJADOR:</th>
-                            <td>{{ serv.trabajador.ruc }}</td>
+                            <th scope="row">TIPO DE TRABAJADOR:</th>
+                            <td>{{ serv.contratista.tipo_trabajador }}</td>
                         </tr>
                         <tr>
                             <th scope="row">NOMBRE DEL TRABAJADOR:</th>
-                            <td>{{ serv.trabajador.empresa.nombre }}</td>
+                            {% if serv.contratista.persona_id == null %}
+                            <td>{{ serv.contratista.empresa.nombre }}</td>
+                            {% elif serv.contratista.empresa_id == null %}
+                            <td>{{ serv.contratista.persona.nombre }}</td>
+                            {% endif %}    
                         </tr>
                         <tr>
                             <th scope="row">DESCRIPCION:</th>

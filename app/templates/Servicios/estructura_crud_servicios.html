@@ -40,7 +40,7 @@
             <th scope="col">Item</th>
             <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Trabajador</th>
+            <th scope="col">Nombre del trabajador</th>
             <th scope="col">Precio</th>
             <th scope="col">Acciones</th>
         </tr>        
@@ -53,7 +53,11 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ serv.id }}</td>
             <td>{{ serv.nombre }}</td>
-            <td>{{ serv.trabajador.ruc }}</td>
+            {% if serv.contratista.persona_id == null %}
+            <td>{{ serv.contratista.empresa.nombre }}</td>
+            {% elif serv.contratista.empresa_id == null %}
+            <td>{{ serv.contratista.persona.nombre }}</td>
+            {% endif %}
             <td>{{ serv.precio }}</td>
             <td>
                 <a type="button" href="{% url 'verserv' serv.id %}" class="btn btn-primary">Ver</a>

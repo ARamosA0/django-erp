@@ -121,6 +121,34 @@ class AgregarEmpresa(ModelForm):
             'web':forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+#Trabajadores
+class TrabajadorBusqueda(Form):
+    codigo = forms.CharField(label='CODIGO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'codigo'}),required=False)
+    tipo = forms.CharField(label='TIPO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'tipo'}),required=False)
+    nombre = forms.CharField(label='NOMBRE:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'nombre'}),required=False)
+    telefono = forms.CharField(label='TELEFONO:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'telefono'}),required=False)
+    provincia = forms.ModelChoiceField(label='PROVINCIA:',queryset=Provincias.objects.all(),
+        widget=forms.Select(attrs={'class':'form-control','id':'provincia'}),required=False)
+    localidad = forms.CharField(label='LOCALIDAD:',
+        widget=forms.TextInput(attrs={'class':'form-control','id':'localidad'}),required=False)
+    persona = forms.CharField(label='PERSONA:',
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','id':'persona', 'name':'persona'}),required=False)
+
+class AgregarTrabajador(ModelForm):
+    class Meta:
+        model = Trabajador
+        fields = ('tipo_trabajador',)
+        labels = {
+            'tipo_trabajador':'Tipo de trabajador',
+        }
+        widgets = {
+            'tipo_trabajador': forms.Select(attrs={'class': 'form-control'})
+        }
+
 #PRODUCTOS
 
 class ProductoBusqueda(Form):
